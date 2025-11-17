@@ -1,0 +1,49 @@
+// Simple color system with light and dark theme support
+
+/* Light theme colors
+   -------------------------------------------------------------------------- */
+$primary: #0d6efd;
+$secondary: #6c757d;
+$background: #ffffff;
+$text: #212529;
+
+/* Dark theme colors
+   -------------------------------------------------------------------------- */
+$primary-dark: #4a9eff;
+$secondary-dark: #adb5bd;
+$background-dark: #1a1a1a;
+$text-dark: #f8f9fa;
+
+/* Color map for easy access
+   -------------------------------------------------------------------------- */
+$colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "background": $background,
+    "text": $text
+);
+
+$colors-dark: (
+    "primary": $primary-dark,
+    "secondary": $secondary-dark,
+    "background": $background-dark,
+    "text": $text-dark
+);
+
+
+/* Get color from map
+   -------------------------------------------------------------------------- */
+@function color($name) {
+    @return map-get($colors, $name);
+}
+
+@function color-dark($name) {
+    @return map-get($colors-dark, $name);
+}
+
+/* Mixin for dark theme
+   -------------------------------------------------------------------------- */
+@mixin dark-theme {
+    background-color: color-dark("background");
+    color: color-dark("text");
+}

@@ -1,0 +1,163 @@
+// buttons.scss
+// Global button styles
+@import "./colors.scss";
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+
+    border: 1px solid transparent;
+    background-color: color("primary");
+    color: #fff;
+
+    font: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
+    user-select: none;
+
+    transition:
+        background-color 150ms ease,
+        color 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 100ms ease;
+
+    // Remove default button styles
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background-color: darken(color("primary"), 5%);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+}
+
+.btn:focus-visible {
+    outline: 2px solid color("primary");
+    outline-offset: 2px;
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.2);
+}
+
+.btn[disabled],
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Variants
+   -------------------------------------------------------------------------- */
+
+.btn-primary {
+    background-color: color("primary");
+    border-color: color("primary");
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: color("secondary");
+    border-color: color("secondary");
+    color: #fff;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: color("primary");
+    color: color("primary");
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+    border-color: color("secondary");
+    color: color("secondary");
+}
+
+.btn-ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: color("primary");
+}
+
+/* Sizes
+   -------------------------------------------------------------------------- */
+
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.75rem;
+    font-size: 1.025rem;
+}
+
+/* Full width */
+.btn-block {
+    display: flex;
+    width: 100%;
+}
+
+/* Icon-only button */
+.btn-icon {
+    padding: 0.5rem;
+    border-radius: 999px;
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+}
+
+/* Dark theme overrides
+   -------------------------------------------------------------------------- */
+
+
+.theme-dark {
+    .btn-primary {
+        background-color: color-dark("primary");
+        border-color: color-dark("primary");
+        color: color-dark("text");
+    }
+
+    .btn-secondary {
+        background-color: color-dark("secondary");
+        border-color: color-dark("secondary");
+        color: color-dark("background");
+    }
+
+    .btn-outline {
+        background-color: transparent;
+        border-color: color-dark("primary");
+        color: color-dark("primary");
+    }
+
+    .btn-outline-secondary {
+        background-color: transparent;
+        border-color: color-dark("secondary");
+        color: color-dark("secondary");
+    }
+
+    .btn-ghost {
+        background-color: transparent;
+        border-color: transparent;
+        color: color-dark("primary");
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.6);
+    }
+}

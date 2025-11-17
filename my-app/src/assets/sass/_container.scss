@@ -1,0 +1,101 @@
+// Global container and spacing utilities
+
+$container-max-width: 1200px !default;
+$container-padding: 1rem !default;
+$gutter: 1.5rem !default;
+
+// Main container
+.container {
+    width: 100%;
+    max-width: $container-max-width;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $container-padding;
+    padding-right: $container-padding;
+    box-sizing: border-box;
+}
+
+// Container variants
+.container--narrow {
+    max-width: 900px;
+}
+
+.container--wide {
+    max-width: 1400px;
+}
+
+// Spacing utilities
+.mt-auto {
+    margin-top: auto;
+}
+
+.mb-auto {
+    margin-bottom: auto;
+}
+
+.gap-small {
+    gap: 0.5rem;
+}
+
+.gap {
+    gap: $gutter;
+}
+
+.gap-large {
+    gap: 2rem;
+}
+
+.p-small {
+    padding: 0.5rem;
+}
+
+.p {
+    padding: $gutter;
+}
+
+.p-large {
+    padding: 2rem;
+}
+
+// Flexbox utilities
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// Text utilities
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .container--narrow,
+    .container--wide {
+        max-width: 100%;
+    }
+}

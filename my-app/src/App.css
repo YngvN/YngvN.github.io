@@ -1,0 +1,26 @@
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 2rem;
+  padding-right: 320px;
+  box-sizing: border-box;
+}
+
+.page-display {
+  max-width: 960px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    padding: 1rem;
+  }
+
+  .page-display {
+    padding-top: 2rem;
+  }
+}
