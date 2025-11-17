@@ -17,6 +17,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm install --no-save sass-embedded
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
