@@ -13,6 +13,53 @@
   max-width: 960px;
   margin: 0 auto;
   padding-top: 1rem;
+  position: relative;
+}
+
+.page-stack {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-card {
+  background: transparent;
+  position: relative;
+}
+
+.page-card--exit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  animation: page-slide-out 0.4s ease forwards;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.page-card--enter.animating {
+  animation: page-slide-in 0.4s ease forwards;
+}
+
+@keyframes page-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
 }
 
 @media (max-width: 768px) {
