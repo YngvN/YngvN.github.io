@@ -1,6 +1,7 @@
 import { useState, type FC } from 'react';
 import './nav.scss';
 import type { PageName } from '../types/pages';
+import avatarImage from '../assets/images/me.jpeg';
 
 type NavProps = {
     currentPage?: PageName;
@@ -40,7 +41,7 @@ const Nav: FC<NavProps> = ({ currentPage = 'about', onNavigate = () => { } }) =>
             <nav className={`navbar navbar-light bg-light${isOpen ? ' open' : ''}`}>
                 <div className="navbar-brand mb-4">
                     <div className="avatar-frame">
-                        <img src="/src/assets/me.jpeg" alt="Picture of me" />
+                        <img src={avatarImage} alt="Picture of me" />
                     </div>
                 </div>
                 <p className="nav-description">
