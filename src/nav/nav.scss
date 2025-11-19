@@ -118,6 +118,7 @@
 
         .nav-item {
             margin-bottom: 1rem;
+            margin-left: 1rem;
 
             .nav-link {
                 width: 100%;
@@ -180,16 +181,25 @@
         }
     }
 
+    .theme-toggle {
+        margin-top: 1.25rem;
+    }
+
     .nav-description {
         font-size: 0.9rem;
         line-height: 1.5;
         text-align: center;
         color: inherit;
         opacity: 0.75;
-        border-bottom: 2px $secondary solid;
         padding-bottom: 20px;
         margin-top: 0;
     }
+
+    .nav-description,
+    .navbar-nav {
+        border-bottom: 1px $secondary solid;
+    }
+
 }
 
 body[data-theme='dark'] {

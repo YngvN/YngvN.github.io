@@ -4,7 +4,6 @@ import Nav from './nav/nav';
 import Display from './display/display';
 import type { PageName } from './types/pages';
 import type { Language } from './types/language';
-import ThemeToggle from './components/theme-toggle';
 import type { Theme } from './types/theme';
 
 function App() {
@@ -22,12 +21,13 @@ function App() {
 
   return (
     <div className="app-shell" data-theme={theme}>
-      <ThemeToggle theme={theme} onToggle={toggleTheme} />
       <Nav
         currentPage={currentPage}
         onNavigate={setCurrentPage}
         language={language}
         onLanguageChange={setLanguage}
+        theme={theme}
+        onThemeToggle={toggleTheme}
       />
       <Display currentPage={currentPage} language={language} />
     </div>

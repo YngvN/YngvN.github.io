@@ -1,9 +1,11 @@
 import { type FC } from 'react';
 import type { Theme } from '../types/theme';
+import type { Language } from '../types/language';
 
 type ThemeToggleProps = {
     theme: Theme;
     onToggle: () => void;
+    language?: Language;
 };
 
 type BulbVariant = 'on' | 'off';
@@ -32,8 +34,14 @@ const LightBulbIcon: FC<{ variant: BulbVariant }> = ({ variant }) => {
     );
 };
 
-const ThemeToggle: FC<ThemeToggleProps> = ({ theme, onToggle }) => {
+const themeLabels: Record<Language, { dark: string; light: string }> = {
+    en: { dark: 'Dark', light: 'Light' },
+    no: { dark: 'Mørk', light: 'Lys' },
+};
+
+const ThemeToggle: FC<ThemeToggleProps> = ({ theme, onToggle, language = 'en' }) => {
     const isDark = theme === 'dark';
+    const labels = themeLabels[language] ?? themeLabels.en;
 
     return (
         <button
@@ -43,11 +51,17 @@ const ThemeToggle: FC<ThemeToggleProps> = ({ theme, onToggle }) => {
             aria-pressed={isDark}
             aria-label={`Activate ${isDark ? 'light' : 'dark'} mode`}
         >
-            <span className="theme-toggle__icon" aria-hidden="true">
-                <LightBulbIcon variant="off" />
+            <span className="theme-toggle__option">
+                <span className="theme-toggle__icon">
+                    <LightBulbIcon variant="off" />
+                </span>
+                <span className="theme-toggle__label theme-toggle__label--dark">{labels.dark}</span>
             </span>
-            <span className="theme-toggle__icon" aria-hidden="true">
-                <LightBulbIcon variant="on" />
+            <span className="theme-toggle__option">
+                <span className="theme-toggle__label theme-toggle__label--light">{labels.light}</span>
+                <span className="theme-toggle__icon">
+                    <LightBulbIcon variant="on" />
+                </span>
             </span>
             <span className="theme-toggle__slider" aria-hidden="true" />
         </button>

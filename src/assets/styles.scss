@@ -30,29 +30,42 @@ body[data-theme='dark'] {
 }
 
 .theme-toggle {
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    width: 100px;
-    height: 44px;
-    padding: 6px;
-    border: none;
+    width: 100%;
+    height: 48px;
+    padding: 0.35rem 0.5rem;
     border-radius: 999px;
-    background-color: rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.04);
     color: inherit;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.25rem;
+    gap: 0.5rem;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
-    z-index: 1200;
-    transition: background-color 0.3s ease;
-    isolation: isolate;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    justify-content: space-between;
 }
 
 .theme-toggle.dark {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle__option {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    position: relative;
+    color: inherit;
 }
 
 .theme-toggle__icon {
@@ -62,25 +75,31 @@ body[data-theme='dark'] {
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.theme-toggle__label {
+    position: relative;
+    z-index: 1;
 }
 
 .theme-toggle__slider {
     position: absolute;
     top: 6px;
     left: 6px;
-    width: calc(50% - 8px);
+    width: calc(50% - 6px);
     height: calc(100% - 12px);
     border-radius: 999px;
     background-color: color("background");
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, background-color 0.3s ease;
-    z-index: 1;
+    z-index: 2;
     pointer-events: none;
 }
 
 .theme-toggle.dark .theme-toggle__slider {
-    transform: translateX(calc(100% + 4px));
+    transform: translateX(calc(100% + 2px));
     background-color: color-dark("background");
 }
 
