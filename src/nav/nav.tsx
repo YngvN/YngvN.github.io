@@ -2,27 +2,60 @@ import { useState, type FC } from 'react';
 import './nav.scss';
 import type { PageName } from '../types/pages';
 import avatarImage from '../assets/images/me.jpeg';
+import type { Language } from '../types/language';
 
 type NavProps = {
     currentPage?: PageName;
     onNavigate?: (page: PageName) => void;
+    language?: Language;
+    onLanguageChange?: (language: Language) => void;
 };
 
-const navLinks: { label: string; page: PageName }[] = [
-    { label: 'About Me', page: 'about' },
-    { label: 'Portfolio', page: 'portfolio' },
-    { label: 'Resume', page: 'resume' },
-    { label: 'Contact Me', page: 'contact' },
+const navCopy: Record<Language, { description: string; links: { label: string; page: PageName }[] }> = {
+    en: {
+        description: "Hi!\nI'm Yngve, and I'm a Frontend developer.",
+        links: [
+            { label: 'About Me', page: 'about' },
+            { label: 'Portfolio', page: 'portfolio' },
+            { label: 'Resume', page: 'resume' },
+            { label: 'Contact Me', page: 'contact' },
+        ],
+    },
+    no: {
+        description: "Hei!\nJeg heter Yngve og jobber som frontendutvikler.",
+        links: [
+            { label: 'Om meg', page: 'about' },
+            { label: 'Portefølje', page: 'portfolio' },
+            { label: 'CV', page: 'resume' },
+            { label: 'Kontakt meg', page: 'contact' },
+        ],
+    },
+};
+
+const languageOptions: { code: Language; label: string }[] = [
+    { code: 'en', label: 'English' },
+    { code: 'no', label: 'Norwegian' },
 ];
 
-const Nav: FC<NavProps> = ({ currentPage = 'about', onNavigate = () => { } }) => {
+const Nav: FC<NavProps> = ({
+    currentPage = 'about',
+    onNavigate = () => { },
+    language = 'en',
+    onLanguageChange = () => { },
+}) => {
     const [isOpen, setIsOpen] = useState(false);
+    const { description, links } = navCopy[language];
 
     const toggleNav = () => setIsOpen((prev) => !prev);
 
     const handleNavigate = (page: PageName) => {
         onNavigate(page);
         setIsOpen(false);
+    };
+
+    const handleLanguageClick = (code: Language) => {
+        if (code === language) return;
+        onLanguageChange(code);
     };
 
     return (
@@ -40,27 +73,47 @@ const Nav: FC<NavProps> = ({ currentPage = 'about', onNavigate = () => { } }) =>
             </button>
             <nav className={`navbar navbar-light bg-light${isOpen ? ' open' : ''}`}>
                 <div className="navbar-brand mb-4">
+                    <div className="language-toggle" role="group" aria-label="Change language">
+                        {languageOptions.map(({ code, label }) => (
+                            <button
+                                type="button"
+                                key={code}
+                                className={`language-button${code === language ? ' active' : ''}`}
+                                onClick={() => handleLanguageClick(code)}
+                                aria-pressed={code === language}
+                            >
+                                {label}
+                            </button>
+                        ))}
+                    </div>
                     <div className="avatar-frame">
                         <img src={avatarImage} alt="Picture of me" />
                     </div>
                 </div>
-                <p className="nav-description">
-                    Hi! <br />I'm Yngve, and I'm a Frontend developer.
-                </p>
-                <ul className="navbar-nav flex-column w-100">
-                    {navLinks.map(({ label, page }) => (
-                        <li className="nav-item mb-2" key={page}>
-                            <button
-                                type="button"
-                                className={`nav-link${currentPage === page ? ' active' : ''}`}
-                                onClick={() => handleNavigate(page)}
-                                aria-current={currentPage === page ? 'page' : undefined}
-                            >
-                                {label}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <div className="nav-language-content language-fade" key={language}>
+                    <p className="nav-description">
+                        {description.split('\n').map((segment, index) => (
+                            <span key={index}>
+                                {segment}
+                                {index === 0 && <br />}
+                            </span>
+                        ))}
+                    </p>
+                    <ul className="navbar-nav flex-column w-100">
+                        {links.map(({ label, page }) => (
+                            <li className="nav-item mb-2" key={page}>
+                                <button
+                                    type="button"
+                                    className={`nav-link${currentPage === page ? ' active' : ''}`}
+                                    onClick={() => handleNavigate(page)}
+                                    aria-current={currentPage === page ? 'page' : undefined}
+                                >
+                                    {label}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
                 <div className="social-links">
                     <a href="https://github.com/YngvN" target="_blank" rel="noopener noreferrer">

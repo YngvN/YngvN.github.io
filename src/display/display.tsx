@@ -3,9 +3,11 @@ import About from '../pages/about/about';
 import Portfolio from '../pages/portfolio/portfolio';
 import '../assets/styles.scss';
 import type { PageName } from '../types/pages';
+import type { Language } from '../types/language';
 
 type DisplayProps = {
     currentPage: PageName;
+    language: Language;
 };
 
 const placeholder = (title: string, description: string) => (
@@ -15,22 +17,45 @@ const placeholder = (title: string, description: string) => (
     </div>
 );
 
-const renderPage = (page: PageName) => {
+const placeholderCopy: Record<'resume' | 'contact', Record<Language, { title: string; description: string }>> = {
+    resume: {
+        en: {
+            title: 'Resume',
+            description: 'A downloadable version of my resume will appear here soon.',
+        },
+        no: {
+            title: 'CV',
+            description: 'En nedlastbar versjon av CV-en min kommer snart.',
+        },
+    },
+    contact: {
+        en: {
+            title: 'Contact Me',
+            description: 'Want to work together? Send me an email at yngve@example.com.',
+        },
+        no: {
+            title: 'Kontakt meg',
+            description: 'Vil du samarbeide? Send meg en e-post på yngve@example.com.',
+        },
+    },
+};
+
+const renderPage = (page: PageName, language: Language) => {
     switch (page) {
         case 'about':
-            return <About />;
+            return <About language={language} />;
         case 'portfolio':
-            return <Portfolio />;
+            return <Portfolio language={language} />;
         case 'resume':
-            return placeholder('Resume', 'A downloadable version of my resume will appear here soon.');
+            return placeholder(placeholderCopy.resume[language].title, placeholderCopy.resume[language].description);
         case 'contact':
-            return placeholder('Contact Me', 'Want to work together? Send me an email at yngve@example.com.');
+            return placeholder(placeholderCopy.contact[language].title, placeholderCopy.contact[language].description);
         default:
-            return <About />;
+            return <About language={language} />;
     }
 };
 
-const Display: FC<DisplayProps> = ({ currentPage }) => {
+const Display: FC<DisplayProps> = ({ currentPage, language }) => {
     const [activePage, setActivePage] = useState<PageName>(currentPage);
     const [outgoingPage, setOutgoingPage] = useState<PageName | null>(null);
 
@@ -51,11 +76,15 @@ const Display: FC<DisplayProps> = ({ currentPage }) => {
             <div className="page-stack">
                 {outgoingPage && (
                     <div className="page-card page-card--exit">
-                        {renderPage(outgoingPage)}
+                        <div className="language-fade" key={`${outgoingPage}-${language}`}>
+                            {renderPage(outgoingPage, language)}
+                        </div>
                     </div>
                 )}
                 <div className={`page-card page-card--enter${outgoingPage ? ' animating' : ''}`}>
-                    {renderPage(activePage)}
+                    <div className="language-fade" key={`${activePage}-${language}`}>
+                        {renderPage(activePage, language)}
+                    </div>
                 </div>
             </div>
         </section>

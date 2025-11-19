@@ -1,3 +1,17 @@
 @import './sass/buttons';
 @import './sass/colors';
 @import './sass/container';
+
+.language-fade {
+    animation: languageFade 0.25s ease;
+}
+
+@keyframes languageFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
