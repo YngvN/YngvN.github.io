@@ -65,19 +65,8 @@ const Nav: FC<NavProps> = ({
     };
 
     return (
-        <>
-            <button
-                type="button"
-                className={`nav-toggle${isOpen ? ' open' : ''}`}
-                onClick={toggleNav}
-                aria-label="Toggle navigation"
-                aria-expanded={isOpen}
-            >
-                <span />
-                <span />
-                <span />
-            </button>
-            <nav className={`navbar navbar-light bg-light${isOpen ? ' open' : ''}`}>
+        <div className={`nav-shell${isOpen ? ' open' : ''}`}>
+            <nav className={`navbar${isOpen ? ' open' : ''}`}>
                 <div className="navbar-brand mb-4">
                     <div className="language-toggle" role="group" aria-label="Change language">
                         {languageOptions.map(({ code, label }) => (
@@ -136,7 +125,17 @@ const Nav: FC<NavProps> = ({
                 <ThemeToggle theme={theme} onToggle={onThemeToggle} language={language} />
 
             </nav>
-        </>
+            <button
+                type="button"
+                className={`nav-toggle${isOpen ? ' open' : ''}`}
+                onClick={toggleNav}
+                aria-label="Toggle navigation"
+                aria-expanded={isOpen}
+            >
+                <span className="nav-toggle__line" aria-hidden="true" />
+                <span className="nav-toggle__line" aria-hidden="true" />
+            </button>
+        </div>
     );
 };
 

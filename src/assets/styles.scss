@@ -91,7 +91,7 @@ body[data-theme='dark'] {
     width: calc(50% - 6px);
     height: calc(100% - 12px);
     border-radius: 999px;
-    background-color: color("background");
+    background-color: color("secondary");
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, background-color 0.3s ease;
     z-index: 2;
@@ -100,7 +100,7 @@ body[data-theme='dark'] {
 
 .theme-toggle.dark .theme-toggle__slider {
     transform: translateX(calc(100% + 2px));
-    background-color: color-dark("background");
+    background-color: color-dark("secondary");
 }
 
 .theme-toggle svg {

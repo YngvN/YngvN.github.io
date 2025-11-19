@@ -1,63 +1,99 @@
 @import '../assets/styles.scss';
 
+.nav-shell {
+    --nav-width: 260px;
+    --tab-width: 60px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: var(--nav-width);
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    z-index: 1100;
+    transition: transform 0.35s ease;
+}
+
 .nav-toggle {
     display: none;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    width: 44px;
-    height: 44px;
+    order: -1;
+    width: var(--tab-width);
+    height: 150px;
     border: none;
-    border-radius: 10px;
-    background-color: color("primary");
-    color: #fff;
-    z-index: 1101;
+    padding-left: 30px;
+    border-radius: 999px 0 0 999px;
+    background-color: color("secondary");
+    color: color("background");
+    align-self: center;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 6px;
+    gap: 12px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.2s ease;
+    box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
 
-    span {
-        width: 20px;
-        height: 2px;
+    .nav-toggle__line {
+        position: absolute;
+        width: 28px;
+        height: 3px;
         background-color: currentColor;
-        border-radius: 2px;
-        transition: transform 0.2s ease, opacity 0.2s ease;
+        border-radius: 999px;
+        transition: transform 0.3s ease;
+        transform-origin: center;
+        pointer-events: none;
     }
 
-    &.open span:nth-child(1) {
-        transform: translateY(4px) rotate(45deg);
+    &:not(.open) .nav-toggle__line:first-of-type {
+        transform: translate(-6px, -7px) rotate(-35deg) translateY(-1px);
     }
 
-    &.open span:nth-child(2) {
-        opacity: 0;
+    &:not(.open) .nav-toggle__line:last-of-type {
+        transform: translate(-6px, 7px) rotate(35deg);
     }
 
-    &.open span:nth-child(3) {
-        transform: translateY(-4px) rotate(-45deg);
+    &::after {
+        content: '';
+        position: absolute;
+        left: -6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 80px;
+        background-color: inherit;
+        border-radius: 999px;
+        filter: blur(24px);
+        opacity: 0.35;
+        pointer-events: none;
+    }
+
+    &.open {
+        .nav-toggle__line:first-of-type {
+            transform: translateX(-4px) rotate(45deg);
+        }
+
+        .nav-toggle__line:last-of-type {
+            transform: translateX(-4px) rotate(-45deg);
+        }
     }
 }
 
 .navbar {
-    background: linear-gradient(160deg, rgba(color("primary"), 0.08), transparent) color("background");
-    color: color("text");
+    background-color: color("secondary") !important;
+    color: color("background");
     padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    z-index: 1200;
     gap: 1.25rem;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 260px;
-    z-index: 1000;
+    height: 100%;
+    width: var(--nav-width);
+    flex: 0 0 var(--nav-width);
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
-    transform: translateX(0);
-    transition: transform 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 
     .navbar-brand {
         margin-bottom: 1.5rem;
@@ -195,17 +231,13 @@
         margin-top: 0;
     }
 
-    .nav-description,
-    .navbar-nav {
-        border-bottom: 1px $secondary solid;
-    }
-
 }
 
 body[data-theme='dark'] {
     .navbar {
-        background: linear-gradient(160deg, rgba(color-dark("primary"), 0.18), transparent) color-dark("background");
+        background-color: color-dark("secondary") !important;
         color: color-dark("text");
+        transition: background-color 0.3s ease, color 0.3s ease;
 
         .navbar-brand .language-toggle .language-button {
             background-color: rgba(255, 255, 255, 0.08);
@@ -229,24 +261,41 @@ body[data-theme='dark'] {
             background-color: rgba(255, 255, 255, 0.08);
         }
     }
+
+    .nav-toggle {
+        background-color: color-dark("secondary");
+        color: color-dark("background");
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.35);
+
+        .nav-toggle__line {
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+    }
 }
 
 @media (max-width: 768px) {
+    .nav-shell {
+        --nav-width: min(80vw, 320px);
+        width: calc(var(--nav-width) + var(--tab-width));
+        transform: translateX(var(--nav-width));
+        transition: transform 0.35s ease;
+    }
+
+    .nav-shell.open {
+        transform: translateX(0);
+    }
+
     .nav-toggle {
         display: flex;
     }
 
     .navbar {
-        width: min(80%, 320px);
+        width: var(--nav-width);
+        flex: 0 0 var(--nav-width);
         height: 100vh;
         border-left: none;
         border-bottom: none;
         padding: 1.5rem 1.25rem;
-        transform: translateX(100%);
-
-        &.open {
-            transform: translateX(0);
-        }
     }
 }
 
