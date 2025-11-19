@@ -1,38 +1,90 @@
 import '../../assets/styles.scss';
 import React from 'react';
 import type { Language } from '../../types/language';
+import type { PageName } from '../../types/pages';
 
 type AboutProps = {
     language: Language;
 };
 
-const aboutCopy: Record<Language, { heading: string; paragraphs: string[] }> = {
+type AboutContent = {
+    heading: string;
+    paragraphs: React.ReactNode[];
+    buttons: { label: string; page: PageName; variant: 'primary' | 'secondary' }[];
+};
+
+const aboutCopy: Record<Language, AboutContent> = {
     en: {
         heading: 'About Me',
         paragraphs: [
-            "Welcome to my personal website! I'm Yngve, a software developer with a passion for creating web applications.",
-            'I specialize in front-end development and have experience working with various technologies including React, TypeScript, and SASS.',
-            'In my free time, I enjoy contributing to open source projects and exploring new technologies.',
+            "Hello! I'm Yngve Nykås, a trained frontend developer with some experience on the backend side as well.",
+            'As a developer I love testing out new ideas to see what could be exciting to build next.',
+            <>
+                If you are curious you can view my{' '}
+                <a className="about-link" href="#portfolio">
+                    portfolio
+                </a>{' '}
+                here. You can also check out my{' '}
+                <a className="about-link" href="#resume">
+                    résumé
+                </a>{' '}
+                here.
+            </>,
+        ],
+        buttons: [
+            { label: 'View Portfolio', page: 'portfolio', variant: 'primary' },
+            { label: 'View Résumé', page: 'resume', variant: 'secondary' },
         ],
     },
     no: {
         heading: 'Om meg',
         paragraphs: [
-            'Velkommen til nettsiden min! Jeg er Yngve, en utvikler som elsker å bygge moderne webløsninger.',
-            'Jeg fokuserer på front-end og jobber mest med teknologier som React, TypeScript og SASS.',
-            'På fritiden bidrar jeg til åpen kildekode og liker å teste ut nye verktøy.',
+            'Hallo! Jeg er Yngve Nykås, og jeg er en utdannet frontend utvikler med noe erfaring innenfor backend.',
+            'Som utvikler liker jeg å prøve nye ting for å se hva som kan være kult å gjøre.',
+            <>
+                Om du er nysgjerrig kan du se{' '}
+                <a className="about-link" href="#portfolio">
+                    porteføljen min
+                </a>{' '}
+                her. Du kan også sjekke ut{' '}
+                <a className="about-link" href="#resume">
+                    CV-en min
+                </a>{' '}
+                her.
+            </>,
+        ],
+        buttons: [
+            { label: 'Se porteføljen', page: 'portfolio', variant: 'primary' },
+            { label: 'Se CV-en', page: 'resume', variant: 'secondary' },
         ],
     },
 };
 
 const About: React.FC<AboutProps> = ({ language }) => {
-    const { heading, paragraphs } = aboutCopy[language];
+    const { heading, paragraphs, buttons } = aboutCopy[language];
+
+    const navigateTo = (page: PageName) => {
+        window.location.hash = `#${page}`;
+    };
+
     return (
         <div className="container">
             <h1>{heading}</h1>
             {paragraphs.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
             ))}
+            <div className="about-cta">
+                {buttons.map(({ label, page, variant }) => (
+                    <button
+                        key={page}
+                        type="button"
+                        className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
+                        onClick={() => navigateTo(page)}
+                    >
+                        {label}
+                    </button>
+                ))}
+            </div>
         </div>
     );
 };

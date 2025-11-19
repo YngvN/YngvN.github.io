@@ -6,14 +6,40 @@ import type { PageName } from './types/pages';
 import type { Language } from './types/language';
 import type { Theme } from './types/theme';
 
+const pageOptions: PageName[] = ['about', 'portfolio', 'resume', 'contact'];
+
+const isPageName = (value: string): value is PageName => pageOptions.includes(value as PageName);
+
+const getPageFromHash = (hash: string): PageName => {
+  const normalized = hash.replace('#', '');
+  return isPageName(normalized) ? normalized : 'about';
+};
+
 function App() {
-  const [currentPage, setCurrentPage] = useState<PageName>('about');
+  const [currentPage, setCurrentPage] = useState<PageName>(() => getPageFromHash(window.location.hash));
   const [language, setLanguage] = useState<Language>('en');
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
     document.body.dataset.theme = theme;
   }, [theme]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const nextPage = getPageFromHash(window.location.hash);
+      setCurrentPage(nextPage);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    const targetHash = `#${currentPage}`;
+    if (window.location.hash !== targetHash) {
+      window.history.replaceState(null, '', targetHash);
+    }
+  }, [currentPage]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
