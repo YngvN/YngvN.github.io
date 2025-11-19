@@ -1,4 +1,4 @@
-@import '../assets/styles.scss';
+@use "../assets/sass/colors" as colors;
 
 .nav-shell {
     --nav-width: 260px;
@@ -34,8 +34,8 @@
     border: none;
     padding-left: 30px;
     border-radius: 999px 0 0 999px;
-    background-color: color("secondary");
-    color: color("background");
+    background-color: colors.color("secondary");
+    color: colors.color("background");
 
     align-self: center;
     align-items: center;
@@ -94,8 +94,8 @@
 }
 
 .navbar {
-    background-color: color("secondary") !important;
-    color: color("background");
+    background-color: colors.color("secondary") !important;
+    color: colors.color("background");
     padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
@@ -133,9 +133,9 @@
                 transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
                 &.active {
-                    border-color: color("primary");
-                    color: color("text-contrast");
-                    background-color: color("primary");
+                    border-color: colors.color("primary");
+                    color: colors.color("text-contrast");
+                    background-color: colors.color("primary");
                 }
             }
         }
@@ -180,7 +180,7 @@
                 }
 
                 &.active {
-                    color: color("primary");
+                    color: colors.color("primary");
                     padding-left: 0.5rem;
                 }
             }
@@ -240,28 +240,28 @@
 
 .nav-description,
 .navbar-nav {
-    border-bottom: 1px solid color("text-contrast");
+    border-bottom: 1px solid colors.color("text-contrast");
     padding-bottom: 1rem;
 }
 
 body[data-theme='dark'] {
     .navbar {
-        background-color: color-mix(in srgb, color-dark("background") 75%, color-dark("secondary") 25%) !important;
-        color: color-dark("text");
+        background-color: color-mix(in srgb, colors.color-dark("background") 75%, colors.color-dark("secondary") 25%) !important;
+        color: colors.color-dark("text");
         transition: background-color 0.3s ease, color 0.3s ease;
 
         .navbar-brand .language-toggle .language-button {
             background-color: rgba(255, 255, 255, 0.08);
 
             &.active {
-                border-color: color-dark("primary");
-                color: color-dark("primary");
-                background-color: rgba(color-dark("primary"), 0.2);
+                border-color: colors.color-dark("primary");
+                color: colors.color-dark("primary");
+                background-color: rgba(colors.color-dark("primary"), 0.2);
             }
         }
 
         .nav-link.active {
-            color: color-dark("primary");
+            color: colors.color-dark("primary");
         }
 
 
@@ -272,8 +272,8 @@ body[data-theme='dark'] {
     }
 
     .nav-toggle {
-        background-color: color-mix(in srgb, color-dark("background") 75%, color-dark("secondary") 25%);
-        color: color-dark("text");
+        background-color: color-mix(in srgb, colors.color-dark("background") 75%, colors.color-dark("secondary") 25%);
+        color: colors.color-dark("text");
         box-shadow: -6px 0 24px rgba(0, 0, 0, 0.35);
 
         .nav-toggle__line {
@@ -313,6 +313,6 @@ body[data-theme='dark'] {
 
 @media (prefers-color-scheme: dark) {
     .navbar {
-        @include dark-theme;
+        @include colors.dark-theme;
     }
 }

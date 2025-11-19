@@ -1,6 +1,8 @@
+@use 'sass:color' as sass-color;
+@use './colors' as colors;
+
 // buttons.scss
 // Global button styles
-@import "./colors.scss";
 
 .btn {
     display: inline-flex;
@@ -12,7 +14,7 @@
     border-radius: 999px;
 
     border: 1px solid transparent;
-    background-color: color("primary");
+    background-color: colors.color("primary");
     color: #fff;
 
     font: inherit;
@@ -38,13 +40,13 @@
 
 .btn:hover,
 .btn:focus-visible {
-    background-color: darken(color("primary"), 5%);
+    background-color: sass-color.adjust(colors.color("primary"), $lightness: -5%);
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
     text-decoration: none;
 }
 
 .btn:focus-visible {
-    outline: 2px solid color("primary");
+    outline: 2px solid colors.color("primary");
     outline-offset: 2px;
 }
 
@@ -65,33 +67,33 @@
    -------------------------------------------------------------------------- */
 
 .btn-primary {
-    background-color: color("primary");
-    border-color: color("primary");
+    background-color: colors.color("primary");
+    border-color: colors.color("primary");
     color: #fff;
 }
 
 .btn-secondary {
-    background-color: color("secondary");
-    border-color: color("secondary");
+    background-color: colors.color("secondary");
+    border-color: colors.color("secondary");
     color: #fff;
 }
 
 .btn-outline {
     background-color: transparent;
-    border-color: color("primary");
-    color: color("primary");
+    border-color: colors.color("primary");
+    color: colors.color("primary");
 }
 
 .btn-outline-secondary {
     background-color: transparent;
-    border-color: color("secondary");
-    color: color("secondary");
+    border-color: colors.color("secondary");
+    color: colors.color("secondary");
 }
 
 .btn-ghost {
     background-color: transparent;
     border-color: transparent;
-    color: color("primary");
+    color: colors.color("primary");
 }
 
 /* Sizes
@@ -127,33 +129,33 @@
 
 .theme-dark {
     .btn-primary {
-        background-color: color-dark("primary");
-        border-color: color-dark("primary");
-        color: color-dark("text");
+        background-color: colors.color-dark("primary");
+        border-color: colors.color-dark("primary");
+        color: colors.color-dark("text");
     }
 
     .btn-secondary {
-        background-color: color-dark("secondary");
-        border-color: color-dark("secondary");
-        color: color-dark("background");
+        background-color: colors.color-dark("secondary");
+        border-color: colors.color-dark("secondary");
+        color: colors.color-dark("background");
     }
 
     .btn-outline {
         background-color: transparent;
-        border-color: color-dark("primary");
-        color: color-dark("primary");
+        border-color: colors.color-dark("primary");
+        color: colors.color-dark("primary");
     }
 
     .btn-outline-secondary {
         background-color: transparent;
-        border-color: color-dark("secondary");
-        color: color-dark("secondary");
+        border-color: colors.color-dark("secondary");
+        color: colors.color-dark("secondary");
     }
 
     .btn-ghost {
         background-color: transparent;
         border-color: transparent;
-        color: color-dark("primary");
+        color: colors.color-dark("primary");
     }
 
     .btn:hover,
