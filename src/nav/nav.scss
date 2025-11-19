@@ -25,9 +25,7 @@
     opacity: 1;
 }
 
-.nav-shell.open .nav-toggle {
-    transition: transform 0.35s ease, opacity 0.35s ease;
-}
+
 
 .nav-toggle {
     display: none;
@@ -38,7 +36,7 @@
     padding-left: 30px;
     border-radius: 999px 0 0 999px;
     background-color: color("secondary");
-    color: color("background");
+
     align-self: center;
     align-items: center;
     justify-content: center;
@@ -53,7 +51,7 @@
         position: absolute;
         width: 28px;
         height: 3px;
-        background-color: currentColor;
+        background-color: color("text-contrast");
         border-radius: 999px;
         transition: transform 0.3s ease;
         transform-origin: center;
@@ -81,6 +79,7 @@
         filter: blur(24px);
         opacity: 0.35;
         pointer-events: none;
+        background-color: color("text-contrast");
     }
 
     &.open {
@@ -103,59 +102,51 @@
     justify-content: flex-start;
     z-index: 1200;
     gap: 1.25rem;
-    height: 100%;
+    min-height: 100%;
     width: var(--nav-width);
     flex: 0 0 var(--nav-width);
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
     transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease;
+    overflow-y: auto;
 
     .navbar-brand {
-        margin-bottom: 1.5rem;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
 
         .language-toggle {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
             justify-content: center;
-            margin-bottom: 1rem;
 
             .language-button {
                 flex: 1;
                 padding: 0.35rem 0.75rem;
                 border-radius: 999px;
-                border: 2px solid transparent;
-                background-color: rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                background-color: rgba(255, 255, 255, 0.2);
                 color: inherit;
                 font-weight: 600;
-                font-size: 0.85rem;
+                font-size: 0.82rem;
                 cursor: pointer;
-                transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+                transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
                 &.active {
                     border-color: color("primary");
-                    color: color("primary");
-                    background-color: rgba(color("primary"), 0.1);
+                    color: color("text-contrast");
+                    background-color: color("primary");
                 }
             }
         }
 
-        .avatar-frame {
-            width: 210px;
-            height: 210px;
-            border-radius: 16px;
-            background-color: color("secondary");
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-
-        img {
+        img.nav-avatar {
             width: 170px;
             height: 170px;
             border-radius: 50%;
             object-fit: cover;
             display: block;
+            margin: 0 auto;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.471);
         }
     }
@@ -247,6 +238,12 @@
 
 }
 
+.nav-description,
+.navbar-nav {
+    border-bottom: 1px solid color("text-contrast");
+    padding-bottom: 1rem;
+}
+
 .nav-shell:not(.open) .navbar {
     padding-left: 2.75rem;
 }
@@ -254,7 +251,7 @@
 body[data-theme='dark'] {
     .navbar {
         background-color: color-dark("secondary") !important;
-        color: color-dark("text");
+        color: color-dark("text-contrast");
         transition: background-color 0.3s ease, color 0.3s ease;
 
         .navbar-brand .language-toggle .language-button {
@@ -271,9 +268,7 @@ body[data-theme='dark'] {
             color: color-dark("primary");
         }
 
-        .nav-description {
-            border-bottom-color: color-dark("secondary");
-        }
+
 
         .social-links a {
             background-color: rgba(255, 255, 255, 0.08);

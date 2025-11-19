@@ -2,17 +2,19 @@
 
 /* Light theme colors
    -------------------------------------------------------------------------- */
-$primary: #0d6efd;
-$secondary: #6c757d;
-$background: #ffffff;
-$text: #212529;
+$primary: #ff6b6b; // coral pink
+$secondary: #ffd166; // warm amber
+$background: #fff8e1; // soft cream
+$text: #2f1a3d; // deep plum
+$text-contrast: #ffffff;
 
 /* Dark theme colors
    -------------------------------------------------------------------------- */
-$primary-dark: #4a9eff;
-$secondary-dark: #adb5bd;
-$background-dark: #1a1a1a;
-$text-dark: #f8f9fa;
+$primary-dark: #ff8fa3;
+$secondary-dark: #ffe29a;
+$background-dark: #1f1b2c;
+$text-dark: #fef3c7;
+$text-dark-contrast: #120b16;
 
 /* Color map for easy access
    -------------------------------------------------------------------------- */
@@ -20,14 +22,16 @@ $colors: (
     "primary": $primary,
     "secondary": $secondary,
     "background": $background,
-    "text": $text
+    "text": $text,
+    "text-contrast": $text-contrast
 );
 
 $colors-dark: (
     "primary": $primary-dark,
     "secondary": $secondary-dark,
     "background": $background-dark,
-    "text": $text-dark
+    "text": $text-dark,
+    "text-contrast": $text-dark-contrast
 );
 
 
