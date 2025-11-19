@@ -81,7 +81,6 @@ const Nav: FC<NavProps> = ({
                             </button>
                         ))}
                     </div>
-                    <ThemeToggle theme={theme} onToggle={onThemeToggle} language={language} />
                     <img src={avatarImage} alt="Picture of me" className="nav-avatar" />
                 </div>
                 <div className="nav-language-content language-fade" key={language}>
@@ -121,6 +120,7 @@ const Nav: FC<NavProps> = ({
                         </svg>
                     </a>
                 </div>
+                <ThemeToggle theme={theme} onToggle={onThemeToggle} language={language} />
             </nav>
             <button
                 type="button"
