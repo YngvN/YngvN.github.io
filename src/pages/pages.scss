@@ -89,7 +89,6 @@ body[data-theme='dark'] {
     transform: translateY(0) rotate(-90deg);
     transition: transform 0.3s ease;
     color: inherit;
-    animation: category-chevron-settle 0.25s ease forwards;
 
     &::before,
     &::after {
@@ -113,7 +112,7 @@ body[data-theme='dark'] {
 
 @media (hover: hover) and (pointer: fine) {
     .about-category:not(.open) .category-toggle:hover .category-toggle__chevron {
-        animation: category-chevron-bounce 0.8s ease-in-out infinite alternate;
+        transform: translateY(-4px) rotate(-90deg);
     }
 }
 
@@ -129,25 +128,6 @@ body[data-theme='dark'] {
         &::after {
             transform: translateX(-4px) rotate(-45deg);
         }
-        animation: none;
-    }
-}
-
-@keyframes category-chevron-bounce {
-    0%, 100% {
-        transform: translateY(0) rotate(-90deg);
-    }
-    50% {
-        transform: translateY(-4px) rotate(-90deg);
-    }
-}
-
-@keyframes category-chevron-settle {
-    0% {
-        transform: translateY(-4px) rotate(-90deg);
-    }
-    100% {
-        transform: translateY(0) rotate(-90deg);
     }
 }
 
