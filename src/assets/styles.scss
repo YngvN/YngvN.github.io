@@ -2,6 +2,7 @@
 @use './sass/colors' as colors;
 @use './sass/fonts' as fonts;
 @use './sass/container';
+@use '../nav/nav';
 
 html {
     height: 100%;

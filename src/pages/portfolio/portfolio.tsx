@@ -1,6 +1,7 @@
-import "../../assets/styles.scss";
-import React from "react";
-import type { Language } from "../../types/language";
+import '../../assets/styles.scss';
+import '../pages.scss';
+import React from 'react';
+import type { Language } from '../../types/language';
 
 type PortfolioProps = {
     language: Language;
@@ -62,7 +63,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ language }) => {
 
     return (
         <div className="container">
-            <h1>{heading}</h1>
+            <h1 className="page-heading">{heading}</h1>
             <p>{intro}</p>
             <ul>
                 {projects.map(({ name, stack, description }) => (

@@ -1,5 +1,4 @@
 import { useState, type FC } from 'react';
-import './nav.scss';
 import type { PageName } from '../types/pages';
 import avatarImage from '../assets/images/me.jpeg';
 import type { Language } from '../types/language';
