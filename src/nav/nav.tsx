@@ -3,7 +3,7 @@ import './nav.scss';
 import type { PageName } from '../types/pages';
 import avatarImage from '../assets/images/me.jpeg';
 import type { Language } from '../types/language';
-import ThemeToggle from '../components/theme-toggle';
+import ThemeToggle from '../components/theme-toggle/theme-toggle';
 import type { Theme } from '../types/theme';
 
 type NavProps = {

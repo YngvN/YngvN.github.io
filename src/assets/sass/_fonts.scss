@@ -1,0 +1,35 @@
+@use './colors' as colors;
+
+// Font definitions and utilities
+
+$font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-family-heading: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
+@mixin apply-font(
+    $family: $font-family-base,
+    $weight: $font-weight-regular,
+    $color: colors.color('text')
+) {
+    font-family: $family;
+    font-weight: $weight;
+    color: $color;
+}
+
+@mixin apply-heading-font(
+    $weight: $font-weight-bold,
+    $color: colors.color('text')
+) {
+    font-family: $font-family-heading;
+    font-weight: $weight;
+    color: $color;
+}
+
+@mixin font-smoothing {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
