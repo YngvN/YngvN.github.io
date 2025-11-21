@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 import type { PageName } from '../types/pages';
 import avatarImage from '../assets/images/me.jpeg';
 import type { Language } from '../types/language';
@@ -49,6 +49,8 @@ const Nav: FC<NavProps> = ({
     onThemeToggle = () => { },
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isLanguageExpanded, setIsLanguageExpanded] = useState(false);
+    const languageButtonRef = useRef<HTMLButtonElement | null>(null);
     const { description, links } = navCopy[language];
 
     const toggleNav = () => setIsOpen((prev) => !prev);
@@ -58,27 +60,52 @@ const Nav: FC<NavProps> = ({
         setIsOpen(false);
     };
 
-    const handleLanguageClick = (code: Language) => {
-        if (code === language) return;
-        onLanguageChange(code);
+    const toggleLanguage = () => {
+        if (!isLanguageExpanded) {
+            setIsLanguageExpanded(true);
+            return;
+        }
+        onLanguageChange(language === 'en' ? 'no' : 'en');
     };
+
+    useEffect(() => {
+        if (!isLanguageExpanded) return undefined;
+        const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+            if (!languageButtonRef.current) return;
+            if (event.target instanceof Node && !languageButtonRef.current.contains(event.target)) {
+                setIsLanguageExpanded(false);
+            }
+        };
+        document.addEventListener('pointerdown', handleClickOutside);
+        return () => document.removeEventListener('pointerdown', handleClickOutside);
+    }, [isLanguageExpanded]);
 
     return (
         <div className={`nav-shell${isOpen ? ' open' : ''}`}>
             <nav className={`navbar${isOpen ? ' open' : ''}`}>
                 <div className="navbar-brand mb-4">
-                    <div className="language-toggle" role="group" aria-label="Change language">
-                        {languageOptions.map(({ code, label }) => (
-                            <button
-                                type="button"
-                                key={code}
-                                className={`language-button${code === language ? ' active' : ''}`}
-                                onClick={() => handleLanguageClick(code)}
-                                aria-pressed={code === language}
-                            >
-                                {label}
-                            </button>
-                        ))}
+                    <div className="nav-toggle-row">
+                        <ThemeToggle theme={theme} onToggle={onThemeToggle} language={language} />
+                        <button
+                            type="button"
+                            className={`language-toggle${language === 'en' ? ' lang-en' : ' lang-no'}${isLanguageExpanded ? ' language-toggle--expanded' : ' language-toggle--compact'}`}
+                            onClick={toggleLanguage}
+                            aria-label="Toggle language"
+                            aria-pressed={language === 'no'}
+                            aria-expanded={isLanguageExpanded}
+                            ref={languageButtonRef}
+                        >
+                            <span className="language-toggle__collapsed" aria-hidden="true">
+                                {language === 'en' ? 'ENG' : 'NOR'}
+                            </span>
+                            <span className="language-toggle__option">
+                                <span className="language-toggle__label">English</span>
+                            </span>
+                            <span className="language-toggle__option">
+                                <span className="language-toggle__label">Norwegian</span>
+                            </span>
+                            <span className="language-toggle__slider" aria-hidden="true" />
+                        </button>
                     </div>
                     <img src={avatarImage} alt="Picture of me" className="nav-avatar" />
                 </div>
@@ -119,7 +146,6 @@ const Nav: FC<NavProps> = ({
                         </svg>
                     </a>
                 </div>
-                <ThemeToggle theme={theme} onToggle={onThemeToggle} language={language} />
             </nav>
             <button
                 type="button"
