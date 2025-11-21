@@ -4,22 +4,36 @@
 // buttons.scss
 // Global button styles
 
+$btn-gap: 0.5rem;
+$btn-padding-y: 0.5rem;
+$btn-padding-x: 1.25rem;
+$btn-radius: 999px;
+$btn-font-weight: 500;
+$btn-line-height: 1.2;
+$btn-transition-duration: 150ms;
+$btn-active-translate: 1px;
+
+@mixin btn-variant($bg, $border: $bg, $color: #fff) {
+    background-color: $bg;
+    border-color: $border;
+    color: $color;
+}
+
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: $btn-gap;
 
-    padding: 0.5rem 1.25rem;
-    border-radius: 999px;
+    padding: $btn-padding-y $btn-padding-x;
+    border-radius: $btn-radius;
 
     border: 1px solid transparent;
-    background-color: colors.color("primary");
-    color: #fff;
+    @include btn-variant(colors.color("primary"));
 
     font: inherit;
-    font-weight: 500;
-    line-height: 1.2;
+    font-weight: $btn-font-weight;
+    line-height: $btn-line-height;
     text-decoration: none;
     white-space: nowrap;
 
@@ -27,16 +41,18 @@
     user-select: none;
 
     transition:
-        background-color 150ms ease,
-        color 150ms ease,
-        border-color 150ms ease,
-        box-shadow 150ms ease,
+        background-color $btn-transition-duration ease,
+        color $btn-transition-duration ease,
+        border-color $btn-transition-duration ease,
+        box-shadow $btn-transition-duration ease,
         transform 100ms ease;
 
     // Remove default button styles
     appearance: none;
     -webkit-appearance: none;
 }
+
+.btn:hover {}
 
 .btn:hover,
 .btn:focus-visible {
@@ -67,33 +83,23 @@
    -------------------------------------------------------------------------- */
 
 .btn-primary {
-    background-color: colors.color("primary");
-    border-color: colors.color("primary");
-    color: #fff;
+    @include btn-variant(colors.color("primary"));
 }
 
 .btn-secondary {
-    background-color: colors.color("secondary");
-    border-color: colors.color("secondary");
-    color: #fff;
+    @include btn-variant(colors.color("secondary"));
 }
 
 .btn-outline {
-    background-color: transparent;
-    border-color: colors.color("primary");
-    color: colors.color("primary");
+    @include btn-variant(transparent, colors.color("primary"), colors.color("primary"));
 }
 
 .btn-outline-secondary {
-    background-color: transparent;
-    border-color: colors.color("secondary");
-    color: colors.color("secondary");
+    @include btn-variant(transparent, colors.color("secondary"), colors.color("secondary"));
 }
 
 .btn-ghost {
-    background-color: transparent;
-    border-color: transparent;
-    color: colors.color("primary");
+    @include btn-variant(transparent, transparent, colors.color("primary"));
 }
 
 /* Sizes
@@ -161,5 +167,152 @@
     .btn:hover,
     .btn:focus-visible {
         box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* Nav-specific buttons
+   -------------------------------------------------------------------------- */
+
+.language-button {
+    @extend .btn;
+    @extend .btn-outline;
+    flex: 1;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+
+    &.active {
+        background-color: colors.color("primary");
+        color: colors.color("text-contrast");
+    }
+}
+
+.nav-link {
+    @extend .btn;
+    @extend .btn-ghost;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    color: inherit;
+    justify-content: flex-start;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    transition: .2s ease;
+
+    &:hover {
+        padding-left: 0.5rem;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    &:focus-visible,
+    &:active {
+        box-shadow: none;
+    }
+
+    &.active {
+        color: colors.color("primary");
+        padding-left: 0.5rem;
+    }
+}
+
+.nav-toggle {
+    @extend .btn;
+    @extend .btn-secondary;
+    display: none;
+    order: -1;
+    width: var(--tab-width);
+    height: 150px;
+    border: none;
+    padding-left: 30px;
+    border-radius: 999px 0 0 999px;
+    color: colors.color("background");
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+
+    .nav-toggle__line {
+        position: absolute;
+        width: 28px;
+        height: 3px;
+        background-color: currentColor;
+        border-radius: 999px;
+        transition: transform 0.3s ease;
+        transform-origin: center;
+        pointer-events: none;
+    }
+
+    &:not(.open) .nav-toggle__line:first-of-type {
+        transform: translate(-6px, -7px) rotate(-35deg) translateY(-1px);
+    }
+
+    &:not(.open) .nav-toggle__line:last-of-type {
+        transform: translate(-6px, 7px) rotate(35deg);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: -6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 80px;
+        background-color: currentColor;
+        border-radius: 999px;
+        filter: blur(24px);
+        opacity: 0.35;
+        pointer-events: none;
+    }
+
+    &.open {
+        .nav-toggle__line:first-of-type {
+            transform: translateX(-4px) rotate(45deg);
+        }
+
+        .nav-toggle__line:last-of-type {
+            transform: translateX(-4px) rotate(-45deg);
+        }
+    }
+}
+
+body[data-theme='dark'] {
+    .language-button {
+        background-color: rgba(255, 255, 255, 0.08);
+
+        &.active {
+            border-color: colors.color-dark("primary");
+            color: colors.color-dark("primary");
+            background-color: rgba(colors.color-dark("primary"), 0.2);
+        }
+    }
+
+    .nav-link.active {
+        color: colors.color-dark("primary");
+    }
+
+    .nav-toggle {
+        background-color: color-mix(in srgb, colors.color-dark("background") 75%, colors.color-dark("secondary") 25%);
+        color: colors.color-dark("text");
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.35);
+
+        .nav-toggle__line {
+            background-color: currentColor;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
     }
 }

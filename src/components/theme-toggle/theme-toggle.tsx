@@ -1,6 +1,6 @@
 import { type FC } from 'react';
-import type { Theme } from '../types/theme';
-import type { Language } from '../types/language';
+import type { Theme } from '../../types/theme';
+import type { Language } from '../../types/language';
 import './theme-toggle.scss';
 
 type ThemeToggleProps = {
