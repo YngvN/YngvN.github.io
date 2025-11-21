@@ -14,6 +14,8 @@
   margin: 0 auto;
   padding-top: 1rem;
   position: relative;
+  transition: transform 0.35s ease;
+  transform: translateX(0);
 }
 
 .page-stack {
@@ -66,4 +68,8 @@
   .page-display {
     padding-top: 2rem;
   }
+}
+
+.nav-shell.open ~ .page-display {
+  transform: translateX(-18px);
 }

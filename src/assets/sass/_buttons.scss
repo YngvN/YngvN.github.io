@@ -226,15 +226,17 @@ $btn-active-translate: 1px;
     display: none;
     order: -1;
     width: var(--tab-width);
-    height: 150px;
+    height: var(--tab-width);
     border: none;
-    padding-left: 30px;
-    border-radius: 999px 0 0 999px;
+    padding: 1em 4em 1em 1em;
+    border-radius: 14px;
     color: colors.color("background");
-    align-self: center;
+    align-self: flex-start;
+    margin-top: 12px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transform: translateX(30px);
     gap: 12px;
     box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -313,6 +315,6 @@ body[data-theme='dark'] {
 
 @media (max-width: 768px) {
     .nav-toggle {
-        display: flex;
+        display: block;
     }
 }

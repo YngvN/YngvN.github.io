@@ -156,7 +156,7 @@ body[data-theme='dark'] {
         --closed-shift: calc(var(--nav-width) + var(--tab-width) - 18px);
         transform: translateX(var(--closed-shift));
         transition: transform 0.35s ease, opacity 0.35s ease;
-        opacity: 0.25;
+        opacity: 0.70;
     }
 
     .nav-shell.open {
