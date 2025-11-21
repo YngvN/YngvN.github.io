@@ -44,7 +44,9 @@ const ThemeToggle: FC<ThemeToggleProps> = ({ theme, onToggle, language = 'en' })
     const isDark = theme === 'dark';
     const labels = themeLabels[language] ?? themeLabels.en;
     const [isAnimating, setIsAnimating] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
     const timerRef = useRef<number | null>(null);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
 
     useEffect(
         () => () => {
@@ -55,23 +57,50 @@ const ThemeToggle: FC<ThemeToggleProps> = ({ theme, onToggle, language = 'en' })
         [],
     );
 
+    useEffect(() => {
+        if (!isExpanded) return undefined;
+
+        const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+            if (!buttonRef.current) return;
+            if (event.target instanceof Node && !buttonRef.current.contains(event.target)) {
+                setIsExpanded(false);
+            }
+        };
+
+        document.addEventListener('pointerdown', handleClickOutside);
+        return () => document.removeEventListener('pointerdown', handleClickOutside);
+    }, [isExpanded]);
+
     const handleToggle = () => {
+        // First click expands; subsequent clicks toggle.
+        if (!isExpanded) {
+            setIsExpanded(true);
+            return;
+        }
+
         setIsAnimating(true);
         if (timerRef.current) {
             window.clearTimeout(timerRef.current);
         }
-        timerRef.current = window.setTimeout(() => setIsAnimating(false), 350);
+        timerRef.current = window.setTimeout(() => setIsAnimating(false), 450);
         onToggle();
     };
 
     return (
         <button
             type="button"
-            className={`theme-toggle${isDark ? ' dark' : ''}${isAnimating ? ' theme-toggle--animating' : ''}`}
+            className={`theme-toggle${isDark ? ' dark' : ''}${isAnimating ? ' theme-toggle--animating' : ''}${
+                isExpanded ? ' theme-toggle--expanded' : ' theme-toggle--compact'
+            }`}
             onClick={handleToggle}
             aria-pressed={isDark}
             aria-label={`Activate ${isDark ? 'light' : 'dark'} mode`}
+            aria-expanded={isExpanded}
+            ref={buttonRef}
         >
+            <span className="theme-toggle__collapsed-icon" aria-hidden="true">
+                <LightBulbIcon variant={isDark ? 'off' : 'on'} />
+            </span>
             <span className="theme-toggle__option">
                 <span className="theme-toggle__icon">
                     <LightBulbIcon variant="off" />
