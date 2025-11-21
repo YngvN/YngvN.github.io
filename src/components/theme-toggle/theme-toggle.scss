@@ -6,9 +6,9 @@
     padding: 0.35rem 0.5rem;
     border-radius: 999px;
     border: 1px solid transparent;
-    background-color: colors.color("primary");
+    background-color: colors.color("background");
     color: inherit;
-    color: colors.color("background");
+    color: colors.color("secondary");
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,6 +20,7 @@
     overflow: hidden;
     justify-content: space-between;
     outline: none;
+    margin-top: 50px;
 }
 
 .theme-toggle.dark {
@@ -96,7 +97,7 @@
 }
 
 .theme-toggle--compact {
-    width: 60px;
+    width: 76px;
     padding: 0.35rem;
     gap: 0;
     justify-content: center;
