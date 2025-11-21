@@ -50,7 +50,7 @@ type DeveloperTile = {
 };
 
 const categoryDefinitions: CategoryDefinition[] = [
-    { id: 'developer', defaultOpen: true },
+    { id: 'developer', defaultOpen: false },
     { id: 'musician', defaultOpen: false },
 ];
 
@@ -114,8 +114,9 @@ const aboutCategoryCopy: Record<
                 'As a developer I have worked across frontend and backend through my studies. In electrical engineering the focus was mostly on servers and small programs, while in frontend it was more about design and testing. Swift is something I am experimenting with in my spare time.',
         },
         musician: {
-            title: 'Musician',
-            description: 'My creative outlet after work hours—writing, practicing, and performing music.',
+            title: 'Creative Work',
+            description:
+                'I have been interested in music my entire life and have also studied it. That has given me skills across instruments and music tech. I have been on and off stage in larger and smaller projects, founded and led music clubs, produced music, and developed a playfulness that Oslohjelpa called “the best session they had been to in kindergarten.”',
         },
     },
     no: {
@@ -125,8 +126,9 @@ const aboutCategoryCopy: Record<
                 'Som utvikler har jeg vært innom både frontend og backend, begge relatert til utdanning. På elektroingeniør var det mest fokus på servere og mindre programmer, mens på frontend var det mer design og testing. Swift prøver jeg meg på nå i fritiden.',
         },
         musician: {
-            title: 'Musiker',
-            description: 'Den kreative arenaen etter jobb – komponering, øving og opptredener.',
+            title: 'Kreativt arbeid',
+            description:
+                'Jeg har vært interessert musikk i hele livet mit, og har også studert musikk. Da har jeg opparbeidet kompetanse i diverse instrumenter og teknologier. Jeg har vært både på og av scenen i større og mindre prosjekter, stiftet og ledet musikklubber, produsert musikk, og utviklet en lekenhet som i følge Oslohjelpa var "Den beste samlingen de hadde vært på i barnehage".',
         },
     },
 };
@@ -166,6 +168,19 @@ const developerTiles: DeveloperTile[] = [
     },
 ];
 
+const creativeItems: { label: string; badge: string; background: string; color: string }[] = [
+    { label: 'Guitar', badge: '🎸', background: '#fef3c7', color: '#92400e' },
+    { label: 'Piano', badge: '🎹', background: '#e0e7ff', color: '#312e81' },
+    { label: 'Vocals', badge: '🎤', background: '#ffe4e6', color: '#9f1239' },
+    { label: 'Banjo', badge: '🪕', background: '#f5f5f4', color: '#44403c' },
+    { label: 'Synths', badge: '🎛️', background: '#cffafe', color: '#0f172a' },
+    { label: 'Bass', badge: '🎸', background: '#ede9fe', color: '#4c1d95' },
+    { label: 'Ableton', badge: '🎚️', background: '#111827', color: '#e5e7eb' },
+    { label: 'Logic Pro X', badge: '🎧', background: '#0f172a', color: '#38bdf8' },
+    { label: 'Saxophone', badge: '🎷', background: '#fef9c3', color: '#92400e' },
+    { label: 'Clarinet', badge: '🎼', background: '#e5e7eb', color: '#111827' },
+];
+
 const technologyMeta: Record<
     Technology,
     { label: string; shorthand: string; background: string; color: string; logoUrl?: string }
@@ -178,7 +193,7 @@ const technologyMeta: Record<
     css: { label: 'CSS', shorthand: 'CSS', background: '#1572b6', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/css3/1572B6' },
     javascript: { label: 'JavaScript', shorthand: 'JS', background: '#f7df1e', color: '#1f2933', logoUrl: 'https://cdn.simpleicons.org/javascript/F7DF1E' },
     sql: { label: 'SQL', shorthand: 'SQL', background: '#0f172a', color: '#38bdf8', logoUrl: 'https://cdn.simpleicons.org/postgresql/4169E1' },
-    csharp: { label: 'C#', shorthand: 'C#', background: '#6f2dbd', color: '#f8fafc', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/csharp.svg' },
+    csharp: { label: 'C#', shorthand: 'C#', background: '#6f2dbd', color: '#f8fafc', logoUrl: 'https://cdn.simpleicons.org/csharp/682876' },
     python: { label: 'Python', shorthand: 'Py', background: 'linear-gradient(135deg,#306998,#ffd343)', color: '#0f172a', logoUrl: 'https://cdn.simpleicons.org/python/3776AB' },
     swift: { label: 'Swift', shorthand: 'Sw', background: '#f05138', color: '#fff7ed', logoUrl: 'https://cdn.simpleicons.org/swift/FA7343' },
     jest: { label: 'Jest', shorthand: 'Je', background: '#99425b', color: '#ffe4e6', logoUrl: 'https://cdn.simpleicons.org/jest/C21325' },
@@ -273,11 +288,11 @@ const About: React.FC<AboutProps> = ({ language }) => {
     };
 
     const renderCategoryContent = (id: CategoryId) => {
-        if (id === 'developer') {
-            return (
-                <div className="tech-tiles">
-                    {developerTiles.map(({ id: tileId, title, technologies }) => (
-                        <div className="tech-tile" key={tileId}>
+    if (id === 'developer') {
+        return (
+            <div className="tech-tiles">
+                {developerTiles.map(({ id: tileId, title, technologies }) => (
+                    <div className="tech-tile" key={tileId}>
                             <h3>{title[language]}</h3>
                             <div className="tech-logo-grid">
                                 {technologies.map((tech) => (
@@ -293,23 +308,24 @@ const About: React.FC<AboutProps> = ({ language }) => {
         return (
             <div className="musician-content">
                 <p>{musicianContent.intro}</p>
-                <div className="musician-columns">
-                    <div>
-                        <h3>{musicianContent.instrumentsHeading}</h3>
-                        <ul>
-                            {musicianContent.instruments.map((instrument) => (
-                                <li key={instrument}>{instrument}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>{musicianContent.highlightsHeading}</h3>
-                        <ul>
-                            {musicianContent.highlights.map((highlight) => (
-                                <li key={highlight}>{highlight}</li>
-                            ))}
-                        </ul>
-                    </div>
+                <div className="tech-logo-grid creative-logo-grid">
+                    {creativeItems.map(({ label, badge, background, color }) => (
+                        <span
+                            className="tech-logo tech-logo--tag"
+                            key={label}
+                            style={
+                                {
+                                    '--logo-bg': background,
+                                    '--logo-color': color,
+                                } as CSSProperties
+                            }
+                        >
+                            <span className="tech-logo__badge" aria-hidden="true">
+                                {badge}
+                            </span>
+                            <span className="tech-logo__label">{label}</span>
+                        </span>
+                    ))}
                 </div>
             </div>
         );
