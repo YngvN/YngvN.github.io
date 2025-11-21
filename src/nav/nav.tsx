@@ -35,11 +35,6 @@ const navCopy: Record<Language, { description: string; links: { label: string; p
     },
 };
 
-const languageOptions: { code: Language; label: string }[] = [
-    { code: 'en', label: 'English' },
-    { code: 'no', label: 'Norwegian' },
-];
-
 const Nav: FC<NavProps> = ({
     currentPage = 'about',
     onNavigate = () => { },
