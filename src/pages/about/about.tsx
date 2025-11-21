@@ -110,7 +110,8 @@ const aboutCategoryCopy: Record<
     en: {
         developer: {
             title: 'Developer',
-            description: 'Tools and technologies I enjoy working with to build thoughtful user experiences.',
+            description:
+                'As a developer I have worked across frontend and backend through my studies. In electrical engineering the focus was mostly on servers and small programs, while in frontend it was more about design and testing. Swift is something I am experimenting with in my spare time.',
         },
         musician: {
             title: 'Musician',
@@ -120,7 +121,8 @@ const aboutCategoryCopy: Record<
     no: {
         developer: {
             title: 'Utvikler',
-            description: 'Verktøy og teknologier jeg bruker til å bygge gode brukeropplevelser.',
+            description:
+                'Som utvikler har jeg vært innom både frontend og backend, begge relatert til utdanning. På elektroingeniør var det mest fokus på servere og mindre programmer, mens på frontend var det mer design og testing. Swift prøver jeg meg på nå i fritiden.',
         },
         musician: {
             title: 'Musiker',
@@ -166,26 +168,26 @@ const developerTiles: DeveloperTile[] = [
 
 const technologyMeta: Record<
     Technology,
-    { label: string; shorthand: string; background: string; color: string }
+    { label: string; shorthand: string; background: string; color: string; logoUrl?: string }
 > = {
-    vite: { label: 'Vite', shorthand: 'V', background: 'linear-gradient(135deg,#FFEA83,#FFA800)', color: '#4c1d95' },
-    react: { label: 'React', shorthand: '⚛︎', background: '#1f2937', color: '#61dafb' },
-    typescript: { label: 'TypeScript', shorthand: 'TS', background: '#1f75cb', color: '#ffffff' },
-    sass: { label: 'Sass', shorthand: 'Sa', background: '#cf649a', color: '#ffffff' },
-    html: { label: 'HTML5', shorthand: 'HTML', background: '#e34c26', color: '#ffffff' },
-    css: { label: 'HTML/CSS', shorthand: 'CSS', background: '#1572b6', color: '#ffffff' },
-    javascript: { label: 'JavaScript', shorthand: 'JS', background: '#f7df1e', color: '#1f2933' },
-    sql: { label: 'SQL', shorthand: 'SQL', background: '#0f172a', color: '#38bdf8' },
-    csharp: { label: 'C#', shorthand: 'C#', background: '#6f2dbd', color: '#f8fafc' },
-    python: { label: 'Python', shorthand: 'Py', background: 'linear-gradient(135deg,#306998,#ffd343)', color: '#0f172a' },
-    swift: { label: 'Swift', shorthand: 'Sw', background: '#f05138', color: '#fff7ed' },
-    jest: { label: 'Jest', shorthand: 'Je', background: '#99425b', color: '#ffe4e6' },
-    cypress: { label: 'Cypress', shorthand: 'Cy', background: '#0f766e', color: '#ecfeff' },
-    bootstrap: { label: 'Bootstrap', shorthand: 'B', background: '#563d7c', color: '#ede9fe' },
-    adobexd: { label: 'Adobe XD', shorthand: 'XD', background: '#470137', color: '#ff61f6' },
-    figma: { label: 'Figma', shorthand: 'Fg', background: 'linear-gradient(135deg,#f24e1e,#a259ff)', color: '#fef2f2' },
-    illustrator: { label: 'Illustrator', shorthand: 'Ai', background: '#310', color: '#ff9a00' },
-    wordpress: { label: 'WordPress', shorthand: 'W', background: '#21759b', color: '#ffffff' },
+    vite: { label: 'Vite', shorthand: 'V', background: 'linear-gradient(135deg,#FFEA83,#FFA800)', color: '#4c1d95', logoUrl: 'https://cdn.simpleicons.org/vite/646CFF' },
+    react: { label: 'React', shorthand: '⚛︎', background: '#1f2937', color: '#61dafb', logoUrl: 'https://cdn.simpleicons.org/react/61DAFB' },
+    typescript: { label: 'TypeScript', shorthand: 'TS', background: '#1f75cb', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/typescript/3178C6' },
+    sass: { label: 'Sass', shorthand: 'Sa', background: '#cf649a', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/sass/CC6699' },
+    html: { label: 'HTML5', shorthand: 'HTML', background: '#e34c26', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/html5/E34F26' },
+    css: { label: 'CSS', shorthand: 'CSS', background: '#1572b6', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/css3/1572B6' },
+    javascript: { label: 'JavaScript', shorthand: 'JS', background: '#f7df1e', color: '#1f2933', logoUrl: 'https://cdn.simpleicons.org/javascript/F7DF1E' },
+    sql: { label: 'SQL', shorthand: 'SQL', background: '#0f172a', color: '#38bdf8', logoUrl: 'https://cdn.simpleicons.org/postgresql/4169E1' },
+    csharp: { label: 'C#', shorthand: 'C#', background: '#6f2dbd', color: '#f8fafc', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/csharp.svg' },
+    python: { label: 'Python', shorthand: 'Py', background: 'linear-gradient(135deg,#306998,#ffd343)', color: '#0f172a', logoUrl: 'https://cdn.simpleicons.org/python/3776AB' },
+    swift: { label: 'Swift', shorthand: 'Sw', background: '#f05138', color: '#fff7ed', logoUrl: 'https://cdn.simpleicons.org/swift/FA7343' },
+    jest: { label: 'Jest', shorthand: 'Je', background: '#99425b', color: '#ffe4e6', logoUrl: 'https://cdn.simpleicons.org/jest/C21325' },
+    cypress: { label: 'Cypress', shorthand: 'Cy', background: '#0f766e', color: '#ecfeff', logoUrl: 'https://cdn.simpleicons.org/cypress/69D3A7' },
+    bootstrap: { label: 'Bootstrap', shorthand: 'B', background: '#563d7c', color: '#ede9fe', logoUrl: 'https://cdn.simpleicons.org/bootstrap/7952B3' },
+    adobexd: { label: 'Adobe XD', shorthand: 'XD', background: '#470137', color: '#ff61f6', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/adobexd.svg' },
+    figma: { label: 'Figma', shorthand: 'Fg', background: 'linear-gradient(135deg,#f24e1e,#a259ff)', color: '#fef2f2', logoUrl: 'https://cdn.simpleicons.org/figma/F24E1E' },
+    illustrator: { label: 'Illustrator', shorthand: 'Ai', background: '#310', color: '#ff9a00', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/adobeillustrator.svg' },
+    wordpress: { label: 'WordPress', shorthand: 'W', background: '#21759b', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/wordpress/21759B' },
 };
 
 const musicianCopy: Record<
@@ -216,6 +218,8 @@ const musicianCopy: Record<
 
 const TechLogo: React.FC<{ tech: Technology }> = ({ tech }) => {
     const meta = technologyMeta[tech];
+    const [logoError, setLogoError] = useState(false);
+    const showImage = Boolean(meta.logoUrl) && !logoError;
     const style = {
         '--logo-bg': meta.background,
         '--logo-color': meta.color,
@@ -223,9 +227,21 @@ const TechLogo: React.FC<{ tech: Technology }> = ({ tech }) => {
 
     return (
         <span className="tech-logo" style={style}>
-            <span className="tech-logo__badge" aria-hidden="true">
-                {meta.shorthand}
-            </span>
+            {showImage ? (
+                <span className="tech-logo__badge tech-logo__badge--image" aria-hidden="true">
+                    <img
+                        src={meta.logoUrl}
+                        loading="lazy"
+                        alt=""
+                        className="tech-logo__img"
+                        onError={() => setLogoError(true)}
+                    />
+                </span>
+            ) : (
+                <span className="tech-logo__badge" aria-hidden="true">
+                    {meta.shorthand}
+                </span>
+            )}
             <span className="tech-logo__label">{meta.label}</span>
         </span>
     );

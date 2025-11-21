@@ -121,16 +121,18 @@ body[data-theme='dark'] {
 .category-content {
     padding: 0 1.5rem;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
-    height: 0;
+    max-height: 0;
     opacity: 0;
+    transform: translateY(-4px);
     overflow: hidden;
-    transition: height 0.35s ease, opacity 0.25s ease;
+    transition: max-height 0.4s ease, opacity 0.25s ease, transform 0.35s ease;
 }
 
 .about-category.open .category-content {
     padding-bottom: 1.5rem;
-    height: auto;
+    max-height: 2400px;
     opacity: 1;
+    transform: translateY(0);
     overflow: visible;
 }
 
@@ -177,6 +179,19 @@ body[data-theme='dark'] {
         font-size: 0.9rem;
         background: var(--logo-bg);
         color: var(--logo-color);
+    }
+
+    .tech-logo__badge--image {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        padding: 8px;
+    }
+
+    .tech-logo__img {
+        width: 26px;
+        height: 26px;
+        object-fit: contain;
+        display: block;
     }
 
     .tech-logo__label {
@@ -240,6 +255,11 @@ body[data-theme='dark'] {
 
     .tech-logo {
         background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .tech-logo__badge--image {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(255, 255, 255, 0.12);
     }
 
     .musician-columns>div {
