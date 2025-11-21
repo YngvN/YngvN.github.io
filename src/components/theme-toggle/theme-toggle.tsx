@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import type { Theme } from '../../types/theme';
 import type { Language } from '../../types/language';
 import './theme-toggle.scss';
@@ -43,12 +43,32 @@ const themeLabels: Record<Language, { dark: string; light: string }> = {
 const ThemeToggle: FC<ThemeToggleProps> = ({ theme, onToggle, language = 'en' }) => {
     const isDark = theme === 'dark';
     const labels = themeLabels[language] ?? themeLabels.en;
+    const [isAnimating, setIsAnimating] = useState(false);
+    const timerRef = useRef<number | null>(null);
+
+    useEffect(
+        () => () => {
+            if (timerRef.current) {
+                window.clearTimeout(timerRef.current);
+            }
+        },
+        [],
+    );
+
+    const handleToggle = () => {
+        setIsAnimating(true);
+        if (timerRef.current) {
+            window.clearTimeout(timerRef.current);
+        }
+        timerRef.current = window.setTimeout(() => setIsAnimating(false), 350);
+        onToggle();
+    };
 
     return (
         <button
             type="button"
-            className={`theme-toggle${isDark ? ' dark' : ''}`}
-            onClick={onToggle}
+            className={`theme-toggle${isDark ? ' dark' : ''}${isAnimating ? ' theme-toggle--animating' : ''}`}
+            onClick={handleToggle}
             aria-pressed={isDark}
             aria-label={`Activate ${isDark ? 'light' : 'dark'} mode`}
         >

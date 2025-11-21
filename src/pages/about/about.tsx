@@ -110,25 +110,23 @@ const aboutCategoryCopy: Record<
     en: {
         developer: {
             title: 'Developer',
-            description:
-                'As a developer I have worked across frontend and backend through my studies. In electrical engineering the focus was mostly on servers and small programs, while in frontend it was more about design and testing. Swift is something I am experimenting with in my spare time.',
+            description: 'My technical expertise and experience',
         },
         musician: {
             title: 'Creative Work',
             description:
-                'I have been interested in music my entire life and have also studied it. That has given me skills across instruments and music tech. I have been on and off stage in larger and smaller projects, founded and led music clubs, produced music, and developed a playfulness that Oslohjelpa called “the best session they had been to in kindergarten.”',
+                'Other work as a creative person',
         },
     },
     no: {
         developer: {
             title: 'Utvikler',
-            description:
-                'Som utvikler har jeg vært innom både frontend og backend, begge relatert til utdanning. På elektroingeniør var det mest fokus på servere og mindre programmer, mens på frontend var det mer design og testing. Swift prøver jeg meg på nå i fritiden.',
+            description: 'Min tekniske kompetanse og erfaring',
         },
         musician: {
             title: 'Kreativt arbeid',
             description:
-                'Jeg har vært interessert musikk i hele livet mit, og har også studert musikk. Da har jeg opparbeidet kompetanse i diverse instrumenter og teknologier. Jeg har vært både på og av scenen i større og mindre prosjekter, stiftet og ledet musikklubber, produsert musikk, og utviklet en lekenhet som i følge Oslohjelpa var "Den beste samlingen de hadde vært på i barnehage".',
+                'Annet arbeid som kreativ person',
         },
     },
 };
@@ -168,6 +166,11 @@ const developerTiles: DeveloperTile[] = [
     },
 ];
 
+const developerIntroCopy: Record<Language, string> = {
+    en: 'As a developer I have worked across frontend and backend through my studies. In electrical engineering the focus was mostly on servers and small programs, while in frontend it was more about design and testing. Swift is something I am experimenting with in my spare time.',
+    no: 'Som utvikler har jeg vært innom både frontend og backend, begge relatert til utdanning. På elektroingeniør var det mest fokus på servere og mindre programmer, mens på frontend var det mer design og testing. Swift prøver jeg meg på nå i fritiden.',
+};
+
 const creativeItems: { label: string; badge: string; background: string; color: string }[] = [
     { label: 'Guitar', badge: '🎸', background: '#fef3c7', color: '#92400e' },
     { label: 'Piano', badge: '🎹', background: '#e0e7ff', color: '#312e81' },
@@ -190,10 +193,10 @@ const technologyMeta: Record<
     typescript: { label: 'TypeScript', shorthand: 'TS', background: '#1f75cb', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/typescript/3178C6' },
     sass: { label: 'Sass', shorthand: 'Sa', background: '#cf649a', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/sass/CC6699' },
     html: { label: 'HTML5', shorthand: 'HTML', background: '#e34c26', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/html5/E34F26' },
-    css: { label: 'CSS', shorthand: 'CSS', background: '#1572b6', color: '#ffffff', logoUrl: 'https://cdn.simpleicons.org/css3/1572B6' },
+    css: { label: 'CSS', shorthand: 'CSS', background: '#1572b6', color: '#ffffff', logoUrl: '/logos/css3.svg' },
     javascript: { label: 'JavaScript', shorthand: 'JS', background: '#f7df1e', color: '#1f2933', logoUrl: 'https://cdn.simpleicons.org/javascript/F7DF1E' },
     sql: { label: 'SQL', shorthand: 'SQL', background: '#0f172a', color: '#38bdf8', logoUrl: 'https://cdn.simpleicons.org/postgresql/4169E1' },
-    csharp: { label: 'C#', shorthand: 'C#', background: '#6f2dbd', color: '#f8fafc', logoUrl: 'https://cdn.simpleicons.org/csharp/682876' },
+    csharp: { label: 'C#', shorthand: 'C#', background: '#6f2dbd', color: '#f8fafc', logoUrl: '/logos/csharp.svg' },
     python: { label: 'Python', shorthand: 'Py', background: 'linear-gradient(135deg,#306998,#ffd343)', color: '#0f172a', logoUrl: 'https://cdn.simpleicons.org/python/3776AB' },
     swift: { label: 'Swift', shorthand: 'Sw', background: '#f05138', color: '#fff7ed', logoUrl: 'https://cdn.simpleicons.org/swift/FA7343' },
     jest: { label: 'Jest', shorthand: 'Je', background: '#99425b', color: '#ffe4e6', logoUrl: 'https://cdn.simpleicons.org/jest/C21325' },
@@ -209,25 +212,13 @@ const musicianCopy: Record<
     Language,
     {
         intro: string;
-        instrumentsHeading: string;
-        instruments: string[];
-        highlightsHeading: string;
-        highlights: string[];
     }
 > = {
     en: {
-        intro: 'I spend evenings writing and arranging songs, often blending acoustic textures with electronic elements.',
-        instrumentsHeading: 'Instruments & Roles',
-        instruments: ['Vocals', 'Electric & Acoustic Guitar', 'Bass', 'Synths', 'Keys', 'Programming'],
-        highlightsHeading: 'Highlights',
-        highlights: ['Studio sessions with local bands', 'Solo performances at Oslo venues', 'Sound design for indie games'],
+        intro: 'I have been interested in music my entire life and have also studied it. That has given me skills across instruments and music tech. I have been on and off stage in larger and smaller projects, founded and led music clubs, produced music, and developed a playfulness that Oslohjelpa called “the best session they had been to in kindergarten.”',
     },
     no: {
-        intro: 'På kveldstid skriver og arrangerer jeg musikk hvor jeg blander akustiske elementer med elektroniske uttrykk.',
-        instrumentsHeading: 'Instrumenter og roller',
-        instruments: ['Vokal', 'Elektrisk og akustisk gitar', 'Bass', 'Synther', 'Keys', 'Programmering'],
-        highlightsHeading: 'Høydepunkter',
-        highlights: ['Studiosesjoner med lokale band', 'Solokonserter på Oslo-scener', 'Lyddesign til indie-spill'],
+        intro: 'Jeg har vært interessert musikk i hele livet mit, og har også studert musikk. Da har jeg opparbeidet kompetanse i diverse instrumenter og teknologier. Jeg har vært både på og av scenen i større og mindre prosjekter, stiftet og ledet musikklubber, produsert musikk, og utviklet en lekenhet som i følge Oslohjelpa var "Den beste samlingen de hadde vært på i barnehage".',
     },
 };
 
@@ -253,7 +244,7 @@ const TechLogo: React.FC<{ tech: Technology }> = ({ tech }) => {
                     />
                 </span>
             ) : (
-                <span className="tech-logo__badge" aria-hidden="true">
+                <span className="tech-logo__badge tech-logo__badge--image" aria-hidden="true">
                     {meta.shorthand}
                 </span>
             )}
@@ -290,9 +281,11 @@ const About: React.FC<AboutProps> = ({ language }) => {
     const renderCategoryContent = (id: CategoryId) => {
     if (id === 'developer') {
         return (
-            <div className="tech-tiles">
-                {developerTiles.map(({ id: tileId, title, technologies }) => (
-                    <div className="tech-tile" key={tileId}>
+            <div className="developer-content">
+                <p>{developerIntroCopy[language]}</p>
+                <div className="tech-tiles">
+                    {developerTiles.map(({ id: tileId, title, technologies }) => (
+                        <div className="tech-tile" key={tileId}>
                             <h3>{title[language]}</h3>
                             <div className="tech-logo-grid">
                                 {technologies.map((tech) => (
@@ -302,8 +295,9 @@ const About: React.FC<AboutProps> = ({ language }) => {
                         </div>
                     ))}
                 </div>
-            );
-        }
+            </div>
+        );
+    }
 
         return (
             <div className="musician-content">
