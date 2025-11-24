@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import type { PageName } from '../types/pages';
 import avatarImage from '../assets/images/me.jpeg';
 import type { Language } from '../types/language';
-import ThemeToggle from '../components/theme-toggle/theme-toggle';
 import type { Theme } from '../types/theme';
 import Toggler from '../components/toggler/toggler';
 
@@ -71,8 +70,6 @@ const Nav: FC<NavProps> = ({
     onThemeToggle = () => { },
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [isLanguageExpanded, setIsLanguageExpanded] = useState(false);
-    const languageButtonRef = useRef<HTMLButtonElement | null>(null);
     const { description, links } = navCopy[language];
 
     const toggleNav = () => setIsOpen((prev) => !prev);
@@ -82,53 +79,10 @@ const Nav: FC<NavProps> = ({
         setIsOpen(false);
     };
 
-    const toggleLanguage = () => {
-        if (!isLanguageExpanded) {
-            setIsLanguageExpanded(true);
-            return;
-        }
-        onLanguageChange(language === 'en' ? 'no' : 'en');
-    };
-
-    useEffect(() => {
-        if (!isLanguageExpanded) return undefined;
-        const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-            if (!languageButtonRef.current) return;
-            if (event.target instanceof Node && !languageButtonRef.current.contains(event.target)) {
-                setIsLanguageExpanded(false);
-            }
-        };
-        document.addEventListener('pointerdown', handleClickOutside);
-        return () => document.removeEventListener('pointerdown', handleClickOutside);
-    }, [isLanguageExpanded]);
-
     return (
         <div className={`nav-shell${isOpen ? ' open' : ''}`}>
             <nav className={`navbar${isOpen ? ' open' : ''}`}>
                 <div className="navbar-brand mb-4">
-                    <div className="nav-toggle-row">
-                        <ThemeToggle theme={theme} onToggle={onThemeToggle} language={language} />
-                        <button
-                            type="button"
-                            className={`language-toggle${language === 'en' ? ' lang-en' : ' lang-no'}${isLanguageExpanded ? ' language-toggle--expanded' : ' language-toggle--compact'}`}
-                            onClick={toggleLanguage}
-                            aria-label="Toggle language"
-                            aria-pressed={language === 'no'}
-                            aria-expanded={isLanguageExpanded}
-                            ref={languageButtonRef}
-                        >
-                            <span className="language-toggle__collapsed" aria-hidden="true">
-                                {language === 'en' ? 'ENG' : 'NOR'}
-                            </span>
-                            <span className="language-toggle__option">
-                                <span className="language-toggle__label">English</span>
-                            </span>
-                            <span className="language-toggle__option">
-                                <span className="language-toggle__label">Norwegian</span>
-                            </span>
-                            <span className="language-toggle__slider" aria-hidden="true" />
-                        </button>
-                    </div>
                     <img src={avatarImage} alt="Picture of me" className="nav-avatar" />
                 </div>
                 <div className="nav-language-content language-fade" key={language}>
@@ -168,15 +122,26 @@ const Nav: FC<NavProps> = ({
                         </svg>
                     </a>
                 </div>
-                <Toggler
-                    checked={theme === 'dark'}
-                    onToggle={onThemeToggle}
-                    ariaLabel="Theme toggle"
-                    leftLabel="Light"
-                    rightLabel="Dark"
-                    leftPreview={<LightBulbIcon variant="on" />}
-                    rightPreview={<LightBulbIcon variant="off" />}
-                />
+                <div className="nav-bottom-toggles">
+                    <Toggler
+                        checked={theme === 'dark'}
+                        onToggle={onThemeToggle}
+                        ariaLabel="Theme toggle"
+                        leftLabel="Light"
+                        rightLabel="Dark"
+                        leftPreview={<LightBulbIcon variant="on" />}
+                        rightPreview={<LightBulbIcon variant="off" />}
+                    />
+                    <Toggler
+                        checked={language === 'no'}
+                        onToggle={() => onLanguageChange(language === 'en' ? 'no' : 'en')}
+                        ariaLabel="Toggle language"
+                        leftLabel="EN"
+                        rightLabel="NO"
+                        leftPreview="EN"
+                        rightPreview="NO"
+                    />
+                </div>
             </nav>
             <button
                 type="button"

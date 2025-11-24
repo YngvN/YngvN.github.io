@@ -10,18 +10,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.35rem;
     width: var(--toggler-width);
     max-width: var(--toggler-max-width);
     min-width: var(--toggler-min-width);
     min-height: var(--toggler-height);
-    padding: var(--toggler-pad) calc(var(--toggler-pad) + 0.15rem);
-    border-radius: 999px;
     background-color: colors.color("background");
     color: colors.color("text");
     cursor: pointer;
     transition: .25s ease;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
     overflow: hidden;
 }
 
@@ -30,6 +26,14 @@
     border-color: colors.color("secondary");
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
     outline: none;
+}
+
+@media (hover: none),
+(pointer: coarse) {
+    .toggler:hover:not(.toggler--disabled) {
+        border-color: inherit;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    }
 }
 
 .toggler__label {
@@ -52,25 +56,27 @@
     left: var(--toggler-pad);
     width: calc(50% - (var(--toggler-pad) + 3px));
     height: calc(100% - (var(--toggler-pad) * 2));
-    border-radius: 999px;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
     transition: .25s ease;
     z-index: 1;
     background-color: colors.color("primary");
+    border-radius: 5px;
+
 }
 
 .toggler__preview {
     position: absolute;
     width: 18px;
     height: 18px;
-    border-radius: 50%;
+    border-radius: 4px;
     transition: .25s ease;
     z-index: 3;
     pointer-events: none;
     display: inline-flex;
     align-items: center;
     justify-self: center;
-    color: inherit;
+    color: colors.color("text-contrast");
+    padding: .1rem .2rem;
 }
 
 
@@ -114,7 +120,6 @@
     --toggler-width: var(--toggler-compact-width, 70px);
     --toggler-min-width: var(--toggler-compact-width, 70px);
     --toggler-max-width: var(--toggler-compact-width, 70px);
-    padding: 0.25rem 0.3rem;
     justify-content: center;
     align-items: center;
 
@@ -175,7 +180,6 @@
 body[data-theme='dark'] .toggler {
     background-color: colors.color-dark("background");
     color: colors.color-dark("text");
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 
     .toggler__thumb {
         background-color: colors.color-dark("primary");
@@ -186,8 +190,5 @@ body[data-theme='dark'] .toggler {
         background-color: colors.color-dark("primary");
     }
 
-    .toggler__preview {
-        border-color: rgba(255, 255, 255, 0.18);
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
-    }
+    .toggler__preview {}
 }

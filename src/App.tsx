@@ -6,6 +6,7 @@ import type { PageName } from './types/pages';
 import type { Language } from './types/language';
 import type { Theme } from './types/theme';
 import useThemeChanger from './utility/theme-changer';
+import useLanguageChanger from './utility/language-changer';
 
 const pageOptions: PageName[] = ['about', 'portfolio', 'resume', 'contact'];
 
@@ -18,7 +19,7 @@ const getPageFromHash = (hash: string): PageName => {
 
 function App() {
   const [currentPage, setCurrentPage] = useState<PageName>(() => getPageFromHash(window.location.hash));
-  const [language, setLanguage] = useState<Language>('en');
+  const { language, toggleLanguage } = useLanguageChanger('en');
   const { theme, toggleTheme } = useThemeChanger('light');
 
   useEffect(() => {
@@ -44,7 +45,7 @@ function App() {
         currentPage={currentPage}
         onNavigate={setCurrentPage}
         language={language}
-        onLanguageChange={setLanguage}
+        onLanguageChange={toggleLanguage}
         theme={theme}
         onThemeToggle={toggleTheme}
       />
