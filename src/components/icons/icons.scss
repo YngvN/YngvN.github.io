@@ -1,0 +1,96 @@
+@use '../../assets/sass/colors' as colors;
+
+.tech-logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0.75rem;
+}
+
+.tech-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 999px;
+    background-color: rgba(0, 0, 0, 0.025);
+
+    .tech-logo__badge {
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        background: var(--logo-bg);
+        color: var(--logo-color);
+    }
+
+    .tech-logo__badge--image {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        padding: 8px;
+    }
+
+    .tech-logo__img {
+        width: 26px;
+        height: 26px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .tech-logo__label {
+        font-weight: 600;
+    }
+}
+
+.tech-logo--tag {
+    justify-content: flex-start;
+    padding: 0.65rem 0.85rem;
+    gap: 0.35rem;
+    align-items: center;
+
+    .tech-logo__badge {
+        width: 44px;
+        height: 44px;
+        font-size: 1.05rem;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        color: var(--logo-color);
+    }
+
+    .tech-logo__label {
+        font-weight: 600;
+        line-height: 1.1;
+    }
+}
+
+.creative-logo-grid {
+    align-items: stretch;
+}
+
+body[data-theme='dark'] {
+    .tech-logo {
+        background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .tech-logo__badge--image {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .tech-logo--tag .tech-logo__badge {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+}
+
+@media (max-width: 600px) {
+    .tech-logo-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
