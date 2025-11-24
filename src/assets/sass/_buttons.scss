@@ -173,20 +173,6 @@ $btn-active-translate: 1px;
 /* Nav-specific buttons
    -------------------------------------------------------------------------- */
 
-.language-button {
-    @extend .btn;
-    @extend .btn-outline;
-    flex: 1;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.82rem;
-    font-weight: 600;
-
-    &.active {
-        background-color: colors.color("primary");
-        color: colors.color("text-contrast");
-    }
-}
-
 .nav-link {
     @extend .btn;
     @extend .btn-ghost;
@@ -288,16 +274,6 @@ $btn-active-translate: 1px;
 }
 
 body[data-theme='dark'] {
-    .language-button {
-        background-color: rgba(255, 255, 255, 0.08);
-
-        &.active {
-            border-color: colors.color-dark("primary");
-            color: colors.color-dark("primary");
-            background-color: rgba(colors.color-dark("primary"), 0.2);
-        }
-    }
-
     .nav-link.active {
         color: colors.color-dark("primary");
     }
