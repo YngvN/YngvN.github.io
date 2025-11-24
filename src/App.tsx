@@ -5,6 +5,7 @@ import Display from './display/display';
 import type { PageName } from './types/pages';
 import type { Language } from './types/language';
 import type { Theme } from './types/theme';
+import useThemeChanger from './utility/theme-changer';
 
 const pageOptions: PageName[] = ['about', 'portfolio', 'resume', 'contact'];
 
@@ -18,11 +19,7 @@ const getPageFromHash = (hash: string): PageName => {
 function App() {
   const [currentPage, setCurrentPage] = useState<PageName>(() => getPageFromHash(window.location.hash));
   const [language, setLanguage] = useState<Language>('en');
-  const [theme, setTheme] = useState<Theme>('light');
-
-  useEffect(() => {
-    document.body.dataset.theme = theme;
-  }, [theme]);
+  const { theme, toggleTheme } = useThemeChanger('light');
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -40,10 +37,6 @@ function App() {
       window.history.replaceState(null, '', targetHash);
     }
   }, [currentPage]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
 
   return (
     <div className="app-shell" data-theme={theme}>

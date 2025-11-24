@@ -72,7 +72,6 @@ const Nav: FC<NavProps> = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLanguageExpanded, setIsLanguageExpanded] = useState(false);
-    const [isAvailable, setIsAvailable] = useState(true);
     const languageButtonRef = useRef<HTMLButtonElement | null>(null);
     const { description, links } = navCopy[language];
 
@@ -170,9 +169,9 @@ const Nav: FC<NavProps> = ({
                     </a>
                 </div>
                 <Toggler
-                    checked={isAvailable}
-                    onToggle={() => setIsAvailable((prev) => !prev)}
-                    ariaLabel="Availability toggle"
+                    checked={theme === 'dark'}
+                    onToggle={onThemeToggle}
+                    ariaLabel="Theme toggle"
                     leftLabel="Light"
                     rightLabel="Dark"
                     leftPreview={<LightBulbIcon variant="on" />}
