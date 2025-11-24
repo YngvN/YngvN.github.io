@@ -4,6 +4,33 @@ import avatarImage from '../assets/images/me.jpeg';
 import type { Language } from '../types/language';
 import ThemeToggle from '../components/theme-toggle/theme-toggle';
 import type { Theme } from '../types/theme';
+import Toggler from '../components/toggler/toggler';
+
+type BulbVariant = 'on' | 'off';
+
+const LightBulbIcon: FC<{ variant: BulbVariant }> = ({ variant }) => {
+    const isOn = variant === 'on';
+    const fillColor = isOn ? '#f6c844' : 'none';
+    const strokeColor = isOn ? '#f1c40f' : '#6c757d';
+
+    return (
+        <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill={fillColor}
+            stroke={strokeColor}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M12 3a6 6 0 0 0-6 6c0 2.28 1.1 4.15 2.85 5.3L9 17h6l0.15-2.7C16.9 13.15 18 11.28 18 9a6 6 0 0 0-6-6z" />
+            <path d="M10 20h4" />
+            <path d="M9.5 17h5" />
+        </svg>
+    );
+};
 
 type NavProps = {
     currentPage?: PageName;
@@ -45,6 +72,7 @@ const Nav: FC<NavProps> = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLanguageExpanded, setIsLanguageExpanded] = useState(false);
+    const [isAvailable, setIsAvailable] = useState(true);
     const languageButtonRef = useRef<HTMLButtonElement | null>(null);
     const { description, links } = navCopy[language];
 
@@ -141,6 +169,15 @@ const Nav: FC<NavProps> = ({
                         </svg>
                     </a>
                 </div>
+                <Toggler
+                    checked={isAvailable}
+                    onToggle={() => setIsAvailable((prev) => !prev)}
+                    ariaLabel="Availability toggle"
+                    leftLabel="Light"
+                    rightLabel="Dark"
+                    leftPreview={<LightBulbIcon variant="on" />}
+                    rightPreview={<LightBulbIcon variant="off" />}
+                />
             </nav>
             <button
                 type="button"

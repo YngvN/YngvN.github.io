@@ -1,0 +1,195 @@
+@use '../../assets/sass/colors' as colors;
+
+.toggler {
+    --toggler-pad: 0.35rem;
+    --toggler-height: 42px;
+    --toggler-min-width: 96px;
+    --toggler-max-width: 96px;
+    --toggler-width: var(--toggler-max-width);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+    width: var(--toggler-width);
+    max-width: var(--toggler-max-width);
+    min-width: var(--toggler-min-width);
+    min-height: var(--toggler-height);
+    padding: var(--toggler-pad) calc(var(--toggler-pad) + 0.15rem);
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background-color: colors.color("background");
+    color: colors.color("text");
+    cursor: pointer;
+    transition: .25s ease;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.toggler:hover:not(.toggler--disabled),
+.toggler:focus-visible {
+    border-color: colors.color("secondary");
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.toggler__label {
+    flex: 1;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: inherit;
+    position: relative;
+    z-index: 2;
+    opacity: 0.65;
+    transition: opacity 0.2s ease;
+}
+
+.toggler__thumb {
+    position: absolute;
+    top: var(--toggler-pad);
+    left: var(--toggler-pad);
+    width: calc(50% - (var(--toggler-pad) + 3px));
+    height: calc(100% - (var(--toggler-pad) * 2));
+    border-radius: 999px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    transition: .25s ease;
+    z-index: 1;
+}
+
+.toggler__preview {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    transition: .25s ease;
+    z-index: 3;
+    pointer-events: none;
+    display: inline-flex;
+    align-items: center;
+    justify-self: center;
+    color: inherit;
+}
+
+
+
+.toggler__preview.is-active {
+    opacity: 1;
+}
+
+.toggler--left-active .toggler__preview--right {
+    display: none;
+}
+
+.toggler--right-active .toggler__preview--left {
+    display: none;
+}
+
+.toggler--right {
+    background-color: colors.color("background");
+    border-color: transparent;
+
+    &:not(.toggler--compact) .toggler__thumb {
+        transform: translateX(100%);
+        background-color: colors.color("primary");
+    }
+
+    .toggler__label--right {
+        opacity: 1;
+    }
+}
+
+.toggler--left {
+    .toggler__thumb {
+        transform: translateX(0);
+        background-color: colors.color("secondary");
+    }
+}
+
+.toggler--left .toggler__label--left {
+    opacity: 1;
+}
+
+.toggler--compact {
+    --toggler-width: var(--toggler-compact-width, 70px);
+    --toggler-min-width: var(--toggler-compact-width, 70px);
+    --toggler-max-width: var(--toggler-compact-width, 70px);
+    padding: 0.25rem 0.3rem;
+    justify-content: center;
+    align-items: center;
+
+    .toggler__label {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.85);
+        display: none;
+    }
+
+    .toggler__thumb {
+        opacity: 1;
+        padding: 0;
+        max-width: none;
+        width: 100%;
+        margin: 0;
+        left: 0;
+        height: 100%;
+        top: 0;
+        background-color: inherit;
+    }
+
+
+}
+
+.toggler--expanded {
+    --toggler-width: var(--toggler-expanded-width, 100%);
+    --toggler-min-width: var(--toggler-expanded-min-width, 110px);
+    --toggler-max-width: var(--toggler-expanded-max-width, 100%);
+    padding: var(--toggler-pad) calc(var(--toggler-pad) + 0.15rem);
+
+    .toggler__label {
+        opacity: 0.65;
+        transform: scale(1);
+        pointer-events: auto;
+        display: inline;
+    }
+
+    .toggler__thumb {
+        left: var(--toggler-pad);
+        width: calc(50% - (var(--toggler-pad) + 3px));
+        transform: translateX(0);
+    }
+
+    .toggler__preview {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+.toggler--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+}
+
+body[data-theme='dark'] .toggler {
+    background-color: colors.color-dark("background");
+    color: colors.color-dark("text");
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+
+    .toggler__thumb {
+        background-color: colors.color-dark("secondary");
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+    }
+
+    &.toggler--right .toggler__thumb {
+        background-color: colors.color-dark("primary");
+    }
+
+    .toggler__preview {
+        border-color: rgba(255, 255, 255, 0.18);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+    }
+}
