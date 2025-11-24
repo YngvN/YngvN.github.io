@@ -52,14 +52,17 @@ $btn-active-translate: 1px;
     -webkit-appearance: none;
 }
 
-.btn:hover {}
-
-.btn:hover,
-.btn:focus-visible {
-    background-color: sass-color.adjust(colors.color("primary"), $lightness: -5%);
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
-    text-decoration: none;
+// Touch-friendly override: disable hover on coarse pointers
+@media (hover: hover) and (pointer: fine) {
+    .btn:hover,
+    .btn:focus-visible {
+        background-color: sass-color.adjust(colors.color("primary"), $lightness: -5%);
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+    }
 }
+
+.btn:hover {}
 
 .btn:focus-visible {
     outline: 2px solid colors.color("primary");
@@ -164,9 +167,11 @@ $btn-active-translate: 1px;
         color: colors.color-dark("primary");
     }
 
-    .btn:hover,
-    .btn:focus-visible {
-        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.6);
+    @media (hover: hover) and (pointer: fine) {
+        .btn:hover,
+        .btn:focus-visible {
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.6);
+        }
     }
 }
 

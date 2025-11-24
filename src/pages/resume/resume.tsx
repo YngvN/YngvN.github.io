@@ -27,7 +27,6 @@ type ResumeSection = {
 
 type ResumeContent = {
     heading: Localized;
-    intro: Localized;
     summary: Localized;
     skillsHeading: Localized;
     skills: Localized[];
@@ -216,10 +215,6 @@ const resumeSections: ResumeSection[] = [
 
 const resumeCopy: ResumeContent = {
     heading: { en: 'Résumé', no: 'CV' },
-    intro: {
-        en: 'Education, experience, and roles across technology, education, care, and community.',
-        no: 'Utdanning, arbeidserfaring og roller innen teknologi, pedagogikk, omsorg og kultur.',
-    },
     summary: {
         en: 'As an employee I am solution-oriented and patient, with the end result in focus. I observe and learn from my surroundings to fit in and collaborate well with any team, leaning on their strengths. I enjoy unorthodox and creative solutions but work well with other preferences too.',
         no: 'Som arbeidstaker er jeg løsningsorientert og tålmodig, med sluttresultatet som fokus. Jeg prøver å observere og lære fra omgivelsene mine for å kunne passe inn og jobbe bra med team som jeg blir plassert i, og jobbe ut ifra deres styrker. Jeg liker uortodokse og kreative løsninger, men jobber fint med andre sine ønsker om de heller vil gjøre noe annet.',
@@ -237,12 +232,11 @@ const resumeCopy: ResumeContent = {
 };
 
 const Resume: React.FC<ResumeProps> = ({ language }) => {
-    const { heading, intro, summary, skillsHeading, skills, sections } = resumeCopy;
+    const { heading, summary, skillsHeading, skills, sections } = resumeCopy;
 
     return (
         <div className="container page-container resume">
             <h1 className="page-heading">{heading[language]}</h1>
-            <p className="resume__intro">{intro[language]}</p>
             <p className="resume__summary">{summary[language]}</p>
             <div className="resume__skills">
                 <h2 className="resume-section__title">{skillsHeading[language]}</h2>

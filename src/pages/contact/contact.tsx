@@ -16,7 +16,7 @@ const Contact: React.FC = () => {
             <p className="contact__intro">
                 Happy to discuss opportunities, collaborations, or questions. Drop a line on any channel below.
             </p>
-            <div className="contact-card">
+            <div className="contact-card surface-card">
                 <ul className="contact-list">
                     {socials.map(({ label, href, display }) => (
                         <li key={label} className="contact-list__item">

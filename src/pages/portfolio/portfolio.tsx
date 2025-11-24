@@ -160,7 +160,7 @@ const portfolioCopy: Record<
 };
 
 const Portfolio: React.FC<PortfolioProps> = ({ language }) => {
-    const { heading, intro, projects, stackLabel, eyebrow, viewLive, viewRepo } = portfolioCopy[language];
+    const { heading, intro, projects, eyebrow, viewLive, viewRepo } = portfolioCopy[language];
 
     return (
         <div className="container page-container portfolio">
@@ -174,14 +174,14 @@ const Portfolio: React.FC<PortfolioProps> = ({ language }) => {
 
             <div className="portfolio__grid">
                 {projects.map(({ id, name, tag, stack, description, liveUrl, repoUrl }) => (
-                    <article className="project-card" key={id}>
+                    <article className="project-card surface-card" key={id}>
                         <div className="project-card__top">
                             <span className="project-card__tag">{tag}</span>
                             <h3 className="project-card__title">{name}</h3>
                         </div>
                         <p className="project-card__description">{description}</p>
                         <div className="project-card__stack">
-                            <span className="project-card__stack-label">{stackLabel}</span>
+
                             <TechLogoGrid technologies={stack} keyPrefix={id} />
                         </div>
                         <div className="project-card__links">
