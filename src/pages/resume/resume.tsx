@@ -34,7 +34,7 @@ const currentMonthEnd = 'November 2025';
 const educationItems: ResumeItem[] = [
     {
         id: 'fe-vocational',
-        title: 'Fagbrev i Front End utvikling',
+        title: 'Frontend-utvikling, Fagbrev',
         institution: 'Noroff',
         start: 'August 2022',
         end: 'Mai 2025',
@@ -42,7 +42,7 @@ const educationItems: ResumeItem[] = [
     },
     {
         id: 'electrical-engineering',
-        title: 'Elektro ingeniør',
+        title: 'Elektro ingeniør, Bachelor',
         institution: 'Universitetet i Sør-øst Norge',
         start: 'August 2021',
         end: 'Mai 2022',
