@@ -39,7 +39,7 @@ body[data-theme='dark'] {
 }
 
 .about-category {
-    border: 1px solid rgba(colors.color('text'), 0.08);
+    border-bottom: 1px solid rgba(colors.color('text'), 0.08);
     border-radius: 18px;
     overflow: hidden;
     background-color: colors.color('background');

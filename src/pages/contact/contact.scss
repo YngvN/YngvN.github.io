@@ -1,0 +1,75 @@
+@use '../../assets/sass/colors' as colors;
+@use '../../assets/sass/fonts' as fonts;
+
+.contact {
+    padding-top: 1rem;
+}
+
+.contact__intro {
+    max-width: 780px;
+    margin: 0 0 1.25rem;
+    color: rgba(colors.color('text'), 0.9);
+}
+
+.contact-card {
+    border: 1px solid rgba(colors.color('text'), 0.08);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+    background: colors.color('background');
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.contact-list__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.contact-list__label {
+    font-size: 0.9rem;
+    color: rgba(colors.color('text'), 0.7);
+}
+
+.contact-list__link {
+    font-weight: fonts.$font-weight-medium;
+    color: colors.color('primary');
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: colors.color('secondary');
+    }
+}
+
+body[data-theme='dark'] {
+    .contact__intro {
+        color: rgba(colors.color-dark('text'), 0.95);
+    }
+
+    .contact-card {
+        border-color: rgba(colors.color-dark('text'), 0.14);
+        background: colors.color-dark('background');
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4);
+    }
+
+    .contact-list__label {
+        color: rgba(colors.color-dark('text'), 0.75);
+    }
+
+    .contact-list__link {
+        color: colors.color-dark('primary');
+
+        &:hover {
+            color: colors.color-dark('secondary');
+        }
+    }
+}

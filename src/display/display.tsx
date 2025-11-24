@@ -2,6 +2,7 @@ import { useEffect, useState, type FC } from 'react';
 import About from '../pages/about/about';
 import Portfolio from '../pages/portfolio/portfolio';
 import Resume from '../pages/resume/resume';
+import Contact from '../pages/contact/contact';
 import '../assets/styles.scss';
 import type { PageName } from '../types/pages';
 import type { Language } from '../types/language';
@@ -18,18 +19,7 @@ const placeholder = (title: string, description: string) => (
     </div>
 );
 
-const placeholderCopy: Record<'contact', Record<Language, { title: string; description: string }>> = {
-    contact: {
-        en: {
-            title: 'Contact Me',
-            description: 'Want to work together? Send me an email at yngve@example.com.',
-        },
-        no: {
-            title: 'Kontakt meg',
-            description: 'Vil du samarbeide? Send meg en e-post på yngve@example.com.',
-        },
-    },
-};
+const placeholderCopy: Record<'contact', Record<Language, { title: string; description: string }>> = {};
 
 const renderPage = (page: PageName, language: Language) => {
     switch (page) {
@@ -40,7 +30,7 @@ const renderPage = (page: PageName, language: Language) => {
         case 'resume':
             return <Resume language={language} />;
         case 'contact':
-            return placeholder(placeholderCopy.contact[language].title, placeholderCopy.contact[language].description);
+            return <Contact />;
         default:
             return <About language={language} />;
     }

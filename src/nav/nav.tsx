@@ -9,8 +9,8 @@ type BulbVariant = 'on' | 'off';
 
 const LightBulbIcon: FC<{ variant: BulbVariant }> = ({ variant }) => {
     const isOn = variant === 'on';
-    const fillColor = isOn ? '#f6c844' : 'none';
-    const strokeColor = isOn ? '#f1c40f' : '#6c757d';
+    const fillColor = 'none';
+    const strokeColor = isOn ? '#ffffff' : '#ffffff';
 
     return (
         <svg
@@ -51,7 +51,7 @@ const navCopy: Record<Language, { description: string; links: { label: string; p
         ],
     },
     no: {
-        description: "Hei!\nJeg heter Yngve og jobber som frontendutvikler.",
+        description: "Hei!\nJeg heter Yngve og jeg er en frontendutvikler.",
         links: [
             { label: 'Om meg', page: 'about' },
             { label: 'Portefølje', page: 'portfolio' },
