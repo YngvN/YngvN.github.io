@@ -25,7 +25,7 @@ const portfolioCopy: Record<
 > = {
     en: {
         heading: 'Portfolio',
-        intro: 'Selected work that mixes product thinking, front-end craft, and design collaboration.',
+        intro: 'Selected work from my studies, own projects, and experiments.',
         stackLabel: 'Tech stack',
         eyebrow: 'Selected work',
         viewLive: 'Live site',
@@ -92,7 +92,7 @@ const portfolioCopy: Record<
     },
     no: {
         heading: 'Portefølje',
-        intro: 'Utvalgte prosjekter som kombinerer produktforståelse, frontend-håndverk og designsamarbeid.',
+        intro: 'Utvalgte prosjekter fra studier, egne prosjekter og eksperimenter.',
         stackLabel: 'Teknologi',
         eyebrow: 'Utvalgt arbeid',
         viewLive: 'Live-side',
