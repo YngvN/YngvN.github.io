@@ -57,9 +57,9 @@ const categoryDefinitions: CategoryDefinition[] = [
 const aboutCopy: Record<Language, AboutContent> = {
     en: {
         heading: 'Yngve Nykaas',
-        subheading: 'Educated frontend developer',
+        subheading: 'Frontend developer',
         paragraphs: [
-            "Hello! I'm Yngve Nykås, a trained frontend developer with some experience on the backend side as well.",
+            "Hello! I'm Yngve Nykås, an educated frontend developer with some experience on the backend side as well.",
             'As a developer I love testing out new ideas to see what could be exciting to build next.',
             <>
                 If you are curious you can view my{' '}
@@ -80,7 +80,7 @@ const aboutCopy: Record<Language, AboutContent> = {
     },
     no: {
         heading: 'Yngve Nykås',
-        subheading: 'Utdannet frontendutvikler',
+        subheading: 'Frontendutvikler',
         paragraphs: [
             'Hallo! Jeg er Yngve Nykås, og jeg er en utdannet frontend utvikler med noe erfaring innenfor backend.',
             'Som utvikler liker jeg å prøve nye ting for å se hva som kan være kult å gjøre.',
@@ -279,25 +279,25 @@ const About: React.FC<AboutProps> = ({ language }) => {
     };
 
     const renderCategoryContent = (id: CategoryId) => {
-    if (id === 'developer') {
-        return (
-            <div className="developer-content">
-                <p>{developerIntroCopy[language]}</p>
-                <div className="tech-tiles">
-                    {developerTiles.map(({ id: tileId, title, technologies }) => (
-                        <div className="tech-tile" key={tileId}>
-                            <h3>{title[language]}</h3>
-                            <div className="tech-logo-grid">
-                                {technologies.map((tech) => (
-                                    <TechLogo key={`${tileId}-${tech}`} tech={tech} />
-                                ))}
+        if (id === 'developer') {
+            return (
+                <div className="developer-content">
+                    <p>{developerIntroCopy[language]}</p>
+                    <div className="tech-tiles">
+                        {developerTiles.map(({ id: tileId, title, technologies }) => (
+                            <div className="tech-tile" key={tileId}>
+                                <h3>{title[language]}</h3>
+                                <div className="tech-logo-grid">
+                                    {technologies.map((tech) => (
+                                        <TechLogo key={`${tileId}-${tech}`} tech={tech} />
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
-            </div>
-        );
-    }
+            );
+        }
 
         return (
             <div className="musician-content">

@@ -82,6 +82,26 @@ const Nav: FC<NavProps> = ({
     return (
         <div className={`nav-shell${isOpen ? ' open' : ''}`}>
             <nav className={`navbar${isOpen ? ' open' : ''}`}>
+                <div className="nav-toggles">
+                    <Toggler
+                        checked={theme === 'dark'}
+                        onToggle={onThemeToggle}
+                        ariaLabel="Theme toggle"
+                        leftLabel="Light"
+                        rightLabel="Dark"
+                        leftPreview={<LightBulbIcon variant="on" />}
+                        rightPreview={<LightBulbIcon variant="off" />}
+                    />
+                    <Toggler
+                        checked={language === 'no'}
+                        onToggle={() => onLanguageChange(language === 'en' ? 'no' : 'en')}
+                        ariaLabel="Toggle language"
+                        leftLabel="EN"
+                        rightLabel="NO"
+                        leftPreview="EN"
+                        rightPreview="NO"
+                    />
+                </div>
                 <div className="navbar-brand mb-4">
                     <img src={avatarImage} alt="Picture of me" className="nav-avatar" />
                 </div>
@@ -122,26 +142,7 @@ const Nav: FC<NavProps> = ({
                         </svg>
                     </a>
                 </div>
-                <div className="nav-bottom-toggles">
-                    <Toggler
-                        checked={theme === 'dark'}
-                        onToggle={onThemeToggle}
-                        ariaLabel="Theme toggle"
-                        leftLabel="Light"
-                        rightLabel="Dark"
-                        leftPreview={<LightBulbIcon variant="on" />}
-                        rightPreview={<LightBulbIcon variant="off" />}
-                    />
-                    <Toggler
-                        checked={language === 'no'}
-                        onToggle={() => onLanguageChange(language === 'en' ? 'no' : 'en')}
-                        ariaLabel="Toggle language"
-                        leftLabel="EN"
-                        rightLabel="NO"
-                        leftPreview="EN"
-                        rightPreview="NO"
-                    />
-                </div>
+
             </nav>
             <button
                 type="button"

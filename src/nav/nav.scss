@@ -50,7 +50,7 @@
         position: relative;
         padding-top: 0;
 
-       
+
 
         img.nav-avatar {
             width: 170px;
@@ -111,13 +111,18 @@
         }
     }
 
-    .nav-bottom-toggles {
+    .nav-toggles {
         display: flex;
         gap: 0.65rem;
-        margin-top: 0.75rem;
-        justify-content: center;
+        justify-content: space-between;
         width: 100%;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+
+        .theme-toggler {
+            .toggler-preview--right {
+                display: none !important;
+            }
+        }
     }
 
     .nav-description {

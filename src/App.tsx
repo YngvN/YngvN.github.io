@@ -3,8 +3,6 @@ import './App.css';
 import Nav from './nav/nav';
 import Display from './display/display';
 import type { PageName } from './types/pages';
-import type { Language } from './types/language';
-import type { Theme } from './types/theme';
 import useThemeChanger from './utility/theme-changer';
 import useLanguageChanger from './utility/language-changer';
 
