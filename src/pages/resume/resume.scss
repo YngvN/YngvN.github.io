@@ -166,4 +166,8 @@ body[data-theme='dark'] {
     .resume-divider {
         background: rgba(colors.color-dark('text'), 0.16);
     }
+
+    .resume h2 {
+        color: colors.color-dark('text');
+    }
 }
