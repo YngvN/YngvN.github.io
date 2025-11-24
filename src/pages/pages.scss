@@ -1,7 +1,12 @@
 @use '../assets/sass/colors' as colors;
 @use '../assets/sass/fonts' as fonts;
+@use '../assets/sass/container';
 @use './portfolio/portfolio';
 @use './resume/resume';
+
+.page-container {
+    @extend .container;
+}
 
 .page-heading {
     margin: 0 0 0.5rem;

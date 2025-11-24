@@ -210,7 +210,9 @@ export const TechLogo: React.FC<TechLogoProps> = ({ tech, className }) => {
                     {meta.shorthand}
                 </span>
             )}
-            <span className="tech-logo__label">{meta.label}</span>
+            <span className="tech-logo__label" aria-hidden="true">
+                {meta.label}
+            </span>
         </span>
     );
 };

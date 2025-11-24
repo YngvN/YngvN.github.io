@@ -221,7 +221,7 @@ const About: React.FC<AboutProps> = ({ language }) => {
     };
 
     return (
-        <div className="container">
+        <div className="container page-container">
             <h1 className="page-heading">{heading}</h1>
             <h2 className="page-subheading">{subheading}</h2>
             {paragraphs.map((paragraph, index) => (

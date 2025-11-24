@@ -11,7 +11,7 @@ const socials = [
 
 const Contact: React.FC = () => {
     return (
-        <div className="container contact">
+        <div className="container page-container contact">
             <h1 className="page-heading">Contact</h1>
             <p className="contact__intro">
                 Happy to discuss opportunities, collaborations, or questions. Drop a line on any channel below.

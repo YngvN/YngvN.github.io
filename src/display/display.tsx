@@ -12,15 +12,6 @@ type DisplayProps = {
     language: Language;
 };
 
-const placeholder = (title: string, description: string) => (
-    <div className="container">
-        <h1>{title}</h1>
-        <p>{description}</p>
-    </div>
-);
-
-const placeholderCopy: Record<'contact', Record<Language, { title: string; description: string }>> = {};
-
 const renderPage = (page: PageName, language: Language) => {
     switch (page) {
         case 'about':

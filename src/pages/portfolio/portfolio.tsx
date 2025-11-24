@@ -163,7 +163,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ language }) => {
     const { heading, intro, projects, stackLabel, eyebrow, viewLive, viewRepo } = portfolioCopy[language];
 
     return (
-        <div className="container portfolio">
+        <div className="container page-container portfolio">
             <div className="portfolio__intro">
                 <div>
                     <p className="eyebrow">{eyebrow}</p>

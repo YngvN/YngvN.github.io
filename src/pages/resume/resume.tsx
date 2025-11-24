@@ -240,7 +240,7 @@ const Resume: React.FC<ResumeProps> = ({ language }) => {
     const { heading, intro, summary, skillsHeading, skills, sections } = resumeCopy;
 
     return (
-        <div className="container resume">
+        <div className="container page-container resume">
             <h1 className="page-heading">{heading[language]}</h1>
             <p className="resume__intro">{intro[language]}</p>
             <p className="resume__summary">{summary[language]}</p>
