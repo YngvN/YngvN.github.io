@@ -50,7 +50,7 @@ const portfolioCopy: Record<
                 name: 'Interactive Home Page',
                 tag: 'Landing experience',
                 stack: ['react', 'typescript', 'sass', 'bootstrap', 'wordpress'],
-                liveUrl: 'https://github.com/YngvN/home-page-react',
+                liveUrl: 'https://home.nykas.me/',
                 repoUrl: 'https://github.com/YngvN/home-page-react',
                 description:
                     'Animated landing page with playful backgrounds and an interactive avatar that follows the cursor.',
