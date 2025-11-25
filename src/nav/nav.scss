@@ -126,9 +126,7 @@
         width: 100%;
         flex-wrap: nowrap;
 
-        .icon-arrow {
-            transform: rotate(180deg);
-        }
+
 
         .theme-toggler {
             .toggler-preview--right {
@@ -142,7 +140,6 @@
         line-height: 1.5;
         text-align: center;
         color: inherit;
-        opacity: 0.75;
         padding-bottom: 20px;
         margin-top: 0;
         color: colors.color("text-contrast");

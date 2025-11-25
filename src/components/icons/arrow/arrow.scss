@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     color: currentColor;
-    transition: transform 0.25s ease;
+    transition: none;
     --arrow-head-shift: -2px;
 
     svg {
@@ -16,16 +16,32 @@
         stroke-linecap: round;
         stroke-linejoin: round;
         fill: none;
-        transition: inherit;
+        transition: none;
     }
 
     .icon-arrow__shaft {
-        transition: stroke 0.25s ease;
+        transition: none;
     }
 
     .icon-arrow__head {
-        transition: transform 0.25s ease;
+        transition: none;
         transform-origin: center;
+    }
+
+    &.icon-arrow--animated {
+        transition: transform 0.25s ease;
+
+        svg {
+            transition: inherit;
+        }
+
+        .icon-arrow__shaft {
+            transition: stroke 0.25s ease;
+        }
+
+        .icon-arrow__head {
+            transition: transform 0.25s ease;
+        }
     }
 
     &--sm {

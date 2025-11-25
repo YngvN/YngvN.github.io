@@ -155,7 +155,7 @@ const Nav: FC<NavProps> = ({
                 aria-label="Toggle navigation"
                 aria-expanded={isOpen}
             >
-                <Arrow direction="right" open={isOpen} className="nav-toggle__arrow" />
+                <Arrow direction="right" open={isOpen} className="nav-toggle__arrow icon-arrow--animated" />
             </button>
         </div>
     );

@@ -214,8 +214,6 @@ $btn-active-translate: 1px;
 }
 
 .nav-toggle {
-    @extend .btn;
-    @extend .btn-secondary;
     display: none;
     order: -1;
     width: var(--tab-width);
