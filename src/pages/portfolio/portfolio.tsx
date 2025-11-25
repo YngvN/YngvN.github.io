@@ -165,7 +165,7 @@ const portfolioCopy: Record<
 };
 
 const Portfolio: React.FC<PortfolioProps> = ({ language, onNavigate }) => {
-    const { heading, subheading, intro, projects, eyebrow, viewLive, viewRepo } = portfolioCopy[language];
+    const { heading, subheading, intro, projects, viewLive, viewRepo } = portfolioCopy[language];
 
     return (
         <div className="container page-container portfolio">
