@@ -4,9 +4,12 @@ import React from 'react';
 import type { Language } from '../../types/language';
 import type { Technology } from '../../components/icons/icons';
 import { TechLogoGrid } from '../../components/icons/icons';
+import PageNavigation from '../../components/page-navigation/page-navigation';
+import type { PageName } from '../../types/pages';
 
 type PortfolioProps = {
     language: Language;
+    onNavigate?: (page: PageName, direction: 'ltr' | 'rtl') => void;
 };
 
 type Project = {
@@ -159,11 +162,12 @@ const portfolioCopy: Record<
     },
 };
 
-const Portfolio: React.FC<PortfolioProps> = ({ language }) => {
+const Portfolio: React.FC<PortfolioProps> = ({ language, onNavigate }) => {
     const { heading, intro, projects, eyebrow, viewLive, viewRepo } = portfolioCopy[language];
 
     return (
         <div className="container page-container portfolio">
+            <PageNavigation currentPage="portfolio" language={language} onNavigate={onNavigate} />
             <div className="portfolio__intro">
                 <div>
                     <p className="eyebrow">{eyebrow}</p>

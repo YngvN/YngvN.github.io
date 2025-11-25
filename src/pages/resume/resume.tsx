@@ -3,9 +3,12 @@ import '../pages.scss';
 import './resume.scss';
 import React from 'react';
 import type { Language } from '../../types/language';
+import PageNavigation from '../../components/page-navigation/page-navigation';
+import type { PageName } from '../../types/pages';
 
 type ResumeProps = {
     language: Language;
+    onNavigate?: (page: PageName, direction: 'ltr' | 'rtl') => void;
 };
 
 type Localized = { en: string; no: string };
@@ -231,11 +234,12 @@ const resumeCopy: ResumeContent = {
     sections: resumeSections,
 };
 
-const Resume: React.FC<ResumeProps> = ({ language }) => {
+const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
     const { heading, summary, skillsHeading, skills, sections } = resumeCopy;
 
     return (
         <div className="container page-container resume">
+            <PageNavigation currentPage="resume" language={language} onNavigate={onNavigate} />
             <h1 className="page-heading">{heading[language]}</h1>
             <p className="resume__summary">{summary[language]}</p>
             <div className="resume__skills">

@@ -10,24 +10,26 @@ import type { Language } from '../types/language';
 type DisplayProps = {
     currentPage: PageName;
     language: Language;
+    transitionDirection: 'ltr' | 'rtl';
+    onNavigate: (page: PageName, direction: 'ltr' | 'rtl') => void;
 };
 
-const renderPage = (page: PageName, language: Language) => {
+const renderPage = (page: PageName, language: Language, onNavigate: DisplayProps['onNavigate']) => {
     switch (page) {
         case 'about':
-            return <About language={language} />;
+            return <About language={language} onNavigate={onNavigate} />;
         case 'portfolio':
-            return <Portfolio language={language} />;
+            return <Portfolio language={language} onNavigate={onNavigate} />;
         case 'resume':
-            return <Resume language={language} />;
+            return <Resume language={language} onNavigate={onNavigate} />;
         case 'contact':
-            return <Contact />;
+            return <Contact language={language} onNavigate={onNavigate} />;
         default:
-            return <About language={language} />;
+            return <About language={language} onNavigate={onNavigate} />;
     }
 };
 
-const Display: FC<DisplayProps> = ({ currentPage, language }) => {
+const Display: FC<DisplayProps> = ({ currentPage, language, transitionDirection, onNavigate }) => {
     const [activePage, setActivePage] = useState<PageName>(currentPage);
     const [outgoingPage, setOutgoingPage] = useState<PageName | null>(null);
 
@@ -47,15 +49,15 @@ const Display: FC<DisplayProps> = ({ currentPage, language }) => {
         <section className="page-display">
             <div className="page-stack">
                 {outgoingPage && (
-                    <div className="page-card page-card--exit">
+                    <div className={`page-card page-card--exit${transitionDirection === 'rtl' ? ' rtl' : ''}`}>
                         <div className="language-fade" key={`${outgoingPage}-${language}`}>
-                            {renderPage(outgoingPage, language)}
+                            {renderPage(outgoingPage, language, onNavigate)}
                         </div>
                     </div>
                 )}
-                <div className={`page-card page-card--enter${outgoingPage ? ' animating' : ''}`}>
+                <div className={`page-card page-card--enter${outgoingPage ? ' animating' : ''}${transitionDirection === 'rtl' ? ' rtl' : ''}`}>
                     <div className="language-fade" key={`${activePage}-${language}`}>
-                        {renderPage(activePage, language)}
+                        {renderPage(activePage, language, onNavigate)}
                     </div>
                 </div>
             </div>

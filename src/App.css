@@ -42,6 +42,14 @@
   animation: page-slide-in 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
+.page-card--exit.rtl {
+  animation: page-slide-out-rtl 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.page-card--enter.animating.rtl {
+  animation: page-slide-in-rtl 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
 @keyframes page-slide-in {
   from {
     transform: translateX(-120%);
@@ -57,6 +65,24 @@
   }
   to {
     transform: translateX(120%);
+  }
+}
+
+@keyframes page-slide-in-rtl {
+  from {
+    transform: translateX(120%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes page-slide-out-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-120%);
   }
 }
 

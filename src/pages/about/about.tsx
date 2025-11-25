@@ -9,9 +9,11 @@ import {
     creativeItems,
 } from '../../components/icons/icons';
 import type { Technology } from '../../components/icons/icons';
+import PageNavigation from '../../components/page-navigation/page-navigation';
 
 type AboutProps = {
     language: Language;
+    onNavigate?: (page: PageName, direction: 'ltr' | 'rtl') => void;
 };
 
 type AboutContent = {
@@ -170,7 +172,7 @@ const musicianCopy: Record<
     },
 };
 
-const About: React.FC<AboutProps> = ({ language }) => {
+const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     const { heading, subheading, paragraphs, buttons } = aboutCopy[language];
     const categoryInfo = aboutCategoryCopy[language];
     const musicianContent = musicianCopy[language];
@@ -184,8 +186,11 @@ const About: React.FC<AboutProps> = ({ language }) => {
         ),
     );
 
-    const navigateTo = (page: PageName) => {
-        window.location.hash = `#${page}`;
+    const navigateTo = (page: PageName, direction: 'ltr' | 'rtl' = 'ltr') => {
+        onNavigate?.(page, direction);
+        if (!onNavigate) {
+            window.location.hash = `#${page}`;
+        }
     };
 
     const toggleSection = (id: CategoryId) => {
@@ -222,6 +227,7 @@ const About: React.FC<AboutProps> = ({ language }) => {
 
     return (
         <div className="container page-container">
+            <PageNavigation currentPage="about" language={language} />
             <h1 className="page-heading">{heading}</h1>
             <h2 className="page-subheading">{subheading}</h2>
             {paragraphs.map((paragraph, index) => (

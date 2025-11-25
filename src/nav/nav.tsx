@@ -33,7 +33,7 @@ const LightBulbIcon: FC<{ variant: BulbVariant }> = ({ variant }) => {
 
 type NavProps = {
     currentPage?: PageName;
-    onNavigate?: (page: PageName) => void;
+    onNavigate?: (page: PageName, direction?: 'ltr' | 'rtl') => void;
     language?: Language;
     onLanguageChange?: (language: Language) => void;
     theme?: Theme;
@@ -75,7 +75,7 @@ const Nav: FC<NavProps> = ({
     const toggleNav = () => setIsOpen((prev) => !prev);
 
     const handleNavigate = (page: PageName) => {
-        onNavigate(page);
+        onNavigate(page, 'ltr');
         setIsOpen(false);
     };
 

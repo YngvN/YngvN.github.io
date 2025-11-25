@@ -17,18 +17,28 @@ const getPageFromHash = (hash: string): PageName => {
 
 function App() {
   const [currentPage, setCurrentPage] = useState<PageName>(() => getPageFromHash(window.location.hash));
+  const [transitionDirection, setTransitionDirection] = useState<'ltr' | 'rtl'>('ltr');
   const { language, toggleLanguage } = useLanguageChanger('en');
   const { theme, toggleTheme } = useThemeChanger('light');
+
+  const handleNavigate = (page: PageName, direction: 'ltr' | 'rtl' = 'ltr') => {
+    setTransitionDirection(direction);
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     const handleHashChange = () => {
       const nextPage = getPageFromHash(window.location.hash);
+      if (nextPage === currentPage) return;
+      const currentIndex = pageOptions.indexOf(currentPage);
+      const nextIndex = pageOptions.indexOf(nextPage);
+      setTransitionDirection(nextIndex < currentIndex ? 'rtl' : 'ltr');
       setCurrentPage(nextPage);
     };
 
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     const targetHash = `#${currentPage}`;
@@ -41,13 +51,13 @@ function App() {
     <div className="app-shell" data-theme={theme}>
       <Nav
         currentPage={currentPage}
-        onNavigate={setCurrentPage}
+        onNavigate={handleNavigate}
         language={language}
         onLanguageChange={toggleLanguage}
         theme={theme}
         onThemeToggle={toggleTheme}
       />
-      <Display currentPage={currentPage} language={language} />
+      <Display currentPage={currentPage} language={language} onNavigate={handleNavigate} transitionDirection={transitionDirection} />
     </div>
   );
 }
