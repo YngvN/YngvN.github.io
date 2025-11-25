@@ -43,8 +43,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
-    position: relative;
-    overflow: hidden;
 }
 
 .project-card__top {
@@ -98,9 +96,9 @@
     }
 
     .tech-logo__badge {
-        width: 34px;
-        height: 34px;
-        font-size: 0.8rem;
+        width: 30px;
+        height: 30px;
+        font-size: 0.72rem;
     }
 
     .tech-logo__badge--image {
@@ -108,40 +106,18 @@
     }
 
     .tech-logo__img {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
     }
 }
 
 .project-card__links {
-    position: absolute;
-    display: inline-flex;
-    gap: 1rem;
-    right: 2rem;
-}
-
-.project-card__link {
-    position: absolute;
-    width: 180px;
-    text-align: center;
-    pointer-events: auto;
-    padding: 0.7rem 1.1rem;
-    font-size: 0.98rem;
-    font-weight: fonts.$font-weight-bold;
-}
-
-.project-card__link--live {
-    top: 16px;
-    left: -48px;
-    transform: rotate(-45deg);
-    transform-origin: top left;
-}
-
-.project-card__link--repo {
-    top: 16px;
-    right: -48px;
-    transform: rotate(45deg);
-    transform-origin: top right;
+    display: flex;
+    gap: 0.75rem;
+    margin-top: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .project-card__stack-label {
@@ -178,11 +154,6 @@ body[data-theme='dark'] {
 
     .project-card__stack-label {
         color: rgba(colors.color-dark('text'), 0.8);
-    }
-
-    .project-card__link--live,
-    .project-card__link--repo {
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
     }
 }
 

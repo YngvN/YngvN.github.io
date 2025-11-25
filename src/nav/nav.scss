@@ -111,6 +111,15 @@
         }
     }
 
+    .nav-footer {
+
+        padding-top: 1rem;
+        font-size: 0.85rem;
+        color: colors.color("text-contrast");
+        text-align: center;
+        opacity: 0.8;
+    }
+
     .nav-toggles {
         display: flex;
         gap: 0.65rem;

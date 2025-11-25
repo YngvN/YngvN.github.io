@@ -142,6 +142,9 @@ const Nav: FC<NavProps> = ({
                         </svg>
                     </a>
                 </div>
+                <div className="nav-footer">
+                    <small>© {new Date().getFullYear()} Yngve Nykaas</small>
+                </div>
 
             </nav>
             <button
