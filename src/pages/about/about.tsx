@@ -10,6 +10,7 @@ import {
 } from '../../components/icons/icons';
 import type { Technology } from '../../components/icons/icons';
 import PageNavigation from '../../components/page-navigation/page-navigation';
+import Arrow from '../../components/icons/arrow/arrow';
 
 type AboutProps = {
     language: Language;
@@ -227,7 +228,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
 
     return (
         <div className="container page-container">
-            <PageNavigation currentPage="about" language={language} />
+            <PageNavigation currentPage="about" language={language} onNavigate={onNavigate} />
             <h1 className="page-heading">{heading}</h1>
             <h2 className="page-subheading">{subheading}</h2>
             {paragraphs.map((paragraph, index) => (
@@ -263,7 +264,12 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                                     <span className="category-title">{title}</span>
                                     <span className="category-description">{description}</span>
                                 </div>
-                                <span className="category-toggle__chevron" aria-hidden="true" />
+                                <Arrow
+                                    direction="down"
+                                    open={isOpen}
+                                    size="sm"
+                                    className="category-toggle__chevron"
+                                />
                             </button>
                             <div id={`${id}-content`} className={`category-content${isOpen ? ' expanded' : ''}`} aria-live="polite">
                                 {renderCategoryContent(id)}

@@ -2,6 +2,7 @@ import React from 'react';
 import './page-navigation.scss';
 import type { PageName } from '../../types/pages';
 import type { Language } from '../../types/language';
+import Arrow from '../icons/arrow/arrow';
 
 type PageNavigationProps = {
     currentPage: PageName;
@@ -47,7 +48,7 @@ const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, language, 
                 aria-label={`Go to ${pageLabels[language][prevPage]}`}
             >
                 <span className="page-nav__arrow" aria-hidden="true">
-                    ←
+                    <Arrow direction="right" size="sm" className="page-nav__icon page-nav__icon--reverse" />
                 </span>
                 <span className="page-nav__label">{pageLabels[language][prevPage]}</span>
             </button>
@@ -60,7 +61,7 @@ const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, language, 
             >
                 <span className="page-nav__label">{pageLabels[language][nextPage]}</span>
                 <span className="page-nav__arrow" aria-hidden="true">
-                    →
+                    <Arrow direction="right" size="sm" className="page-nav__icon" />
                 </span>
             </button>
         </nav>

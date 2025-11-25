@@ -4,6 +4,7 @@ import avatarImage from '../assets/images/me.jpeg';
 import type { Language } from '../types/language';
 import type { Theme } from '../types/theme';
 import Toggler from '../components/toggler/toggler';
+import Arrow from '../components/icons/arrow/arrow';
 
 type BulbVariant = 'on' | 'off';
 
@@ -154,8 +155,7 @@ const Nav: FC<NavProps> = ({
                 aria-label="Toggle navigation"
                 aria-expanded={isOpen}
             >
-                <span className="nav-toggle__line" aria-hidden="true" />
-                <span className="nav-toggle__line" aria-hidden="true" />
+                <Arrow direction="right" open={isOpen} className="nav-toggle__arrow" />
             </button>
         </div>
     );
