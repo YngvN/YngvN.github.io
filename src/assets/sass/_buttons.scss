@@ -234,6 +234,7 @@ $btn-active-translate: 1px;
 
     .icon-arrow {
         transform: rotate(180deg);
+        color: colors.color("text-contrast");
     }
 
     .nav-toggle__arrow {
