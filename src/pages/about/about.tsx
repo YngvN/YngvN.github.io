@@ -42,7 +42,7 @@ const categoryDefinitions: CategoryDefinition[] = [
     { id: 'musician', defaultOpen: false },
 ];
 
-const aboutCopy: Record<Language, AboutContent> = {
+export const aboutCopy: Record<Language, AboutContent> = {
     en: {
         heading: 'Yngve Nykaas',
         subheading: 'Frontend developer',

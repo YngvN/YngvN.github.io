@@ -24,10 +24,11 @@ type Project = {
 
 const portfolioCopy: Record<
     Language,
-    { heading: string; intro: string; projects: Project[]; stackLabel: string; eyebrow: string; viewLive: string; viewRepo: string }
+    { heading: string; subheading: string; intro: string; projects: Project[]; stackLabel: string; eyebrow: string; viewLive: string; viewRepo: string }
 > = {
     en: {
         heading: 'Portfolio',
+        subheading: 'Chosen work',
         intro: 'Some of my work from studies, own projects, and experiments.',
         stackLabel: 'Tech stack',
         eyebrow: 'Selected work',
@@ -95,6 +96,7 @@ const portfolioCopy: Record<
     },
     no: {
         heading: 'Portefølje',
+        subheading: 'Utvalgt arbeid',
         intro: 'Utvalgte prosjekter fra studier, egne prosjekter og eksperimenter.',
         stackLabel: 'Teknologi',
         eyebrow: 'Utvalgt arbeid',
@@ -163,17 +165,18 @@ const portfolioCopy: Record<
 };
 
 const Portfolio: React.FC<PortfolioProps> = ({ language, onNavigate }) => {
-    const { heading, intro, projects, eyebrow, viewLive, viewRepo } = portfolioCopy[language];
+    const { heading, subheading, intro, projects, eyebrow, viewLive, viewRepo } = portfolioCopy[language];
 
     return (
         <div className="container page-container portfolio">
             <PageNavigation currentPage="portfolio" language={language} onNavigate={onNavigate} />
             <div className="portfolio__intro">
                 <div>
-                    <p className="eyebrow">{eyebrow}</p>
                     <h1 className="page-heading">{heading}</h1>
+                    <h2 className="page-subheading">{subheading}</h2>
                     <p className="portfolio__lede">{intro}</p>
                 </div>
+
             </div>
 
             <div className="portfolio__grid">

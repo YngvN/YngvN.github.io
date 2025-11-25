@@ -193,6 +193,7 @@ $btn-active-translate: 1px;
     justify-content: flex-start;
     border-radius: 0;
     border: none;
+    border-left: none;
     box-shadow: none;
     transition: .2s ease;
 
@@ -208,9 +209,8 @@ $btn-active-translate: 1px;
     }
 
     &.active {
-        color: colors.color("primary");
         padding-left: 0.5rem;
-        border-left: 2px solid colors.color("text-contrast");
+        border-left: 3px solid colors.color("text-contrast");
     }
 }
 
@@ -222,7 +222,7 @@ $btn-active-translate: 1px;
     border: none;
     padding: 1em 4em 1em 1em;
     border-radius: 14px;
-    color: colors.color("background");
+    background-color: colors.color("secondary");
     align-self: flex-start;
     margin-top: 12px;
     align-items: center;
@@ -247,6 +247,7 @@ $btn-active-translate: 1px;
 body[data-theme='dark'] {
     .nav-link.active {
         color: colors.color-dark("primary");
+        border-left-color: colors.color-dark("primary");
     }
 
     .nav-toggle {

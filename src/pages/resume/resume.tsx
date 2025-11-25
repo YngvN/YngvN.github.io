@@ -5,6 +5,7 @@ import React from 'react';
 import type { Language } from '../../types/language';
 import PageNavigation from '../../components/page-navigation/page-navigation';
 import type { PageName } from '../../types/pages';
+import { aboutCopy } from '../about/about';
 
 type ResumeProps = {
     language: Language;
@@ -235,12 +236,14 @@ const resumeCopy: ResumeContent = {
 };
 
 const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
-    const { heading, summary, skillsHeading, skills, sections } = resumeCopy;
+    const { heading, subheading } = aboutCopy[language];
+    const { summary, skillsHeading, skills, sections } = resumeCopy;
 
     return (
         <div className="container page-container resume">
             <PageNavigation currentPage="resume" language={language} onNavigate={onNavigate} />
-            <h1 className="page-heading">{heading[language]}</h1>
+            <h1 className="page-heading">{heading}</h1>
+            <h2 className="page-subheading">{subheading}</h2>
             <p className="resume__summary">{summary[language]}</p>
             <div className="resume__skills">
                 <h2 className="resume-section__title">{skillsHeading[language]}</h2>
@@ -261,12 +264,16 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
                             {items.map(({ id: itemId, title: itemTitle, institution, start, end, description }) => (
                                 <article key={itemId} className="resume-card">
                                     <div className="resume-card__header">
-                                        <div className="resume-card__title">{itemTitle[language]}</div>
+                                        <div className="resume-card__title-group">
+                                            <div className="resume-card__title">{itemTitle[language]}</div>
+                                            {institution && (
+                                                <div className="resume-card__institution">{institution[language]}</div>
+                                            )}
+                                        </div>
                                         <div className="resume-card__dates">
                                             {start[language]} - {end[language]}
                                         </div>
                                     </div>
-                                    {institution && <div className="resume-card__institution">{institution[language]}</div>}
                                     {description && <p className="resume-card__description">{description[language]}</p>}
                                 </article>
                             ))}

@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 import type { PageName } from '../types/pages';
 import avatarImage from '../assets/images/me.jpeg';
 import type { Language } from '../types/language';
@@ -71,6 +71,7 @@ const Nav: FC<NavProps> = ({
     onThemeToggle = () => { },
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const navRef = useRef<HTMLDivElement | null>(null);
     const { description, links } = navCopy[language];
 
     const toggleNav = () => setIsOpen((prev) => !prev);
@@ -80,8 +81,26 @@ const Nav: FC<NavProps> = ({
         setIsOpen(false);
     };
 
+    useEffect(() => {
+        const handleDocumentClick = (event: MouseEvent | TouchEvent) => {
+            if (!isOpen) return;
+            const target = event.target;
+            if (!(target instanceof Node)) return;
+            if (navRef.current?.contains(target)) return;
+            setIsOpen(false);
+        };
+
+        document.addEventListener('mousedown', handleDocumentClick);
+        document.addEventListener('touchstart', handleDocumentClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleDocumentClick);
+            document.removeEventListener('touchstart', handleDocumentClick);
+        };
+    }, [isOpen]);
+
     return (
-        <div className={`nav-shell${isOpen ? ' open' : ''}`}>
+        <div className={`nav-shell${isOpen ? ' open' : ''}`} ref={navRef}>
             <nav className={`navbar${isOpen ? ' open' : ''}`}>
                 <div className="nav-toggles">
                     <Toggler

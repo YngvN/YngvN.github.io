@@ -25,15 +25,10 @@
     color: var(--toggler-text);
     cursor: pointer;
     transition: .25s ease;
-    overflow: hidden;
 }
 
 .toggler:hover:not(.toggler--disabled),
-.toggler:focus-visible {
-    border-color: colors.color("secondary");
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
-    outline: none;
-}
+.toggler:focus-visible {}
 
 @media (hover: none),
 (pointer: coarse) {
@@ -178,6 +173,8 @@
         visibility: hidden;
         pointer-events: none;
     }
+
+    box-shadow: 0 8px 18px inset rgba(0, 0, 0, 0.12);
 }
 
 .toggler--disabled {
