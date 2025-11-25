@@ -239,6 +239,11 @@ $btn-active-translate: 1px;
         svg {
             color: colors.color("text-contrast");
         }
+
+        path {
+            color: colors.color("text-contrast");
+            -webkit-text-stroke-color: colors.color("text-contrast");
+        }
     }
 
 
