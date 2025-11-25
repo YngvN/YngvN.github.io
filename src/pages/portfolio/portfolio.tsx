@@ -28,7 +28,7 @@ const portfolioCopy: Record<
 > = {
     en: {
         heading: 'Portfolio',
-        intro: 'Selected work from my studies, own projects, and experiments.',
+        intro: 'Some of my work from studies, own projects, and experiments.',
         stackLabel: 'Tech stack',
         eyebrow: 'Selected work',
         viewLive: 'Live site',
