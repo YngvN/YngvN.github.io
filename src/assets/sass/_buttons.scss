@@ -235,12 +235,13 @@ $btn-active-translate: 1px;
     .icon-arrow {
         transform: rotate(180deg);
         color: colors.color("text-contrast");
+
+        svg {
+            color: colors.color("text-contrast");
+        }
     }
 
-    .nav-toggle__arrow {
-        color: inherit;
-        transition: transform 0.3s ease;
-    }
+
 
 
 }
