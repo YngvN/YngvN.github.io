@@ -112,7 +112,6 @@
     }
 
     .nav-footer {
-
         padding-top: 1rem;
         font-size: 0.85rem;
         color: colors.color("text-contrast");
@@ -126,6 +125,10 @@
         justify-content: space-between;
         width: 100%;
         flex-wrap: nowrap;
+
+        .icon-arrow {
+            transform: rotate(180deg);
+        }
 
         .theme-toggler {
             .toggler-preview--right {

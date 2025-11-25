@@ -10,8 +10,8 @@ type BulbVariant = 'on' | 'off';
 
 const LightBulbIcon: FC<{ variant: BulbVariant }> = ({ variant }) => {
     const isOn = variant === 'on';
-    const fillColor = 'none';
-    const strokeColor = isOn ? '#ffffff' : '#ffffff';
+    const strokeColor = '#ffffff';
+    const fillColor = isOn ? strokeColor : 'none';
 
     return (
         <svg

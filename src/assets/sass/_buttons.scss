@@ -54,6 +54,7 @@ $btn-active-translate: 1px;
 
 // Touch-friendly override: disable hover on coarse pointers
 @media (hover: hover) and (pointer: fine) {
+
     .btn:hover,
     .btn:focus-visible {
         background-color: sass-color.adjust(colors.color("primary"), $lightness: -5%);
@@ -168,6 +169,7 @@ $btn-active-translate: 1px;
     }
 
     @media (hover: hover) and (pointer: fine) {
+
         .btn:hover,
         .btn:focus-visible {
             box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.6);
@@ -231,25 +233,15 @@ $btn-active-translate: 1px;
     transition: background-color 0.3s ease, color 0.3s ease;
     position: relative;
 
+    .icon-arrow {
+        transform: rotate(180deg);
+    }
+
     .nav-toggle__arrow {
         color: inherit;
         transition: transform 0.3s ease;
     }
 
-    &::after {
-        content: '';
-        position: absolute;
-        left: -6px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 12px;
-        height: 80px;
-        background-color: currentColor;
-        border-radius: 999px;
-        filter: blur(24px);
-        opacity: 0.35;
-        pointer-events: none;
-    }
 
 }
 
