@@ -11,6 +11,7 @@ import {
 import type { Technology } from '../../components/icons/icons';
 import PageNavigation from '../../components/page-navigation/page-navigation';
 import Arrow from '../../components/icons/arrow/arrow';
+import DropdownContainer from '../../components/icons/containers/dropdown/dropdown-container';
 
 type AboutProps = {
     language: Language;
@@ -246,38 +247,38 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                     </button>
                 ))}
             </div>
-            <div className="about-categories">
+            <DropdownContainer>
                 {categoryDefinitions.map(({ id }) => {
                     const { title, description } = categoryInfo[id];
                     const isOpen = openSections[id];
 
                     return (
-                        <section key={id} className={`about-category${isOpen ? ' open' : ''}`}>
+                        <section key={id} className={`dropdown-panel${isOpen ? ' open' : ''}`}>
                             <button
                                 type="button"
-                                className="category-toggle"
+                                className="dropdown-toggle"
                                 onClick={() => toggleSection(id)}
                                 aria-expanded={isOpen}
                                 aria-controls={`${id}-content`}
                             >
                                 <div>
-                                    <span className="category-title">{title}</span>
-                                    <span className="category-description">{description}</span>
+                                    <span className="dropdown-title">{title}</span>
+                                    <span className="dropdown-description">{description}</span>
                                 </div>
                                 <Arrow
                                     direction="down"
                                     open={isOpen}
                                     size="sm"
-                                    className="category-toggle__chevron"
+                                    className="dropdown-toggle__chevron"
                                 />
                             </button>
-                            <div id={`${id}-content`} className={`category-content${isOpen ? ' expanded' : ''}`} aria-live="polite">
+                            <div id={`${id}-content`} className={`dropdown-content${isOpen ? ' expanded' : ''}`} aria-live="polite">
                                 {renderCategoryContent(id)}
                             </div>
                         </section>
                     );
                 })}
-            </div>
+            </DropdownContainer>
         </div>
     );
 };

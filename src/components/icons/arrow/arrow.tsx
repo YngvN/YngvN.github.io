@@ -10,10 +10,19 @@ type ArrowProps = {
     className?: string;
     /** When true, moves the arrowhead to the opposite side while keeping the shaft static. */
     open?: boolean;
+    /** Adds transition animations for rotation/transform. */
+    animated?: boolean;
 };
 
-const Arrow: React.FC<ArrowProps> = ({ direction = 'right', size = 'md', className = '', open = false }) => {
-    const classes = ['icon-arrow', `icon-arrow--${direction}`, `icon-arrow--${size}`, open ? 'icon-arrow--open' : '', className]
+const Arrow: React.FC<ArrowProps> = ({ direction = 'right', size = 'md', className = '', open = false, animated = true }) => {
+    const classes = [
+        'icon-arrow',
+        `icon-arrow--${direction}`,
+        `icon-arrow--${size}`,
+        open ? 'icon-arrow--open' : '',
+        animated ? 'icon-arrow--animated' : '',
+        className,
+    ]
         .filter(Boolean)
         .join(' ');
 

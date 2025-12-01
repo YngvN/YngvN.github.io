@@ -2,7 +2,8 @@
 @use '../../assets/sass/fonts' as fonts;
 
 .contact__intro {
-    max-width: 780px;
+    display: flex;
+    min-width: 100%;
     margin: 0 0 1.25rem;
     color: rgba(colors.color('text'), 0.9);
 }
