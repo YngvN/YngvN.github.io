@@ -253,7 +253,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                     const isOpen = openSections[id];
 
                     return (
-                        <section key={id} className={`dropdown-panel${isOpen ? ' open' : ''}`}>
+                        <section key={id} className={`dropdown-panel container${isOpen ? ' open' : ''}`}>
                             <button
                                 type="button"
                                 className="dropdown-toggle"
