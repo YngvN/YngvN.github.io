@@ -14,7 +14,7 @@ type PortfolioProps = {
 
 type Project = {
     liveUrl: string;
-    repoUrl: string;
+    repoUrl?: string;
     id: string;
     name: string;
     tag: string;
@@ -36,14 +36,21 @@ const portfolioCopy: Record<
         viewRepo: 'Repository',
         projects: [
             {
+                id: 'tiny-blanket-socks',
+                name: 'Tiny Blanket Socks',
+                tag: 'E-commerce',
+                stack: ['wordpress'],
+                liveUrl: 'https://www.tinyblanketsocks.no/',
+                description: 'Client web store built on WordPress for selling cozy socks with a simple shopping flow.',
+            },
+            {
                 id: 'personal-site',
                 name: 'YngvN.github.io',
                 tag: 'Portfolio',
                 stack: ['react', 'typescript', 'sass', 'vite'],
                 liveUrl: 'https://yngvn.github.io/#about',
                 repoUrl: 'https://github.com/YngvN/YngvN.github.io',
-                description:
-                    'This site—built with a lean React + TypeScript stack to showcase work, writing, and experiments.',
+                description: 'This website. Made as a digital resumé.',
             },
             {
                 id: 'home-page-react',
@@ -104,14 +111,21 @@ const portfolioCopy: Record<
         viewRepo: 'Kode',
         projects: [
             {
+                id: 'tiny-blanket-socks',
+                name: 'Tiny Blanket Socks',
+                tag: 'Nettbutikk',
+                stack: ['wordpress'],
+                liveUrl: 'https://www.tinyblanketsocks.no/',
+                description: 'Kundenettbutikk bygget i WordPress for salg av sokker med enkel handleopplevelse.',
+            },
+            {
                 id: 'personal-site',
                 name: 'YngvN.github.io',
                 tag: 'Portefølje',
                 stack: ['react', 'typescript', 'sass', 'vite'],
                 liveUrl: 'https://yngvn.github.io/#about',
                 repoUrl: 'https://github.com/YngvN/YngvN.github.io',
-                description:
-                    'Denne nettsiden—bygget med en lett React + TypeScript stack for å vise frem prosjekter og eksperimenter.',
+                description: 'Denne nettsiden. Laget som et digitalt resumé.',
             },
             {
                 id: 'home-page-react',
@@ -195,9 +209,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ language, onNavigate }) => {
                             <a className="btn btn-primary btn-sm" href={liveUrl} target="_blank" rel="noopener noreferrer">
                                 {viewLive}
                             </a>
-                            <a className="btn btn-outline btn-sm" href={repoUrl} target="_blank" rel="noopener noreferrer">
-                                {viewRepo}
-                            </a>
+                            {repoUrl ? (
+                                <a className="btn btn-outline btn-sm" href={repoUrl} target="_blank" rel="noopener noreferrer">
+                                    {viewRepo}
+                                </a>
+                            ) : null}
                         </div>
                     </article>
                 ))}
