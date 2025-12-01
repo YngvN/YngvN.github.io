@@ -45,9 +45,9 @@ const categoryDefinitions: CategoryDefinition[] = [
 export const aboutCopy: Record<Language, AboutContent> = {
     en: {
         heading: 'Yngve Nykaas',
-        subheading: 'Frontend developer',
+        subheading: 'Frontend-developer',
         paragraphs: [
-            "Hello! I'm Yngve Nykås, an educated frontend developer with some experience on the backend side as well.",
+            "Hello! I'm Yngve Nykås, an educated frontend-developer with some experience on the backend side as well.",
             'As a developer I love testing out new ideas to see what could be exciting to build next.',
             <>
                 If you are curious you can view my{' '}
@@ -68,9 +68,9 @@ export const aboutCopy: Record<Language, AboutContent> = {
     },
     no: {
         heading: 'Yngve Nykås',
-        subheading: 'Frontendutvikler',
+        subheading: 'Frontend-utvikler',
         paragraphs: [
-            'Hallo! Jeg er Yngve Nykås, og jeg er en utdannet frontend utvikler med noe erfaring innenfor backend.',
+            'Hallo! Jeg er Yngve Nykås, og jeg er en utdannet frontend-utvikler med noe erfaring innenfor backend.',
             'Som utvikler liker jeg å prøve nye ting for å se hva som kan være kult å gjøre.',
             <>
                 Om du er nysgjerrig kan du se{' '}
