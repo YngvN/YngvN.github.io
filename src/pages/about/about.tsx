@@ -1,5 +1,6 @@
 import '../../assets/styles.scss';
 import '../pages.scss';
+import './about.scss';
 import React, { useState } from 'react';
 import type { Language } from '../../types/language';
 import type { PageName } from '../../types/pages';

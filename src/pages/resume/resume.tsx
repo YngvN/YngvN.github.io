@@ -1,11 +1,13 @@
 import '../../assets/styles.scss';
 import '../pages.scss';
 import './resume.scss';
-import React from 'react';
+import React, { useState } from 'react';
 import type { Language } from '../../types/language';
 import PageNavigation from '../../components/page-navigation/page-navigation';
 import type { PageName } from '../../types/pages';
 import { aboutCopy } from '../about/about';
+import DropdownContainer from '../../components/icons/containers/dropdown/dropdown-container';
+import Arrow from '../../components/icons/arrow/arrow';
 
 type ResumeProps = {
     language: Language;
@@ -238,6 +240,22 @@ const resumeCopy: ResumeContent = {
 const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
     const { heading, subheading } = aboutCopy[language];
     const { summary, skillsHeading, skills, sections } = resumeCopy;
+    const [openSections, setOpenSections] = useState<Record<string, boolean>>(() =>
+        resumeSections.reduce(
+            (acc, { id }) => ({
+                ...acc,
+                [id]: true,
+            }),
+            {} as Record<string, boolean>,
+        ),
+    );
+
+    const toggleSection = (id: string) => {
+        setOpenSections((prev) => ({
+            ...prev,
+            [id]: !prev[id],
+        }));
+    };
 
     return (
         <div className="container page-container resume">
@@ -256,31 +274,57 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
                 </ul>
             </div>
 
-            <div className="resume__sections">
-                {sections.map(({ id, title, items }) => (
-                    <section key={id} className="resume-section">
-                        <h2 className="resume-section__title">{title[language]}</h2>
-                        <div className="resume-section__list">
-                            {items.map(({ id: itemId, title: itemTitle, institution, start, end, description }) => (
-                                <article key={itemId} className="resume-card">
-                                    <div className="resume-card__header">
-                                        <div className="resume-card__title-group">
-                                            <div className="resume-card__title">{itemTitle[language]}</div>
-                                            {institution && (
-                                                <div className="resume-card__institution">{institution[language]}</div>
-                                            )}
-                                        </div>
-                                        <div className="resume-card__dates">
-                                            {start[language]} - {end[language]}
-                                        </div>
-                                    </div>
-                                    {description && <p className="resume-card__description">{description[language]}</p>}
-                                </article>
-                            ))}
-                        </div>
-                    </section>
-                ))}
-            </div>
+            <DropdownContainer className="resume__sections">
+                {sections.map(({ id, title, items }) => {
+                    const isOpen = openSections[id];
+
+                    return (
+                        <section key={id} className={`dropdown-panel resume-section${isOpen ? ' open' : ''}`}>
+                            <button
+                                type="button"
+                                className="dropdown-toggle"
+                                onClick={() => toggleSection(id)}
+                                aria-expanded={isOpen}
+                                aria-controls={`${id}-content`}
+                            >
+                                <div>
+                                    <span className="dropdown-title resume-section__title">{title[language]}</span>
+                                </div>
+                                <Arrow
+                                    direction="down"
+                                    open={isOpen}
+                                    size="sm"
+                                    className="dropdown-toggle__chevron"
+                                />
+                            </button>
+                            <div
+                                id={`${id}-content`}
+                                className={`dropdown-content${isOpen ? ' expanded' : ''}`}
+                                aria-live="polite"
+                            >
+                                <div className="resume-section__list">
+                                    {items.map(({ id: itemId, title: itemTitle, institution, start, end, description }) => (
+                                        <article key={itemId} className="resume-card">
+                                            <div className="resume-card__header">
+                                                <div className="resume-card__title-group">
+                                                    <div className="resume-card__title">{itemTitle[language]}</div>
+                                                    {institution && (
+                                                        <div className="resume-card__institution">{institution[language]}</div>
+                                                    )}
+                                                </div>
+                                                <div className="resume-card__dates">
+                                                    {start[language]} - {end[language]}
+                                                </div>
+                                            </div>
+                                            {description && <p className="resume-card__description">{description[language]}</p>}
+                                        </article>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    );
+                })}
+            </DropdownContainer>
         </div>
     );
 };

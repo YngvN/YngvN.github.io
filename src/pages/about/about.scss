@@ -1,0 +1,50 @@
+@use '../../assets/sass/colors' as colors;
+
+
+.tech-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.tech-tile {
+    border: 1px solid rgba(colors.color('text'), 0.05);
+    border-radius: 16px;
+    padding: 1rem;
+
+    h3 {
+        margin: 0 0 0.75rem;
+        font-size: 1.05rem;
+    }
+}
+
+.musician-content {
+    padding-top: 1.25rem;
+
+    p {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.developer-content {
+    padding-top: 0.5rem;
+
+    p {
+        margin-top: 0;
+        margin-bottom: 1.25rem;
+    }
+}
+
+body[data-theme='dark'] {
+
+    .tech-tile {
+        border-color: rgba(colors.color-dark('text'), 0.14);
+    }
+
+    .musician-columns > div {
+        background-color: rgba(colors.color-dark('text'), 0.08);
+        border-color: rgba(colors.color-dark('text'), 0.14);
+    }
+}

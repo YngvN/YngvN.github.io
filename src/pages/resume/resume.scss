@@ -32,12 +32,14 @@
 .resume__sections {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1rem 0;
-    border-top: 1px solid rgba(colors.color('text'), 0.12);
+    gap: 1.25rem;
+    padding: 0;
+    margin-top: 1.5rem;
+    border-top: none;
 }
 
 .resume-section__title {
+    display: block;
     margin: 0 0 0.5rem;
     font-size: 1.35rem;
     @include fonts.apply-heading-font($weight: fonts.$font-weight-bold, $color: colors.color('text'));
@@ -140,7 +142,7 @@ body[data-theme='dark'] {
     }
 
     .resume__sections {
-        border-top: 1px solid rgba(colors.color-dark('text'), 0.16);
+        border-top: none;
     }
 
     .resume-group {
