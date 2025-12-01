@@ -1,5 +1,23 @@
 @use '../../assets/sass/colors' as colors;
 
+.about-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.about-link {
+    color: colors.color("primary");
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+body[data-theme='dark'] .about-link {
+    color: colors.color-dark("primary");
+}
+
+
 
 .tech-tiles {
     display: grid;
