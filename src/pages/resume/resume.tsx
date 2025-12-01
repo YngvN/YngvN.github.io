@@ -42,7 +42,7 @@ const currentMonthEnd: Localized = { en: 'November 2025', no: 'November 2025' };
 const educationItems: ResumeItem[] = [
     {
         id: 'fe-vocational',
-        title: { en: 'Vocational degree in Front End development', no: 'Fagbrev i Front End utvikling' },
+        title: { en: 'Vocational degree in Frontend development', no: 'Fagbrev i Frontend utvikling' },
         institution: { en: 'Noroff', no: 'Noroff' },
         start: { en: 'August 2022', no: 'August 2022' },
         end: { en: 'May 2025', no: 'Mai 2025' },
