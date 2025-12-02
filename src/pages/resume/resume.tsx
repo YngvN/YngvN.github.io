@@ -49,8 +49,8 @@ const educationItems: ResumeItem[] = [
         start: { en: 'August 2022', no: 'August 2022' },
         end: { en: 'May 2025', no: 'Mai 2025' },
         description: {
-            en: 'Independent study and contributions to larger internal projects in the second year.',
-            no: 'Jobbet mye selvstendig og bidro i større interne prosjekter i andre året.',
+            en: 'Worked independently throughout the program, joined larger internal projects in the second year, and learned about prototypes, design methodology, and carrying a hefty student loan.',
+            no: 'Jobbet mye selvstendig under utdanningen, var med på større interne prosjekter i andre året. Lærte om prototyper, design-metodikk og hvordan det er å ha stort studielån.',
         },
     },
     {
@@ -60,8 +60,8 @@ const educationItems: ResumeItem[] = [
         start: { en: 'August 2021', no: 'August 2021' },
         end: { en: 'May 2022', no: 'Mai 2022' },
         description: {
-            en: 'Worked with hardware and software; interest in programming (Python, C#, SQL) led to switching to development studies.',
-            no: 'Arbeidet med både hardware og software; fokuset på programmering (Python, C#, SQL) førte til bytte til utviklerstudier.',
+            en: 'Worked with hardware and software. Liked programming more than imaginary numbers, so I switched to development studies. Learned Python, C#, and SQL programming.',
+            no: 'Jobbet med både hardware og software. Likte programmering mer enn imaginære tall, så byttet til utvikler-utdanning. Her lærte jeg om Python, C#, og SQL programmering.',
         },
     },
     {
@@ -222,8 +222,8 @@ const resumeSections: ResumeSection[] = [
 const resumeCopy: ResumeContent = {
     heading: { en: 'Résumé', no: 'CV' },
     summary: {
-        en: 'As an employee I am solution-oriented and patient, with the end result in focus. I observe and learn from my surroundings to fit in and collaborate well with any team, leaning on their strengths. I enjoy unorthodox and creative solutions but work well with other preferences too.',
-        no: 'Som arbeidstaker er jeg løsningsorientert og tålmodig, med sluttresultatet som fokus. Jeg prøver å observere og lære fra omgivelsene mine for å kunne passe inn og jobbe bra med team som jeg blir plassert i, og jobbe ut ifra deres styrker. Jeg liker uortodokse og kreative løsninger, men jobber fint med andre sine ønsker om de heller vil gjøre noe annet.',
+        en: 'I have 13 years of experience in social roles and 4 years with programming that I now want to use in new projects. I am driven by trying new technologies, building innovative solutions, and debugging what Codex helps me with. One of my dreams is to win a Nerf war at the office while being carried on my colleagues’ shoulders. My strengths include being solution-oriented, handling pressure, stepping into leadership when needed, and being curious about most things.',
+        no: 'Jeg har 13 års erfaring innenfor sosiale jobber og 4 år med programmering som jeg nå vil bruke til nye prosjekter. Det som driver meg er å prøve nye teknologier, lage innovative løsninger, og feilsøke det Codex hjelper meg med. En av mine drømmer er å vinne en Nerf-krig på kontoret mens jeg blir bært på skuldrene av mine kolleger. Noen av mine styrker er at jeg er løsningsorientert, klarer å jobbe under press, ta en lederrolle når det trenges, og nysgjerrig på det meste.',
     },
     skillsHeading: { en: 'Skills', no: 'Evner' },
     skills: [

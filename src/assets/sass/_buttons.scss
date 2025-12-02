@@ -12,6 +12,8 @@ $btn-font-weight: 500;
 $btn-line-height: 1.2;
 $btn-transition-duration: 150ms;
 $btn-active-translate: 1px;
+$btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+
 
 @mixin btn-variant($bg, $border: $bg, $color: #fff) {
     background-color: $bg;
@@ -24,6 +26,8 @@ $btn-active-translate: 1px;
     align-items: center;
     justify-content: center;
     gap: $btn-gap;
+
+    box-shadow: $btn-box-shadow;
 
     padding: $btn-padding-y $btn-padding-x;
     border-radius: $btn-radius;
@@ -56,7 +60,6 @@ $btn-active-translate: 1px;
 @media (hover: hover) and (pointer: fine) {
 
     .btn:hover {
-        background-color: sass-color.adjust(colors.color("primary"), $lightness: -5%);
         box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
         text-decoration: none;
     }
