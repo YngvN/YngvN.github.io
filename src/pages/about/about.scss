@@ -30,10 +30,35 @@ body[data-theme='dark'] .about-link {
     border: 1px solid rgba(colors.color('text'), 0.05);
     border-radius: 16px;
     padding: 1rem;
+    box-shadow: 0 10px 10px rgba(colors.color('text'), 0.05) ;
 
     h3 {
         margin: 0 0 0.75rem;
         font-size: 1.05rem;
+    }
+}
+
+.musician-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    > div {
+        flex: 1 1 220px;
+        background-color: rgba(colors.color('text'), 0.03);
+        border: 1px solid rgba(colors.color('text'), 0.05);
+        padding: 1rem;
+        border-radius: 14px;
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
     }
 }
 
@@ -62,7 +87,6 @@ body[data-theme='dark'] {
     }
 
     .musician-columns > div {
-        background-color: rgba(colors.color-dark('text'), 0.08);
         border-color: rgba(colors.color-dark('text'), 0.14);
     }
 }

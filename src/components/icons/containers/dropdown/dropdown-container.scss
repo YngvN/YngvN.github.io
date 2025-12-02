@@ -9,7 +9,6 @@
 }
 
 .dropdown-panel {
-    border-radius: 18px;
     overflow: hidden;
     background-color: colors.color('background');
     transition: .2s ease;
@@ -67,6 +66,8 @@
 .dropdown-panel.open {
     box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
+        border-radius: 18px;
+
 
     .dropdown-toggle__chevron {
         transform: none;
@@ -91,29 +92,7 @@
     overflow: visible;
 }
 
-.musician-columns {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
 
-    > div {
-        flex: 1 1 220px;
-        background-color: rgba(colors.color('text'), 0.03);
-        border: 1px solid rgba(colors.color('text'), 0.05);
-        padding: 1rem;
-        border-radius: 14px;
-
-        h3 {
-            margin-top: 0;
-            margin-bottom: 0.75rem;
-        }
-
-        ul {
-            margin: 0;
-            padding-left: 1.2rem;
-        }
-    }
-}
 
 body[data-theme='dark'] {
     .dropdown-panel {
@@ -139,16 +118,6 @@ body[data-theme='dark'] {
 
     .dropdown-content {
         border-top-color: rgba(colors.color-dark('text'), 0.12);
-    }
-
-    .tech-tile {
-        background-color: rgba(colors.color-dark('text'), 0.06);
-        border-color: rgba(colors.color-dark('text'), 0.14);
-    }
-
-    .musician-columns > div {
-        background-color: rgba(colors.color-dark('text'), 0.08);
-        border-color: rgba(colors.color-dark('text'), 0.14);
     }
 }
 
