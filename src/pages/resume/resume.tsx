@@ -66,7 +66,7 @@ const educationItems: ResumeItem[] = [
     },
     {
         id: 'music-bachelor',
-        title: { en: 'Bachelor: Music Education', no: 'Faglærer i musikk, Bachelor' },
+        title: { en: 'Bachelor: Music Education DNF', no: 'Faglærer i musikk, Bachelor I/F' },
         institution: { en: 'Western Norway University of Applied Sciences (Stord)', no: 'Høgskolen på Vestlandet, Campus Stord' },
         start: { en: 'August 2012', no: 'August 2012' },
         end: { en: 'February 2017', no: 'Februar 2017' },
@@ -225,7 +225,7 @@ const resumeCopy: ResumeContent = {
         en: 'I have 13 years of experience in social roles and 4 years with programming that I now want to use in new projects. I am driven by trying new technologies, building innovative solutions, and debugging what Codex helps me with. One of my dreams is to win a Nerf war at the office while being carried on my colleagues’ shoulders. My strengths include being solution-oriented, handling pressure, stepping into leadership when needed, and being curious about most things.',
         no: 'Jeg har 13 års erfaring innenfor sosiale jobber og 4 år med programmering som jeg nå vil bruke til nye prosjekter. Det som driver meg er å prøve nye teknologier, lage innovative løsninger, og feilsøke det Codex hjelper meg med. En av mine drømmer er å vinne en Nerf-krig på kontoret mens jeg blir bært på skuldrene av mine kolleger. Noen av mine styrker er at jeg er løsningsorientert, klarer å jobbe under press, ta en lederrolle når det trenges, og nysgjerrig på det meste.',
     },
-    skillsHeading: { en: 'Skills', no: 'Evner' },
+    skillsHeading: { en: 'Soft Skills', no: 'Egenskaper' },
     skills: [
         { en: 'Patient', no: 'Tålmodig' },
         { en: 'Solution-oriented', no: 'Løsningsorientert' },
