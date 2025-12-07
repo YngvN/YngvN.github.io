@@ -77,7 +77,7 @@ const portfolioCopy: Record<
                 name: 'Auction Home',
                 tag: 'Marketplace',
                 stack: ['react', 'typescript', 'sass'],
-                liveUrl: 'https://app.netlify.com/projects/auctionhome/overview',
+                liveUrl: 'https://auctionhome.netlify.app/',
                 repoUrl: 'https://github.com/YngvN/semester-project-2-resit',
                 description: 'Auction marketplace with authenticated bidding, listing creation, and modern UI polish.',
             },

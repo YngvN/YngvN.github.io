@@ -57,6 +57,7 @@
   from {
     transform: translateX(-120%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -65,9 +66,12 @@
 @keyframes page-slide-out {
   from {
     transform: translateX(0);
+    opacity: 1;
   }
+
   to {
     transform: translateX(120%);
+    opacity: 0;
   }
 }
 
@@ -75,6 +79,7 @@
   from {
     transform: translateX(120%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -84,6 +89,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-120%);
   }
@@ -99,6 +105,6 @@
   }
 }
 
-.nav-shell.open ~ .page-display {
+.nav-shell.open~.page-display {
   transform: translateX(-18px);
 }
