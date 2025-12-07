@@ -34,8 +34,10 @@ type ResumeSection = {
 type ResumeContent = {
     heading: Localized;
     summary: Localized;
-    skillsHeading: Localized;
-    skills: Localized[];
+    softSkillsHeading: Localized;
+    softSkills: Localized[];
+    hardSkillsHeading: Localized;
+    hardSkills: Localized[];
     sections: ResumeSection[];
 };
 
@@ -49,13 +51,13 @@ const educationItems: ResumeItem[] = [
         start: { en: 'August 2022', no: 'August 2022' },
         end: { en: 'May 2025', no: 'Mai 2025' },
         description: {
-            en: 'Worked independently throughout the program, joined larger internal projects in the second year, and learned about prototypes, design methodology, and carrying a hefty student loan.',
-            no: 'Jobbet mye selvstendig under utdanningen, var med på større interne prosjekter i andre året. Lærte om prototyper, design-metodikk og hvordan det er å ha stort studielån.',
+            en: 'Worked independently throughout the program, joined larger internal projects in the second year with a focus on SEO. Learned prototyping with XD and Figma, project methodology such as Gantt, and worked with frameworks like React and Bootstrap.',
+            no: 'Jobbet mye selvstendig under utdanningen, var med på større interne prosjekter i andre året, med fokus på SEO. Lærte om prototyper med XD og Figma, arbeidsmetodikk som Gantt, og jobbet med rammeverk som React og Bootstrap.',
         },
     },
     {
         id: 'electrical-engineering',
-        title: { en: 'Electrical Engineering', no: 'Elektro ingeniør' },
+        title: { en: 'Electrical Engineering DNF', no: 'Elektro ingeniør I/F' },
         institution: { en: 'University of South-Eastern Norway', no: 'Universitetet i Sør-øst Norge' },
         start: { en: 'August 2021', no: 'August 2021' },
         end: { en: 'May 2022', no: 'Mai 2022' },
@@ -66,7 +68,7 @@ const educationItems: ResumeItem[] = [
     },
     {
         id: 'music-bachelor',
-        title: { en: 'Bachelor: Music Education DNF', no: 'Faglærer i musikk, Bachelor I/F' },
+        title: { en: 'Music Teacher DNF', no: 'Faglærer i musikk I/F' },
         institution: { en: 'Western Norway University of Applied Sciences (Stord)', no: 'Høgskolen på Vestlandet, Campus Stord' },
         start: { en: 'August 2012', no: 'August 2012' },
         end: { en: 'February 2017', no: 'Februar 2017' },
@@ -181,21 +183,30 @@ const otherItems: ResumeItem[] = [
         title: { en: 'Student mentor (Fadder)', no: 'Fadder' },
         start: { en: 'August 2013', no: 'August 2013' },
         end: { en: 'November 2023', no: 'November 2023' },
-        description: { en: 'Mentor/buddy in nearly every study program over the years.', no: 'Bidro som fadder nesten hvert år i studieløpene.' },
+        description: {
+            en: 'Served as a mentor almost every year I studied, often chosen as the student council representative; heard from several students that they wished they had me as a mentor.',
+            no: 'Var fadder nesten hvert år jeg har studert, og ble nesten alltid valgt som studentrådsrepresentant. Fikk tilbakemeldinger på at flere ønsket at de hadde meg som fadder.',
+        },
     },
     {
         id: 'studentraad',
         title: { en: 'Student council representative', no: 'Studentrådsrepresentant' },
         start: { en: 'August 2012', no: 'August 2012' },
         end: { en: 'May 2023', no: 'Mai 2023' },
-        description: { en: 'Represented students across multiple study programs.', no: 'Representerte studenter gjennom flere utdanningsløp.' },
+        description: {
+            en: 'Elected to represent students across multiple study programs, ensuring their feedback reached faculty and administration.',
+            no: 'Valgt til å representere studenter i flere studieløp, og sørget for at tilbakemeldinger nådde faglærere og administrasjon.',
+        },
     },
     {
         id: 'musikklubb',
         title: { en: 'Founder and leader of student club', no: 'Stifter og leder for studentforening' },
         start: { en: 'August 2021', no: 'August 2021' },
         end: { en: 'May 2022', no: 'Mai 2022' },
-        description: { en: 'Founded the Music Club at USN; sourced and managed equipment worth over 100,000 NOK.', no: 'Grunnla Musikklubben ved USN; anskaffet og driftet utstyr for over 100 000 kr.' },
+        description: {
+            en: 'Founded the Music Club at USN. Procured and managed equipment worth over 100,000 NOK, and ran karaoke nights on a professional stage while coordinating stage crews and audiences of 400+.',
+            no: 'Grunnla Musikklubben ved USN. Anskaffet og driftet utstyr for over 100 000 kr, samt drev karaokekvelder på profesjonell scene hvor jeg koordinerte scenearbeidere og publikum på over 400 personer.',
+        },
     },
     {
         id: 'festivo',
@@ -216,30 +227,47 @@ const otherItems: ResumeItem[] = [
 const resumeSections: ResumeSection[] = [
     { id: 'education', title: { en: 'Education & Certifications', no: 'Utdanning og fagbrev' }, items: educationItems },
     { id: 'work', title: { en: 'Work Experience', no: 'Arbeidserfaring' }, items: workItems },
-    { id: 'other', title: { en: 'Other Experience', no: 'Annen erfaring' }, items: otherItems },
+    { id: 'other', title: { en: 'Volunteer work', no: 'Verv/Frivillig' }, items: otherItems },
 ];
 
 const resumeCopy: ResumeContent = {
     heading: { en: 'Résumé', no: 'CV' },
     summary: {
-        en: 'I have 13 years of experience in social roles and 4 years with programming that I now want to use in new projects. I am driven by trying new technologies, building innovative solutions, and debugging what Codex helps me with. One of my dreams is to win a Nerf war at the office while being carried on my colleagues’ shoulders. My strengths include being solution-oriented, handling pressure, stepping into leadership when needed, and being curious about most things.',
-        no: 'Jeg har 13 års erfaring innenfor sosiale jobber og 4 år med programmering som jeg nå vil bruke til nye prosjekter. Det som driver meg er å prøve nye teknologier, lage innovative løsninger, og feilsøke det Codex hjelper meg med. En av mine drømmer er å vinne en Nerf-krig på kontoret mens jeg blir bært på skuldrene av mine kolleger. Noen av mine styrker er at jeg er løsningsorientert, klarer å jobbe under press, ta en lederrolle når det trenges, og nysgjerrig på det meste.',
+        en: 'I hold a vocational certificate in frontend development and studied electrical engineering at USN. I have 13 years of experience in social roles that I now want to use in new projects. I am driven by trying new technologies, creating innovative solutions, and debugging what Codex helps me with. I am solution-oriented, handle pressure well, and can take a leadership role when needed. Even though I lack directly relevant work experience, I am eager to learn and curious about most things.',
+        no: 'Jeg har fagbrev innen frontend-utvikling, samt studert elektro-ingeniør ved USN. I tillegg har jeg 13 års arbeidserfaring innenfor sosiale jobber som jeg nå vil bruke i nye prosjekter. Det som driver meg er å prøve nye teknologier, lage innovative løsninger, og feilsøke det Codex hjelper meg med. Som person er jeg løsningsorientert, klarer å jobbe under press, og kan ta en lederrolle når det trengs. Selv om jeg mangler relevant jobberfaring, er jeg lærevillig og nysgjerrig på det meste.',
     },
-    skillsHeading: { en: 'Soft Skills', no: 'Egenskaper' },
-    skills: [
-        { en: 'Patient', no: 'Tålmodig' },
-        { en: 'Solution-oriented', no: 'Løsningsorientert' },
-        { en: 'Humorous', no: 'Humoristisk' },
-        { en: 'Curious', no: 'Nysgjerrig' },
+    softSkillsHeading: { en: 'Soft Skills', no: 'Personlige egenskaper' },
+    softSkills: [
+        { en: 'Solution-oriented', no: 'Løsnings-orientert' },
+        { en: 'Results-driven', no: 'Resultat-styrt' },
+        { en: 'Structured', no: 'Strukturert' },
         { en: 'Creative', no: 'Kreativ' },
+        { en: 'Patient', no: 'Tålmodig' },
+        { en: 'Eager to learn', no: 'Lærevillig' },
+        { en: 'Curious', no: 'Nysgjerrig' },
         { en: 'Engaged', no: 'Engasjert' },
+    ],
+    hardSkillsHeading: { en: 'Hard Skills', no: 'Ferdigheter' },
+    hardSkills: [
+        { en: 'Debugging', no: 'Feilsøking' },
+        { en: 'HTML5', no: 'HTML5' },
+        { en: 'JavaScript', no: 'JavaScript' },
+        { en: 'SCSS', no: 'SCSS' },
+        { en: 'TypeScript', no: 'TypeScript' },
+        { en: 'Vite', no: 'Vite' },
+        { en: 'React', no: 'React' },
+        { en: 'Swift', no: 'Swift' },
+        { en: 'Codex', no: 'Codex' },
+        { en: 'VS Code', no: 'VSC' },
+        { en: 'Xcode', no: 'Xcode' },
+        { en: 'Kanban', no: 'KanBan' },
     ],
     sections: resumeSections,
 };
 
 const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
     const { heading, subheading } = aboutCopy[language];
-    const { summary, skillsHeading, skills, sections } = resumeCopy;
+    const { summary, softSkillsHeading, softSkills, hardSkillsHeading, hardSkills, sections } = resumeCopy;
     const [openSections, setOpenSections] = useState<Record<string, boolean>>(() =>
         resumeSections.reduce(
             (acc, { id }) => ({
@@ -257,6 +285,12 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
         }));
     };
 
+    const handleSectionClick = (id: string) => {
+        if (openSections[id]) {
+            toggleSection(id);
+        }
+    };
+
     return (
         <div className="container page-container resume">
             <PageNavigation currentPage="resume" language={language} onNavigate={onNavigate} />
@@ -264,14 +298,26 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
             <h2 className="page-subheading">{subheading}</h2>
             <p className="resume__summary">{summary[language]}</p>
             <div className="resume__skills">
-                <h2 className="resume-section__title">{skillsHeading[language]}</h2>
-                <ul className="resume__skills-list">
-                    {skills.map((skill, idx) => (
-                        <li key={idx} className="resume__skill">
-                            {skill[language]}
-                        </li>
-                    ))}
-                </ul>
+                <div className="resume__skills-group">
+                    <h2 className="resume-section__title">{softSkillsHeading[language]}</h2>
+                    <ul className="resume__skills-list">
+                        {softSkills.map((skill, idx) => (
+                            <li key={idx} className="resume__skill">
+                                {skill[language]}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="resume__skills-group">
+                    <h2 className="resume-section__title">{hardSkillsHeading[language]}</h2>
+                    <ul className="resume__skills-list">
+                        {hardSkills.map((skill, idx) => (
+                            <li key={idx} className="resume__skill">
+                                {skill[language]}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
 
             <DropdownContainer className="resume__sections">
@@ -279,11 +325,18 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
                     const isOpen = openSections[id];
 
                     return (
-                        <section key={id} className={`dropdown-panel resume-section${isOpen ? ' open' : ''}`}>
+                        <section
+                            key={id}
+                            className={`dropdown-panel resume-section${isOpen ? ' open' : ''}`}
+                            onClick={() => handleSectionClick(id)}
+                        >
                             <button
                                 type="button"
                                 className="dropdown-toggle"
-                                onClick={() => toggleSection(id)}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    toggleSection(id);
+                                }}
                                 aria-expanded={isOpen}
                                 aria-controls={`${id}-content`}
                             >
