@@ -118,33 +118,9 @@ const MusicModal: React.FC<MusicModalProps> = ({ language, isOpen: controlledOpe
                         >
                             <XIcon size="md" />
                         </button>
-                        <header className="music-modal__header">
-                            <div>
-                                <h2 id="music-modal-title" className="music-modal__title">
-                                    {copy.title}
-                                </h2>
-                                <p id="music-modal-body" className="music-modal__lead">
-                                    {copy.body}
-                                </p>
-                            </div>
-                        </header>
 
                         <MusicDisplay />
 
-                        <section className="music-modal__section">
-                            <h3 className="music-modal__section-title">{copy.tracksLabel}</h3>
-                            <ul className="music-modal__list">
-                                {trackList.map((item) => (
-                                    <li key={item}>{item}</li>
-                                ))}
-                            </ul>
-                        </section>
-
-                        <footer className="music-modal__footer">
-                            <button type="button" className="btn btn-secondary" onClick={handleClose}>
-                                {copy.closeLabel}
-                            </button>
-                        </footer>
                     </div>
                 </div>,
                 document.body
