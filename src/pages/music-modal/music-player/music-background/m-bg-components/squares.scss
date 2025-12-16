@@ -1,3 +1,13 @@
+@use 'sass:color';
+@use '../music-animation';
+
+$beat-colors: (
+    1: #ff6b6b,
+    2: #f7b801,
+    3: #2ec4b6,
+    4: #6c63ff
+);
+
 .outer-square {
     display: grid;
     position: absolute;
@@ -7,41 +17,72 @@
     place-items: center;
     height: 100%;
     width: 100%;
-
-    // @media (orientation: landscape) {
-    //     grid-template-columns: repeat(3, 1fr);
-    //     grid-template-rows: repeat(3, 1fr);
-    //     height: auto;
-    //     width: 100%;
-    // }
+    gap: 4px;
+    padding: 10px;
+    pointer-events: none;
 }
 
 .square {
     aspect-ratio: 1 / 1;
     width: 100%;
     height: 100%;
-    border-radius: 8px;
-
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: background-color 160ms ease, transform 200ms ease, box-shadow 200ms ease;
 }
 
 .mid-square {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .inner-square {
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.04);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
 
+@each $beat, $color in $beat-colors {
+    body[data-beat="#{$beat}"] {
+        // .mid-square.beat-#{$beat} {
+        //     background-color: color.scale($color, $lightness: 22%);
+        //     box-shadow:
+        //         0 10px 26px color.change($color, $alpha: 0.38),
+        //         0 0 0 1px color.change($color, $alpha: 0.3);
+        //     animation: beatPulse 0.32s ease;
+        // }
 
-    &.beat-1 {
-        background-color: red;
+        // .mid-square.beat-#{$beat} {
+        //     animation: beatRotate90 0.32s ease;
+        // }
+
+        .inner-square.beat-#{$beat} {
+            background-color: $color;
+            box-shadow:
+                0 10px 24px color.change($color, $alpha: 0.42),
+                0 0 0 1px color.change($color, $alpha: 0.32);
+            animation: beatFlash 0.32s ease;
+        }
     }
-        &.beat-2 {
-        background-color: green;
+}
+
+body[data-theme='dark'] {
+    .square {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.05);
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
     }
-        &.beat-3 {
-        background-color: blue;
+
+    .mid-square {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.08);
     }
-        &.beat-4 {
-        background-color: yellow;
+
+    .inner-square {
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.28);
     }
 }

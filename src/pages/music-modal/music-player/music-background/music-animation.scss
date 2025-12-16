@@ -1,0 +1,44 @@
+@keyframes beatPulse {
+    0% {
+        transform: scale(0.95);
+    }
+
+    45% {
+        transform: scale(1.06);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes beatFlash {
+    0% {
+        transform: scale(0.9);
+        filter: brightness(1.1);
+    }
+
+    40% {
+        transform: scale(1.07);
+        filter: brightness(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
+
+@keyframes beatRotate90 {
+    0% {
+        transform: rotate(0);
+    }
+
+    45% {
+        transform: rotate(45deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}

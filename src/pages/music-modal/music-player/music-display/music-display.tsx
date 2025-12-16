@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Squares from '../music-background/m-bg-components/squares';
 import PlayIcon from '../../../../components/icons/play-icon/play-icon';
 import PauseIcon from '../../../../components/icons/pause-icon/pause-icon';
+import { startMetronome, stopMetronome } from '../../utility/metronome/metronome';
 import './music-display.scss';
 
 const MusicDisplay: React.FC = () => {
@@ -9,6 +10,18 @@ const MusicDisplay: React.FC = () => {
 
     const togglePlayback = () => setIsPlaying((prev) => !prev);
     const controlLabel = isPlaying ? 'Pause' : 'Play';
+
+    useEffect(() => {
+        if (isPlaying) {
+            startMetronome();
+        } else {
+            stopMetronome();
+        }
+
+        return () => {
+            stopMetronome();
+        };
+    }, [isPlaying]);
 
     return (
         <div className="music-display" aria-label="Music display placeholder">
