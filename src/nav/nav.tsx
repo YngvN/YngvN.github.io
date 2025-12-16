@@ -62,6 +62,17 @@ const navCopy: Record<Language, { description: string; links: { label: string; p
     },
 };
 
+const navCtaCopy: Record<Language, { primary: string; secondary: string }> = {
+    en: {
+        primary: 'Open inquiry',
+        secondary: 'Åpen henvendelse',
+    },
+    no: {
+        primary: 'Åpen henvendelse',
+        secondary: 'Open inquiry',
+    },
+};
+
 const Nav: FC<NavProps> = ({
     currentPage = 'about',
     onNavigate = () => { },
@@ -73,6 +84,7 @@ const Nav: FC<NavProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const navRef = useRef<HTMLDivElement | null>(null);
     const { description, links } = navCopy[language];
+    const ctaCopy = navCtaCopy[language];
 
     const toggleNav = () => setIsOpen((prev) => !prev);
 
@@ -148,6 +160,17 @@ const Nav: FC<NavProps> = ({
                             </li>
                         ))}
                     </ul>
+                </div>
+
+                <div className="nav-cta">
+                    <button
+                        type="button"
+                        className="btn btn-primary nav-cta__button"
+                        onClick={() => handleNavigate('contact')}
+                        aria-label={`${ctaCopy.primary} / ${ctaCopy.secondary}`}
+                    >
+                        <span className="nav-cta__title">{ctaCopy.primary}</span>
+                    </button>
                 </div>
 
                 <div className="social-links">
