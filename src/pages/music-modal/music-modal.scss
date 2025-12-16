@@ -33,6 +33,29 @@
         }
     }
 
+    &__close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        border: none;
+        background: transparent;
+        color: inherit;
+        padding: 0.35rem;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background-color 140ms ease, transform 140ms ease;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            transform: scale(1.02);
+        }
+
+        &:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 2px;
+        }
+    }
+
     &__header {
         display: flex;
         justify-content: space-between;

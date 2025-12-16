@@ -4,6 +4,8 @@ import './music-modal.scss';
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { Language } from '../../types/language';
+import XIcon from '../../components/icons/x-icon/x-icon';
+import MusicDisplay from './music-player/music-display/music-display';
 
 type MusicModalProps = {
     language: Language;
@@ -108,6 +110,14 @@ const MusicModal: React.FC<MusicModalProps> = ({ language, isOpen: controlledOpe
                         aria-describedby="music-modal-body"
                         onClick={(event) => event.stopPropagation()}
                     >
+                        <button
+                            type="button"
+                            className="music-modal__close"
+                            aria-label={copy.closeLabel}
+                            onClick={handleClose}
+                        >
+                            <XIcon size="md" />
+                        </button>
                         <header className="music-modal__header">
                             <div>
                                 <h2 id="music-modal-title" className="music-modal__title">
@@ -117,10 +127,9 @@ const MusicModal: React.FC<MusicModalProps> = ({ language, isOpen: controlledOpe
                                     {copy.body}
                                 </p>
                             </div>
-                            <button type="button" className="btn btn-outline" onClick={handleClose}>
-                                {copy.closeLabel}
-                            </button>
                         </header>
+
+                        <MusicDisplay />
 
                         <section className="music-modal__section">
                             <h3 className="music-modal__section-title">{copy.tracksLabel}</h3>
