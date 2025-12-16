@@ -1,0 +1,30 @@
+@use '../../../assets/sass/colors' as colors;
+
+.icon-pause {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: currentColor;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+        stroke: currentColor;
+        stroke-width: 1.4;
+    }
+
+    &--sm {
+        width: 20px;
+        height: 20px;
+    }
+
+    &--md {
+        width: 26px;
+        height: 26px;
+    }
+
+    body[data-theme='dark'] & {
+        color: colors.color-dark("text");
+    }
+}
