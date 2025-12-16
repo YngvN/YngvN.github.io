@@ -1,0 +1,47 @@
+.outer-square {
+    display: grid;
+    position: absolute;
+    align-self: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    place-items: center;
+    height: 100%;
+    width: 100%;
+
+    // @media (orientation: landscape) {
+    //     grid-template-columns: repeat(3, 1fr);
+    //     grid-template-rows: repeat(3, 1fr);
+    //     height: auto;
+    //     width: 100%;
+    // }
+}
+
+.square {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+
+}
+
+.mid-square {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.inner-square {
+
+
+    &.beat-1 {
+        background-color: red;
+    }
+        &.beat-2 {
+        background-color: green;
+    }
+        &.beat-3 {
+        background-color: blue;
+    }
+        &.beat-4 {
+        background-color: yellow;
+    }
+}

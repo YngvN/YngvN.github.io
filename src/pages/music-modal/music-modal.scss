@@ -5,7 +5,6 @@
         background-color: rgba(0, 0, 0, 0.65);
         display: grid;
         place-items: center;
-        padding: 1.5rem;
         z-index: 1400;
         animation: music-modal-fade-in 200ms ease forwards;
 
@@ -16,8 +15,10 @@
 
     &__dialog {
         position: relative;
-        width: 95%;
-        height: 95%;
+        overflow: hidden;
+        width: 100%;
+        max-width: 1200px;
+        height: 100%;
         background-color: rgba(255, 255, 255, 0.98);
         color: inherit;
         border-radius: 12px;
@@ -35,7 +36,7 @@
     &__close {
         position: absolute;
         top: 12px;
-        right: 12px;
+        left: 12px;
         border: none;
         background: transparent;
         color: inherit;
@@ -43,6 +44,7 @@
         cursor: pointer;
         border-radius: 50%;
         transition: background-color 140ms ease, transform 140ms ease;
+        z-index: 100000;
 
         &:hover {
             background-color: rgba(0, 0, 0, 0.06);
