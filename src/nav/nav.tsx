@@ -5,6 +5,7 @@ import type { Language } from '../types/language';
 import type { Theme } from '../types/theme';
 import Toggler from '../components/toggler/toggler';
 import Arrow from '../components/icons/arrow/arrow';
+import MusicModal from '../pages/music-modal/music-modal';
 
 type BulbVariant = 'on' | 'off';
 
@@ -82,6 +83,7 @@ const Nav: FC<NavProps> = ({
     onThemeToggle = () => { },
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isMusicModalOpen, setIsMusicModalOpen] = useState(false);
     const navRef = useRef<HTMLDivElement | null>(null);
     const { description, links } = navCopy[language];
     const ctaCopy = navCtaCopy[language];
@@ -166,7 +168,10 @@ const Nav: FC<NavProps> = ({
                     <button
                         type="button"
                         className="btn btn-primary nav-cta__button"
-                        onClick={() => handleNavigate('contact')}
+                        onClick={() => {
+                            setIsMusicModalOpen(true);
+                            setIsOpen(false);
+                        }}
                         aria-label={`${ctaCopy.primary} / ${ctaCopy.secondary}`}
                     >
                         <span className="nav-cta__title">{ctaCopy.primary}</span>
@@ -199,6 +204,12 @@ const Nav: FC<NavProps> = ({
             >
                 <Arrow direction="right" open={isOpen} className="nav-toggle__arrow icon-arrow--animated" />
             </button>
+            <MusicModal
+                language={language}
+                isOpen={isMusicModalOpen}
+                onClose={() => setIsMusicModalOpen(false)}
+                renderTrigger={false}
+            />
         </div>
     );
 };

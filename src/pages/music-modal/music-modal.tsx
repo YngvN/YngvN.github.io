@@ -1,0 +1,147 @@
+import '../../assets/styles.scss';
+import '../pages.scss';
+import './music-modal.scss';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import type { Language } from '../../types/language';
+
+type MusicModalProps = {
+    language: Language;
+    isOpen?: boolean;
+    onClose?: () => void;
+    renderTrigger?: boolean;
+};
+
+const modalCopy: Record<
+    Language,
+    {
+        openLabel: string;
+        title: string;
+        body: string;
+        tracksLabel: string;
+        closeLabel: string;
+    }
+> = {
+    en: {
+        openLabel: 'Preview music modal',
+        title: 'Music preview',
+        body: 'A lightweight modal to share a few snippets and notes about ongoing music projects.',
+        tracksLabel: 'Latest snippets',
+        closeLabel: 'Close',
+    },
+    no: {
+        openLabel: 'Forhåndsvis musikkmodal',
+        title: 'Musikkforhåndsvisning',
+        body: 'En enkel modal for å dele lydklipp og notater om pågående musikkprosjekter.',
+        tracksLabel: 'Siste klipp',
+        closeLabel: 'Lukk',
+    },
+};
+
+const trackList = [
+    'Live looping sketch with layered vocals',
+    'Guitar theme inspired by Nordic folk',
+    'Ambient pad idea for a lo-fi mix',
+];
+
+const MusicModal: React.FC<MusicModalProps> = ({ language, isOpen: controlledOpen, onClose, renderTrigger = true }) => {
+    const [internalOpen, setInternalOpen] = useState(false);
+    const [isRendered, setIsRendered] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
+    const copy = modalCopy[language];
+
+    const isOpen = controlledOpen ?? internalOpen;
+
+    useEffect(() => {
+        if (isOpen) {
+            setIsRendered(true);
+            setIsClosing(false);
+        } else if (isRendered) {
+            setIsClosing(true);
+            const timer = window.setTimeout(() => {
+                setIsRendered(false);
+                setIsClosing(false);
+            }, 220);
+            return () => window.clearTimeout(timer);
+        }
+        return undefined;
+    }, [isOpen, isRendered]);
+
+    const handleOpen = () => setInternalOpen(true);
+
+    const handleClose = () => {
+        if (controlledOpen === undefined) {
+            setInternalOpen(false);
+        }
+        onClose?.();
+    };
+
+    useEffect(() => {
+        if (!isOpen) return undefined;
+        const handleKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') handleClose();
+        };
+        window.addEventListener('keydown', handleKey);
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            window.removeEventListener('keydown', handleKey);
+        };
+    }, [isOpen]);
+
+    return (
+        <div className="music-modal">
+            {renderTrigger && (
+                <button type="button" className="btn btn-primary" onClick={handleOpen}>
+                    {copy.openLabel}
+                </button>
+            )}
+
+            {isRendered && typeof document !== 'undefined' && createPortal(
+                <div className={`music-modal__backdrop${isClosing ? ' is-closing' : ''}`} onClick={handleClose}>
+                    <div
+                        className={`music-modal__dialog${isClosing ? ' is-closing' : ''}`}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="music-modal-title"
+                        aria-describedby="music-modal-body"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <header className="music-modal__header">
+                            <div>
+                                <h2 id="music-modal-title" className="music-modal__title">
+                                    {copy.title}
+                                </h2>
+                                <p id="music-modal-body" className="music-modal__lead">
+                                    {copy.body}
+                                </p>
+                            </div>
+                            <button type="button" className="btn btn-outline" onClick={handleClose}>
+                                {copy.closeLabel}
+                            </button>
+                        </header>
+
+                        <section className="music-modal__section">
+                            <h3 className="music-modal__section-title">{copy.tracksLabel}</h3>
+                            <ul className="music-modal__list">
+                                {trackList.map((item) => (
+                                    <li key={item}>{item}</li>
+                                ))}
+                            </ul>
+                        </section>
+
+                        <footer className="music-modal__footer">
+                            <button type="button" className="btn btn-secondary" onClick={handleClose}>
+                                {copy.closeLabel}
+                            </button>
+                        </footer>
+                    </div>
+                </div>,
+                document.body
+            )}
+        </div>
+    );
+};
+
+export default MusicModal;

@@ -1,0 +1,110 @@
+.music-modal {
+    &__backdrop {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.65);
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        z-index: 1400;
+        animation: music-modal-fade-in 200ms ease forwards;
+
+        &.is-closing {
+            animation: music-modal-fade-out 180ms ease forwards;
+        }
+    }
+
+    &__dialog {
+        position: relative;
+        width: 95%;
+        height: 95%;
+        background-color: rgba(255, 255, 255, 0.98);
+        color: inherit;
+        border-radius: 12px;
+        box-shadow: 0 14px 42px rgba(0, 0, 0, 0.25);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        animation: music-modal-rise-in 220ms ease forwards;
+
+        &.is-closing {
+            animation: music-modal-fall-out 200ms ease forwards;
+        }
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    &__title {
+        margin: 0 0 0.35rem;
+    }
+
+    &__lead {
+        margin: 0;
+    }
+
+    &__section-title {
+        margin: 0 0 0.5rem;
+    }
+
+    &__list {
+        margin: 0;
+        padding-left: 1.25rem;
+        display: grid;
+        gap: 0.35rem;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+@keyframes music-modal-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes music-modal-rise-in {
+    from {
+        transform: translateY(18px);
+        opacity: 0.9;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes music-modal-fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes music-modal-fall-out {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(18px);
+        opacity: 0.85;
+    }
+}
