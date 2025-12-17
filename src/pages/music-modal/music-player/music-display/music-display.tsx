@@ -32,6 +32,8 @@ function clearAllSquares() {
         pixel.style.removeProperty('opacity');
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
+        pixel.style.removeProperty('--hold-color');
+        pixel.style.removeProperty('--hold-shadow');
         pixel.removeAttribute('data-music-player-program');
         pixel.style.removeProperty('animation');
     });
@@ -45,6 +47,17 @@ function restartAnimation(element: HTMLElement, animation: string) {
     // eslint-disable-next-line no-unused-expressions
     element.offsetHeight;
     element.style.animation = animation;
+}
+
+function snapshotPulseVars() {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return null;
+    const style = window.getComputedStyle(document.documentElement);
+    const color = style.getPropertyValue('--pulse-color').trim();
+    const shadow = style.getPropertyValue('--pulse-shadow').trim();
+    return {
+        color: color.length > 0 ? color : null,
+        shadow: shadow.length > 0 ? shadow : null,
+    };
 }
 
 type SheetTriggerContext = {
@@ -76,7 +89,10 @@ function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     }
 
     if (action === 'i-s-beathold' || action === 's-i-beathold') {
+        const pulse = snapshotPulseVars();
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+            if (pulse?.color) pixel.style.setProperty('--hold-color', pulse.color);
+            if (pulse?.shadow) pixel.style.setProperty('--hold-shadow', pulse.shadow);
             restartAnimation(pixel, `beatHold ${Math.round(holdDurationMs)}ms linear`);
         });
         return;

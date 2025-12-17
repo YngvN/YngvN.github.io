@@ -40,14 +40,14 @@
 @keyframes beatHold {
     0% {
         opacity: 1;
-        background-color: var(--pulse-color, #ffffff);
-        box-shadow: var(--pulse-shadow, none);
+        background-color: var(--hold-color, var(--pulse-color, #ffffff));
+        box-shadow: var(--hold-shadow, var(--pulse-shadow, none));
     }
 
-    90% {
+    99% {
         opacity: 1;
-        background-color: var(--pulse-color, #ffffff);
-        box-shadow: var(--pulse-shadow, none);
+        background-color: var(--hold-color, var(--pulse-color, #ffffff));
+        box-shadow: var(--hold-shadow, var(--pulse-shadow, none));
     }
 
     100% {
