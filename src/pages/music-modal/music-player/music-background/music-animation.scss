@@ -1,10 +1,19 @@
 @keyframes beatPulse {
     0% {
+        opacity: 1;
         transform: scale(0.95);
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: var(--pulse-shadow, none);
     }
 
     45% {
+        opacity: 1;
         transform: scale(1.06);
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: var(--pulse-shadow, none);
+    }
+    90% {
+        opacity: .1;
     }
 
     100% {
@@ -15,22 +24,16 @@
 @keyframes beatFlash {
     0% {
         opacity: 1;
-        transform: scale(0.9);
-        filter: brightness(1.1);
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: var(--pulse-shadow, none);
     }
 
-    40% {
+    99% {
         opacity: 1;
-        transform: scale(1.07);
-        filter: brightness(1.2);
-    }
-    90% {
-        opacity: .1;
     }
 
     100% {
-        transform: scale(1);
-        filter: brightness(1);
+        opacity: 0;
     }
 }
 

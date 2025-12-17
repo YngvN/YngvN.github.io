@@ -8,30 +8,54 @@ export type SquareLayout = {
 export type MidSquare = {
     key: string;
     beat: 1 | 2 | 3 | 4;
+    x: number;
+    y: number;
 };
+
+export type InnerSquareSubBeat = 5 | 9 | 13;
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
-export function getSquareLayout(viewportWidth: number): SquareLayout {
-    if (viewportWidth < 520) return { cols: 2, rows: 2 };
-    if (viewportWidth < 900) return { cols: 3, rows: 2 };
-    return { cols: 3, rows: 3 };
+export function getSquareLayout(viewportWidth: number, viewportHeight: number): SquareLayout {
+    const baseCols = 2;
+    const baseRows = 2;
+
+    const widthBasePx = 350;
+    const heightBasePx = 550;
+    const widthStepPx = 100;
+    const heightStepPx= 50;
+
+    const colsPerStep = 1;
+    const rowsPerStep = 1;
+
+    const widthSteps = Math.floor((viewportWidth - widthBasePx) / widthStepPx);
+    const heightSteps = Math.floor((viewportHeight - heightBasePx) / heightStepPx);
+
+    const cols = clamp(baseCols + widthSteps * colsPerStep, 2, 8);
+    const rows = clamp(baseRows + heightSteps * rowsPerStep, 2, 10);
+
+    return { cols, rows };
 }
 
 export function createMidSquares(layout: SquareLayout): MidSquare[] {
-    const count = clamp(layout.cols * layout.rows, 1, 12);
+    const count = clamp(layout.cols * layout.rows, 1, 60);
     return Array.from({ length: count }, (_, index) => ({
         key: `mid-${layout.cols}x${layout.rows}-${index}`,
         beat: (((index % 4) + 1) as 1 | 2 | 3 | 4),
+        x: index % layout.cols,
+        y: Math.floor(index / layout.cols),
     }));
 }
 
-export function createInnerBeats(): Array<1 | 2 | 3 | 4> {
-    return [1, 2, 3, 4];
+export function createInnerSubBeats(): InnerSquareSubBeat[] {
+    return [5, 9, 13];
 }
 
 export function useSquareLayout(): SquareLayout {
-    const [width, setWidth] = useState(() => (typeof window === 'undefined' ? 1024 : window.innerWidth));
+    const [viewport, setViewport] = useState(() => ({
+        width: typeof window === 'undefined' ? 1024 : window.innerWidth,
+        height: typeof window === 'undefined' ? 768 : window.innerHeight,
+    }));
 
     useEffect(() => {
         if (typeof window === 'undefined') return undefined;
@@ -39,7 +63,12 @@ export function useSquareLayout(): SquareLayout {
         let rafId: number | null = null;
         const onResize = () => {
             if (rafId !== null) cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(() => setWidth(window.innerWidth));
+            rafId = requestAnimationFrame(() =>
+                setViewport({
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                }),
+            );
         };
 
         window.addEventListener('resize', onResize, { passive: true });
@@ -49,6 +78,5 @@ export function useSquareLayout(): SquareLayout {
         };
     }, []);
 
-    return useMemo(() => getSquareLayout(width), [width]);
+    return useMemo(() => getSquareLayout(viewport.width, viewport.height), [viewport.height, viewport.width]);
 }
-

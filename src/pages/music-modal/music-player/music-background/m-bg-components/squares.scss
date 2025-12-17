@@ -7,10 +7,15 @@ $beat-fallbacks: (
     4: #6c63ff
 );
 
+$inner-sub-beats: (5, 9, 13);
+
 .outer-square {
     position: absolute;
     inset: 0;
     display: grid;
+    top: 0;
+    left: 0;
+    background-color: blue;
     grid-template-columns: repeat(var(--grid-cols, 3), max-content);
     grid-template-rows: repeat(var(--grid-rows, 3), max-content);
     gap: 0;
@@ -18,12 +23,19 @@ $beat-fallbacks: (
     justify-content: center;
     align-content: center;
     pointer-events: none;
+    --inner-square-size: clamp(
+        22px,
+        min(
+            100px,
+            calc((100vw - 40px) / (var(--grid-cols, 3) * 2)),
+            calc((100vh - 40px) / (var(--grid-rows, 3) * 2))
+        ),
+        100px
+    );
 }
 
 .square {
     aspect-ratio: 1 / 1;
-    border-radius: 10px;
-    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
     transition: background-color 160ms ease, transform 200ms ease;
 }
 
@@ -32,26 +44,27 @@ $beat-fallbacks: (
     width: fit-content;
     height: fit-content;
     grid-template-columns: repeat(2, 1fr);
-    background-color: red;
 }
 
 .inner-square {
-    min-width: 100px;
-    min-height: 100px;
-    max-width: 100px;
-    max-height: 100px;
+    width: var(--inner-square-size);
+    height: var(--inner-square-size);
     border-radius: 6px;
     background: rgba(0, 0, 0, 0.04);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
     opacity: 0;
 }
 
-@each $beat, $fallback in $beat-fallbacks {
-    body[data-beat="#{$beat}"] {
+body[data-sub-beat='1'] {
+    .mid-square {
+        animation: beatPulse 0.50s;
+    }
+}
 
-
-        .inner-square.beat-#{$beat} {
-            animation: beatFlash 0.32s ease;
+@each $sub-beat in $inner-sub-beats {
+    body[data-sub-beat='#{$sub-beat}'] {
+        .inner-square.sub-beat-#{$sub-beat} {
+            animation: beatPulse 0.50s;
         }
     }
 }

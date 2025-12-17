@@ -12,10 +12,16 @@
     background-color: black;
 }
 
-.music-display__control {
+.music-display__controls {
     position: absolute;
     bottom: 22px;
     right: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.music-display__control {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -60,9 +66,13 @@ body[data-theme='dark'] {
 }
 
 @media (max-width: 640px) {
-    .music-display__control {
+    .music-display__controls {
         bottom: 16px;
         right: 16px;
+        gap: 8px;
+    }
+
+    .music-display__control {
         padding: 0.5rem 0.75rem;
     }
 }
