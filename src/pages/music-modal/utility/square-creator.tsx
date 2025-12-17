@@ -29,14 +29,21 @@ export function getSquareLayout(viewportWidth: number, viewportHeight: number): 
     const widthSteps = Math.floor((viewportWidth - widthBasePx) / widthStepPx);
     const heightSteps = Math.floor((viewportHeight - heightBasePx) / heightStepPx);
 
-    const cols = clamp(baseCols + widthSteps * colsPerStep, 2, 8);
-    const rows = clamp(baseRows + heightSteps * rowsPerStep, 2, 10);
+    // Don't clamp columns/rows (only clamp the total square count later).
+    // We still enforce a minimum of 1 so CSS grid repeat() stays valid.
+    const colsBase = Math.max(1, baseCols + widthSteps * colsPerStep);
+    const rowsBase = Math.max(1, baseRows + heightSteps * rowsPerStep);
+
+    // Higher resolution: roughly double the number of mid-squares while keeping proportions similar.
+    const hiResScale = Math.SQRT2; // sqrt(2) => ~2x area (cols*rows)
+    const cols = Math.max(1, Math.round(colsBase * hiResScale));
+    const rows = Math.max(1, Math.round(rowsBase * hiResScale));
 
     return { cols, rows };
 }
 
 export function createMidSquares(layout: SquareLayout): MidSquare[] {
-    const count = clamp(layout.cols * layout.rows, 1, 60);
+    const count = clamp(layout.cols * layout.rows, 1, 240);
     return Array.from({ length: count }, (_, index) => ({
         key: `mid-${layout.cols}x${layout.rows}-${index}`,
         beat: (((index % 4) + 1) as 1 | 2 | 3 | 4),

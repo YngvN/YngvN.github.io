@@ -20,7 +20,7 @@ $beat-fallbacks: (
     justify-content: center;
     align-content: center;
     pointer-events: none;
-    --inner-square-size: clamp(
+    --inner-square-size-base: clamp(
         22px,
         min(
             100px,
@@ -29,6 +29,7 @@ $beat-fallbacks: (
         ),
         100px
     );
+    --inner-square-size: calc(var(--inner-square-size-base) * 0.67);
 }
 
 .square {
