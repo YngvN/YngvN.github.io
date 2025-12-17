@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './lcd-glyph.scss';
+import { getLcdSegmentsForChar, type Segment14 } from './lcd-letters';
 
 const PROGRAM_ATTR = 'data-music-player-program';
 
@@ -11,29 +12,6 @@ type GridSize = {
 function lerp(from: number, to: number, t: number) {
     return from + (to - from) * t;
 }
-
-type Segment14 =
-    | 'top'
-    | 'upperLeft'
-    | 'upperRight'
-    | 'middleLeft'
-    | 'middleRight'
-    | 'lowerLeft'
-    | 'lowerRight'
-    | 'bottom';
-
-const CHAR_14SEGMENTS: Partial<Record<string, ReadonlyArray<Segment14>>> = {
-    0: ['top', 'upperLeft', 'upperRight', 'lowerLeft', 'lowerRight', 'bottom'],
-    1: ['upperRight', 'lowerRight'],
-    2: ['top', 'upperRight', 'middleLeft', 'middleRight', 'lowerLeft', 'bottom'],
-    3: ['top', 'upperRight', 'middleRight', 'lowerRight', 'bottom'],
-    4: ['upperLeft', 'upperRight', 'middleLeft', 'middleRight', 'lowerRight'],
-    5: ['top', 'upperLeft', 'middleLeft', 'middleRight', 'lowerRight', 'bottom'],
-    6: ['top', 'upperLeft', 'middleLeft', 'middleRight', 'lowerLeft', 'lowerRight', 'bottom'],
-    7: ['top', 'upperRight', 'lowerRight'],
-    8: ['top', 'upperLeft', 'upperRight', 'middleLeft', 'middleRight', 'lowerLeft', 'lowerRight', 'bottom'],
-    9: ['top', 'upperLeft', 'upperRight', 'middleLeft', 'middleRight', 'lowerRight', 'bottom'],
-};
 
 function parseCssInt(value: string) {
     const parsed = Number.parseInt(value, 10);
@@ -132,8 +110,7 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
         drawVertical(centerX, topY + 1, bottomY - 1);
     };
 
-    const normalizedChar = char.toUpperCase();
-    const segments = CHAR_14SEGMENTS[normalizedChar];
+    const segments = getLcdSegmentsForChar(char);
     if (!segments) {
         drawUnknownLcdGlyph();
         return coords;
@@ -148,6 +125,12 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
         if (segment === 'upperRight') return drawVertical(rightX, topY + 1, midY - 1);
         if (segment === 'lowerLeft') return drawVertical(leftX, midY + 1, bottomY - 1);
         if (segment === 'lowerRight') return drawVertical(rightX, midY + 1, bottomY - 1);
+        if (segment === 'centerTop') return drawVertical(centerX, topY + 1, midY - 1);
+        if (segment === 'centerBottom') return drawVertical(centerX, midY + 1, bottomY - 1);
+        if (segment === 'diagUpperLeft') return drawLine(leftX + 1, topY + 1, centerX - 1, midY - 1);
+        if (segment === 'diagUpperRight') return drawLine(rightX - 1, topY + 1, centerX + 1, midY - 1);
+        if (segment === 'diagLowerLeft') return drawLine(leftX + 1, bottomY - 1, centerX - 1, midY + 1);
+        if (segment === 'diagLowerRight') return drawLine(rightX - 1, bottomY - 1, centerX + 1, midY + 1);
         return undefined;
     };
 

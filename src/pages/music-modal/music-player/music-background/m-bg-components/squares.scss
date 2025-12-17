@@ -23,7 +23,7 @@ $beat-fallbacks: (
     --inner-square-size: clamp(
         22px,
         min(
-            100px,
+            50px,
             calc((100vw - 40px) / (var(--grid-cols, 3) * 2)),
             calc((100vh - 40px) / (var(--grid-rows, 3) * 2))
         ),
