@@ -50,8 +50,13 @@ function makeYCoords(cols: number, rows: number) {
     const innerRows = rows * 2;
 
     const midY = Math.max(2, Math.floor(innerRows / 2));
-    const centerX = Math.floor(innerCols / 2);
-    const thickness = innerCols >= 12 ? 2 : 1;
+    const armThickness = innerCols >= 12 ? 2 : 1;
+    const stemThickness = 1;
+
+    const edgePadding = armThickness - 1;
+    const centerX = innerCols % 2 === 0 ? innerCols / 2 : Math.floor(innerCols / 2);
+    const leftStart = Math.max(0, innerCols % 2 === 0 ? edgePadding + 1 : edgePadding);
+    const rightStart = Math.min(innerCols - 1, innerCols - 1 - edgePadding);
 
     const coords = new Set<string>();
     const add = (x: number, y: number) => {
@@ -62,17 +67,17 @@ function makeYCoords(cols: number, rows: number) {
 
     for (let y = 0; y < midY; y += 1) {
         const t = midY <= 1 ? 1 : y / (midY - 1);
-        const leftX = Math.round(lerp(0, centerX, t));
-        const rightX = Math.round(lerp(innerCols - 1, centerX, t));
+        const leftX = Math.round(lerp(leftStart, centerX, t));
+        const rightX = Math.round(lerp(rightStart, centerX, t));
 
-        for (let dx = -thickness + 1; dx <= thickness - 1; dx += 1) {
+        for (let dx = -armThickness + 1; dx <= armThickness - 1; dx += 1) {
             add(leftX + dx, y);
             add(rightX + dx, y);
         }
     }
 
     for (let y = midY - 1; y < innerRows; y += 1) {
-        for (let dx = -thickness + 1; dx <= thickness - 1; dx += 1) {
+        for (let dx = -stemThickness + 1; dx <= stemThickness - 1; dx += 1) {
             add(centerX + dx, y);
         }
     }
