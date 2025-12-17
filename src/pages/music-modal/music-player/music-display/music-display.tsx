@@ -132,7 +132,9 @@ const MusicDisplay: React.FC = () => {
     }, [isPlaying, sheetMeta]);
 
     const clockLabel = useMemo(() => {
-        const beatPart = `${clock.bar}:${clock.beat}:${clock.subBeat}`;
+        const eightBeat = clock.subBeat > 0 ? (Math.floor((clock.subBeat - 1) / 2) % 4) + 1 : 0;
+        const sixteenBeat = clock.subBeat > 0 ? ((clock.subBeat - 1) % 4) + 1 : 0;
+        const beatPart = `${clock.bar}|${clock.beat}|${eightBeat}|${sixteenBeat}`;
         return `${clock.time} ${beatPart}`;
     }, [clock.beat, clock.bar, clock.subBeat, clock.time]);
 

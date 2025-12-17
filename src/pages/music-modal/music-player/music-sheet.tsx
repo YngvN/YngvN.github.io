@@ -9,9 +9,11 @@ export type MusicSheetJson = {
     bars: number;
     beatsPerBar?: number;
     subBeatsPerBeat?: number;
-    program?: Record<string, Record<string, Record<string, string>>>;
+    program?: Record<string, MusicSheetProgramNode>;
     events?: Record<string, string>;
 };
+
+export type MusicSheetProgramNode = string | { [key: string]: MusicSheetProgramNode };
 
 export type BeatPosition = {
     bar: number;
@@ -83,14 +85,169 @@ function parseSubBeatKey(key: string): SubBeatPosition | null {
 
 function parseRangeKey(prefix: string, key: string) {
     const trimmed = key.trim();
-    const regex = new RegExp(`^${prefix}-(\\d+)-(\\d+)$`);
-    const match = regex.exec(trimmed);
-    if (!match) return null;
-    const start = Number.parseInt(match[1], 10);
-    const end = Number.parseInt(match[2], 10);
+    const singleRegex = new RegExp(`^${prefix}-(\\d+)$`);
+    const rangeRegex = new RegExp(`^${prefix}-(\\d+)-(\\d+)$`);
+
+    const singleMatch = singleRegex.exec(trimmed);
+    if (singleMatch) {
+        const value = Number.parseInt(singleMatch[1], 10);
+        if (!Number.isFinite(value) || value < 1) return null;
+        return { start: value, end: value };
+    }
+
+    const rangeMatch = rangeRegex.exec(trimmed);
+    if (!rangeMatch) return null;
+    const start = Number.parseInt(rangeMatch[1], 10);
+    const end = Number.parseInt(rangeMatch[2], 10);
     if (!Number.isFinite(start) || !Number.isFinite(end)) return null;
     if (start < 1 || end < 1) return null;
     return { start: Math.min(start, end), end: Math.max(start, end) };
+}
+
+type ProgramContext = {
+    barRange: { start: number; end: number };
+    beat?: number;
+    eighth?: number;
+};
+
+function assertProgramNodeIsObject(
+    node: MusicSheetProgramNode,
+    path: string,
+): asserts node is Record<string, MusicSheetProgramNode> {
+    if (typeof node !== 'object' || node === null || Array.isArray(node)) {
+        throw new Error(`Expected object at "${path}"`);
+    }
+}
+
+function addParsedEvent(events: ParsedMusicSheetEvent[], at: SubBeatPosition, action: string) {
+    events.push({ id: `sheet-${events.length}`, at, action });
+}
+
+function parseProgramNode(
+    node: MusicSheetProgramNode,
+    grid: BeatGrid,
+    events: ParsedMusicSheetEvent[],
+    ctx: ProgramContext,
+    path: string,
+) {
+    const subBeatsPerBar = grid.beatsPerBar * grid.subBeatsPerBeat;
+    const step8 = grid.subBeatsPerBeat / 2;
+    const has8 = Number.isInteger(step8) && step8 >= 1;
+
+    if (typeof node === 'string') {
+        for (let bar = ctx.barRange.start; bar <= ctx.barRange.end; bar += 1) {
+            addParsedEvent(events, { bar, subBeat: 1 }, node);
+        }
+        return;
+    }
+
+    assertProgramNodeIsObject(node, path);
+
+    Object.entries(node).forEach(([rawKey, child]) => {
+        const key = rawKey.trim();
+
+        const emit = (bar: number, subBeat: number, action: string) => {
+            const at: SubBeatPosition = { bar, subBeat };
+            assertWithinGrid(grid, at);
+            addParsedEvent(events, at, action);
+        };
+
+        if (key.startsWith('4beat-')) {
+            const beatRange = parseRangeKey('4beat', key);
+            if (!beatRange) throw new Error(`Invalid key "${key}" at "${path}" (expected "4beat-x" or "4beat-x-y")`);
+            for (let beat = beatRange.start; beat <= beatRange.end; beat += 1) {
+                if (typeof child === 'string') {
+                    for (let bar = ctx.barRange.start; bar <= ctx.barRange.end; bar += 1) {
+                        emit(bar, (beat - 1) * grid.subBeatsPerBeat + 1, child);
+                    }
+                } else {
+                    parseProgramNode(child, grid, events, { ...ctx, beat }, `${path}.${key}`);
+                }
+            }
+            return;
+        }
+
+        if (key.startsWith('8beat-')) {
+            if (!has8) throw new Error(`"8beat" requires subBeatsPerBeat to be divisible by 2`);
+            const range = parseRangeKey('8beat', key);
+            if (!range) throw new Error(`Invalid key "${key}" at "${path}" (expected "8beat-x" or "8beat-x-y")`);
+
+            for (let idx = range.start; idx <= range.end; idx += 1) {
+                const eighth = ctx.beat !== undefined && idx >= 1 && idx <= 2 ? (ctx.beat - 1) * 2 + idx : idx;
+
+                if (eighth < 1 || eighth > grid.beatsPerBar * 2) {
+                    throw new Error(`8beat index out of range (${eighth}) at "${path}.${key}" (expected 1..${grid.beatsPerBar * 2})`);
+                }
+
+                if (typeof child === 'string') {
+                    for (let bar = ctx.barRange.start; bar <= ctx.barRange.end; bar += 1) {
+                        emit(bar, (eighth - 1) * step8 + 1, child);
+                    }
+                } else {
+                    parseProgramNode(child, grid, events, { ...ctx, eighth }, `${path}.${key}`);
+                }
+            }
+            return;
+        }
+
+        if (key.startsWith('16beat-')) {
+            const range = parseRangeKey('16beat', key);
+            if (!range) throw new Error(`Invalid key "${key}" at "${path}" (expected "16beat-x" or "16beat-x-y")`);
+
+            for (let idx = range.start; idx <= range.end; idx += 1) {
+                let absoluteSubBeat: number;
+                if (ctx.eighth !== undefined && has8 && idx >= 1 && idx <= step8) {
+                    absoluteSubBeat = (ctx.eighth - 1) * step8 + idx;
+                } else if (ctx.beat !== undefined && idx >= 1 && idx <= grid.subBeatsPerBeat) {
+                    absoluteSubBeat = (ctx.beat - 1) * grid.subBeatsPerBeat + idx;
+                } else {
+                    absoluteSubBeat = idx;
+                }
+
+                if (absoluteSubBeat < 1 || absoluteSubBeat > subBeatsPerBar) {
+                    throw new Error(`16beat index out of range (${absoluteSubBeat}) at "${path}.${key}" (expected 1..${subBeatsPerBar})`);
+                }
+
+                if (typeof child !== 'string') {
+                    throw new Error(`16beat must map to an action string at "${path}.${key}"`);
+                }
+
+                for (let bar = ctx.barRange.start; bar <= ctx.barRange.end; bar += 1) {
+                    emit(bar, absoluteSubBeat, child);
+                }
+            }
+            return;
+        }
+
+        if (key.startsWith('beat-')) {
+            const beatRange = parseRangeKey('beat', key);
+            if (!beatRange) throw new Error(`Invalid key "${key}" at "${path}" (expected "beat-x" or "beat-x-y")`);
+            for (let beat = beatRange.start; beat <= beatRange.end; beat += 1) {
+                if (typeof child === 'string') {
+                    for (let bar = ctx.barRange.start; bar <= ctx.barRange.end; bar += 1) {
+                        emit(bar, (beat - 1) * grid.subBeatsPerBeat + 1, child);
+                    }
+                } else {
+                    parseProgramNode(child, grid, events, { ...ctx, beat }, `${path}.${key}`);
+                }
+            }
+            return;
+        }
+
+        if (key.startsWith('subbeat-')) {
+            const subBeatRange = parseRangeKey('subbeat', key);
+            if (!subBeatRange) throw new Error(`Invalid key "${key}" at "${path}" (expected "subbeat-x" or "subbeat-x-y")`);
+            if (typeof child !== 'string') throw new Error(`subbeat must map to an action string at "${path}.${key}"`);
+            for (let subBeat = subBeatRange.start; subBeat <= subBeatRange.end; subBeat += 1) {
+                for (let bar = ctx.barRange.start; bar <= ctx.barRange.end; bar += 1) {
+                    emit(bar, subBeat, child);
+                }
+            }
+            return;
+        }
+
+        throw new Error(`Unknown key "${key}" at "${path}"`);
+    });
 }
 
 function assertWithinGrid(grid: BeatGrid, position: BeatPosition | SubBeatPosition) {
@@ -153,36 +310,11 @@ export function parseMusicSheetJson(json: MusicSheetJson): ParsedMusicSheet {
 
     const programEntries = Object.entries(json.program ?? {});
     if (programEntries.length > 0) {
-        let index = 0;
-        programEntries.forEach(([barKey, beats]) => {
+        programEntries.forEach(([barKey, node]) => {
             const barRange = parseRangeKey('bar', barKey);
-            if (!barRange) throw new Error(`Invalid bar key: "${barKey}" (expected "bar-x-y")`);
-
-            Object.entries(beats ?? {}).forEach(([beatKey, subBeats]) => {
-                const beatRange = parseRangeKey('beat', beatKey);
-                if (!beatRange) throw new Error(`Invalid beat key: "${beatKey}" (expected "beat-x-y")`);
-
-                Object.entries(subBeats ?? {}).forEach(([subBeatKey, action]) => {
-                    const subBeatRange = parseRangeKey('subbeat', subBeatKey);
-                    if (!subBeatRange) {
-                        throw new Error(`Invalid subbeat key: "${subBeatKey}" (expected "subbeat-x-y")`);
-                    }
-
-                    for (let bar = barRange.start; bar <= barRange.end; bar += 1) {
-                        for (let beat = beatRange.start; beat <= beatRange.end; beat += 1) {
-                            for (let subBeat = subBeatRange.start; subBeat <= subBeatRange.end; subBeat += 1) {
-                                const absoluteSubBeat = (beat - 1) * grid.subBeatsPerBeat + subBeat;
-                                const at: SubBeatPosition = { bar, subBeat: absoluteSubBeat };
-                                assertWithinGrid(grid, at);
-                                events.push({ id: `sheet-${index}`, at, action });
-                                index += 1;
-                            }
-                        }
-                    }
-                });
-            });
+            if (!barRange) throw new Error(`Invalid bar key: "${barKey}" (expected "bar-x" or "bar-x-y")`);
+            parseProgramNode(node, grid, events, { barRange }, `program.${barKey}`);
         });
-
         return { bpm, bars, beatsPerBar, subBeatsPerBeat, events };
     }
 
