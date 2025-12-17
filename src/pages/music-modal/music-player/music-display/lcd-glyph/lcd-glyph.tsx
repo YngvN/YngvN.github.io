@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './lcd-glyph.scss';
 
 const PROGRAM_ATTR = 'data-music-player-program';
@@ -164,25 +164,17 @@ function clearProgramPixels() {
     });
 }
 
-function readInitialEnabled() {
-    if (typeof window === 'undefined') return false;
+function readInitialChar() {
+    if (typeof window === 'undefined') return '?';
     const params = new URLSearchParams(window.location.search);
-    const program = params.get('program');
-    return program === 'lcd' || program === 'y' || program === 'yp';
-}
-
-function readInitialGlyphId() {
-    if (typeof window === 'undefined') return 'yp';
-    const params = new URLSearchParams(window.location.search);
-    const program = params.get('program');
-    if (program === 'lcd') return (params.get('char') || '?').slice(0, 1).toUpperCase();
-    return '?';
+    return (params.get('char') || '?').slice(0, 1).toUpperCase();
 }
 
 const LcdGlyph: React.FC = () => {
-    const [enabled, setEnabled] = useState(readInitialEnabled);
-    const [glyphId] = useState(readInitialGlyphId);
-    const title = enabled ? 'Hide LCD glyph' : 'Show LCD glyph';
+    const [enabled, setEnabled] = useState(true);
+    const [char, setChar] = useState(readInitialChar);
+
+    const normalizedChar = useMemo(() => (char || '?').slice(0, 1).toUpperCase(), [char]);
 
     const run = useCallback(() => {
         if (typeof document === 'undefined') return;
@@ -192,16 +184,16 @@ const LcdGlyph: React.FC = () => {
         if (!grid) return;
 
         const pixels = buildInnerPixelMap();
-        const coords = makeGlyphCoords(glyphId, grid.cols, grid.rows);
+        const coords = makeGlyphCoords(normalizedChar, grid.cols, grid.rows);
 
         coords.forEach((coord) => {
             const pixel = pixels.get(coord);
             if (!pixel) return;
-            pixel.setAttribute(PROGRAM_ATTR, glyphId);
+            pixel.setAttribute(PROGRAM_ATTR, normalizedChar);
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
             pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
         });
-    }, [glyphId]);
+    }, [normalizedChar]);
 
     const clear = useCallback(() => {
         if (typeof document === 'undefined') return;
@@ -262,24 +254,31 @@ const LcdGlyph: React.FC = () => {
         return () => window.removeEventListener('music-player-program:clear', onClear);
     }, []);
 
-    const onClick = useCallback(() => {
-        setEnabled((prev) => {
-            const next = !prev;
-            if (prev) clear();
-            return next;
-        });
-    }, [clear]);
+    const onChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const next = event.target.value.slice(0, 1);
+            setChar(next);
+            setEnabled(true);
+            if (!next) clear();
+        },
+        [clear],
+    );
 
     return (
-        <button
-            type="button"
-            className="lcd-glyph__toggle"
-            onClick={onClick}
-            aria-pressed={enabled}
-            title={title}
-        >
-            Y
-        </button>
+        <div className="lcd-glyph">
+            <input
+                className="lcd-glyph__input"
+                value={char}
+                onChange={onChange}
+                inputMode="text"
+                autoCapitalize="characters"
+                autoCorrect="off"
+                spellCheck={false}
+                maxLength={1}
+                aria-label="LCD glyph character"
+                title="Type a character to display"
+            />
+        </div>
     );
 };
 
