@@ -40,12 +40,6 @@ const modalCopy: Record<
     },
 };
 
-const trackList = [
-    'Live looping sketch with layered vocals',
-    'Guitar theme inspired by Nordic folk',
-    'Ambient pad idea for a lo-fi mix',
-];
-
 const MusicModal: React.FC<MusicModalProps> = ({ language, isOpen: controlledOpen, onClose, renderTrigger = true }) => {
     const [internalOpen, setInternalOpen] = useState(false);
     const [isRendered, setIsRendered] = useState(false);
