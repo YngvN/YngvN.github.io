@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './lcd-glyph.scss';
 import { getLcdSegmentsForChar, type Segment14 } from './lcd-letters';
+import { GLYPH_HEIGHT_FRACTION, GLYPH_WIDTH_FRACTION } from './glyph-settings';
 
 const PROGRAM_ATTR = 'data-music-player-program';
 
@@ -74,7 +75,7 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
     const xInset = innerCols % 2 === 0 ? 1 : 0;
     const yInset = innerRows >= 10 ? 1 : 0;
 
-    // Lock glyph aspect ratio by drawing within a centered square viewport.
+    // Draw within a centered viewport (taller than it is wide).
     const availableLeftX = xInset;
     const availableRightX = innerCols - 1;
     const availableTopY = yInset;
@@ -83,15 +84,20 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
     const availableWidth = Math.max(1, availableRightX - availableLeftX + 1);
     const availableHeight = Math.max(1, availableBottomY - availableTopY + 1);
 
-    let size = Math.min(availableWidth, availableHeight);
-    // Prefer odd dimensions so the glyph has a true center row/column.
-    if (size % 2 === 0) size -= 1;
-    size = Math.max(1, size);
+    // Use a reduced viewport height (2/4 of the max square), and a narrower width.
+    const baseSize = Math.min(availableWidth, availableHeight);
+    let viewportHeight = Math.round(baseSize * GLYPH_HEIGHT_FRACTION);
+    if (viewportHeight % 2 === 0) viewportHeight -= 1;
+    viewportHeight = Math.max(1, viewportHeight);
 
-    const leftX = availableLeftX + Math.floor((availableWidth - size) / 2);
-    const rightX = leftX + size - 1;
-    const topY = availableTopY + Math.floor((availableHeight - size) / 2);
-    const bottomY = topY + size - 1;
+    let viewportWidth = Math.round(viewportHeight * GLYPH_WIDTH_FRACTION);
+    if (viewportWidth % 2 === 0) viewportWidth -= 1;
+    viewportWidth = Math.max(1, viewportWidth);
+
+    const leftX = availableLeftX + Math.floor((availableWidth - viewportWidth) / 2);
+    const rightX = leftX + viewportWidth - 1;
+    const topY = availableTopY + Math.floor((availableHeight - viewportHeight) / 2);
+    const bottomY = topY + viewportHeight - 1;
     const midY = Math.floor((topY + bottomY) / 2);
     const centerX = leftX + Math.floor((rightX - leftX) / 2);
 

@@ -22,8 +22,7 @@ $beat-fallbacks: (
     justify-content: stretch;
     align-content: stretch;
     pointer-events: none;
-    --pixel-min-size: 50px;
-    --pixel-scale: 0.67;
+    --pixel-min-size: 20px;
 }
 
 .square {
@@ -49,7 +48,6 @@ $beat-fallbacks: (
     background: transparent;
     box-shadow: none;
     opacity: 1;
-    border: 1px solid grey;
-    transform: scale(var(--pixel-scale, 1)) rotate(var(--pixel-rot, 0deg));
+    transform: rotate(var(--pixel-rot, 0deg));
     transform-origin: center;
 }

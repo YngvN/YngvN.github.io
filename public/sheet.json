@@ -6,16 +6,16 @@
       "m-s-beathold"
     ],
     "bar-2": [
-      { "4beat-1-4": "i-s-beatpulse"} 
+      { "4beat-1-4": "m-s-beatpulse"} 
     ],   
     "bar-3": [
-      { "4beat-2": "i-s-beatpulse",
-    "4beat-4": "i-s-beatpulse" }
+      { "4beat-2": "m-s-beatpulse",
+    "4beat-4": "m-s-beatpulse" }
         
     ],
     "bar-4": {
       "4beat-1-4": {
-        "8beat-1-3": "s-i-beatflash",
+        "8beat-1-3": "m-s-beatflash",
         "8beat-4": "m-s-beatpulse"
       }
     }

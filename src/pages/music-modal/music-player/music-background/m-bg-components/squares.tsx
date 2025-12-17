@@ -11,6 +11,7 @@ const Squares: React.FC = () => {
     const style = {
         '--grid-cols': layout.cols,
         '--grid-rows': layout.rows,
+        '--pixel-min-size': `${layout.pixelSize}px`,
     } as CSSProperties;
 
     return (

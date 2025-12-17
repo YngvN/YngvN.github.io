@@ -12,39 +12,56 @@ export type MidSquare = {
     y: number;
 };
 
+export const resolution = 300;
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
+export const resolutionSize = (viewportWidth: number, viewportHeight: number, layout: SquareLayout) => {
+    const safeCols = Math.max(1, layout.cols);
+    const safeRows = Math.max(1, layout.rows);
+    const cell = Math.min(viewportWidth / (safeCols * 2), viewportHeight / (safeRows * 2));
+    // Match the visual scale used in CSS so this roughly reflects the visible "pixel" size.
+    const scaled = cell * 0.67;
+    return clamp(Math.round(scaled), 6, 80);
+};
+
+function pickGridFromResolution(target: number, aspectRatio: number): SquareLayout {
+    const normalizedAspect = Number.isFinite(aspectRatio) && aspectRatio > 0 ? aspectRatio : 1;
+    let bestCols = target;
+    let bestRows = 1;
+    let bestScore = Number.POSITIVE_INFINITY;
+
+    const maxFactor = Math.floor(Math.sqrt(target));
+    for (let factor = 1; factor <= maxFactor; factor += 1) {
+        if (target % factor !== 0) continue;
+        const other = target / factor;
+
+        const candidates: Array<{ cols: number; rows: number }> = [
+            { cols: factor, rows: other },
+            { cols: other, rows: factor },
+        ];
+
+        candidates.forEach(({ cols, rows }) => {
+            const ratio = cols / rows;
+            const score = Math.abs(Math.log(ratio / normalizedAspect));
+            if (score < bestScore) {
+                bestScore = score;
+                bestCols = cols;
+                bestRows = rows;
+            }
+        });
+    }
+
+    return { cols: Math.max(1, bestCols), rows: Math.max(1, bestRows) };
+}
+
 export function getSquareLayout(viewportWidth: number, viewportHeight: number): SquareLayout {
-    const baseCols = 2;
-    const baseRows = 2;
-
-    const widthBasePx = 350;
-    const heightBasePx = 550;
-    const widthStepPx = 100;
-    const heightStepPx= 50;
-
-    const colsPerStep = 1;
-    const rowsPerStep = 1;
-
-    const widthSteps = Math.floor((viewportWidth - widthBasePx) / widthStepPx);
-    const heightSteps = Math.floor((viewportHeight - heightBasePx) / heightStepPx);
-
-    // Don't clamp columns/rows (only clamp the total square count later).
-    // We still enforce a minimum of 1 so CSS grid repeat() stays valid.
-    const colsBase = Math.max(1, baseCols + widthSteps * colsPerStep);
-    const rowsBase = Math.max(1, baseRows + heightSteps * rowsPerStep);
-
-    // Higher resolution: roughly double the number of mid-squares while keeping proportions similar.
-    const hiResScale = Math.SQRT2; // sqrt(2) => ~2x area (cols*rows)
-    const cols = Math.max(1, Math.round(colsBase * hiResScale));
-    const rows = Math.max(1, Math.round(rowsBase * hiResScale));
-
-    return { cols, rows };
+    const aspectRatio = viewportWidth / Math.max(1, viewportHeight);
+    return pickGridFromResolution(resolution, aspectRatio);
 }
 
 export function createMidSquares(layout: SquareLayout): MidSquare[] {
-    const count = clamp(layout.cols * layout.rows, 1, 240);
-    return Array.from({ length: count }, (_, index) => ({
+    // `resolution` is fixed; `getSquareLayout` is derived from it, so cols*rows should match.
+    return Array.from({ length: resolution }, (_, index) => ({
         key: `mid-${layout.cols}x${layout.rows}-${index}`,
         beat: (((index % 4) + 1) as 1 | 2 | 3 | 4),
         x: index % layout.cols,
@@ -52,7 +69,9 @@ export function createMidSquares(layout: SquareLayout): MidSquare[] {
     }));
 }
 
-export function useSquareLayout(): SquareLayout {
+export type SquareResolution = SquareLayout & { pixelSize: number };
+
+export function useSquareLayout(): SquareResolution {
     const [viewport, setViewport] = useState(() => ({
         width: typeof window === 'undefined' ? 1024 : window.innerWidth,
         height: typeof window === 'undefined' ? 768 : window.innerHeight,
@@ -79,5 +98,8 @@ export function useSquareLayout(): SquareLayout {
         };
     }, []);
 
-    return useMemo(() => getSquareLayout(viewport.width, viewport.height), [viewport.height, viewport.width]);
+    return useMemo(() => {
+        const layout = getSquareLayout(viewport.width, viewport.height);
+        return { ...layout, pixelSize: resolutionSize(viewport.width, viewport.height, layout) };
+    }, [viewport.height, viewport.width]);
 }
