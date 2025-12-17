@@ -1,21 +1,21 @@
 {
   "bpm": 120,
-  "bars": 5,
+  "bars": 4,
   "program": {
-    "bar-1": "i-s-beathold",
-    "bar-2": {
-      "4beat-1-3": "i-s-beatflash",
-      "4beat-4": "m-s-beatpulse"
-    },
-    "bar-3": {
+    "bar-1-2": [
+      "m-s-beathold",
+            { "4beat-1-3": "m-s-beatpulse",
+      "4beat-4": "m-s-beatpulse" }
+    ],
+    "bar-3": [
+      "i-s-beathold",
+      { "4beat-1": "i-s-beatpulse" }
+        
+    ],
+    "bar-4": {
       "4beat-1-4": {
         "8beat-1-3": "s-i-beatflash",
         "8beat-4": "m-s-beatpulse"
-      }
-    },
-    "bar-4-5": {
-      "4beat-1-4": {
-        "8beat-1-4": "i-s-beatflash"
       }
     }
   }

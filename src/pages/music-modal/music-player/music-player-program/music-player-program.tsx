@@ -111,7 +111,6 @@ const MusicPlayerProgram: React.FC = () => {
             const pixel = pixels.get(coord);
             if (!pixel) return;
             pixel.setAttribute(PROGRAM_ATTR, 'y');
-            pixel.style.opacity = '1';
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
             pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
         });

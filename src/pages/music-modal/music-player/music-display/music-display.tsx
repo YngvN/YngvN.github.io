@@ -32,6 +32,7 @@ function clearAllSquares() {
         pixel.style.removeProperty('opacity');
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
+        delete pixel.dataset.sheetHoldUntil;
         pixel.style.removeProperty('--hold-color');
         pixel.style.removeProperty('--hold-shadow');
         pixel.removeAttribute('data-music-player-program');
@@ -67,33 +68,105 @@ type SheetTriggerContext = {
     subBeat: number;
 };
 
+type HoldState = {
+    untilMs: number;
+    color: string | null;
+    shadow: string | null;
+};
+
+function applyInnerHoldBase(pixel: HTMLElement, state: HoldState) {
+    if (state.color) pixel.style.setProperty('--hold-color', state.color);
+    if (state.shadow) pixel.style.setProperty('--hold-shadow', state.shadow);
+    pixel.style.backgroundColor = 'var(--hold-color, var(--pulse-color, #ffffff))';
+    pixel.style.boxShadow = 'var(--hold-shadow, var(--pulse-shadow, none))';
+    pixel.style.removeProperty('animation');
+    pixel.dataset.sheetHoldUntil = String(Math.round(state.untilMs));
+}
+
+function applyMidHoldBase(mid: HTMLElement, state: HoldState) {
+    if (state.color) mid.style.setProperty('--hold-color', state.color);
+    if (state.shadow) mid.style.setProperty('--hold-shadow', state.shadow);
+    mid.style.backgroundColor = 'color-mix(in srgb, var(--hold-color, var(--pulse-color, #ffffff)) 16%, transparent)';
+    mid.style.boxShadow = 'var(--hold-shadow, var(--pulse-shadow, none))';
+    mid.style.removeProperty('animation');
+    mid.dataset.sheetHoldUntil = String(Math.round(state.untilMs));
+}
+
+function clearHoldBase(element: HTMLElement) {
+    delete element.dataset.sheetHoldUntil;
+    element.style.removeProperty('--hold-color');
+    element.style.removeProperty('--hold-shadow');
+    element.style.removeProperty('background-color');
+    element.style.removeProperty('box-shadow');
+    element.style.removeProperty('animation');
+}
+
+function getHoldUntil(pixel: HTMLElement) {
+    const raw = pixel.dataset.sheetHoldUntil;
+    if (!raw) return null;
+    const parsed = Number.parseFloat(raw);
+    return Number.isFinite(parsed) ? parsed : null;
+}
+
 function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (typeof document === 'undefined') return;
+    const [baseAction, ...metaParts] = action.split('@');
+    const meta = metaParts.join('@');
+
     const msPerBeat = 60_000 / (ctx.bpm || BPM);
     const msPerBar = msPerBeat * BEATS_PER_BAR;
     const isBarStart = ctx.beat === 1 && ctx.subBeat === 1;
-    const holdDurationMs = isBarStart ? msPerBar : msPerBeat;
+    const barsMatch = /(?:^|,)bars=(\d+)(?:,|$)/.exec(meta);
+    const barsOverride = barsMatch ? Number.parseInt(barsMatch[1], 10) : null;
+    const holdDurationMs = isBarStart
+        ? msPerBar * (barsOverride && Number.isFinite(barsOverride) ? barsOverride : 1)
+        : msPerBeat;
 
-    if (action === 'm-s-beatpulse') {
+    if (baseAction === 'm-s-beatpulse') {
         document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             restartAnimation(mid, 'beatMidPulse 0.28s');
         });
         return;
     }
 
-    if (action === 'i-s-beatflash' || action === 's-i-beatflash') {
+    if (baseAction === 'i-s-beatflash' || baseAction === 's-i-beatflash') {
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
             restartAnimation(pixel, 'beatFlash 0.18s');
         });
         return;
     }
 
-    if (action === 'i-s-beathold' || action === 's-i-beathold') {
+    if (baseAction === 'i-s-beathold' || baseAction === 's-i-beathold') {
         const pulse = snapshotPulseVars();
+        const untilMs = (typeof performance === 'undefined' ? Date.now() : performance.now()) + holdDurationMs;
+        const state: HoldState = {
+            untilMs,
+            color: pulse?.color ?? null,
+            shadow: pulse?.shadow ?? null,
+        };
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
-            if (pulse?.color) pixel.style.setProperty('--hold-color', pulse.color);
-            if (pulse?.shadow) pixel.style.setProperty('--hold-shadow', pulse.shadow);
-            restartAnimation(pixel, `beatHold ${Math.round(holdDurationMs)}ms linear`);
+            applyInnerHoldBase(pixel, state);
+        });
+        return;
+    }
+
+    if (baseAction === 'm-s-beathold') {
+        const pulse = snapshotPulseVars();
+        const untilMs = (typeof performance === 'undefined' ? Date.now() : performance.now()) + holdDurationMs;
+        const state: HoldState = {
+            untilMs,
+            color: pulse?.color ?? null,
+            shadow: pulse?.shadow ?? null,
+        };
+        document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
+            applyMidHoldBase(mid, state);
+        });
+        return;
+    }
+
+    if (baseAction === 'i-s-beatpulse' || baseAction === 's-i-beatpulse') {
+        document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+            restartAnimation(pixel, 'beatPulse 0.50s');
         });
         return;
     }
@@ -279,6 +352,69 @@ const MusicDisplay: React.FC = () => {
             }
             animationCountsRef.current.clear();
             lastAnimationStampRef.current = null;
+        };
+    }, [isPlaying]);
+
+    useEffect(() => {
+        if (!isPlaying) return undefined;
+        if (typeof document === 'undefined') return undefined;
+
+        const onAnimationEnd = (event: Event) => {
+            if (!(event instanceof AnimationEvent)) return;
+            const target = event.target;
+            if (!(target instanceof HTMLElement)) return;
+            const isInner = target.classList.contains('inner-square');
+            const isMid = target.classList.contains('mid-square');
+            if (!isInner && !isMid) return;
+            if (isInner && target.hasAttribute('data-music-player-program')) return;
+
+            const until = getHoldUntil(target);
+            if (!until) return;
+
+            const now = typeof performance === 'undefined' ? Date.now() : performance.now();
+            if (now >= until) {
+                clearHoldBase(target);
+                return;
+            }
+
+            const state = {
+                untilMs: until,
+                color: target.style.getPropertyValue('--hold-color').trim() || null,
+                shadow: target.style.getPropertyValue('--hold-shadow').trim() || null,
+            };
+
+            if (isInner) {
+                applyInnerHoldBase(target, state);
+            } else {
+                applyMidHoldBase(target, state);
+            }
+        };
+
+        const root = document.querySelector('.music-display') ?? document;
+        root.addEventListener('animationend', onAnimationEnd, { capture: true });
+        return () => {
+            root.removeEventListener('animationend', onAnimationEnd, { capture: true } as AddEventListenerOptions);
+        };
+    }, [isPlaying]);
+
+    useEffect(() => {
+        if (!isPlaying) return undefined;
+        if (typeof window === 'undefined' || typeof document === 'undefined') return undefined;
+
+        let rafId: number | null = null;
+        const tickHolds = () => {
+            const now = typeof performance === 'undefined' ? Date.now() : performance.now();
+            document.querySelectorAll<HTMLElement>('[data-sheet-hold-until]').forEach((element) => {
+                const until = getHoldUntil(element);
+                if (!until) return;
+                if (now >= until) clearHoldBase(element);
+            });
+            rafId = window.requestAnimationFrame(tickHolds);
+        };
+
+        rafId = window.requestAnimationFrame(tickHolds);
+        return () => {
+            if (rafId !== null) window.cancelAnimationFrame(rafId);
         };
     }, [isPlaying]);
 

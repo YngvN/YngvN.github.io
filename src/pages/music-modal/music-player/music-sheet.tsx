@@ -13,7 +13,7 @@ export type MusicSheetJson = {
     events?: Record<string, string>;
 };
 
-export type MusicSheetProgramNode = string | { [key: string]: MusicSheetProgramNode };
+export type MusicSheetProgramNode = string | MusicSheetProgramNode[] | { [key: string]: MusicSheetProgramNode };
 
 export type BeatPosition = {
     bar: number;
@@ -133,7 +133,22 @@ function parseProgramNode(
     const step8 = grid.subBeatsPerBeat / 2;
     const has8 = Number.isInteger(step8) && step8 >= 1;
 
+    if (Array.isArray(node)) {
+        node.forEach((entry, index) => {
+            parseProgramNode(entry, grid, events, ctx, `${path}[${index}]`);
+        });
+        return;
+    }
+
     if (typeof node === 'string') {
+        const rangeLength = ctx.barRange.end - ctx.barRange.start + 1;
+        const isHold = node === 'i-s-beathold' || node === 's-i-beathold' || node === 'm-s-beathold';
+
+        if (isHold && rangeLength > 1) {
+            addParsedEvent(events, { bar: ctx.barRange.start, subBeat: 1 }, `${node}@bars=${rangeLength}`);
+            return;
+        }
+
         for (let bar = ctx.barRange.start; bar <= ctx.barRange.end; bar += 1) {
             addParsedEvent(events, { bar, subBeat: 1 }, node);
         }

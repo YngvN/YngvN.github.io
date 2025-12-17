@@ -1,74 +1,66 @@
 @keyframes beatPulse {
     0% {
-        opacity: 1;
         transform: scale(0.95);
-        background-color: var(--pulse-color, #ffffff);
+        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
         box-shadow: var(--pulse-shadow, none);
     }
 
     45% {
-        opacity: 1;
         transform: scale(1.06);
-        background-color: var(--pulse-color, #ffffff);
+        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
         box-shadow: var(--pulse-shadow, none);
     }
-    90% {
-        opacity: .1;
+    85% {
+        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
+        box-shadow: var(--pulse-shadow, none);
     }
 
     100% {
         transform: scale(1);
+        background-color: transparent;
+        box-shadow: none;
     }
 }
 
 @keyframes beatFlash {
     0% {
-        opacity: 1;
-        background-color: var(--pulse-color, #ffffff);
+        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
         box-shadow: var(--pulse-shadow, none);
     }
 
-    99% {
-        opacity: 1;
-    }
-
     100% {
-        opacity: 0;
+        background-color: transparent;
+        box-shadow: none;
     }
 }
 
 @keyframes beatHold {
     0% {
-        opacity: 1;
-        background-color: var(--hold-color, var(--pulse-color, #ffffff));
+        background-color: color-mix(in srgb, var(--hold-color, var(--pulse-color, #ffffff)) 100%, transparent);
         box-shadow: var(--hold-shadow, var(--pulse-shadow, none));
     }
 
-    99% {
-        opacity: 1;
-        background-color: var(--hold-color, var(--pulse-color, #ffffff));
+    90% {
+        background-color: color-mix(in srgb, var(--hold-color, var(--pulse-color, #ffffff)) 100%, transparent);
         box-shadow: var(--hold-shadow, var(--pulse-shadow, none));
     }
 
     100% {
-        opacity: 0;
+        background-color: transparent;
+        box-shadow: none;
     }
 }
 
 @for $phase from 1 through 4 {
     @keyframes beatFlash-#{$phase} {
         0% {
-            opacity: 1;
-            background-color: var(--pulse-color, #ffffff);
+            background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
             box-shadow: var(--pulse-shadow, none);
         }
 
-        99% {
-            opacity: 1;
-        }
-
         100% {
-            opacity: 0;
+            background-color: transparent;
+            box-shadow: none;
         }
     }
 }
