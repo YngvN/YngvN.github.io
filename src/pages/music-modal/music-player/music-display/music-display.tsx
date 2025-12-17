@@ -63,6 +63,8 @@ function snapshotPulseVars() {
 
 type SheetTriggerContext = {
     bpm: number;
+    beatsPerBar: number;
+    subBeatsPerBeat: number;
     bar: number;
     beat: number;
     subBeat: number;
@@ -108,13 +110,42 @@ function getHoldUntil(pixel: HTMLElement) {
     return Number.isFinite(parsed) ? parsed : null;
 }
 
+function formatDurationMs(durationMs: number) {
+    return `${Math.max(1, Math.round(durationMs))}ms`;
+}
+
+function restartAnimationWithDuration(element: HTMLElement, name: string, durationMs: number) {
+    element.style.setProperty('--beat-anim-duration', formatDurationMs(durationMs));
+    restartAnimation(element, `${name} var(--beat-anim-duration)`);
+}
+
+function getAnimationTimebaseMs(ctx: SheetTriggerContext) {
+    const msPerBeat = 60_000 / (ctx.bpm || BPM);
+    const msPerBar = msPerBeat * ctx.beatsPerBar;
+    const msPerSubBeat = msPerBeat / ctx.subBeatsPerBeat;
+    const subBeatsPerEighth = ctx.subBeatsPerBeat / 2;
+    const hasEighth = Number.isInteger(subBeatsPerEighth) && subBeatsPerEighth >= 1;
+    const msPerEighth = hasEighth ? msPerBeat / 2 : msPerSubBeat;
+
+    const isBarStart = ctx.beat === 1 && ctx.subBeat === 1;
+    if (isBarStart) return msPerBar;
+
+    const isBeatBoundary = (ctx.subBeat - 1) % ctx.subBeatsPerBeat === 0;
+    if (isBeatBoundary) return msPerBeat;
+
+    const isEighthBoundary = hasEighth && (ctx.subBeat - 1) % subBeatsPerEighth === 0;
+    if (isEighthBoundary) return msPerEighth;
+
+    return msPerSubBeat;
+}
+
 function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (typeof document === 'undefined') return;
     const [baseAction, ...metaParts] = action.split('@');
     const meta = metaParts.join('@');
 
     const msPerBeat = 60_000 / (ctx.bpm || BPM);
-    const msPerBar = msPerBeat * BEATS_PER_BAR;
+    const msPerBar = msPerBeat * ctx.beatsPerBar;
     const isBarStart = ctx.beat === 1 && ctx.subBeat === 1;
     const barsMatch = /(?:^|,)bars=(\d+)(?:,|$)/.exec(meta);
     const barsOverride = barsMatch ? Number.parseInt(barsMatch[1], 10) : null;
@@ -123,15 +154,17 @@ function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         : msPerBeat;
 
     if (baseAction === 'm-s-beatpulse') {
+        const durationMs = getAnimationTimebaseMs(ctx) * 0.56;
         document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
-            restartAnimation(mid, 'beatMidPulse 0.28s');
+            restartAnimationWithDuration(mid, 'beatMidPulse', durationMs);
         });
         return;
     }
 
     if (baseAction === 'i-s-beatflash' || baseAction === 's-i-beatflash') {
+        const durationMs = getAnimationTimebaseMs(ctx) * 0.36;
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
-            restartAnimation(pixel, 'beatFlash 0.18s');
+            restartAnimationWithDuration(pixel, 'beatFlash', durationMs);
         });
         return;
     }
@@ -165,8 +198,9 @@ function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     }
 
     if (baseAction === 'i-s-beatpulse' || baseAction === 's-i-beatpulse') {
+        const durationMs = getAnimationTimebaseMs(ctx);
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
-            restartAnimation(pixel, 'beatPulse 0.50s');
+            restartAnimationWithDuration(pixel, 'beatPulse', durationMs);
         });
         return;
     }
@@ -294,7 +328,16 @@ const MusicDisplay: React.FC = () => {
                     const actions = sheetEventMap.get(tickKey);
                     if (actions && actions.length > 0) {
                         const bpm = sheet.bpm || BPM;
-                        actions.forEach((action) => triggerSheetAction(action, { bpm, bar, beat, subBeat }));
+                        actions.forEach((action) =>
+                            triggerSheetAction(action, {
+                                bpm,
+                                beatsPerBar: sheet.beatsPerBar || BEATS_PER_BAR,
+                                subBeatsPerBeat: sheet.subBeatsPerBeat || SUB_BEATS_PER_BEAT,
+                                bar,
+                                beat,
+                                subBeat,
+                            }),
+                        );
                         if (import.meta.env.DEV) {
                             // eslint-disable-next-line no-console
                             console.log('[sheet]', tickKey, actions);
@@ -418,11 +461,19 @@ const MusicDisplay: React.FC = () => {
         };
     }, [isPlaying]);
 
+    const sheetSummary = useMemo(() => {
+        if (!sheet) return null;
+        const bpm = sheet.bpm || BPM;
+        const barsLabel = `${sheet.bars} ${sheet.bars === 1 ? 'bar' : 'bars'}`;
+        return `${bpm} BPM • ${barsLabel}`;
+    }, [sheet]);
+
     const clockLabel = useMemo(() => {
         const eightBeat = clock.subBeat > 0 ? (Math.floor((clock.subBeat - 1) / 2) % 4) + 1 : 0;
         const beatPart = `${clock.bar}|${clock.beat}|${eightBeat}`;
-        return `${clock.time} ${beatPart}`;
-    }, [clock.beat, clock.bar, clock.subBeat, clock.time]);
+        const metaPart = sheetSummary ? ` • ${sheetSummary}` : '';
+        return `${clock.time} ${beatPart}${metaPart}`;
+    }, [clock.beat, clock.bar, clock.subBeat, clock.time, sheetSummary]);
 
     const clockTitle = useMemo(() => {
         const defaults = `BPM ${BPM}, sub-beats per beat ${SUB_BEATS_PER_BEAT}`;

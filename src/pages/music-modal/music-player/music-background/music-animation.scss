@@ -1,52 +1,58 @@
 @keyframes beatPulse {
     0% {
-        transform: scale(0.95);
-        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
+        // transform: scale(0.95);
+        opacity: 1;
+        transition: opacity 100ms ease;
+        background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
     }
 
-    45% {
-        transform: scale(1.06);
-        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
-        box-shadow: var(--pulse-shadow, none);
-    }
-    85% {
-        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
+
+    50% {
+        // transform: scale(1.06);
+        background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
     }
 
     100% {
-        transform: scale(1);
-        background-color: transparent;
+        // transform: scale(1);
+        opacity: 0;
+        background-color: var(--pulse-color, #ffffff);
         box-shadow: none;
     }
 }
 
 @keyframes beatFlash {
     0% {
-        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
+        opacity: 1;
+        background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
     }
 
     100% {
-        background-color: transparent;
+        opacity: 0;
+        background-color: var(--pulse-color, #ffffff);
         box-shadow: none;
     }
 }
 
 @keyframes beatHold {
     0% {
-        background-color: color-mix(in srgb, var(--hold-color, var(--pulse-color, #ffffff)) 100%, transparent);
+        transition: none;
+        opacity: 1;
+        background-color: var(--hold-color, var(--pulse-color, #ffffff));
         box-shadow: var(--hold-shadow, var(--pulse-shadow, none));
     }
 
     90% {
-        background-color: color-mix(in srgb, var(--hold-color, var(--pulse-color, #ffffff)) 100%, transparent);
+        opacity: 1;
+        background-color: var(--hold-color, var(--pulse-color, #ffffff));
         box-shadow: var(--hold-shadow, var(--pulse-shadow, none));
     }
 
     100% {
-        background-color: transparent;
+        opacity: 0;
+        background-color: var(--hold-color, var(--pulse-color, #ffffff));
         box-shadow: none;
     }
 }
@@ -54,24 +60,22 @@
 @for $phase from 1 through 4 {
     @keyframes beatFlash-#{$phase} {
         0% {
-            background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 100%, transparent);
+            opacity: 1;
+            background-color: var(--pulse-color, #ffffff);
             box-shadow: var(--pulse-shadow, none);
         }
 
         100% {
-            background-color: transparent;
+            opacity: 0;
+            background-color: var(--pulse-color, #ffffff);
             box-shadow: none;
         }
     }
 }
 
-@keyframes beatRotate90 {
+@keyframes pixel90 {
     0% {
         transform: rotate(0);
-    }
-
-    45% {
-        transform: rotate(45deg);
     }
 
     100% {
@@ -81,17 +85,20 @@
 
 @keyframes beatMidPulse {
     0% {
-        background-color: rgba(255, 255, 255, 0);
+        opacity: 0;
+        background-color: var(--pulse-color, #ffffff);
         box-shadow: none;
     }
 
     45% {
-        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 16%, transparent);
+        opacity: 1;
+        background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
     }
 
     100% {
-        background-color: rgba(255, 255, 255, 0);
+        opacity: 0;
+        background-color: var(--pulse-color, #ffffff);
         box-shadow: none;
     }
 }
@@ -99,17 +106,20 @@
 @for $phase from 1 through 4 {
     @keyframes beatMidPulse-#{$phase} {
         0% {
-            background-color: rgba(255, 255, 255, 0);
+            opacity: 0;
+            background-color: var(--pulse-color, #ffffff);
             box-shadow: none;
         }
 
         45% {
-            background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 16%, transparent);
+            opacity: 1;
+            background-color: var(--pulse-color, #ffffff);
             box-shadow: var(--pulse-shadow, none);
         }
 
         100% {
-            background-color: rgba(255, 255, 255, 0);
+            opacity: 0;
+            background-color: var(--pulse-color, #ffffff);
             box-shadow: none;
         }
     }
