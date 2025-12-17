@@ -227,6 +227,7 @@ const MusicDisplay: React.FC = () => {
     const lastAnimationStampRef = useRef<string | null>(null);
     const animationCountsRef = useRef<Map<string, number>>(new Map());
     const lastSheetTickRef = useRef<string | null>(null);
+    const lastMetronomeGridKeyRef = useRef<string | null>(null);
 
     const togglePlayback = () => setIsPlaying((prev) => !prev);
     const controlLabel = isPlaying ? 'Pause' : 'Play';
@@ -234,25 +235,46 @@ const MusicDisplay: React.FC = () => {
     const paletteToggleLabel = `Colors: ${paletteLabel}`;
 
     useEffect(() => {
+        const metronomeGridKey = sheet
+            ? `${sheet.bpm || BPM}|${sheet.beatsPerBar || BEATS_PER_BAR}|${sheet.subBeatsPerBeat || SUB_BEATS_PER_BEAT}`
+            : `default|${BPM}|${BEATS_PER_BAR}|${SUB_BEATS_PER_BEAT}`;
+
         if (isPlaying) {
-            startMetronome(paletteMode);
+            const shouldRestart = lastMetronomeGridKeyRef.current !== metronomeGridKey;
+            lastMetronomeGridKeyRef.current = metronomeGridKey;
+
+            if (shouldRestart) {
+                stopMetronome();
+                startTimeRef.current = typeof performance === 'undefined' ? Date.now() : performance.now();
+                autoStoppedRef.current = false;
+                clearAllSquares();
+                window.dispatchEvent(new Event('music-player-program:clear'));
+                lastSheetTickRef.current = null;
+            }
+
+            startMetronome({
+                mode: paletteMode,
+                grid: sheet
+                    ? {
+                          bpm: sheet.bpm || BPM,
+                          beatsPerBar: sheet.beatsPerBar || BEATS_PER_BAR,
+                          subBeatsPerBeat: sheet.subBeatsPerBeat || SUB_BEATS_PER_BEAT,
+                      }
+                    : undefined,
+            });
             startTimeRef.current = typeof performance === 'undefined' ? Date.now() : performance.now();
             autoStoppedRef.current = false;
         } else {
             stopMetronome();
             startTimeRef.current = null;
+            lastMetronomeGridKeyRef.current = null;
             setClock({ time: formatClockTime(0), bar: 0, beat: 0, subBeat: 0 });
         }
 
         return () => {
             stopMetronome();
         };
-    }, [isPlaying]);
-
-    useEffect(() => {
-        if (!isPlaying) return;
-        startMetronome(paletteMode);
-    }, [isPlaying, paletteMode]);
+    }, [isPlaying, paletteMode, sheet]);
 
     useEffect(() => {
         let cancelled = false;
@@ -293,9 +315,21 @@ const MusicDisplay: React.FC = () => {
             const now = typeof performance === 'undefined' ? Date.now() : performance.now();
             const elapsedMs = start === null ? 0 : now - start;
 
-            if (!autoStoppedRef.current && sheet) {
+            const { bar, beat, subBeat, eightBeat } = readBeatClockFromDom();
+            const stamp = `${bar}|${beat}|${eightBeat}`;
+
+            if (!autoStoppedRef.current && sheet && bar > sheet.bars) {
+                autoStoppedRef.current = true;
+                stopMetronome();
+                clearAllSquares();
+                window.dispatchEvent(new Event('music-player-program:clear'));
+                setIsPlaying(false);
+                return;
+            }
+
+            if (!autoStoppedRef.current && sheet && bar === 0) {
                 const bpm = sheet.bpm || BPM;
-                const msPerBar = (60_000 / bpm) * BEATS_PER_BAR;
+                const msPerBar = (60_000 / bpm) * (sheet.beatsPerBar || BEATS_PER_BAR);
                 const durationMs = sheet.bars * msPerBar;
                 if (elapsedMs >= durationMs) {
                     autoStoppedRef.current = true;
@@ -306,9 +340,6 @@ const MusicDisplay: React.FC = () => {
                     return;
                 }
             }
-
-            const { bar, beat, subBeat, eightBeat } = readBeatClockFromDom();
-            const stamp = `${bar}|${beat}|${eightBeat}`;
 
             if (import.meta.env.DEV) {
                 const previousStamp = lastAnimationStampRef.current;

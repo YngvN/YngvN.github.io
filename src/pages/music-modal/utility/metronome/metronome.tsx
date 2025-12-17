@@ -8,17 +8,29 @@ export const SUB_BEATS_PER_BAR = BEATS_PER_BAR * SUB_BEATS_PER_BEAT;
 
 export type PaletteMode = 'random' | 'white';
 
-const secondsPerBeat = 60 / BPM;
-const secondsPerSubBeat = secondsPerBeat / SUB_BEATS_PER_BEAT;
-const secondsPerBar = secondsPerBeat * BEATS_PER_BAR;
+export type MetronomeGrid = {
+    bpm: number;
+    beatsPerBar: number;
+    subBeatsPerBeat: number;
+};
 
-const PULSE_SUB_BEATS = new Set<number>([1, 5, 9, 13]);
+export type StartMetronomeOptions = {
+    mode?: PaletteMode;
+    grid?: Partial<MetronomeGrid>;
+};
+
+const DEFAULT_GRID: MetronomeGrid = {
+    bpm: BPM,
+    beatsPerBar: BEATS_PER_BAR,
+    subBeatsPerBeat: SUB_BEATS_PER_BEAT,
+};
 
 let rafId: number | null = null;
 let startTimestamp: number | null = null;
 let lastBeat: number | null = null;
 let lastSubBeat: number | null = null;
 let activePalette: BeatPalette | null = null;
+let activeGrid: MetronomeGrid = DEFAULT_GRID;
 
 const hasDom = () => typeof document !== 'undefined';
 
@@ -59,7 +71,7 @@ function updatePulseForSubBeat(subBeat: number) {
     if (!hasDom() || !activePalette) return;
     const palette = activePalette;
 
-    if (!PULSE_SUB_BEATS.has(subBeat)) return;
+    if ((subBeat - 1) % activeGrid.subBeatsPerBeat !== 0) return;
 
     const pulseColor = getRandomColorFromPalette(palette);
     setPulseVars(pulseColor);
@@ -68,10 +80,22 @@ function updatePulseForSubBeat(subBeat: number) {
 function updateMusicClock(time: number) {
     if (!hasDom()) return;
 
+    const bpm = Math.max(1, activeGrid.bpm);
+    const beatsPerBar = Math.max(1, activeGrid.beatsPerBar);
+    const subBeatsPerBeat = Math.max(1, activeGrid.subBeatsPerBeat);
+
+    const secondsPerBeat = 60 / bpm;
+    const secondsPerSubBeat = secondsPerBeat / subBeatsPerBeat;
+    const secondsPerBar = secondsPerBeat * beatsPerBar;
+    const subBeatsPerBar = beatsPerBar * subBeatsPerBeat;
+
     const bar = Math.floor(time / secondsPerBar) + 1;
-    const subBeat = Math.min(SUB_BEATS_PER_BAR, Math.floor((time % secondsPerBar) / secondsPerSubBeat) + 1);
-    const beat = Math.floor((subBeat - 1) / SUB_BEATS_PER_BEAT) + 1;
-    const eightBeat = (Math.floor((subBeat - 1) / 2) % 4) + 1;
+    const subBeat = Math.min(subBeatsPerBar, Math.floor((time % secondsPerBar) / secondsPerSubBeat) + 1);
+    const beat = Math.floor((subBeat - 1) / subBeatsPerBeat) + 1;
+    const eightBeat =
+        subBeatsPerBeat % 2 === 0
+            ? (Math.floor((subBeat - 1) / (subBeatsPerBeat / 2)) % (beatsPerBar * 2)) + 1
+            : (Math.floor((subBeat - 1) / subBeatsPerBeat) % beatsPerBar) + 1;
 
     document.documentElement.style.setProperty('--bar', bar.toString());
     document.documentElement.style.setProperty('--beat', beat.toString());
@@ -99,14 +123,27 @@ function tick(timestamp: number) {
     rafId = requestAnimationFrame(tick);
 }
 
-export function startMetronome(mode: PaletteMode = 'random') {
+export function startMetronome(options: StartMetronomeOptions | PaletteMode = 'random') {
     if (!hasDom() || typeof window === 'undefined' || typeof requestAnimationFrame === 'undefined') return;
+    const resolvedOptions: StartMetronomeOptions =
+        typeof options === 'string'
+            ? { mode: options }
+            : {
+                  mode: options.mode,
+                  grid: options.grid,
+              };
+
+    activeGrid = {
+        ...DEFAULT_GRID,
+        ...(resolvedOptions.grid ?? {}),
+    };
+
     if (rafId !== null) {
-        setMetronomePaletteMode(mode);
+        setMetronomePaletteMode(resolvedOptions.mode ?? 'random');
         return;
     }
     startTimestamp = null;
-    setMetronomePaletteMode(mode);
+    setMetronomePaletteMode(resolvedOptions.mode ?? 'random');
     updateMusicClock(0);
     rafId = requestAnimationFrame(tick);
 }
