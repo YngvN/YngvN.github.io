@@ -50,10 +50,5 @@ $beat-fallbacks: (
     background: transparent;
     box-shadow: none;
     opacity: 1;
-    // border: 1px solid grey;
+    border: 1px solid grey;
 }
-
-.inner-square[data-music-player-program] {
-    animation: none !important;
-}
-

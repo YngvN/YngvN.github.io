@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Squares from '../music-background/m-bg-components/squares';
 import PlayIcon from '../../../../components/icons/play-icon/play-icon';
 import PauseIcon from '../../../../components/icons/pause-icon/pause-icon';
-import MusicPlayerProgram from '../music-player-program/music-player-program';
+import LcdGlyph from './lcd-glyph/lcd-glyph';
 import type { ParsedMusicSheet } from '../music-sheet';
 import { fetchMusicSheetJson, parseMusicSheetJson } from '../music-sheet';
 import type { PaletteMode } from '../../utility/metronome/metronome';
@@ -515,7 +515,7 @@ const MusicDisplay: React.FC = () => {
     return (
         <div className="music-display" aria-label="Music display placeholder">
             <Squares />
-            <MusicPlayerProgram />
+            <LcdGlyph />
             <div className="music-display__controls">
                 <div
                     className="music-display__clock"
