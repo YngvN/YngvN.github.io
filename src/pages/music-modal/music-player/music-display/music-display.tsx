@@ -47,8 +47,20 @@ function restartAnimation(element: HTMLElement, animation: string) {
     element.style.animation = animation;
 }
 
-function triggerSheetAction(action: string) {
+type SheetTriggerContext = {
+    bpm: number;
+    bar: number;
+    beat: number;
+    subBeat: number;
+};
+
+function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (typeof document === 'undefined') return;
+    const msPerBeat = 60_000 / (ctx.bpm || BPM);
+    const msPerBar = msPerBeat * BEATS_PER_BAR;
+    const isBarStart = ctx.beat === 1 && ctx.subBeat === 1;
+    const holdDurationMs = isBarStart ? msPerBar : msPerBeat;
+
     if (action === 'm-s-beatpulse') {
         document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             restartAnimation(mid, 'beatMidPulse 0.28s');
@@ -59,6 +71,13 @@ function triggerSheetAction(action: string) {
     if (action === 'i-s-beatflash' || action === 's-i-beatflash') {
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
             restartAnimation(pixel, 'beatFlash 0.18s');
+        });
+        return;
+    }
+
+    if (action === 'i-s-beathold' || action === 's-i-beathold') {
+        document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+            restartAnimation(pixel, `beatHold ${Math.round(holdDurationMs)}ms linear`);
         });
         return;
     }
@@ -185,7 +204,8 @@ const MusicDisplay: React.FC = () => {
                     lastSheetTickRef.current = tickKey;
                     const actions = sheetEventMap.get(tickKey);
                     if (actions && actions.length > 0) {
-                        actions.forEach(triggerSheetAction);
+                        const bpm = sheet.bpm || BPM;
+                        actions.forEach((action) => triggerSheetAction(action, { bpm, bar, beat, subBeat }));
                         if (import.meta.env.DEV) {
                             // eslint-disable-next-line no-console
                             console.log('[sheet]', tickKey, actions);

@@ -37,6 +37,24 @@
     }
 }
 
+@keyframes beatHold {
+    0% {
+        opacity: 1;
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: var(--pulse-shadow, none);
+    }
+
+    90% {
+        opacity: 1;
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: var(--pulse-shadow, none);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 @for $phase from 1 through 4 {
     @keyframes beatFlash-#{$phase} {
         0% {
