@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './lcd-glyph.scss';
 import { getLcdSegmentsForChar, type Segment14 } from './lcd-letters';
-import { GLYPH_HEIGHT_FRACTION, GLYPH_WIDTH_FRACTION } from './glyph-settings';
+import { GLYPH_HEIGHT_FRACTION, GLYPH_WIDTH_FRACTION } from '../../music-player-settings';
 
 const PROGRAM_ATTR = 'data-music-player-program';
 

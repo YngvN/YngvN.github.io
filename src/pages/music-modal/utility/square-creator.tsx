@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { resolution, resolutionSizePx } from '../music-player/music-player-settings';
 
 export type SquareLayout = {
     cols: number;
@@ -10,18 +11,6 @@ export type MidSquare = {
     beat: 1 | 2 | 3 | 4;
     x: number;
     y: number;
-};
-
-export const resolution = 300;
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-
-export const resolutionSize = (viewportWidth: number, viewportHeight: number, layout: SquareLayout) => {
-    const safeCols = Math.max(1, layout.cols);
-    const safeRows = Math.max(1, layout.rows);
-    const cell = Math.min(viewportWidth / (safeCols * 2), viewportHeight / (safeRows * 2));
-    // Match the visual scale used in CSS so this roughly reflects the visible "pixel" size.
-    const scaled = cell * 0.67;
-    return clamp(Math.round(scaled), 6, 80);
 };
 
 function pickGridFromResolution(target: number, aspectRatio: number): SquareLayout {
@@ -100,6 +89,6 @@ export function useSquareLayout(): SquareResolution {
 
     return useMemo(() => {
         const layout = getSquareLayout(viewport.width, viewport.height);
-        return { ...layout, pixelSize: resolutionSize(viewport.width, viewport.height, layout) };
+        return { ...layout, pixelSize: resolutionSizePx(viewport.width, viewport.height, layout.cols, layout.rows) };
     }, [viewport.height, viewport.width]);
 }

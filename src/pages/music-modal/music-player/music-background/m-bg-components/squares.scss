@@ -48,6 +48,7 @@ $beat-fallbacks: (
     background: transparent;
     box-shadow: none;
     opacity: 1;
+    border: 1px solid gray;
     transform: rotate(var(--pixel-rot, 0deg));
     transform-origin: center;
 }
