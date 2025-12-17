@@ -52,19 +52,22 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
     const innerRows = rows * 2;
 
     const coords = new Set<string>();
-    const add = (x: number, y: number) => {
+    const rotations = new Map<string, string>();
+    const add = (x: number, y: number, rotation?: string) => {
         if (x < 0 || x >= innerCols) return;
         if (y < 0 || y >= innerRows) return;
-        coords.add(`${x}-${y}`);
+        const key = `${x}-${y}`;
+        coords.add(key);
+        if (rotation && !rotations.has(key)) rotations.set(key, rotation);
     };
 
-    const drawLine = (fromX: number, fromY: number, toX: number, toY: number) => {
+    const drawLine = (fromX: number, fromY: number, toX: number, toY: number, rotation?: string) => {
         const dx = toX - fromX;
         const dy = toY - fromY;
         const steps = Math.max(Math.abs(dx), Math.abs(dy), 1);
         for (let i = 0; i <= steps; i += 1) {
             const t = i / steps;
-            add(Math.round(lerp(fromX, toX, t)), Math.round(lerp(fromY, toY, t)));
+            add(Math.round(lerp(fromX, toX, t)), Math.round(lerp(fromY, toY, t)), rotation);
         }
     };
 
@@ -102,8 +105,8 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
         drawVertical(leftX, topY, bottomY);
         drawVertical(rightX, topY, bottomY);
 
-        drawLine(leftX + 1, topY + 1, rightX - 1, bottomY - 1);
-        drawLine(rightX - 1, topY + 1, leftX + 1, bottomY - 1);
+        drawLine(leftX + 1, topY + 1, rightX - 1, bottomY - 1, '45deg');
+        drawLine(rightX - 1, topY + 1, leftX + 1, bottomY - 1, '-45deg');
 
         // Center crosshair (— and |) should span the full inner width/height.
         drawHorizontal(midY, leftX + 1, rightX - 1);
@@ -113,7 +116,7 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
     const segments = getLcdSegmentsForChar(char);
     if (!segments) {
         drawUnknownLcdGlyph();
-        return coords;
+        return { coords, rotations };
     }
 
     const drawSegment = (segment: Segment14) => {
@@ -128,15 +131,15 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
         if (segment === 'lowerRight') return drawVertical(rightX, midY + 1, bottomY - 1);
         if (segment === 'centerTop') return drawVertical(centerX, topY + 1, midY);
         if (segment === 'centerBottom') return drawVertical(centerX, midY, bottomY - 1);
-        if (segment === 'diagUpperLeft') return drawLine(leftX + 1, topY + 1, centerX - 1, midY - 1);
-        if (segment === 'diagUpperRight') return drawLine(rightX - 1, topY + 1, centerX + 1, midY - 1);
-        if (segment === 'diagLowerLeft') return drawLine(leftX + 1, bottomY - 1, centerX - 1, midY + 1);
-        if (segment === 'diagLowerRight') return drawLine(rightX - 1, bottomY - 1, centerX + 1, midY + 1);
+        if (segment === 'diagUpperLeft') return drawLine(leftX + 1, topY + 1, centerX - 1, midY - 1, '45deg');
+        if (segment === 'diagUpperRight') return drawLine(rightX - 1, topY + 1, centerX + 1, midY - 1, '-45deg');
+        if (segment === 'diagLowerLeft') return drawLine(leftX + 1, bottomY - 1, centerX - 1, midY + 1, '-45deg');
+        if (segment === 'diagLowerRight') return drawLine(rightX - 1, bottomY - 1, centerX + 1, midY + 1, '45deg');
         return undefined;
     };
 
     segments.forEach((segment) => drawSegment(segment));
-    return coords;
+    return { coords, rotations };
 }
 
 function clearProgramPixels() {
@@ -144,6 +147,7 @@ function clearProgramPixels() {
         pixel.style.removeProperty('opacity');
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
+        pixel.style.removeProperty('--pixel-rot');
         pixel.removeAttribute(PROGRAM_ATTR);
     });
 }
@@ -172,7 +176,7 @@ const LcdGlyph: React.FC = () => {
         if (!grid) return;
 
         const pixels = buildInnerPixelMap();
-        const coords = makeGlyphCoords(normalizedChar, grid.cols, grid.rows);
+        const { coords, rotations } = makeGlyphCoords(normalizedChar, grid.cols, grid.rows);
 
         coords.forEach((coord) => {
             const pixel = pixels.get(coord);
@@ -180,6 +184,8 @@ const LcdGlyph: React.FC = () => {
             pixel.setAttribute(PROGRAM_ATTR, normalizedChar);
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
             pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
+            const rotation = rotations.get(coord);
+            if (rotation) pixel.style.setProperty('--pixel-rot', rotation);
         });
     }, [enabled, normalizedChar]);
 
