@@ -37,6 +37,24 @@
     }
 }
 
+@for $phase from 1 through 4 {
+    @keyframes beatFlash-#{$phase} {
+        0% {
+            opacity: 1;
+            background-color: var(--pulse-color, #ffffff);
+            box-shadow: var(--pulse-shadow, none);
+        }
+
+        99% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+}
+
 @keyframes beatRotate90 {
     0% {
         transform: rotate(0);
@@ -65,5 +83,24 @@
     100% {
         background-color: rgba(255, 255, 255, 0);
         box-shadow: none;
+    }
+}
+
+@for $phase from 1 through 4 {
+    @keyframes beatMidPulse-#{$phase} {
+        0% {
+            background-color: rgba(255, 255, 255, 0);
+            box-shadow: none;
+        }
+
+        45% {
+            background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 16%, transparent);
+            box-shadow: var(--pulse-shadow, none);
+        }
+
+        100% {
+            background-color: rgba(255, 255, 255, 0);
+            box-shadow: none;
+        }
     }
 }

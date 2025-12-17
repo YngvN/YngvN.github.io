@@ -48,13 +48,14 @@ function resetMusicClock() {
     delete document.body.dataset.bar;
     delete document.body.dataset.beat;
     delete document.body.dataset.subBeat;
+    delete document.body.dataset.eightBeat;
     resetBeatPaletteOnDom();
     lastBeat = null;
     lastSubBeat = null;
     activePalette = null;
 }
 
-function randomizeInnerSquares(subBeat: number) {
+function updatePulseForSubBeat(subBeat: number) {
     if (!hasDom() || !activePalette) return;
     const palette = activePalette;
 
@@ -62,16 +63,6 @@ function randomizeInnerSquares(subBeat: number) {
 
     const pulseColor = getRandomColorFromPalette(palette);
     setPulseVars(pulseColor);
-
-    const targets = Array.from(
-        document.querySelectorAll<HTMLElement>(`.inner-square.sub-beat-${subBeat}:not([data-music-player-program])`),
-    );
-    if (targets.length === 0) return;
-
-    targets.forEach((target) => {
-        target.style.backgroundColor = pulseColor;
-        target.style.boxShadow = `0 10px 24px ${hexToRgba(pulseColor, 0.42)}, 0 0 0 1px ${hexToRgba(pulseColor, 0.32)}`;
-    });
 }
 
 function updateMusicClock(time: number) {
@@ -80,6 +71,7 @@ function updateMusicClock(time: number) {
     const bar = Math.floor(time / secondsPerBar) + 1;
     const subBeat = Math.min(SUB_BEATS_PER_BAR, Math.floor((time % secondsPerBar) / secondsPerSubBeat) + 1);
     const beat = Math.floor((subBeat - 1) / SUB_BEATS_PER_BEAT) + 1;
+    const eightBeat = (Math.floor((subBeat - 1) / 2) % 4) + 1;
 
     document.documentElement.style.setProperty('--bar', bar.toString());
     document.documentElement.style.setProperty('--beat', beat.toString());
@@ -88,6 +80,7 @@ function updateMusicClock(time: number) {
     document.body.dataset.bar = bar.toString().padStart(3, '0');
     document.body.dataset.beat = beat.toString();
     document.body.dataset.subBeat = subBeat.toString();
+    document.body.dataset.eightBeat = eightBeat.toString();
 
     if (beat !== lastBeat) {
         lastBeat = beat;
@@ -95,7 +88,7 @@ function updateMusicClock(time: number) {
 
     if (subBeat !== lastSubBeat) {
         lastSubBeat = subBeat;
-        randomizeInnerSquares(subBeat);
+        updatePulseForSubBeat(subBeat);
     }
 }
 
@@ -124,7 +117,7 @@ export function setMetronomePaletteMode(mode: PaletteMode) {
     activePalette = palette;
     applyBeatPaletteToDom(palette);
     setPulseVars(getRandomColorFromPalette(palette));
-    if (lastSubBeat !== null) randomizeInnerSquares(lastSubBeat);
+    if (lastSubBeat !== null) updatePulseForSubBeat(lastSubBeat);
 }
 
 export function stopMetronome() {

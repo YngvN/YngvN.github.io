@@ -12,8 +12,6 @@ export type MidSquare = {
     y: number;
 };
 
-export type InnerSquareSubBeat = 5 | 9 | 13;
-
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
 export function getSquareLayout(viewportWidth: number, viewportHeight: number): SquareLayout {
@@ -45,10 +43,6 @@ export function createMidSquares(layout: SquareLayout): MidSquare[] {
         x: index % layout.cols,
         y: Math.floor(index / layout.cols),
     }));
-}
-
-export function createInnerSubBeats(): InnerSquareSubBeat[] {
-    return [5, 9, 13];
 }
 
 export function useSquareLayout(): SquareLayout {

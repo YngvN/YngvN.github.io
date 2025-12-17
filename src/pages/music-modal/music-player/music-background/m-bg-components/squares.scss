@@ -7,8 +7,6 @@ $beat-fallbacks: (
     4: #6c63ff
 );
 
-$inner-sub-beats: (5, 9, 13);
-
 .outer-square {
     position: absolute;
     inset: 0;
@@ -56,20 +54,6 @@ $inner-sub-beats: (5, 9, 13);
 
 .inner-square[data-music-player-program] {
     animation: none !important;
-}
-
-body[data-sub-beat='1'] {
-    .mid-square {
-        animation: beatMidPulse 0.50s;
-    }
-}
-
-@each $sub-beat in $inner-sub-beats {
-    body[data-sub-beat='#{$sub-beat}'] {
-        .inner-square.sub-beat-#{$sub-beat} {
-            animation: beatPulse 0.50s;
-        }
-    }
 }
 
 // body[data-theme='dark'] {

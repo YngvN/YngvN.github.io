@@ -3,6 +3,7 @@ import Squares from '../music-background/m-bg-components/squares';
 import PlayIcon from '../../../../components/icons/play-icon/play-icon';
 import PauseIcon from '../../../../components/icons/pause-icon/pause-icon';
 import MusicPlayerProgram from '../music-player-program/music-player-program';
+import type { ParsedMusicSheet } from '../music-sheet';
 import { fetchMusicSheetJson, parseMusicSheetJson } from '../music-sheet';
 import type { PaletteMode } from '../../utility/metronome/metronome';
 import { BEATS_PER_BAR, BPM, SUB_BEATS_PER_BEAT, startMetronome, stopMetronome } from '../../utility/metronome/metronome';
@@ -17,11 +18,12 @@ function formatClockTime(elapsedMs: number) {
 }
 
 function readBeatClockFromDom() {
-    if (typeof document === 'undefined') return { bar: 0, beat: 0, subBeat: 0 };
+    if (typeof document === 'undefined') return { bar: 0, beat: 0, subBeat: 0, eightBeat: 0 };
     const bar = Number.parseInt(document.body.dataset.bar ?? '0', 10) || 0;
     const beat = Number.parseInt(document.body.dataset.beat ?? '0', 10) || 0;
     const subBeat = Number.parseInt(document.body.dataset.subBeat ?? '0', 10) || 0;
-    return { bar, beat, subBeat };
+    const eightBeat = Number.parseInt(document.body.dataset.eightBeat ?? '0', 10) || 0;
+    return { bar, beat, subBeat, eightBeat };
 }
 
 function clearAllSquares() {
@@ -31,7 +33,40 @@ function clearAllSquares() {
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
         pixel.removeAttribute('data-music-player-program');
+        pixel.style.removeProperty('animation');
     });
+    document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
+        mid.style.removeProperty('animation');
+    });
+}
+
+function restartAnimation(element: HTMLElement, animation: string) {
+    element.style.animation = 'none';
+    // eslint-disable-next-line no-unused-expressions
+    element.offsetHeight;
+    element.style.animation = animation;
+}
+
+function triggerSheetAction(action: string) {
+    if (typeof document === 'undefined') return;
+    if (action === 'm-s-beatpulse') {
+        document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
+            restartAnimation(mid, 'beatMidPulse 0.28s');
+        });
+        return;
+    }
+
+    if (action === 'i-s-beatflash' || action === 's-i-beatflash') {
+        document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+            restartAnimation(pixel, 'beatFlash 0.18s');
+        });
+        return;
+    }
+
+    if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.log('[sheet] unknown action', action);
+    }
 }
 
 const MusicDisplay: React.FC = () => {
@@ -43,10 +78,13 @@ const MusicDisplay: React.FC = () => {
         beat: 0,
         subBeat: 0,
     }));
-    const [sheetMeta, setSheetMeta] = useState<{ bpm: number; bars: number } | null>(null);
+    const [sheet, setSheet] = useState<ParsedMusicSheet | null>(null);
 
     const startTimeRef = useRef<number | null>(null);
     const autoStoppedRef = useRef(false);
+    const lastAnimationStampRef = useRef<string | null>(null);
+    const animationCountsRef = useRef<Map<string, number>>(new Map());
+    const lastSheetTickRef = useRef<string | null>(null);
 
     const togglePlayback = () => setIsPlaying((prev) => !prev);
     const controlLabel = isPlaying ? 'Pause' : 'Play';
@@ -80,16 +118,28 @@ const MusicDisplay: React.FC = () => {
             .then((json) => parseMusicSheetJson(json))
             .then((parsed) => {
                 if (cancelled) return;
-                setSheetMeta({ bpm: parsed.bpm, bars: parsed.bars });
+                setSheet(parsed);
             })
             .catch(() => {
                 if (cancelled) return;
-                setSheetMeta(null);
+                setSheet(null);
             });
         return () => {
             cancelled = true;
         };
     }, []);
+
+    const sheetEventMap = useMemo(() => {
+        const map = new Map<string, string[]>();
+        if (!sheet) return map;
+        sheet.events.forEach((event) => {
+            const key = `${event.at.bar}:${event.at.subBeat}`;
+            const existing = map.get(key);
+            if (existing) existing.push(event.action);
+            else map.set(key, [event.action]);
+        });
+        return map;
+    }, [sheet]);
 
     useEffect(() => {
         if (!isPlaying) return undefined;
@@ -101,10 +151,10 @@ const MusicDisplay: React.FC = () => {
             const now = typeof performance === 'undefined' ? Date.now() : performance.now();
             const elapsedMs = start === null ? 0 : now - start;
 
-            if (!autoStoppedRef.current && sheetMeta) {
-                const bpm = sheetMeta.bpm || BPM;
+            if (!autoStoppedRef.current && sheet) {
+                const bpm = sheet.bpm || BPM;
                 const msPerBar = (60_000 / bpm) * BEATS_PER_BAR;
-                const durationMs = sheetMeta.bars * msPerBar;
+                const durationMs = sheet.bars * msPerBar;
                 if (elapsedMs >= durationMs) {
                     autoStoppedRef.current = true;
                     stopMetronome();
@@ -115,7 +165,35 @@ const MusicDisplay: React.FC = () => {
                 }
             }
 
-            const { bar, beat, subBeat } = readBeatClockFromDom();
+            const { bar, beat, subBeat, eightBeat } = readBeatClockFromDom();
+            const stamp = `${bar}|${beat}|${eightBeat}`;
+
+            if (import.meta.env.DEV) {
+                const previousStamp = lastAnimationStampRef.current;
+                if (previousStamp && stamp !== previousStamp) {
+                    const summary = Object.fromEntries(animationCountsRef.current.entries());
+                    // eslint-disable-next-line no-console
+                    console.log('[anim]', previousStamp, summary);
+                    animationCountsRef.current.clear();
+                }
+                lastAnimationStampRef.current = stamp;
+            }
+
+            if (sheet && bar > 0 && subBeat > 0) {
+                const tickKey = `${bar}:${subBeat}`;
+                if (lastSheetTickRef.current !== tickKey) {
+                    lastSheetTickRef.current = tickKey;
+                    const actions = sheetEventMap.get(tickKey);
+                    if (actions && actions.length > 0) {
+                        actions.forEach(triggerSheetAction);
+                        if (import.meta.env.DEV) {
+                            // eslint-disable-next-line no-console
+                            console.log('[sheet]', tickKey, actions);
+                        }
+                    }
+                }
+            }
+
             setClock({
                 time: formatClockTime(elapsedMs),
                 bar,
@@ -129,20 +207,56 @@ const MusicDisplay: React.FC = () => {
         return () => {
             if (rafId !== null) window.cancelAnimationFrame(rafId);
         };
-    }, [isPlaying, sheetMeta]);
+    }, [isPlaying, sheet, sheetEventMap]);
+
+    useEffect(() => {
+        if (!isPlaying) return undefined;
+        if (typeof window === 'undefined' || typeof document === 'undefined') return undefined;
+        if (!import.meta.env.DEV) return undefined;
+
+        const onAnimationStart = (event: Event) => {
+            if (!(event instanceof AnimationEvent)) return;
+            const target = event.target;
+            if (!(target instanceof HTMLElement)) return;
+            if (!target.classList.contains('mid-square') && !target.classList.contains('inner-square')) return;
+
+            const { bar, beat, eightBeat } = readBeatClockFromDom();
+            const stamp = `${bar}|${beat}|${eightBeat}`;
+            lastAnimationStampRef.current = stamp;
+
+            const kind = target.classList.contains('mid-square') ? 'mid' : 'inner';
+            const key = `${event.animationName}:${kind}`;
+            animationCountsRef.current.set(key, (animationCountsRef.current.get(key) ?? 0) + 1);
+        };
+
+        const root = document.querySelector('.music-display') ?? document;
+        root.addEventListener('animationstart', onAnimationStart, { capture: true });
+        return () => {
+            root.removeEventListener('animationstart', onAnimationStart, { capture: true } as AddEventListenerOptions);
+            const stamp = lastAnimationStampRef.current;
+            if (stamp) {
+                const summary = Object.fromEntries(animationCountsRef.current.entries());
+                if (Object.keys(summary).length > 0) {
+                    // eslint-disable-next-line no-console
+                    console.log('[anim]', stamp, summary);
+                }
+            }
+            animationCountsRef.current.clear();
+            lastAnimationStampRef.current = null;
+        };
+    }, [isPlaying]);
 
     const clockLabel = useMemo(() => {
         const eightBeat = clock.subBeat > 0 ? (Math.floor((clock.subBeat - 1) / 2) % 4) + 1 : 0;
-        const sixteenBeat = clock.subBeat > 0 ? ((clock.subBeat - 1) % 4) + 1 : 0;
-        const beatPart = `${clock.bar}|${clock.beat}|${eightBeat}|${sixteenBeat}`;
+        const beatPart = `${clock.bar}|${clock.beat}|${eightBeat}`;
         return `${clock.time} ${beatPart}`;
     }, [clock.beat, clock.bar, clock.subBeat, clock.time]);
 
     const clockTitle = useMemo(() => {
         const defaults = `BPM ${BPM}, sub-beats per beat ${SUB_BEATS_PER_BEAT}`;
-        if (!sheetMeta) return defaults;
-        return `Sheet: ${sheetMeta.bpm} BPM, ${sheetMeta.bars} bars • ${defaults}`;
-    }, [sheetMeta]);
+        if (!sheet) return defaults;
+        return `Sheet: ${sheet.bpm} BPM, ${sheet.bars} bars • ${defaults}`;
+    }, [sheet]);
 
     return (
         <div className="music-display" aria-label="Music display placeholder">

@@ -130,7 +130,6 @@ function parseProgramNode(
     ctx: ProgramContext,
     path: string,
 ) {
-    const subBeatsPerBar = grid.beatsPerBar * grid.subBeatsPerBeat;
     const step8 = grid.subBeatsPerBeat / 2;
     const has8 = Number.isInteger(step8) && step8 >= 1;
 
@@ -185,35 +184,6 @@ function parseProgramNode(
                     }
                 } else {
                     parseProgramNode(child, grid, events, { ...ctx, eighth }, `${path}.${key}`);
-                }
-            }
-            return;
-        }
-
-        if (key.startsWith('16beat-')) {
-            const range = parseRangeKey('16beat', key);
-            if (!range) throw new Error(`Invalid key "${key}" at "${path}" (expected "16beat-x" or "16beat-x-y")`);
-
-            for (let idx = range.start; idx <= range.end; idx += 1) {
-                let absoluteSubBeat: number;
-                if (ctx.eighth !== undefined && has8 && idx >= 1 && idx <= step8) {
-                    absoluteSubBeat = (ctx.eighth - 1) * step8 + idx;
-                } else if (ctx.beat !== undefined && idx >= 1 && idx <= grid.subBeatsPerBeat) {
-                    absoluteSubBeat = (ctx.beat - 1) * grid.subBeatsPerBeat + idx;
-                } else {
-                    absoluteSubBeat = idx;
-                }
-
-                if (absoluteSubBeat < 1 || absoluteSubBeat > subBeatsPerBar) {
-                    throw new Error(`16beat index out of range (${absoluteSubBeat}) at "${path}.${key}" (expected 1..${subBeatsPerBar})`);
-                }
-
-                if (typeof child !== 'string') {
-                    throw new Error(`16beat must map to an action string at "${path}.${key}"`);
-                }
-
-                for (let bar = ctx.barRange.start; bar <= ctx.barRange.end; bar += 1) {
-                    emit(bar, absoluteSubBeat, child);
                 }
             }
             return;
