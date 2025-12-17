@@ -15,7 +15,6 @@ $inner-sub-beats: (5, 9, 13);
     display: grid;
     top: 0;
     left: 0;
-    background-color: blue;
     grid-template-columns: repeat(var(--grid-cols, 3), max-content);
     grid-template-rows: repeat(var(--grid-rows, 3), max-content);
     gap: 0;
@@ -55,9 +54,13 @@ $inner-sub-beats: (5, 9, 13);
     opacity: 0;
 }
 
+.inner-square[data-music-player-program] {
+    animation: none !important;
+}
+
 body[data-sub-beat='1'] {
     .mid-square {
-        animation: beatPulse 0.50s;
+        animation: beatMidPulse 0.50s;
     }
 }
 

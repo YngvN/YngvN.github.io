@@ -50,3 +50,20 @@
         transform: rotate(90deg);
     }
 }
+
+@keyframes beatMidPulse {
+    0% {
+        background-color: rgba(255, 255, 255, 0);
+        box-shadow: none;
+    }
+
+    45% {
+        background-color: color-mix(in srgb, var(--pulse-color, #ffffff) 16%, transparent);
+        box-shadow: var(--pulse-shadow, none);
+    }
+
+    100% {
+        background-color: rgba(255, 255, 255, 0);
+        box-shadow: none;
+    }
+}

@@ -21,6 +21,24 @@
     gap: 10px;
 }
 
+.music-display__clock {
+    display: inline-flex;
+    align-items: center;
+    height: 42px;
+    padding: 0 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    user-select: none;
+}
+
 .music-display__control {
     display: inline-flex;
     align-items: center;
@@ -61,6 +79,13 @@ body[data-theme='dark'] {
         background: rgba(15, 23, 42, 0.82);
         border-color: rgba(255, 255, 255, 0.12);
         color: colors.color-dark("text");
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .music-display__clock {
+        background: rgba(15, 23, 42, 0.28);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.92);
         box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
     }
 }

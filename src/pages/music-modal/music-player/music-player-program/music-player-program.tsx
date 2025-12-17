@@ -165,6 +165,17 @@ const MusicPlayerProgram: React.FC = () => {
         };
     }, [enabled, run]);
 
+    useEffect(() => {
+        if (typeof window === 'undefined') return undefined;
+        const onClear = () => {
+            setEnabled(false);
+            if (typeof document === 'undefined') return;
+            clearProgramPixels();
+        };
+        window.addEventListener('music-player-program:clear', onClear);
+        return () => window.removeEventListener('music-player-program:clear', onClear);
+    }, []);
+
     const onClick = useCallback(() => {
         setEnabled((prev) => {
             const next = !prev;

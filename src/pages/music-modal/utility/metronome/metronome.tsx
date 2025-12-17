@@ -63,7 +63,9 @@ function randomizeInnerSquares(subBeat: number) {
     const pulseColor = getRandomColorFromPalette(palette);
     setPulseVars(pulseColor);
 
-    const targets = Array.from(document.querySelectorAll<HTMLElement>(`.inner-square.sub-beat-${subBeat}`));
+    const targets = Array.from(
+        document.querySelectorAll<HTMLElement>(`.inner-square.sub-beat-${subBeat}:not([data-music-player-program])`),
+    );
     if (targets.length === 0) return;
 
     targets.forEach((target) => {

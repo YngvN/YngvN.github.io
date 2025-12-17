@@ -1,0 +1,16 @@
+{
+  "bpm": 120,
+  "bars": 10,
+  "program": {
+    "bar-1-1": {
+      "beat-2-2": {
+        "subbeat-1-1": "i-s-beatflash"
+      }
+    },
+    "bar-4-4": {
+      "beat-3-3": {
+        "subbeat-2-2": "m-s-beatpulse"
+      }
+    }
+  }
+}
