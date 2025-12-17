@@ -119,14 +119,15 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
     const drawSegment = (segment: Segment14) => {
         if (segment === 'top') return drawHorizontal(topY, leftX + 1, rightX - 1);
         if (segment === 'bottom') return drawHorizontal(bottomY, leftX + 1, rightX - 1);
-        if (segment === 'middleLeft') return drawHorizontal(midY, leftX + 1, centerX - 1);
-        if (segment === 'middleRight') return drawHorizontal(midY, centerX + 1, rightX - 1);
+        // Include the exact center pixel (centerX, midY) so it can be activated by middle/center segments.
+        if (segment === 'middleLeft') return drawHorizontal(midY, leftX + 1, centerX);
+        if (segment === 'middleRight') return drawHorizontal(midY, centerX, rightX - 1);
         if (segment === 'upperLeft') return drawVertical(leftX, topY + 1, midY - 1);
         if (segment === 'upperRight') return drawVertical(rightX, topY + 1, midY - 1);
         if (segment === 'lowerLeft') return drawVertical(leftX, midY + 1, bottomY - 1);
         if (segment === 'lowerRight') return drawVertical(rightX, midY + 1, bottomY - 1);
-        if (segment === 'centerTop') return drawVertical(centerX, topY + 1, midY - 1);
-        if (segment === 'centerBottom') return drawVertical(centerX, midY + 1, bottomY - 1);
+        if (segment === 'centerTop') return drawVertical(centerX, topY + 1, midY);
+        if (segment === 'centerBottom') return drawVertical(centerX, midY, bottomY - 1);
         if (segment === 'diagUpperLeft') return drawLine(leftX + 1, topY + 1, centerX - 1, midY - 1);
         if (segment === 'diagUpperRight') return drawLine(rightX - 1, topY + 1, centerX + 1, midY - 1);
         if (segment === 'diagLowerLeft') return drawLine(leftX + 1, bottomY - 1, centerX - 1, midY + 1);
@@ -148,20 +149,24 @@ function clearProgramPixels() {
 }
 
 function readInitialChar() {
-    if (typeof window === 'undefined') return '?';
+    if (typeof window === 'undefined') return '';
     const params = new URLSearchParams(window.location.search);
-    return (params.get('char') || '?').slice(0, 1).toUpperCase();
+    const raw = params.get('char');
+    if (!raw) return '';
+    return raw.slice(0, 1).toUpperCase();
 }
 
 const LcdGlyph: React.FC = () => {
     const [enabled, setEnabled] = useState(true);
     const [char, setChar] = useState(readInitialChar);
 
-    const normalizedChar = useMemo(() => (char || '?').slice(0, 1).toUpperCase(), [char]);
+    const normalizedChar = useMemo(() => (char || '').slice(0, 1).toUpperCase(), [char]);
 
     const run = useCallback(() => {
         if (typeof document === 'undefined') return;
         clearProgramPixels();
+        if (!enabled) return;
+        if (!normalizedChar) return;
 
         const grid = getSquareGridSizeFromDom();
         if (!grid) return;
@@ -176,7 +181,7 @@ const LcdGlyph: React.FC = () => {
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
             pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
         });
-    }, [normalizedChar]);
+    }, [enabled, normalizedChar]);
 
     const clear = useCallback(() => {
         if (typeof document === 'undefined') return;
@@ -241,8 +246,9 @@ const LcdGlyph: React.FC = () => {
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const next = event.target.value.slice(0, 1);
             setChar(next);
-            setEnabled(true);
-            if (!next) clear();
+            const hasChar = next.trim().length > 0;
+            setEnabled(hasChar);
+            if (!hasChar) clear();
         },
         [clear],
     );
@@ -258,6 +264,7 @@ const LcdGlyph: React.FC = () => {
                 autoCorrect="off"
                 spellCheck={false}
                 maxLength={1}
+                placeholder=" "
                 aria-label="LCD glyph character"
                 title="Type a character to display"
             />
