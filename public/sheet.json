@@ -1,5 +1,6 @@
 {
-  "bpm": 80,
+  "bpm": 127,
+  "audio": "Søknadssang.mp3",
   "bars": 4,
   "program": {
     "bar-1": [

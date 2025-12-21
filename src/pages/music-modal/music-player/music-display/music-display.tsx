@@ -9,6 +9,22 @@ import type { PaletteMode } from '../../utility/metronome/metronome';
 import { BEATS_PER_BAR, BPM, SUB_BEATS_PER_BEAT, startMetronome, stopMetronome } from '../../utility/metronome/metronome';
 import './music-display.scss';
 
+const audioAssets = import.meta.glob('../../../../assets/song/*.mp3', { eager: true, import: 'default' }) as Record<
+    string,
+    string
+>;
+const audioAssetMap = Object.fromEntries(
+    Object.entries(audioAssets).map(([path, url]) => [path.split('/').pop() ?? path, url]),
+);
+
+function resolveAudioSrc(raw: string | undefined) {
+    if (!raw) return null;
+    const trimmed = raw.trim();
+    if (!trimmed) return null;
+    const fileName = trimmed.split('/').pop() ?? trimmed;
+    return audioAssetMap[trimmed] ?? audioAssetMap[fileName] ?? trimmed;
+}
+
 function formatClockTime(elapsedMs: number) {
     const totalMs = Math.max(0, Math.floor(elapsedMs));
     const minutes = Math.floor(totalMs / 60_000);
@@ -228,11 +244,13 @@ const MusicDisplay: React.FC = () => {
     const animationCountsRef = useRef<Map<string, number>>(new Map());
     const lastSheetTickRef = useRef<string | null>(null);
     const lastMetronomeGridKeyRef = useRef<string | null>(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const togglePlayback = () => setIsPlaying((prev) => !prev);
     const controlLabel = isPlaying ? 'Pause' : 'Play';
     const paletteLabel = paletteMode === 'random' ? 'Random' : 'White';
     const paletteToggleLabel = `Colors: ${paletteLabel}`;
+    const audioSrc = useMemo(() => resolveAudioSrc(sheet?.audio), [sheet?.audio]);
 
     useEffect(() => {
         const metronomeGridKey = sheet
@@ -275,6 +293,22 @@ const MusicDisplay: React.FC = () => {
             stopMetronome();
         };
     }, [isPlaying, paletteMode, sheet]);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio || !audioSrc) return;
+
+        if (isPlaying) {
+            audio.currentTime = 0;
+            const playResult = audio.play();
+            if (playResult && typeof playResult.catch === 'function') {
+                playResult.catch(() => undefined);
+            }
+        } else {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    }, [audioSrc, isPlaying]);
 
     useEffect(() => {
         let cancelled = false;
@@ -514,6 +548,7 @@ const MusicDisplay: React.FC = () => {
 
     return (
         <div className="music-display" aria-label="Music display placeholder">
+            {audioSrc ? <audio ref={audioRef} preload="auto" src={audioSrc} /> : null}
             <Squares />
             <LcdGlyph />
             <div className="music-display__controls">
