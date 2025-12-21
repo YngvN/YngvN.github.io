@@ -12,16 +12,46 @@ const audioAssets = import.meta.glob('../../../../assets/song/*.mp3', { eager: t
     string,
     string
 >;
-const audioAssetMap = Object.fromEntries(
-    Object.entries(audioAssets).map(([path, url]) => [path.split('/').pop() ?? path, url]),
-);
+
+function safeDecode(value: string) {
+    try {
+        return decodeURIComponent(value);
+    } catch {
+        return value;
+    }
+}
+
+const audioAssetMap = (() => {
+    const entries = new Map<string, string>();
+    Object.entries(audioAssets).forEach(([path, url]) => {
+        const fileName = path.split('/').pop() ?? path;
+        entries.set(fileName, url);
+        entries.set(safeDecode(fileName), url);
+        entries.set(encodeURIComponent(fileName), url);
+    });
+    return entries;
+})();
 
 function resolveAudioSrc(raw: string | undefined) {
     if (!raw) return null;
     const trimmed = raw.trim();
     if (!trimmed) return null;
     const fileName = trimmed.split('/').pop() ?? trimmed;
-    return audioAssetMap[trimmed] ?? audioAssetMap[fileName] ?? trimmed;
+    const candidates = [
+        trimmed,
+        fileName,
+        safeDecode(trimmed),
+        safeDecode(fileName),
+        encodeURIComponent(trimmed),
+        encodeURIComponent(fileName),
+    ];
+    for (const candidate of candidates) {
+        const mapped = audioAssetMap.get(candidate);
+        if (mapped) return mapped;
+    }
+    if (/^(https?:)?\/\//.test(trimmed) || trimmed.startsWith('/')) return trimmed;
+    const base = typeof import.meta !== 'undefined' ? import.meta.env.BASE_URL : '/';
+    return `${base}${base.endsWith('/') ? '' : '/'}${trimmed}`;
 }
 
 function formatClockTime(elapsedMs: number) {
@@ -52,6 +82,8 @@ function clearAllSquares() {
         pixel.style.removeProperty('--hold-shadow');
         pixel.removeAttribute('data-music-player-program');
         pixel.style.removeProperty('animation');
+        pixel.style.opacity = '0';
+        pixel.style.display = 'none';
     });
     document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
         mid.style.removeProperty('animation');
@@ -92,6 +124,8 @@ type HoldState = {
 };
 
 function applyInnerHoldBase(pixel: HTMLElement, state: HoldState) {
+    pixel.style.display = 'block';
+    pixel.style.opacity = '1';
     if (state.color) pixel.style.setProperty('--hold-color', state.color);
     if (state.shadow) pixel.style.setProperty('--hold-shadow', state.shadow);
     pixel.style.backgroundColor = 'var(--hold-color, var(--pulse-color, #ffffff))';
@@ -116,6 +150,18 @@ function clearHoldBase(element: HTMLElement) {
     element.style.removeProperty('background-color');
     element.style.removeProperty('box-shadow');
     element.style.removeProperty('animation');
+    if (element.classList.contains('inner-square')) {
+        element.style.opacity = '0';
+        if (typeof window !== 'undefined') {
+            window.setTimeout(() => {
+                if (element.style.opacity === '0') {
+                    element.style.display = 'none';
+                }
+            }, 140);
+        } else {
+            element.style.display = 'none';
+        }
+    }
 }
 
 function getHoldUntil(pixel: HTMLElement) {
@@ -132,6 +178,30 @@ function formatDurationMs(durationMs: number) {
 function restartAnimationWithDuration(element: HTMLElement, name: string, durationMs: number) {
     element.style.setProperty('--beat-anim-duration', formatDurationMs(durationMs));
     restartAnimation(element, `${name} var(--beat-anim-duration)`);
+}
+
+function parseMetaNumber(meta: string, key: string) {
+    const match = new RegExp(`(?:^|,)${key}=(\\d+)(?:,|$)`).exec(meta);
+    if (!match) return null;
+    const value = Number.parseInt(match[1], 10);
+    return Number.isFinite(value) ? value : null;
+}
+
+function parseMetaVariant(meta: string) {
+    const match = /(?:^|,)variant=(pulse|flash)(?:,|$)/.exec(meta);
+    return match ? match[1] : null;
+}
+
+function pickRandom<T>(list: T[], count: number) {
+    const picks: T[] = [];
+    const pool = list.slice();
+    const total = Math.max(0, Math.min(count, pool.length));
+    for (let i = 0; i < total; i += 1) {
+        const idx = Math.floor(Math.random() * pool.length);
+        picks.push(pool[idx]);
+        pool.splice(idx, 1);
+    }
+    return picks;
 }
 
 function getAnimationTimebaseMs(ctx: SheetTriggerContext) {
@@ -179,6 +249,8 @@ function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (baseAction === 'i-s-beatflash' || baseAction === 's-i-beatflash') {
         const durationMs = getAnimationTimebaseMs(ctx) * 0.36;
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+            pixel.style.display = 'block';
+            pixel.style.opacity = '1';
             restartAnimationWithDuration(pixel, 'beatFlash', durationMs);
         });
         return;
@@ -215,7 +287,30 @@ function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (baseAction === 'i-s-beatpulse' || baseAction === 's-i-beatpulse') {
         const durationMs = getAnimationTimebaseMs(ctx);
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+            pixel.style.display = 'block';
+            pixel.style.opacity = '1';
             restartAnimationWithDuration(pixel, 'beatPulse', durationMs);
+        });
+        return;
+    }
+
+    if (baseAction === 'random-pixel' || baseAction === 'random-pixel-pulse' || baseAction === 'random-pixel-flash') {
+        const count = parseMetaNumber(meta, 'count') ?? 6;
+        const variant =
+            baseAction === 'random-pixel'
+                ? parseMetaVariant(meta) ?? 'pulse'
+                : baseAction.endsWith('flash')
+                  ? 'flash'
+                  : 'pulse';
+        const pixels = Array.from(
+            document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])'),
+        );
+        const chosen = pickRandom(pixels, Math.max(1, count));
+        const durationMs = getAnimationTimebaseMs(ctx) * (variant === 'flash' ? 0.36 : 1);
+        chosen.forEach((pixel) => {
+            pixel.style.display = 'block';
+            pixel.style.opacity = '1';
+            restartAnimationWithDuration(pixel, variant === 'flash' ? 'randomPixelFlash' : 'randomPixelPulse', durationMs);
         });
         return;
     }
@@ -381,14 +476,20 @@ const MusicDisplay: React.FC = () => {
 
     useEffect(() => {
         let cancelled = false;
+        // eslint-disable-next-line no-console
+        console.log('[sheet] loading');
         fetchMusicSheetJson()
             .then((json) => parseMusicSheetJson(json))
             .then((parsed) => {
                 if (cancelled) return;
+                // eslint-disable-next-line no-console
+                console.log('[sheet] loaded', { audio: parsed.audio ?? 'none', bpm: parsed.bpm });
                 setSheet(parsed);
             })
-            .catch(() => {
+            .catch((error) => {
                 if (cancelled) return;
+                // eslint-disable-next-line no-console
+                console.error('[sheet] failed to load', error);
                 setSheet(null);
             });
         return () => {
@@ -546,7 +647,13 @@ const MusicDisplay: React.FC = () => {
             if (isInner && target.hasAttribute('data-music-player-program')) return;
 
             const until = getHoldUntil(target);
-            if (!until) return;
+            if (!until) {
+                if (isInner) {
+                    target.style.opacity = '0';
+                    target.style.display = 'none';
+                }
+                return;
+            }
 
             const now = typeof performance === 'undefined' ? Date.now() : performance.now();
             if (now >= until) {
@@ -598,9 +705,9 @@ const MusicDisplay: React.FC = () => {
     const sheetSummary = useMemo(() => {
         if (!sheet) return null;
         const bpm = sheet.bpm || BPM;
-        const barsLabel = `${effectiveBars} ${effectiveBars === 1 ? 'bar' : 'bars'}`;
-        return `${bpm} BPM • ${barsLabel}`;
-    }, [effectiveBars, sheet]);
+        const timeLabel = sheet.timeSignature ? `${sheet.timeSignature} time` : `${grid.beatsPerBar}/4 time`;
+        return `${bpm} BPM • ${timeLabel}`;
+    }, [grid.beatsPerBar, sheet]);
 
     const clockLabel = useMemo(() => {
         const eightBeat = clock.subBeat > 0 ? (Math.floor((clock.subBeat - 1) / 2) % 4) + 1 : 0;
@@ -612,8 +719,9 @@ const MusicDisplay: React.FC = () => {
     const clockTitle = useMemo(() => {
         const defaults = `BPM ${BPM}, sub-beats per beat ${SUB_BEATS_PER_BEAT}`;
         if (!sheet) return defaults;
-        return `Sheet: ${sheet.bpm} BPM, ${effectiveBars} bars • ${defaults}`;
-    }, [effectiveBars, sheet]);
+        const timeLabel = sheet.timeSignature ? `${sheet.timeSignature} time` : `${grid.beatsPerBar}/4 time`;
+        return `Sheet: ${sheet.bpm} BPM, ${timeLabel} • ${defaults}`;
+    }, [grid.beatsPerBar, sheet]);
 
     const handleSeek = (nextTime: number) => {
         const audio = audioRef.current;
@@ -650,6 +758,26 @@ const MusicDisplay: React.FC = () => {
                 clockTitle={clockTitle}
                 isPlaying={isPlaying}
                 onTogglePlayback={togglePlayback}
+                onRestart={() => {
+                    const audio = audioRef.current;
+                    if (!audio || !audioSrc) return;
+                    audio.currentTime = 0;
+                    setAudioCurrentTime(0);
+                    const now = typeof performance === 'undefined' ? Date.now() : performance.now();
+                    startTimeRef.current = now;
+                    lastSheetTickRef.current = null;
+                    if (isPlaying) {
+                        stopMetronome();
+                        startMetronome({
+                            mode: paletteMode,
+                            grid,
+                            startAtSeconds: 0,
+                        });
+                        clearAllSquares();
+                        window.dispatchEvent(new Event('music-player-program:clear'));
+                        autoStoppedRef.current = false;
+                    }
+                }}
                 paletteMode={paletteMode}
                 onTogglePalette={() => setPaletteMode((prev) => (prev === 'random' ? 'white' : 'random'))}
                 audioCurrentTime={audioCurrentTime}

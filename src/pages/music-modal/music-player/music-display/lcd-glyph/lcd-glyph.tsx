@@ -156,6 +156,13 @@ function clearProgramPixels() {
         pixel.style.removeProperty('--pixel-rot');
         pixel.removeAttribute(PROGRAM_ATTR);
     });
+    document.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
+        mid.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
+            pixel.style.display = 'none';
+            pixel.style.opacity = '0';
+        });
+        mid.removeAttribute('data-music-player-program-mid');
+    });
 }
 
 function readInitialChar() {
@@ -183,15 +190,30 @@ const LcdGlyph: React.FC = () => {
 
         const pixels = buildInnerPixelMap();
         const { coords, rotations } = makeGlyphCoords(normalizedChar, grid.cols, grid.rows);
+        const midSquares = new Set<HTMLElement>();
 
         coords.forEach((coord) => {
             const pixel = pixels.get(coord);
             if (!pixel) return;
+            const midSquare = pixel.closest<HTMLElement>('.mid-square');
+            if (midSquare) midSquares.add(midSquare);
             pixel.setAttribute(PROGRAM_ATTR, normalizedChar);
+            pixel.style.display = 'block';
+            pixel.style.opacity = '1';
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
             pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
             const rotation = rotations.get(coord);
             if (rotation) pixel.style.setProperty('--pixel-rot', rotation);
+        });
+
+        midSquares.forEach((midSquare) => {
+            midSquare.setAttribute('data-music-player-program-mid', 'true');
+            midSquare.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
+                pixel.style.display = 'block';
+                if (!pixel.hasAttribute(PROGRAM_ATTR)) {
+                    pixel.style.opacity = '0';
+                }
+            });
         });
     }, [enabled, normalizedChar]);
 

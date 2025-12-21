@@ -1,23 +1,13 @@
 {
   "bpm": 127,
   "audio": "Søknadssang.mp3",
-  "bars": 4,
+  "bars": 78,
+  "timeSignature": "4/4",
   "program": {
     "bar-1-78": [
-      "m-s-beatpulse"
-    ],
-    "bar-1": [
-      "m-s-beathold"
-    ],
-    "bar-2": [
+      "m-s-beatpulse",
       {
-        "4beat-1-4": "m-s-beatpulse"
-      }
-    ],
-    "bar-3": [
-      {
-        "4beat-2": "m-s-beatpulse",
-        "4beat-4": "m-s-beatpulse"
+        "4beat-1-3": "random-pixel-pulse@count=10"
       }
     ],
     "bar-4": {

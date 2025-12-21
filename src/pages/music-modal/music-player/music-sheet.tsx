@@ -8,6 +8,7 @@ export type MusicSheetJson = {
     bpm: number;
     bars: number;
     audio?: string;
+    timeSignature?: string;
     beatsPerBar?: number;
     subBeatsPerBeat?: number;
     program?: Record<string, MusicSheetProgramNode>;
@@ -48,6 +49,7 @@ export type ParsedMusicSheet = {
     bpm: number;
     bars: number;
     audio?: string;
+    timeSignature?: string;
     beatsPerBar: number;
     subBeatsPerBeat: number;
     events: ReadonlyArray<ParsedMusicSheetEvent>;
@@ -292,6 +294,10 @@ export function parseMusicSheetJson(json: MusicSheetJson): ParsedMusicSheet {
     const beatsPerBar = clampInt(json.beatsPerBar ?? 4, 1, 64);
     const subBeatsPerBeat = clampInt(json.subBeatsPerBeat ?? 4, 1, 64);
     const audio = typeof json.audio === 'string' && json.audio.trim().length > 0 ? json.audio.trim() : undefined;
+    const timeSignature =
+        typeof json.timeSignature === 'string' && json.timeSignature.trim().length > 0
+            ? json.timeSignature.trim()
+            : undefined;
 
     const grid = normalizeGrid({ bars, beatsPerBar, subBeatsPerBeat });
     const events: ParsedMusicSheetEvent[] = [];
@@ -303,7 +309,7 @@ export function parseMusicSheetJson(json: MusicSheetJson): ParsedMusicSheet {
             if (!barRange) throw new Error(`Invalid bar key: "${barKey}" (expected "bar-x" or "bar-x-y")`);
             parseProgramNode(node, grid, events, { barRange }, `program.${barKey}`);
         });
-        return { bpm, bars, audio, beatsPerBar, subBeatsPerBeat, events };
+        return { bpm, bars, audio, timeSignature, beatsPerBar, subBeatsPerBeat, events };
     }
 
     const entries = Object.entries(json.events ?? {});
@@ -316,7 +322,7 @@ export function parseMusicSheetJson(json: MusicSheetJson): ParsedMusicSheet {
         events.push({ id: `sheet-${index}`, at, action });
     });
 
-    return { bpm, bars, audio, beatsPerBar, subBeatsPerBeat, events };
+    return { bpm, bars, audio, timeSignature, beatsPerBar, subBeatsPerBeat, events };
 }
 
 export async function fetchMusicSheetJson(path = 'sheet.json'): Promise<MusicSheetJson> {

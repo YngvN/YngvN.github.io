@@ -10,6 +10,7 @@ type MusicControllerProps = {
     clockTitle: string;
     isPlaying: boolean;
     onTogglePlayback: () => void;
+    onRestart: () => void;
     paletteMode: PaletteMode;
     onTogglePalette: () => void;
     audioCurrentTime: number;
@@ -25,6 +26,7 @@ const MusicController: React.FC<MusicControllerProps> = ({
     clockTitle,
     isPlaying,
     onTogglePlayback,
+    onRestart,
     paletteMode,
     onTogglePalette,
     audioCurrentTime,
@@ -44,6 +46,14 @@ const MusicController: React.FC<MusicControllerProps> = ({
             </div>
             <div className="music-controller__row">
                 <PlayControl isPlaying={isPlaying} onToggle={onTogglePlayback} />
+                <button
+                    type="button"
+                    className="music-controller__button"
+                    onClick={onRestart}
+                    aria-label="Restart"
+                >
+                    <span className="music-controller__button-label">Restart</span>
+                </button>
                 <TimelineControl
                     currentTime={audioCurrentTime}
                     duration={audioDuration}

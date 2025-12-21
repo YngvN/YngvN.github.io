@@ -36,6 +36,39 @@
     }
 }
 
+@keyframes randomPixelPulse {
+    0% {
+        opacity: 1;
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: var(--pulse-shadow, none);
+    }
+
+    50% {
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: var(--pulse-shadow, none);
+    }
+
+    100% {
+        opacity: 0;
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: none;
+    }
+}
+
+@keyframes randomPixelFlash {
+    0% {
+        opacity: 1;
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: var(--pulse-shadow, none);
+    }
+
+    100% {
+        opacity: 0;
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: none;
+    }
+}
+
 @keyframes beatHold {
     0% {
         transition: none;
