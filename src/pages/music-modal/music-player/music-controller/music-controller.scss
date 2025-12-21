@@ -1,0 +1,142 @@
+@use '../../../../assets/sass/colors' as colors;
+
+.music-controller {
+    position: absolute;
+    bottom: 22px;
+    right: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.music-controller__row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.music-controller__clock {
+    display: inline-flex;
+    align-items: center;
+    height: 42px;
+    padding: 0 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    user-select: none;
+}
+
+.music-controller__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.85rem 0.55rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.92);
+    color: colors.color('text');
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 9px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    &:focus-visible {
+        outline: 2px solid colors.color('primary');
+        outline-offset: 2px;
+    }
+}
+
+.music-controller__button-label {
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.music-control-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.92);
+    color: colors.color('text');
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 9px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    &:focus-within {
+        outline: 2px solid colors.color('primary');
+        outline-offset: 2px;
+    }
+
+    &.is-disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+}
+
+body[data-theme='dark'] {
+    .music-controller__button,
+    .music-control-pill {
+        background: rgba(15, 23, 42, 0.82);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: colors.color-dark('text');
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .music-controller__clock {
+        background: rgba(15, 23, 42, 0.28);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+    }
+}
+
+@media (max-width: 640px) {
+    .music-controller {
+        bottom: 16px;
+        right: 16px;
+        gap: 8px;
+    }
+
+    .music-controller__row {
+        gap: 8px;
+    }
+
+    .music-controller__button,
+    .music-control-pill {
+        padding: 0.5rem 0.7rem;
+    }
+}

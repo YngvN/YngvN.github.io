@@ -1,0 +1,30 @@
+.music-volume {
+    min-width: 140px;
+}
+
+.music-volume__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.music-volume input[type='range'] {
+    flex: 1;
+    min-width: 90px;
+    accent-color: currentColor;
+}
+
+.music-volume.is-disabled {
+    pointer-events: none;
+}
+
+@media (max-width: 640px) {
+    .music-volume {
+        min-width: 120px;
+    }
+
+    .music-volume__label {
+        display: none;
+    }
+}

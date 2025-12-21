@@ -1,12 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Squares from '../music-background/m-bg-components/squares';
-import PlayIcon from '../../../../components/icons/play-icon/play-icon';
-import PauseIcon from '../../../../components/icons/pause-icon/pause-icon';
 import LcdGlyph from './lcd-glyph/lcd-glyph';
+import MusicController from '../music-controller/music-controller';
 import type { ParsedMusicSheet } from '../music-sheet';
 import { fetchMusicSheetJson, parseMusicSheetJson } from '../music-sheet';
 import type { PaletteMode } from '../../utility/metronome/metronome';
-import { BEATS_PER_BAR, BPM, SUB_BEATS_PER_BEAT, startMetronome, stopMetronome } from '../../utility/metronome/metronome';
+import { BEATS_PER_BAR, BPM, SUB_BEATS_PER_BEAT, getBeatClockAtTime, startMetronome, stopMetronome } from '../../utility/metronome/metronome';
 import './music-display.scss';
 
 const audioAssets = import.meta.glob('../../../../assets/song/*.mp3', { eager: true, import: 'default' }) as Record<
@@ -237,6 +236,9 @@ const MusicDisplay: React.FC = () => {
         subBeat: 0,
     }));
     const [sheet, setSheet] = useState<ParsedMusicSheet | null>(null);
+    const [audioDuration, setAudioDuration] = useState(0);
+    const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+    const [volume, setVolume] = useState(0.85);
 
     const startTimeRef = useRef<number | null>(null);
     const autoStoppedRef = useRef(false);
@@ -247,10 +249,23 @@ const MusicDisplay: React.FC = () => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const togglePlayback = () => setIsPlaying((prev) => !prev);
-    const controlLabel = isPlaying ? 'Pause' : 'Play';
-    const paletteLabel = paletteMode === 'random' ? 'Random' : 'White';
-    const paletteToggleLabel = `Colors: ${paletteLabel}`;
     const audioSrc = useMemo(() => resolveAudioSrc(sheet?.audio), [sheet?.audio]);
+    const grid = useMemo(
+        () => ({
+            bpm: sheet?.bpm || BPM,
+            beatsPerBar: sheet?.beatsPerBar || BEATS_PER_BAR,
+            subBeatsPerBeat: sheet?.subBeatsPerBeat || SUB_BEATS_PER_BEAT,
+        }),
+        [sheet],
+    );
+    const effectiveBars = useMemo(() => {
+        if (!sheet) return 0;
+        if (audioDuration <= 0) return sheet.bars;
+        const bpm = grid.bpm;
+        const beatsPerBar = grid.beatsPerBar;
+        const secondsPerBar = (60 / bpm) * beatsPerBar;
+        return Math.max(1, Math.ceil(audioDuration / secondsPerBar));
+    }, [audioDuration, grid, sheet]);
 
     useEffect(() => {
         const metronomeGridKey = sheet
@@ -263,52 +278,106 @@ const MusicDisplay: React.FC = () => {
 
             if (shouldRestart) {
                 stopMetronome();
-                startTimeRef.current = typeof performance === 'undefined' ? Date.now() : performance.now();
                 autoStoppedRef.current = false;
                 clearAllSquares();
                 window.dispatchEvent(new Event('music-player-program:clear'));
                 lastSheetTickRef.current = null;
             }
 
-            startMetronome({
-                mode: paletteMode,
-                grid: sheet
-                    ? {
-                          bpm: sheet.bpm || BPM,
-                          beatsPerBar: sheet.beatsPerBar || BEATS_PER_BAR,
-                          subBeatsPerBeat: sheet.subBeatsPerBeat || SUB_BEATS_PER_BEAT,
-                      }
-                    : undefined,
-            });
-            startTimeRef.current = typeof performance === 'undefined' ? Date.now() : performance.now();
-            autoStoppedRef.current = false;
+            const beginMetronome = () => {
+                const audioElapsedMs = audioRef.current ? audioRef.current.currentTime * 1000 : 0;
+                startMetronome({
+                    mode: paletteMode,
+                    grid: sheet
+                        ? {
+                              bpm: sheet.bpm || BPM,
+                              beatsPerBar: sheet.beatsPerBar || BEATS_PER_BAR,
+                              subBeatsPerBeat: sheet.subBeatsPerBeat || SUB_BEATS_PER_BEAT,
+                          }
+                        : undefined,
+                    startAtSeconds: audioRef.current ? audioRef.current.currentTime : 0,
+                });
+                const now = typeof performance === 'undefined' ? Date.now() : performance.now();
+                startTimeRef.current = now - audioElapsedMs;
+                autoStoppedRef.current = false;
+            };
+
+            const audio = audioRef.current;
+            if (audio && audioSrc) {
+                const playResult = audio.play();
+                if (playResult && typeof playResult.then === 'function') {
+                    playResult
+                        .then(() => {
+                            window.setTimeout(beginMetronome, 50);
+                        })
+                        .catch(beginMetronome);
+                } else {
+                    window.setTimeout(beginMetronome, 50);
+                }
+            } else {
+                beginMetronome();
+            }
         } else {
             stopMetronome();
             startTimeRef.current = null;
             lastMetronomeGridKeyRef.current = null;
-            setClock({ time: formatClockTime(0), bar: 0, beat: 0, subBeat: 0 });
+            const audio = audioRef.current;
+            if (audio) audio.pause();
         }
 
         return () => {
             stopMetronome();
         };
-    }, [isPlaying, paletteMode, sheet]);
+    }, [audioSrc, isPlaying, paletteMode, sheet]);
 
     useEffect(() => {
         const audio = audioRef.current;
         if (!audio || !audioSrc) return;
+        audio.pause();
+        audio.currentTime = 0;
+        setAudioCurrentTime(0);
+        setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
+    }, [audioSrc]);
 
-        if (isPlaying) {
-            audio.currentTime = 0;
-            const playResult = audio.play();
-            if (playResult && typeof playResult.catch === 'function') {
-                playResult.catch(() => undefined);
-            }
-        } else {
-            audio.pause();
-            audio.currentTime = 0;
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio || !audioSrc) return;
+        audio.volume = volume;
+    }, [audioSrc, volume]);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio || !audioSrc) return;
+        const onLoaded = () => setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
+        const onTimeUpdate = () => setAudioCurrentTime(audio.currentTime);
+        const onEnded = () => setIsPlaying(false);
+        audio.addEventListener('loadedmetadata', onLoaded);
+        audio.addEventListener('durationchange', onLoaded);
+        audio.addEventListener('timeupdate', onTimeUpdate);
+        audio.addEventListener('ended', onEnded);
+        return () => {
+            audio.removeEventListener('loadedmetadata', onLoaded);
+            audio.removeEventListener('durationchange', onLoaded);
+            audio.removeEventListener('timeupdate', onTimeUpdate);
+            audio.removeEventListener('ended', onEnded);
+        };
+    }, [audioSrc]);
+
+    useEffect(() => {
+        if (isPlaying) return;
+        const baseTime = audioCurrentTime || 0;
+        if (baseTime <= 0) {
+            setClock({ time: formatClockTime(0), bar: 0, beat: 0, subBeat: 0 });
+            return;
         }
-    }, [audioSrc, isPlaying]);
+        const beatClock = getBeatClockAtTime(baseTime, grid);
+        setClock({
+            time: formatClockTime(baseTime * 1000),
+            bar: beatClock.bar,
+            beat: beatClock.beat,
+            subBeat: beatClock.subBeat,
+        });
+    }, [audioCurrentTime, grid, isPlaying]);
 
     useEffect(() => {
         let cancelled = false;
@@ -352,7 +421,7 @@ const MusicDisplay: React.FC = () => {
             const { bar, beat, subBeat, eightBeat } = readBeatClockFromDom();
             const stamp = `${bar}|${beat}|${eightBeat}`;
 
-            if (!autoStoppedRef.current && sheet && bar > sheet.bars) {
+            if (!autoStoppedRef.current && sheet && bar > effectiveBars) {
                 autoStoppedRef.current = true;
                 stopMetronome();
                 clearAllSquares();
@@ -364,7 +433,7 @@ const MusicDisplay: React.FC = () => {
             if (!autoStoppedRef.current && sheet && bar === 0) {
                 const bpm = sheet.bpm || BPM;
                 const msPerBar = (60_000 / bpm) * (sheet.beatsPerBar || BEATS_PER_BAR);
-                const durationMs = sheet.bars * msPerBar;
+                const durationMs = effectiveBars * msPerBar;
                 if (elapsedMs >= durationMs) {
                     autoStoppedRef.current = true;
                     stopMetronome();
@@ -424,7 +493,7 @@ const MusicDisplay: React.FC = () => {
         return () => {
             if (rafId !== null) window.cancelAnimationFrame(rafId);
         };
-    }, [isPlaying, sheet, sheetEventMap]);
+    }, [effectiveBars, isPlaying, sheet, sheetEventMap]);
 
     useEffect(() => {
         if (!isPlaying) return undefined;
@@ -529,9 +598,9 @@ const MusicDisplay: React.FC = () => {
     const sheetSummary = useMemo(() => {
         if (!sheet) return null;
         const bpm = sheet.bpm || BPM;
-        const barsLabel = `${sheet.bars} ${sheet.bars === 1 ? 'bar' : 'bars'}`;
+        const barsLabel = `${effectiveBars} ${effectiveBars === 1 ? 'bar' : 'bars'}`;
         return `${bpm} BPM • ${barsLabel}`;
-    }, [sheet]);
+    }, [effectiveBars, sheet]);
 
     const clockLabel = useMemo(() => {
         const eightBeat = clock.subBeat > 0 ? (Math.floor((clock.subBeat - 1) / 2) % 4) + 1 : 0;
@@ -543,41 +612,53 @@ const MusicDisplay: React.FC = () => {
     const clockTitle = useMemo(() => {
         const defaults = `BPM ${BPM}, sub-beats per beat ${SUB_BEATS_PER_BEAT}`;
         if (!sheet) return defaults;
-        return `Sheet: ${sheet.bpm} BPM, ${sheet.bars} bars • ${defaults}`;
-    }, [sheet]);
+        return `Sheet: ${sheet.bpm} BPM, ${effectiveBars} bars • ${defaults}`;
+    }, [effectiveBars, sheet]);
+
+    const handleSeek = (nextTime: number) => {
+        const audio = audioRef.current;
+        if (!audio || !audioSrc) return;
+        const clamped = Math.max(0, Math.min(nextTime, audioDuration || audio.duration || nextTime));
+        audio.currentTime = clamped;
+        setAudioCurrentTime(clamped);
+        if (startTimeRef.current !== null) {
+            const now = typeof performance === 'undefined' ? Date.now() : performance.now();
+            startTimeRef.current = now - clamped * 1000;
+            lastSheetTickRef.current = null;
+        }
+        if (isPlaying) {
+            stopMetronome();
+            startMetronome({
+                mode: paletteMode,
+                grid,
+                startAtSeconds: clamped,
+            });
+            clearAllSquares();
+            window.dispatchEvent(new Event('music-player-program:clear'));
+            autoStoppedRef.current = false;
+            lastSheetTickRef.current = null;
+        }
+    };
 
     return (
         <div className="music-display" aria-label="Music display placeholder">
             {audioSrc ? <audio ref={audioRef} preload="auto" src={audioSrc} /> : null}
             <Squares />
             <LcdGlyph />
-            <div className="music-display__controls">
-                <div
-                    className="music-display__clock"
-                    aria-label="Music clock"
-                    title={clockTitle}
-                >
-                    {clockLabel}
-                </div>
-                <button
-                    type="button"
-                    className="music-display__control"
-                    onClick={togglePlayback}
-                    aria-pressed={isPlaying}
-                    aria-label={controlLabel}
-                >
-                    {isPlaying ? <PauseIcon /> : <PlayIcon />}
-                    <span className="music-display__control-label">{controlLabel}</span>
-                </button>
-                <button
-                    type="button"
-                    className="music-display__control"
-                    onClick={() => setPaletteMode((prev) => (prev === 'random' ? 'white' : 'random'))}
-                    aria-label={paletteToggleLabel}
-                >
-                    <span className="music-display__control-label">{paletteLabel}</span>
-                </button>
-            </div>
+            <MusicController
+                clockLabel={clockLabel}
+                clockTitle={clockTitle}
+                isPlaying={isPlaying}
+                onTogglePlayback={togglePlayback}
+                paletteMode={paletteMode}
+                onTogglePalette={() => setPaletteMode((prev) => (prev === 'random' ? 'white' : 'random'))}
+                audioCurrentTime={audioCurrentTime}
+                audioDuration={audioDuration}
+                onSeek={handleSeek}
+                volume={volume}
+                onVolumeChange={setVolume}
+                hasAudio={Boolean(audioSrc)}
+            />
         </div>
     );
 };

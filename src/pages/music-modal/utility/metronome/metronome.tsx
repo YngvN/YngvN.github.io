@@ -17,6 +17,7 @@ export type MetronomeGrid = {
 export type StartMetronomeOptions = {
     mode?: PaletteMode;
     grid?: Partial<MetronomeGrid>;
+    startAtSeconds?: number;
 };
 
 const DEFAULT_GRID: MetronomeGrid = {
@@ -80,22 +81,7 @@ function updatePulseForSubBeat(subBeat: number) {
 function updateMusicClock(time: number) {
     if (!hasDom()) return;
 
-    const bpm = Math.max(1, activeGrid.bpm);
-    const beatsPerBar = Math.max(1, activeGrid.beatsPerBar);
-    const subBeatsPerBeat = Math.max(1, activeGrid.subBeatsPerBeat);
-
-    const secondsPerBeat = 60 / bpm;
-    const secondsPerSubBeat = secondsPerBeat / subBeatsPerBeat;
-    const secondsPerBar = secondsPerBeat * beatsPerBar;
-    const subBeatsPerBar = beatsPerBar * subBeatsPerBeat;
-
-    const bar = Math.floor(time / secondsPerBar) + 1;
-    const subBeat = Math.min(subBeatsPerBar, Math.floor((time % secondsPerBar) / secondsPerSubBeat) + 1);
-    const beat = Math.floor((subBeat - 1) / subBeatsPerBeat) + 1;
-    const eightBeat =
-        subBeatsPerBeat % 2 === 0
-            ? (Math.floor((subBeat - 1) / (subBeatsPerBeat / 2)) % (beatsPerBar * 2)) + 1
-            : (Math.floor((subBeat - 1) / subBeatsPerBeat) % beatsPerBar) + 1;
+    const { bar, beat, subBeat, eightBeat } = getBeatClockAtTime(time, activeGrid);
 
     document.documentElement.style.setProperty('--bar', bar.toString());
     document.documentElement.style.setProperty('--beat', beat.toString());
@@ -123,6 +109,27 @@ function tick(timestamp: number) {
     rafId = requestAnimationFrame(tick);
 }
 
+export function getBeatClockAtTime(time: number, grid: Partial<MetronomeGrid> = {}) {
+    const bpm = Math.max(1, grid.bpm ?? DEFAULT_GRID.bpm);
+    const beatsPerBar = Math.max(1, grid.beatsPerBar ?? DEFAULT_GRID.beatsPerBar);
+    const subBeatsPerBeat = Math.max(1, grid.subBeatsPerBeat ?? DEFAULT_GRID.subBeatsPerBeat);
+
+    const secondsPerBeat = 60 / bpm;
+    const secondsPerSubBeat = secondsPerBeat / subBeatsPerBeat;
+    const secondsPerBar = secondsPerBeat * beatsPerBar;
+    const subBeatsPerBar = beatsPerBar * subBeatsPerBeat;
+
+    const bar = Math.floor(time / secondsPerBar) + 1;
+    const subBeat = Math.min(subBeatsPerBar, Math.floor((time % secondsPerBar) / secondsPerSubBeat) + 1);
+    const beat = Math.floor((subBeat - 1) / subBeatsPerBeat) + 1;
+    const eightBeat =
+        subBeatsPerBeat % 2 === 0
+            ? (Math.floor((subBeat - 1) / (subBeatsPerBeat / 2)) % (beatsPerBar * 2)) + 1
+            : (Math.floor((subBeat - 1) / subBeatsPerBeat) % beatsPerBar) + 1;
+
+    return { bar, beat, subBeat, eightBeat };
+}
+
 export function startMetronome(options: StartMetronomeOptions | PaletteMode = 'random') {
     if (!hasDom() || typeof window === 'undefined' || typeof requestAnimationFrame === 'undefined') return;
     const resolvedOptions: StartMetronomeOptions =
@@ -131,6 +138,7 @@ export function startMetronome(options: StartMetronomeOptions | PaletteMode = 'r
             : {
                   mode: options.mode,
                   grid: options.grid,
+                  startAtSeconds: options.startAtSeconds,
               };
 
     activeGrid = {
@@ -138,13 +146,25 @@ export function startMetronome(options: StartMetronomeOptions | PaletteMode = 'r
         ...(resolvedOptions.grid ?? {}),
     };
 
+    const startAtSeconds = Math.max(0, resolvedOptions.startAtSeconds ?? 0);
     if (rafId !== null) {
         setMetronomePaletteMode(resolvedOptions.mode ?? 'random');
+        if (startAtSeconds > 0) {
+            const now = typeof performance === 'undefined' ? Date.now() : performance.now();
+            startTimestamp = now - startAtSeconds * 1000;
+            updateMusicClock(startAtSeconds);
+        }
         return;
     }
     startTimestamp = null;
     setMetronomePaletteMode(resolvedOptions.mode ?? 'random');
-    updateMusicClock(0);
+    if (startAtSeconds > 0) {
+        const now = typeof performance === 'undefined' ? Date.now() : performance.now();
+        startTimestamp = now - startAtSeconds * 1000;
+        updateMusicClock(startAtSeconds);
+    } else {
+        updateMusicClock(0);
+    }
     rafId = requestAnimationFrame(tick);
 }
 
