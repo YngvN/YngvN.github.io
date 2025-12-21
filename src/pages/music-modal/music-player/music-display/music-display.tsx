@@ -228,6 +228,8 @@ function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (typeof document === 'undefined') return;
     const [baseAction, ...metaParts] = action.split('@');
     const meta = metaParts.join('@');
+    // eslint-disable-next-line no-console
+    console.log('[anim]', { action: baseAction, bar: ctx.bar, beat: ctx.beat, subBeat: ctx.subBeat });
 
     const msPerBeat = 60_000 / (ctx.bpm || BPM);
     const msPerBar = msPerBeat * ctx.beatsPerBar;
@@ -246,8 +248,16 @@ function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         return;
     }
 
+    if (baseAction === 'm-s-beatflash') {
+        const durationMs = (60_000 / (ctx.bpm || BPM)) * 0.36;
+        document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
+            restartAnimationWithDuration(mid, 'beatMidFlash', durationMs);
+        });
+        return;
+    }
+
     if (baseAction === 'i-s-beatflash' || baseAction === 's-i-beatflash') {
-        const durationMs = getAnimationTimebaseMs(ctx) * 0.36;
+        const durationMs = (60_000 / (ctx.bpm || BPM)) * 0.36;
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
@@ -315,10 +325,6 @@ function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         return;
     }
 
-    if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.log('[sheet] unknown action', action);
-    }
 }
 
 const MusicDisplay: React.FC = () => {
@@ -476,20 +482,14 @@ const MusicDisplay: React.FC = () => {
 
     useEffect(() => {
         let cancelled = false;
-        // eslint-disable-next-line no-console
-        console.log('[sheet] loading');
         fetchMusicSheetJson()
             .then((json) => parseMusicSheetJson(json))
             .then((parsed) => {
                 if (cancelled) return;
-                // eslint-disable-next-line no-console
-                console.log('[sheet] loaded', { audio: parsed.audio ?? 'none', bpm: parsed.bpm });
                 setSheet(parsed);
             })
             .catch((error) => {
                 if (cancelled) return;
-                // eslint-disable-next-line no-console
-                console.error('[sheet] failed to load', error);
                 setSheet(null);
             });
         return () => {
@@ -548,9 +548,6 @@ const MusicDisplay: React.FC = () => {
             if (import.meta.env.DEV) {
                 const previousStamp = lastAnimationStampRef.current;
                 if (previousStamp && stamp !== previousStamp) {
-                    const summary = Object.fromEntries(animationCountsRef.current.entries());
-                    // eslint-disable-next-line no-console
-                    console.log('[anim]', previousStamp, summary);
                     animationCountsRef.current.clear();
                 }
                 lastAnimationStampRef.current = stamp;
@@ -573,10 +570,6 @@ const MusicDisplay: React.FC = () => {
                                 subBeat,
                             }),
                         );
-                        if (import.meta.env.DEV) {
-                            // eslint-disable-next-line no-console
-                            console.log('[sheet]', tickKey, actions);
-                        }
                     }
                 }
             }
@@ -621,13 +614,6 @@ const MusicDisplay: React.FC = () => {
         return () => {
             root.removeEventListener('animationstart', onAnimationStart, { capture: true } as AddEventListenerOptions);
             const stamp = lastAnimationStampRef.current;
-            if (stamp) {
-                const summary = Object.fromEntries(animationCountsRef.current.entries());
-                if (Object.keys(summary).length > 0) {
-                    // eslint-disable-next-line no-console
-                    console.log('[anim]', stamp, summary);
-                }
-            }
             animationCountsRef.current.clear();
             lastAnimationStampRef.current = null;
         };

@@ -51,5 +51,5 @@ $beat-fallbacks: (
     opacity: 0;
     transform: rotate(var(--pixel-rot, 0deg));
     transform-origin: center;
-    transition: opacity 140ms ease;
+    transition: opacity 0;
 }

@@ -2,9 +2,13 @@
     0% {
         // transform: scale(0.95);
         opacity: 1;
-        transition: opacity 100ms ease;
+        transition: opacity 0ms ease;
         background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
+    }
+
+    1% {
+        transition: opacity 100ms ease;
     }
 
 
@@ -24,6 +28,7 @@
 
 @keyframes beatFlash {
     0% {
+        transition: none;
         opacity: 1;
         background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
@@ -31,16 +36,21 @@
 
     100% {
         opacity: 0;
-        background-color: var(--pulse-color, #ffffff);
         box-shadow: none;
     }
 }
 
 @keyframes randomPixelPulse {
     0% {
+        transition: none;
         opacity: 1;
+
         background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
+    }
+
+    1% {
+        transition: 100ms ease;
     }
 
     50% {
@@ -57,14 +67,15 @@
 
 @keyframes randomPixelFlash {
     0% {
+        transition: none;
         opacity: 1;
+
         background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
     }
 
     100% {
         opacity: 0;
-        background-color: var(--pulse-color, #ffffff);
         box-shadow: none;
     }
 }
@@ -93,6 +104,7 @@
 @for $phase from 1 through 4 {
     @keyframes beatFlash-#{$phase} {
         0% {
+            transition: none;
             opacity: 1;
             background-color: var(--pulse-color, #ffffff);
             box-shadow: var(--pulse-shadow, none);
@@ -118,15 +130,34 @@
 
 @keyframes beatMidPulse {
     0% {
-        opacity: 0;
+        opacity: 1;
         background-color: var(--pulse-color, #ffffff);
         box-shadow: none;
     }
 
-    45% {
-        opacity: 1;
+    40% {
+        opacity: .3;
+    }
+
+    50% {
+        opacity: .8;
         background-color: var(--pulse-color, #ffffff);
         box-shadow: var(--pulse-shadow, none);
+    }
+
+    100% {
+        opacity: 0;
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: none;
+    }
+}
+
+@keyframes beatMidFlash {
+    0% {
+        transition: none;
+        opacity: 1;
+        background-color: var(--pulse-color, #ffffff);
+        box-shadow: none;
     }
 
     100% {
@@ -144,7 +175,7 @@
             box-shadow: none;
         }
 
-        45% {
+        50% {
             opacity: 1;
             background-color: var(--pulse-color, #ffffff);
             box-shadow: var(--pulse-shadow, none);
