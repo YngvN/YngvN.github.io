@@ -15,32 +15,27 @@ export type MidSquare = {
 
 function pickGridFromResolution(target: number, aspectRatio: number): SquareLayout {
     const normalizedAspect = Number.isFinite(aspectRatio) && aspectRatio > 0 ? aspectRatio : 1;
-    let bestCols = target;
-    let bestRows = 1;
+    const safeTarget = Math.max(1, Math.round(target));
+    const approxCols = Math.max(1, Math.round(Math.sqrt(safeTarget * normalizedAspect)));
+    let bestCols = approxCols;
+    let bestRows = Math.max(1, Math.round(safeTarget / approxCols));
     let bestScore = Number.POSITIVE_INFINITY;
 
-    const maxFactor = Math.floor(Math.sqrt(target));
-    for (let factor = 1; factor <= maxFactor; factor += 1) {
-        if (target % factor !== 0) continue;
-        const other = target / factor;
-
-        const candidates: Array<{ cols: number; rows: number }> = [
-            { cols: factor, rows: other },
-            { cols: other, rows: factor },
-        ];
-
-        candidates.forEach(({ cols, rows }) => {
-            const ratio = cols / rows;
-            const score = Math.abs(Math.log(ratio / normalizedAspect));
-            if (score < bestScore) {
-                bestScore = score;
-                bestCols = cols;
-                bestRows = rows;
-            }
-        });
+    for (let delta = -6; delta <= 6; delta += 1) {
+        const cols = Math.max(1, approxCols + delta);
+        const rows = Math.max(1, Math.round(safeTarget / cols));
+        const ratio = cols / rows;
+        const ratioScore = Math.abs(Math.log(ratio / normalizedAspect));
+        const countScore = Math.abs(cols * rows - safeTarget) / safeTarget;
+        const score = ratioScore * 0.75 + countScore * 0.25;
+        if (score < bestScore) {
+            bestScore = score;
+            bestCols = cols;
+            bestRows = rows;
+        }
     }
 
-    return { cols: Math.max(1, bestCols), rows: Math.max(1, bestRows) };
+    return { cols: bestCols, rows: bestRows };
 }
 
 export function getSquareLayout(viewportWidth: number, viewportHeight: number): SquareLayout {
@@ -49,8 +44,8 @@ export function getSquareLayout(viewportWidth: number, viewportHeight: number): 
 }
 
 export function createMidSquares(layout: SquareLayout): MidSquare[] {
-    // `resolution` is fixed; `getSquareLayout` is derived from it, so cols*rows should match.
-    return Array.from({ length: resolution }, (_, index) => ({
+    const total = Math.max(1, layout.cols * layout.rows);
+    return Array.from({ length: total }, (_, index) => ({
         key: `mid-${layout.cols}x${layout.rows}-${index}`,
         beat: (((index % 4) + 1) as 1 | 2 | 3 | 4),
         x: index % layout.cols,
