@@ -329,31 +329,55 @@ function makePixelCoords(text: string, cols: number, rows: number) {
     const glyphCols = 5;
     const glyphRows = 5;
     const glyphSpacing = 1;
+    const lineSpacing = 1;
 
     const coords = new Set<string>();
 
     if (innerCols < glyphCols || innerRows < glyphRows) return coords;
 
-    const maxChars = Math.max(0, Math.floor((innerCols + glyphSpacing) / (glyphCols + glyphSpacing)));
-    const normalized = text.toUpperCase();
-    const clamped = maxChars > 0 ? normalized.slice(0, maxChars) : '';
-    if (clamped.length === 0) return coords;
+    const maxCharsPerLine = Math.max(0, Math.floor((innerCols + glyphSpacing) / (glyphCols + glyphSpacing)));
+    const maxLines = Math.max(0, Math.floor((innerRows + lineSpacing) / (glyphRows + lineSpacing)));
+    const normalized = text.toUpperCase().replace(/\r/g, '');
+    if (maxCharsPerLine === 0 || maxLines === 0) return coords;
 
-    const totalWidth = clamped.length * glyphCols + (clamped.length - 1) * glyphSpacing;
-    const startX = Math.floor((innerCols - totalWidth) / 2);
-    const startY = Math.floor((innerRows - glyphRows) / 2);
+    const lines: string[] = [];
+    normalized.split('\n').forEach((line) => {
+        if (line.length === 0) {
+            lines.push('');
+            return;
+        }
+        let remaining = line;
+        while (remaining.length > 0) {
+            lines.push(remaining.slice(0, maxCharsPerLine));
+            remaining = remaining.slice(maxCharsPerLine);
+        }
+    });
 
-    clamped.split('').forEach((char, index) => {
-        const glyph = getPixelGlyphForChar(char);
-        const offsetX = startX + index * (glyphCols + glyphSpacing);
-        glyph.forEach((row, y) => {
-            row.forEach((value, x) => {
-                if (!value) return;
-                const gridX = offsetX + x;
-                const gridY = startY + y;
-                if (gridX < 0 || gridX >= innerCols) return;
-                if (gridY < 0 || gridY >= innerRows) return;
-                coords.add(`${gridX}-${gridY}`);
+    const clampedLines = lines.slice(0, maxLines);
+    if (clampedLines.length === 0) return coords;
+
+    const totalHeight = clampedLines.length * glyphRows + (clampedLines.length - 1) * lineSpacing;
+    const startY = Math.floor((innerRows - totalHeight) / 2);
+
+    clampedLines.forEach((line, lineIndex) => {
+        const lineLength = line.length;
+        if (lineLength === 0) return;
+        const lineWidth = lineLength * glyphCols + (lineLength - 1) * glyphSpacing;
+        const startX = Math.floor((innerCols - lineWidth) / 2);
+        const offsetY = startY + lineIndex * (glyphRows + lineSpacing);
+
+        line.split('').forEach((char, index) => {
+            const glyph = getPixelGlyphForChar(char);
+            const offsetX = startX + index * (glyphCols + glyphSpacing);
+            glyph.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (!value) return;
+                    const gridX = offsetX + x;
+                    const gridY = offsetY + y;
+                    if (gridX < 0 || gridX >= innerCols) return;
+                    if (gridY < 0 || gridY >= innerRows) return;
+                    coords.add(`${gridX}-${gridY}`);
+                });
             });
         });
     });
@@ -502,7 +526,7 @@ const PixelGlyph: React.FC = () => {
                 autoCapitalize="characters"
                 autoCorrect="off"
                 spellCheck={false}
-                maxLength={32}
+                maxLength={120}
                 placeholder=" "
                 aria-label="Pixel glyph character"
                 title="Type text to display"
