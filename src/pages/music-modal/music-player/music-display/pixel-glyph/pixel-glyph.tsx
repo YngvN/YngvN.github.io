@@ -440,16 +440,25 @@ const PixelGlyph: React.FC = () => {
             const midSquare = pixel.closest<HTMLElement>('.mid-square');
             if (midSquare) midSquares.add(midSquare);
             pixel.setAttribute(PROGRAM_ATTR, normalizedText);
+            delete pixel.dataset.sheetHoldUntil;
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
+            pixel.style.removeProperty('animation');
+            pixel.style.removeProperty('--hold-color');
+            pixel.style.removeProperty('--hold-shadow');
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
             pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
         });
 
         midSquares.forEach((midSquare) => {
             midSquare.setAttribute('data-music-player-program-mid', 'true');
+            midSquare.style.removeProperty('animation');
             midSquare.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
+                delete pixel.dataset.sheetHoldUntil;
+                pixel.style.removeProperty('animation');
+                pixel.style.removeProperty('--hold-color');
+                pixel.style.removeProperty('--hold-shadow');
                 pixel.style.display = 'block';
                 if (!pixel.hasAttribute(PROGRAM_ATTR)) {
                     pixel.style.opacity = '0';

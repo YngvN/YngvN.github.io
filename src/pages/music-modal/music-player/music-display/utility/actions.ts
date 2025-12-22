@@ -26,6 +26,12 @@ function pickRandom<T>(list: T[], count: number) {
     return picks;
 }
 
+function getAnimatableInnerSquares() {
+    return document.querySelectorAll<HTMLElement>(
+        '.mid-square:not([data-music-player-program-mid]) .inner-square:not([data-music-player-program])',
+    );
+}
+
 function getAnimationTimebaseMs(ctx: SheetTriggerContext) {
     const msPerBeat = 60_000 / (ctx.bpm || BPM);
     const msPerBar = msPerBeat * ctx.beatsPerBar;
@@ -80,7 +86,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
 
     if (baseAction === 'i-s-beatflash' || baseAction === 's-i-beatflash') {
         const durationMs = (60_000 / (ctx.bpm || BPM)) * 0.36;
-        document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+        getAnimatableInnerSquares().forEach((pixel) => {
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
@@ -97,7 +103,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
             color: pulse?.color ?? null,
             shadow: pulse?.shadow ?? null,
         };
-        document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+        getAnimatableInnerSquares().forEach((pixel) => {
             applyInnerHoldBase(pixel, state);
         });
         return;
@@ -119,7 +125,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
 
     if (baseAction === 'i-s-beatpulse' || baseAction === 's-i-beatpulse') {
         const durationMs = getAnimationTimebaseMs(ctx);
-        document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
+        getAnimatableInnerSquares().forEach((pixel) => {
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
@@ -136,9 +142,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
                 : baseAction.endsWith('flash')
                   ? 'flash'
                   : 'pulse';
-        const pixels = Array.from(
-            document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])'),
-        );
+        const pixels = Array.from(getAnimatableInnerSquares());
         const chosen = pickRandom(pixels, Math.max(1, count));
         const durationMs = getAnimationTimebaseMs(ctx) * (variant === 'flash' ? 0.36 : 1);
         chosen.forEach((pixel) => {
