@@ -32,6 +32,24 @@ function getAnimatableInnerSquares() {
     );
 }
 
+function getActiveNeighborInnerSquares() {
+    const midSquares = new Set<HTMLElement>();
+    document
+        .querySelectorAll<HTMLElement>('.mid-square:not([data-music-player-program-mid]) .inner-square.pixel')
+        .forEach((pixel) => {
+            const mid = pixel.closest<HTMLElement>('.mid-square');
+            if (mid) midSquares.add(mid);
+        });
+
+    const neighbors: HTMLElement[] = [];
+    midSquares.forEach((mid) => {
+        mid.querySelectorAll<HTMLElement>('.inner-square:not(.pixel):not([data-music-player-program])').forEach((pixel) => {
+            neighbors.push(pixel);
+        });
+    });
+    return neighbors;
+}
+
 function getAnimationTimebaseMs(ctx: SheetTriggerContext) {
     const msPerBeat = 60_000 / (ctx.bpm || BPM);
     const msPerBar = msPerBeat * ctx.beatsPerBar;
@@ -73,6 +91,12 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             restartAnimationWithDuration(mid, 'beatMidPulse', durationMs);
         });
+        getActiveNeighborInnerSquares().forEach((pixel) => {
+            pixel.style.display = 'block';
+            pixel.style.opacity = '1';
+            pixel.classList.add('pixel');
+            restartAnimationWithDuration(pixel, 'beatPulse', durationMs);
+        });
         return;
     }
 
@@ -80,6 +104,12 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         const durationMs = (60_000 / (ctx.bpm || BPM)) * 0.36;
         document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             restartAnimationWithDuration(mid, 'beatMidFlash', durationMs);
+        });
+        getActiveNeighborInnerSquares().forEach((pixel) => {
+            pixel.style.display = 'block';
+            pixel.style.opacity = '1';
+            pixel.classList.add('pixel');
+            restartAnimationWithDuration(pixel, 'beatFlash', durationMs);
         });
         return;
     }
