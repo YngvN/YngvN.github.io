@@ -83,6 +83,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
+            pixel.classList.add('pixel');
             restartAnimationWithDuration(pixel, 'beatFlash', durationMs);
         });
         return;
@@ -121,6 +122,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         document.querySelectorAll<HTMLElement>('.inner-square:not([data-music-player-program])').forEach((pixel) => {
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
+            pixel.classList.add('pixel');
             restartAnimationWithDuration(pixel, 'beatPulse', durationMs);
         });
         return;
@@ -142,6 +144,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         chosen.forEach((pixel) => {
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
+            pixel.classList.add('pixel');
             restartAnimationWithDuration(pixel, variant === 'flash' ? 'randomPixelFlash' : 'randomPixelPulse', durationMs);
         });
         return;

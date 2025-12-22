@@ -154,6 +154,7 @@ function clearProgramPixels() {
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
         pixel.style.removeProperty('--pixel-rot');
+        pixel.classList.remove('pixel');
         pixel.removeAttribute(PROGRAM_ATTR);
     });
     document.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
@@ -200,6 +201,7 @@ const LcdGlyph: React.FC = () => {
             pixel.setAttribute(PROGRAM_ATTR, normalizedChar);
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
+            pixel.classList.add('pixel');
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
             pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
             const rotation = rotations.get(coord);

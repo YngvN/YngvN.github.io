@@ -33,6 +33,7 @@ export function clearAllSquares() {
         pixel.style.removeProperty('opacity');
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
+        pixel.classList.remove('pixel');
         delete pixel.dataset.sheetHoldUntil;
         pixel.style.removeProperty('--hold-color');
         pixel.style.removeProperty('--hold-shadow');
@@ -49,6 +50,7 @@ export function clearAllSquares() {
 export function applyInnerHoldBase(pixel: HTMLElement, state: HoldState) {
     pixel.style.display = 'block';
     pixel.style.opacity = '1';
+    pixel.classList.add('pixel');
     if (state.color) pixel.style.setProperty('--hold-color', state.color);
     if (state.shadow) pixel.style.setProperty('--hold-shadow', state.shadow);
     pixel.style.backgroundColor = 'var(--hold-color, var(--pulse-color, #ffffff))';
@@ -75,6 +77,7 @@ export function clearHoldBase(element: HTMLElement) {
     element.style.removeProperty('animation');
     if (element.classList.contains('inner-square')) {
         element.style.opacity = '0';
+        element.classList.remove('pixel');
         if (typeof window !== 'undefined') {
             window.setTimeout(() => {
                 if (element.style.opacity === '0') {

@@ -1,0 +1,52 @@
+@use '../../../../../assets/sass/colors' as colors;
+
+.pixel-glyph {
+    position: absolute;
+    left: 12px;
+    bottom: 66px;
+    z-index: 3;
+}
+
+.pixel-glyph__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    min-width: 76px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.92);
+    color: colors.color('text');
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.pixel-glyph__button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+}
+
+.pixel-glyph__button:active {
+    transform: translateY(0);
+    box-shadow: 0 9px 22px rgba(0, 0, 0, 0.14);
+}
+
+.pixel-glyph__button:focus-visible {
+    outline: 2px solid colors.color('primary');
+    outline-offset: 2px;
+}
+
+body[data-theme='dark'] {
+    .pixel-glyph__button {
+        background: rgba(15, 23, 42, 0.82);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: colors.color-dark('text');
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+    }
+}
