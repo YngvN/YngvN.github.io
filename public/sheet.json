@@ -5,286 +5,646 @@
   "timeSignature": "4/4",
   "program": {
     "bar-1": {
-      "4beat-1": "pixel-write:we-t"
+      "4beat-1": "pixel-write:we-t",
+      "4beat-2": "pixel-write:build-t-r",
+      "4beat-3": "pixel-write:the-t-l",
+      "4beat-4": "pixel-write:beats-r"
     },
     "bar-2": {
-      "4beat-1": "pixel-write:build-t-r"
+      "8beat-1": "pixel-write:in-l",
+      "8beat-2": "pixel-write:light-b",
+      "8beat-3": "pixel-write:and-b-r",
+      "8beat-4": "pixel-write:color-b-l",
+      "8beat-5": "pixel-write:through-t",
+      "8beat-6": "pixel-write:the-t-r",
+      "8beat-7": "pixel-write:grid-t-l",
+      "8beat-8": "pixel-write:we-r"
     },
     "bar-3": {
-      "4beat-1": "pixel-write:the-t"
+      "4beat-1": "pixel-write:write-l",
+      "4beat-2": "pixel-write:the-b",
+      "4beat-3": "pixel-write:rhythm-b-r",
+      "4beat-4": "pixel-write:we-b-l"
     },
     "bar-4": {
-      "4beat-1": "pixel-write:beats-t-l",
-      "8beat-3": "pixel-write:beats-t-l"
+      "8beat-1": "pixel-write:ride-t",
+      "8beat-2": "pixel-write:the-t-r",
+      "8beat-3": "pixel-write:pulse-t-l",
+      "8beat-4": "pixel-write:we-r",
+      "8beat-5": "pixel-write:hold-l",
+      "8beat-6": "pixel-write:the-b",
+      "8beat-7": "pixel-write:glow-b-r",
+      "8beat-8": "pixel-write:we-b-l"
     },
     "bar-5": {
-      "4beat-1": "pixel-write:in"
+      "4beat-1": "pixel-write:let-t",
+      "4beat-2": "pixel-write:it-t-r",
+      "4beat-3": "pixel-write:flow-t-l",
+      "4beat-4": "pixel-write:through-r"
     },
     "bar-6": {
-      "4beat-1": "pixel-write:light-r"
+      "8beat-1": "pixel-write:every-l",
+      "8beat-2": "pixel-write:bar-b",
+      "8beat-3": "pixel-write:and-b-r",
+      "8beat-4": "pixel-write:every-b-l",
+      "8beat-5": "pixel-write:beat-t",
+      "8beat-6": "pixel-write:the-t-r",
+      "8beat-7": "pixel-write:screen-t-l",
+      "8beat-8": "pixel-write:starts-r"
     },
     "bar-7": {
-      "4beat-1": "pixel-write:and"
+      "4beat-1": "pixel-write:to-l",
+      "4beat-2": "pixel-write:sing-b",
+      "4beat-3": "pixel-write:as-b-r",
+      "4beat-4": "pixel-write:notes-b-l"
     },
     "bar-8": {
-      "4beat-1": "pixel-write:color-l",
-      "8beat-3": "pixel-write:color-l"
+      "8beat-1": "pixel-write:turn-t",
+      "8beat-2": "pixel-write:to-t-r",
+      "8beat-3": "pixel-write:light-t-l",
+      "8beat-4": "pixel-write:we-r",
+      "8beat-5": "pixel-write:follow-l",
+      "8beat-6": "pixel-write:the-b",
+      "8beat-7": "pixel-write:tempo-b-r",
+      "8beat-8": "pixel-write:keep-b-l"
     },
     "bar-9": {
-      "4beat-1": "pixel-write:through"
+      "4beat-1": "pixel-write:it-t",
+      "4beat-2": "pixel-write:tight-t-r",
+      "4beat-3": "pixel-write:shift-t-l",
+      "4beat-4": "pixel-write:and-r"
     },
     "bar-10": {
-      "4beat-1": "pixel-write:the"
+      "8beat-1": "pixel-write:turn-l",
+      "8beat-2": "pixel-write:with-b",
+      "8beat-3": "pixel-write:the-b-r",
+      "8beat-4": "pixel-write:chime-b-l",
+      "8beat-5": "pixel-write:when-t",
+      "8beat-6": "pixel-write:the-t-r",
+      "8beat-7": "pixel-write:night-t-l",
+      "8beat-8": "pixel-write:falls-r"
     },
     "bar-11": {
-      "4beat-1": "pixel-write:grid"
+      "4beat-1": "pixel-write:we-l",
+      "4beat-2": "pixel-write:shine-b",
+      "4beat-3": "pixel-write:bright-b-r",
+      "4beat-4": "pixel-write:on-b-l"
     },
     "bar-12": {
-      "4beat-1": "pixel-write:we",
-      "8beat-3": "pixel-write:we"
+      "8beat-1": "pixel-write:every-t",
+      "8beat-2": "pixel-write:line-t-r",
+      "8beat-3": "pixel-write:we-t-l",
+      "8beat-4": "pixel-write:keep-r",
+      "8beat-5": "pixel-write:the-l",
+      "8beat-6": "pixel-write:music-b",
+      "8beat-7": "pixel-write:alive-b-r",
+      "8beat-8": "pixel-write:we-b-l"
     },
     "bar-13": {
-      "4beat-1": "pixel-write:write"
+      "4beat-1": "pixel-write:keep-t",
+      "4beat-2": "pixel-write:the-t-r",
+      "4beat-3": "pixel-write:screen-t-l",
+      "4beat-4": "pixel-write:alive-r"
     },
     "bar-14": {
-      "4beat-1": "pixel-write:the"
+      "8beat-1": "pixel-write:with-l",
+      "8beat-2": "pixel-write:you-b",
+      "8beat-3": "pixel-write:we-b-r",
+      "8beat-4": "pixel-write:build-b-l",
+      "8beat-5": "pixel-write:the-t",
+      "8beat-6": "pixel-write:beats-t-r",
+      "8beat-7": "pixel-write:in-t-l",
+      "8beat-8": "pixel-write:light-r"
     },
     "bar-15": {
-      "4beat-1": "pixel-write:rhythm-b",
-      "8beat-3": "pixel-write:rhythm-b"
+      "4beat-1": "pixel-write:and-l",
+      "4beat-2": "pixel-write:color-b",
+      "4beat-3": "pixel-write:through-b-r",
+      "4beat-4": "pixel-write:the-b-l"
     },
     "bar-16": {
-      "4beat-1": "pixel-write:we-b-r"
+      "8beat-1": "pixel-write:grid-t",
+      "8beat-2": "pixel-write:we-t-r",
+      "8beat-3": "pixel-write:write-t-l",
+      "8beat-4": "pixel-write:the-r",
+      "8beat-5": "pixel-write:rhythm-l",
+      "8beat-6": "pixel-write:we-b",
+      "8beat-7": "pixel-write:ride-b-r",
+      "8beat-8": "pixel-write:the-b-l"
     },
     "bar-17": {
-      "4beat-1": "pixel-write:ride-b"
+      "4beat-1": "pixel-write:pulse-t",
+      "4beat-2": "pixel-write:we-t-r",
+      "4beat-3": "pixel-write:hold-t-l",
+      "4beat-4": "pixel-write:the-r"
     },
     "bar-18": {
-      "4beat-1": "pixel-write:the-b-l"
+      "8beat-1": "pixel-write:glow-l",
+      "8beat-2": "pixel-write:we-b",
+      "8beat-3": "pixel-write:let-b-r",
+      "8beat-4": "pixel-write:it-b-l",
+      "8beat-5": "pixel-write:flow-t",
+      "8beat-6": "pixel-write:through-t-r",
+      "8beat-7": "pixel-write:every-t-l",
+      "8beat-8": "pixel-write:bar-r"
     },
     "bar-19": {
-      "4beat-1": "pixel-write:pulse"
+      "4beat-1": "pixel-write:and-l",
+      "4beat-2": "pixel-write:every-b",
+      "4beat-3": "pixel-write:beat-b-r",
+      "4beat-4": "pixel-write:the-b-l"
     },
     "bar-20": {
-      "4beat-1": "pixel-write:we"
+      "8beat-1": "pixel-write:screen-t",
+      "8beat-2": "pixel-write:starts-t-r",
+      "8beat-3": "pixel-write:to-t-l",
+      "8beat-4": "pixel-write:sing-r",
+      "8beat-5": "pixel-write:as-l",
+      "8beat-6": "pixel-write:notes-b",
+      "8beat-7": "pixel-write:turn-b-r",
+      "8beat-8": "pixel-write:to-b-l"
     },
     "bar-21": {
-      "4beat-1": "pixel-write:hold-r"
+      "4beat-1": "pixel-write:light-t",
+      "4beat-2": "pixel-write:we-t-r",
+      "4beat-3": "pixel-write:follow-t-l",
+      "4beat-4": "pixel-write:the-r"
     },
     "bar-22": {
-      "4beat-1": "pixel-write:the"
+      "8beat-1": "pixel-write:tempo-l",
+      "8beat-2": "pixel-write:keep-b",
+      "8beat-3": "pixel-write:it-b-r",
+      "8beat-4": "pixel-write:tight-b-l",
+      "8beat-5": "pixel-write:shift-t",
+      "8beat-6": "pixel-write:and-t-r",
+      "8beat-7": "pixel-write:turn-t-l",
+      "8beat-8": "pixel-write:with-r"
     },
     "bar-23": {
-      "4beat-1": "pixel-write:glow-l",
-      "8beat-3": "pixel-write:glow-l"
+      "4beat-1": "pixel-write:the-l",
+      "4beat-2": "pixel-write:chime-b",
+      "4beat-3": "pixel-write:when-b-r",
+      "4beat-4": "pixel-write:the-b-l"
     },
     "bar-24": {
-      "4beat-1": "pixel-write:we"
+      "8beat-1": "pixel-write:night-t",
+      "8beat-2": "pixel-write:falls-t-r",
+      "8beat-3": "pixel-write:we-t-l",
+      "8beat-4": "pixel-write:shine-r",
+      "8beat-5": "pixel-write:bright-l",
+      "8beat-6": "pixel-write:on-b",
+      "8beat-7": "pixel-write:every-b-r",
+      "8beat-8": "pixel-write:line-b-l"
     },
     "bar-25": {
-      "4beat-1": "pixel-write:let"
+      "4beat-1": "pixel-write:we-t",
+      "4beat-2": "pixel-write:keep-t-r",
+      "4beat-3": "pixel-write:the-t-l",
+      "4beat-4": "pixel-write:music-r"
     },
     "bar-26": {
-      "4beat-1": "pixel-write:it"
+      "8beat-1": "pixel-write:alive-l",
+      "8beat-2": "pixel-write:we-b",
+      "8beat-3": "pixel-write:keep-b-r",
+      "8beat-4": "pixel-write:the-b-l",
+      "8beat-5": "pixel-write:screen-t",
+      "8beat-6": "pixel-write:alive-t-r",
+      "8beat-7": "pixel-write:with-t-l",
+      "8beat-8": "pixel-write:you-r"
     },
     "bar-27": {
-      "4beat-1": "pixel-write:flow"
+      "4beat-1": "pixel-write:we-l",
+      "4beat-2": "pixel-write:build-b",
+      "4beat-3": "pixel-write:the-b-r",
+      "4beat-4": "pixel-write:beats-b-l"
     },
     "bar-28": {
-      "4beat-1": "pixel-write:through"
+      "8beat-1": "pixel-write:in-t",
+      "8beat-2": "pixel-write:light-t-r",
+      "8beat-3": "pixel-write:and-t-l",
+      "8beat-4": "pixel-write:color-r",
+      "8beat-5": "pixel-write:through-l",
+      "8beat-6": "pixel-write:the-b",
+      "8beat-7": "pixel-write:grid-b-r",
+      "8beat-8": "pixel-write:we-b-l"
     },
     "bar-29": {
-      "4beat-1": "pixel-write:every",
-      "8beat-3": "pixel-write:every"
+      "4beat-1": "pixel-write:write-t",
+      "4beat-2": "pixel-write:the-t-r",
+      "4beat-3": "pixel-write:rhythm-t-l",
+      "4beat-4": "pixel-write:we-r"
     },
     "bar-30": {
-      "4beat-1": "pixel-write:bar-r"
+      "8beat-1": "pixel-write:ride-l",
+      "8beat-2": "pixel-write:the-b",
+      "8beat-3": "pixel-write:pulse-b-r",
+      "8beat-4": "pixel-write:we-b-l",
+      "8beat-5": "pixel-write:hold-t",
+      "8beat-6": "pixel-write:the-t-r",
+      "8beat-7": "pixel-write:glow-t-l",
+      "8beat-8": "pixel-write:we-r"
     },
     "bar-31": {
-      "4beat-1": "pixel-write:and"
+      "4beat-1": "pixel-write:let-l",
+      "4beat-2": "pixel-write:it-b",
+      "4beat-3": "pixel-write:flow-b-r",
+      "4beat-4": "pixel-write:through-b-l"
     },
     "bar-32": {
-      "4beat-1": "pixel-write:every-l"
+      "8beat-1": "pixel-write:every-t",
+      "8beat-2": "pixel-write:bar-t-r",
+      "8beat-3": "pixel-write:and-t-l",
+      "8beat-4": "pixel-write:every-r",
+      "8beat-5": "pixel-write:beat-l",
+      "8beat-6": "pixel-write:the-b",
+      "8beat-7": "pixel-write:screen-b-r",
+      "8beat-8": "pixel-write:starts-b-l"
     },
     "bar-33": {
-      "4beat-1": "pixel-write:beat",
-      "8beat-3": "pixel-write:beat"
+      "4beat-1": "pixel-write:to-t",
+      "4beat-2": "pixel-write:sing-t-r",
+      "4beat-3": "pixel-write:as-t-l",
+      "4beat-4": "pixel-write:notes-r"
     },
     "bar-34": {
-      "4beat-1": "pixel-write:the"
+      "8beat-1": "pixel-write:turn-l",
+      "8beat-2": "pixel-write:to-b",
+      "8beat-3": "pixel-write:light-b-r",
+      "8beat-4": "pixel-write:we-b-l",
+      "8beat-5": "pixel-write:follow-t",
+      "8beat-6": "pixel-write:the-t-r",
+      "8beat-7": "pixel-write:tempo-t-l",
+      "8beat-8": "pixel-write:keep-r"
     },
     "bar-35": {
-      "4beat-1": "pixel-write:screen-t"
+      "4beat-1": "pixel-write:it-l",
+      "4beat-2": "pixel-write:tight-b",
+      "4beat-3": "pixel-write:shift-b-r",
+      "4beat-4": "pixel-write:and-b-l"
     },
     "bar-36": {
-      "4beat-1": "pixel-write:starts-t-r"
+      "8beat-1": "pixel-write:turn-t",
+      "8beat-2": "pixel-write:with-t-r",
+      "8beat-3": "pixel-write:the-t-l",
+      "8beat-4": "pixel-write:chime-r",
+      "8beat-5": "pixel-write:when-l",
+      "8beat-6": "pixel-write:the-b",
+      "8beat-7": "pixel-write:night-b-r",
+      "8beat-8": "pixel-write:falls-b-l"
     },
     "bar-37": {
-      "4beat-1": "pixel-write:to-t"
+      "4beat-1": "pixel-write:we-t",
+      "4beat-2": "pixel-write:shine-t-r",
+      "4beat-3": "pixel-write:bright-t-l",
+      "4beat-4": "pixel-write:on-r"
     },
     "bar-38": {
-      "4beat-1": "pixel-write:sing-t-l"
+      "8beat-1": "pixel-write:every-l",
+      "8beat-2": "pixel-write:line-b",
+      "8beat-3": "pixel-write:we-b-r",
+      "8beat-4": "pixel-write:keep-b-l",
+      "8beat-5": "pixel-write:the-t",
+      "8beat-6": "pixel-write:music-t-r",
+      "8beat-7": "pixel-write:alive-t-l",
+      "8beat-8": "pixel-write:we-r"
     },
     "bar-39": {
-      "4beat-1": "pixel-write:as"
+      "4beat-1": "pixel-write:keep-l",
+      "4beat-2": "pixel-write:the-b",
+      "4beat-3": "pixel-write:screen-b-r",
+      "4beat-4": "pixel-write:alive-b-l"
     },
     "bar-40": {
-      "4beat-1": "pixel-write:notes"
+      "8beat-1": "pixel-write:with-t",
+      "8beat-2": "pixel-write:you-t-r",
+      "8beat-3": "pixel-write:we-t-l",
+      "8beat-4": "pixel-write:build-r",
+      "8beat-5": "pixel-write:the-l",
+      "8beat-6": "pixel-write:beats-b",
+      "8beat-7": "pixel-write:in-b-r",
+      "8beat-8": "pixel-write:light-b-l"
     },
     "bar-41": {
-      "4beat-1": "pixel-write:turn"
+      "4beat-1": "pixel-write:and-t",
+      "4beat-2": "pixel-write:color-t-r",
+      "4beat-3": "pixel-write:through-t-l",
+      "4beat-4": "pixel-write:the-r"
     },
     "bar-42": {
-      "4beat-1": "pixel-write:to"
+      "8beat-1": "pixel-write:grid-l",
+      "8beat-2": "pixel-write:we-b",
+      "8beat-3": "pixel-write:write-b-r",
+      "8beat-4": "pixel-write:the-b-l",
+      "8beat-5": "pixel-write:rhythm-t",
+      "8beat-6": "pixel-write:we-t-r",
+      "8beat-7": "pixel-write:ride-t-l",
+      "8beat-8": "pixel-write:the-r"
     },
     "bar-43": {
-      "4beat-1": "pixel-write:light",
-      "8beat-3": "pixel-write:light"
+      "4beat-1": "pixel-write:pulse-l",
+      "4beat-2": "pixel-write:we-b",
+      "4beat-3": "pixel-write:hold-b-r",
+      "4beat-4": "pixel-write:the-b-l"
     },
     "bar-44": {
-      "4beat-1": "pixel-write:we"
+      "8beat-1": "pixel-write:glow-t",
+      "8beat-2": "pixel-write:we-t-r",
+      "8beat-3": "pixel-write:let-t-l",
+      "8beat-4": "pixel-write:it-r",
+      "8beat-5": "pixel-write:flow-l",
+      "8beat-6": "pixel-write:through-b",
+      "8beat-7": "pixel-write:every-b-r",
+      "8beat-8": "pixel-write:bar-b-l"
     },
     "bar-45": {
-      "4beat-1": "pixel-write:follow-b",
-      "8beat-3": "pixel-write:follow-b"
+      "4beat-1": "pixel-write:and-t",
+      "4beat-2": "pixel-write:every-t-r",
+      "4beat-3": "pixel-write:beat-t-l",
+      "4beat-4": "pixel-write:the-r"
     },
     "bar-46": {
-      "4beat-1": "pixel-write:the-b-r"
+      "8beat-1": "pixel-write:screen-l",
+      "8beat-2": "pixel-write:starts-b",
+      "8beat-3": "pixel-write:to-b-r",
+      "8beat-4": "pixel-write:sing-b-l",
+      "8beat-5": "pixel-write:as-t",
+      "8beat-6": "pixel-write:notes-t-r",
+      "8beat-7": "pixel-write:turn-t-l",
+      "8beat-8": "pixel-write:to-r"
     },
     "bar-47": {
-      "4beat-1": "pixel-write:tempo-b"
+      "4beat-1": "pixel-write:light-l",
+      "4beat-2": "pixel-write:we-b",
+      "4beat-3": "pixel-write:follow-b-r",
+      "4beat-4": "pixel-write:the-b-l"
     },
     "bar-48": {
-      "4beat-1": "pixel-write:keep-b-l"
+      "8beat-1": "pixel-write:tempo-t",
+      "8beat-2": "pixel-write:keep-t-r",
+      "8beat-3": "pixel-write:it-t-l",
+      "8beat-4": "pixel-write:tight-r",
+      "8beat-5": "pixel-write:shift-l",
+      "8beat-6": "pixel-write:and-b",
+      "8beat-7": "pixel-write:turn-b-r",
+      "8beat-8": "pixel-write:with-b-l"
     },
     "bar-49": {
-      "4beat-1": "pixel-write:it"
+      "4beat-1": "pixel-write:the-t",
+      "4beat-2": "pixel-write:chime-t-r",
+      "4beat-3": "pixel-write:when-t-l",
+      "4beat-4": "pixel-write:the-r"
     },
     "bar-50": {
-      "4beat-1": "pixel-write:tight-r"
+      "8beat-1": "pixel-write:night-l",
+      "8beat-2": "pixel-write:falls-b",
+      "8beat-3": "pixel-write:we-b-r",
+      "8beat-4": "pixel-write:shine-b-l",
+      "8beat-5": "pixel-write:bright-t",
+      "8beat-6": "pixel-write:on-t-r",
+      "8beat-7": "pixel-write:every-t-l",
+      "8beat-8": "pixel-write:line-r"
     },
     "bar-51": {
-      "4beat-1": "pixel-write:shift"
+      "4beat-1": "pixel-write:we-l",
+      "4beat-2": "pixel-write:keep-b",
+      "4beat-3": "pixel-write:the-b-r",
+      "4beat-4": "pixel-write:music-b-l"
     },
     "bar-52": {
-      "4beat-1": "pixel-write:and-l"
+      "8beat-1": "pixel-write:alive-t",
+      "8beat-2": "pixel-write:we-t-r",
+      "8beat-3": "pixel-write:keep-t-l",
+      "8beat-4": "pixel-write:the-r",
+      "8beat-5": "pixel-write:screen-l",
+      "8beat-6": "pixel-write:alive-b",
+      "8beat-7": "pixel-write:with-b-r",
+      "8beat-8": "pixel-write:you-b-l"
     },
     "bar-53": {
-      "4beat-1": "pixel-write:turn"
+      "4beat-1": "pixel-write:we-t",
+      "4beat-2": "pixel-write:build-t-r",
+      "4beat-3": "pixel-write:the-t-l",
+      "4beat-4": "pixel-write:beats-r"
     },
     "bar-54": {
-      "4beat-1": "pixel-write:with"
+      "8beat-1": "pixel-write:in-l",
+      "8beat-2": "pixel-write:light-b",
+      "8beat-3": "pixel-write:and-b-r",
+      "8beat-4": "pixel-write:color-b-l",
+      "8beat-5": "pixel-write:through-t",
+      "8beat-6": "pixel-write:the-t-r",
+      "8beat-7": "pixel-write:grid-t-l",
+      "8beat-8": "pixel-write:we-r"
     },
     "bar-55": {
-      "4beat-1": "pixel-write:the"
+      "4beat-1": "pixel-write:write-l",
+      "4beat-2": "pixel-write:the-b",
+      "4beat-3": "pixel-write:rhythm-b-r",
+      "4beat-4": "pixel-write:we-b-l"
     },
     "bar-56": {
-      "4beat-1": "pixel-write:chime",
-      "8beat-3": "pixel-write:chime"
+      "8beat-1": "pixel-write:ride-t",
+      "8beat-2": "pixel-write:the-t-r",
+      "8beat-3": "pixel-write:pulse-t-l",
+      "8beat-4": "pixel-write:we-r",
+      "8beat-5": "pixel-write:hold-l",
+      "8beat-6": "pixel-write:the-b",
+      "8beat-7": "pixel-write:glow-b-r",
+      "8beat-8": "pixel-write:we-b-l"
     },
     "bar-57": {
-      "4beat-1": "pixel-write:when-t"
+      "4beat-1": "pixel-write:let-t",
+      "4beat-2": "pixel-write:it-t-r",
+      "4beat-3": "pixel-write:flow-t-l",
+      "4beat-4": "pixel-write:through-r"
     },
     "bar-58": {
-      "4beat-1": "pixel-write:the-t-r"
+      "8beat-1": "pixel-write:every-l",
+      "8beat-2": "pixel-write:bar-b",
+      "8beat-3": "pixel-write:and-b-r",
+      "8beat-4": "pixel-write:every-b-l",
+      "8beat-5": "pixel-write:beat-t",
+      "8beat-6": "pixel-write:the-t-r",
+      "8beat-7": "pixel-write:screen-t-l",
+      "8beat-8": "pixel-write:starts-r"
     },
     "bar-59": {
-      "4beat-1": "pixel-write:night-t"
+      "4beat-1": "pixel-write:to-l",
+      "4beat-2": "pixel-write:sing-b",
+      "4beat-3": "pixel-write:as-b-r",
+      "4beat-4": "pixel-write:notes-b-l"
     },
     "bar-60": {
-      "4beat-1": "pixel-write:falls-t-l",
-      "8beat-3": "pixel-write:falls-t-l"
+      "8beat-1": "pixel-write:turn-t",
+      "8beat-2": "pixel-write:to-t-r",
+      "8beat-3": "pixel-write:light-t-l",
+      "8beat-4": "pixel-write:we-r",
+      "8beat-5": "pixel-write:follow-l",
+      "8beat-6": "pixel-write:the-b",
+      "8beat-7": "pixel-write:tempo-b-r",
+      "8beat-8": "pixel-write:keep-b-l"
     },
     "bar-61": {
-      "4beat-1": "pixel-write:we"
+      "4beat-1": "pixel-write:it-t",
+      "4beat-2": "pixel-write:tight-t-r",
+      "4beat-3": "pixel-write:shift-t-l",
+      "4beat-4": "pixel-write:and-r"
     },
     "bar-62": {
-      "4beat-1": "pixel-write:shine-r"
+      "8beat-1": "pixel-write:turn-l",
+      "8beat-2": "pixel-write:with-b",
+      "8beat-3": "pixel-write:the-b-r",
+      "8beat-4": "pixel-write:chime-b-l",
+      "8beat-5": "pixel-write:when-t",
+      "8beat-6": "pixel-write:the-t-r",
+      "8beat-7": "pixel-write:night-t-l",
+      "8beat-8": "pixel-write:falls-r"
     },
     "bar-63": {
-      "4beat-1": "pixel-write:bright-l",
-      "8beat-3": "pixel-write:bright-l"
+      "4beat-1": "pixel-write:we-l",
+      "4beat-2": "pixel-write:shine-b",
+      "4beat-3": "pixel-write:bright-b-r",
+      "4beat-4": "pixel-write:on-b-l"
     },
     "bar-64": {
-      "4beat-1": "pixel-write:on"
+      "8beat-1": "pixel-write:every-t",
+      "8beat-2": "pixel-write:line-t-r",
+      "8beat-3": "pixel-write:we-t-l",
+      "8beat-4": "pixel-write:keep-r",
+      "8beat-5": "pixel-write:the-l",
+      "8beat-6": "pixel-write:music-b",
+      "8beat-7": "pixel-write:alive-b-r",
+      "8beat-8": "pixel-write:we-b-l"
     },
     "bar-65": {
-      "4beat-1": "pixel-write:every"
+      "4beat-1": "pixel-write:keep-t",
+      "4beat-2": "pixel-write:the-t-r",
+      "4beat-3": "pixel-write:screen-t-l",
+      "4beat-4": "pixel-write:alive-r"
     },
     "bar-66": {
-      "4beat-1": "pixel-write:line"
+      "8beat-1": "pixel-write:with-l",
+      "8beat-2": "pixel-write:you-b",
+      "8beat-3": "pixel-write:we-b-r",
+      "8beat-4": "pixel-write:build-b-l",
+      "8beat-5": "pixel-write:the-t",
+      "8beat-6": "pixel-write:beats-t-r",
+      "8beat-7": "pixel-write:in-t-l",
+      "8beat-8": "pixel-write:light-r"
     },
     "bar-67": {
-      "4beat-1": "pixel-write:we-b"
+      "4beat-1": "pixel-write:and-l",
+      "4beat-2": "pixel-write:color-b",
+      "4beat-3": "pixel-write:through-b-r",
+      "4beat-4": "pixel-write:the-b-l"
     },
     "bar-68": {
-      "4beat-1": "pixel-write:keep-b-r"
+      "8beat-1": "pixel-write:grid-t",
+      "8beat-2": "pixel-write:we-t-r",
+      "8beat-3": "pixel-write:write-t-l",
+      "8beat-4": "pixel-write:the-r",
+      "8beat-5": "pixel-write:rhythm-l",
+      "8beat-6": "pixel-write:we-b",
+      "8beat-7": "pixel-write:ride-b-r",
+      "8beat-8": "pixel-write:the-b-l"
     },
     "bar-69": {
-      "4beat-1": "pixel-write:the-b"
+      "4beat-1": "pixel-write:pulse-t",
+      "4beat-2": "pixel-write:we-t-r",
+      "4beat-3": "pixel-write:hold-t-l",
+      "4beat-4": "pixel-write:the-r"
     },
     "bar-70": {
-      "4beat-1": "pixel-write:music-b-l",
-      "8beat-3": "pixel-write:music-b-l"
+      "8beat-1": "pixel-write:glow-l",
+      "8beat-2": "pixel-write:we-b",
+      "8beat-3": "pixel-write:let-b-r",
+      "8beat-4": "pixel-write:it-b-l",
+      "8beat-5": "pixel-write:flow-t",
+      "8beat-6": "pixel-write:through-t-r",
+      "8beat-7": "pixel-write:every-t-l",
+      "8beat-8": "pixel-write:bar-r"
     },
     "bar-71": {
-      "4beat-1": "pixel-write:alive"
+      "4beat-1": "pixel-write:and-l",
+      "4beat-2": "pixel-write:every-b",
+      "4beat-3": "pixel-write:beat-b-r",
+      "4beat-4": "pixel-write:the-b-l"
     },
     "bar-72": {
-      "4beat-1": "pixel-write:we",
-      "8beat-3": "pixel-write:we"
+      "8beat-1": "pixel-write:screen-t",
+      "8beat-2": "pixel-write:starts-t-r",
+      "8beat-3": "pixel-write:to-t-l",
+      "8beat-4": "pixel-write:sing-r",
+      "8beat-5": "pixel-write:as-l",
+      "8beat-6": "pixel-write:notes-b",
+      "8beat-7": "pixel-write:turn-b-r",
+      "8beat-8": "pixel-write:to-b-l"
     },
     "bar-73": {
-      "4beat-1": "pixel-write:keep-r"
+      "4beat-1": "pixel-write:light-t",
+      "4beat-2": "pixel-write:we-t-r",
+      "4beat-3": "pixel-write:follow-t-l",
+      "4beat-4": "pixel-write:the-r"
     },
     "bar-74": {
-      "4beat-1": "pixel-write:the"
+      "8beat-1": "pixel-write:tempo-l",
+      "8beat-2": "pixel-write:keep-b",
+      "8beat-3": "pixel-write:it-b-r",
+      "8beat-4": "pixel-write:tight-b-l",
+      "8beat-5": "pixel-write:shift-t",
+      "8beat-6": "pixel-write:and-t-r",
+      "8beat-7": "pixel-write:turn-t-l",
+      "8beat-8": "pixel-write:with-r"
     },
     "bar-75": {
-      "4beat-1": "pixel-write:screen-l"
+      "4beat-1": "pixel-write:the-l",
+      "4beat-2": "pixel-write:chime-b",
+      "4beat-3": "pixel-write:when-b-r",
+      "4beat-4": "pixel-write:the-b-l"
     },
     "bar-76": {
-      "4beat-1": "pixel-write:alive"
+      "8beat-1": "pixel-write:night-t",
+      "8beat-2": "pixel-write:falls-t-r",
+      "8beat-3": "pixel-write:we-t-l",
+      "8beat-4": "pixel-write:shine-r",
+      "8beat-5": "pixel-write:bright-l",
+      "8beat-6": "pixel-write:on-b",
+      "8beat-7": "pixel-write:every-b-r",
+      "8beat-8": "pixel-write:line-b-l"
     },
     "bar-77": {
-      "4beat-1": "pixel-write:with"
+      "4beat-1": "pixel-write:we-t",
+      "4beat-2": "pixel-write:keep-t-r",
+      "4beat-3": "pixel-write:the-t-l",
+      "4beat-4": "pixel-write:music-r"
     },
     "bar-78": {
-      "4beat-1": "pixel-write:you",
-      "8beat-3": "pixel-write:you"
+      "8beat-1": "pixel-write:alive-l",
+      "8beat-2": "pixel-write:we-b",
+      "8beat-3": "pixel-write:keep-b-r",
+      "8beat-4": "pixel-write:the-b-l",
+      "8beat-5": "pixel-write:screen-t",
+      "8beat-6": "pixel-write:alive-t-r",
+      "8beat-7": "pixel-write:with-t-l",
+      "8beat-8": "pixel-write:you-r"
     },
-    "bar-9-16": {
-      "8beat-2": "pixel-write:quick",
-      "8beat-4": "pixel-write:move"
-    },
-    "bar-33-40": {
-      "8beat-2": "pixel-write:fast",
-      "8beat-4": "pixel-write:sync"
-    },
-    "bar-57-64": {
-      "8beat-2": "pixel-write:blink",
-      "8beat-4": "pixel-write:flash"
-    },
-    "bar-1-3": {
-      "8beat-1-4": "random-pixel-flash@count=8"
-    },
-    "bar-5-28": {
+    "bar-1-12": {
       "4beat-2": "m-s-beatpulse"
     },
-    "bar-12": {
-      "8beat-1-4": "random-pixel-flash@count=12"
+    "bar-13-24": {
+      "4beat-4": "m-s-beatflash"
     },
-    "bar-29-44": {
+    "bar-25-36": {
+      "4beat-2-3": "m-s-beatpulse"
+    },
+    "bar-37-48": {
+      "4beat-1": "m-s-beatflash"
+    },
+    "bar-49-60": {
       "4beat-3": "m-s-beatpulse"
     },
-    "bar-45": {
-      "8beat-1-4": "random-pixel-pulse@count=10"
-    },
-    "bar-60": {
-      "8beat-1-4": "random-pixel-flash@count=14"
-    },
-    "bar-72": {
-      "8beat-1-4": "random-pixel-pulse@count=12"
+    "bar-61-78": {
+      "4beat-4": "m-s-beatflash"
     }
   }
 }

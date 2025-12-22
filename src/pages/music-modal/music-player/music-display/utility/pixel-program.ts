@@ -50,7 +50,6 @@ export function clearProgramPixels() {
     });
     document.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
         mid.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
-            pixel.style.display = 'none';
             pixel.style.opacity = '0';
         });
         mid.removeAttribute('data-music-player-program-mid');

@@ -498,7 +498,6 @@ export function applyPixelWriterText(rawText: string) {
         if (midSquare) midSquares.add(midSquare);
         pixel.setAttribute(PROGRAM_ATTR, programLabel);
         delete pixel.dataset.sheetHoldUntil;
-        pixel.style.display = 'block';
         pixel.style.opacity = '1';
         pixel.classList.add('pixel');
         pixel.style.removeProperty('animation');
@@ -516,7 +515,6 @@ export function applyPixelWriterText(rawText: string) {
             pixel.style.removeProperty('animation');
             pixel.style.removeProperty('--hold-color');
             pixel.style.removeProperty('--hold-shadow');
-            pixel.style.display = 'block';
             if (!pixel.hasAttribute(PROGRAM_ATTR)) {
                 pixel.style.opacity = '0';
             }

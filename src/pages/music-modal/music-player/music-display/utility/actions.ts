@@ -97,7 +97,6 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
             restartAnimationWithDuration(mid, 'beatMidPulse', durationMs);
         });
         getActiveNeighborInnerSquares().forEach((pixel) => {
-            pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
             restartAnimationWithDuration(pixel, 'beatPulse', durationMs);
@@ -111,7 +110,6 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
             restartAnimationWithDuration(mid, 'beatMidFlash', durationMs);
         });
         getActiveNeighborInnerSquares().forEach((pixel) => {
-            pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
             restartAnimationWithDuration(pixel, 'beatFlash', durationMs);
@@ -122,7 +120,6 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (baseAction === 'i-s-beatflash' || baseAction === 's-i-beatflash') {
         const durationMs = (60_000 / (ctx.bpm || BPM)) * 0.36;
         getAnimatableInnerSquares().forEach((pixel) => {
-            pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
             restartAnimationWithDuration(pixel, 'beatFlash', durationMs);
@@ -161,7 +158,6 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (baseAction === 'i-s-beatpulse' || baseAction === 's-i-beatpulse') {
         const durationMs = getAnimationTimebaseMs(ctx);
         getAnimatableInnerSquares().forEach((pixel) => {
-            pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
             restartAnimationWithDuration(pixel, 'beatPulse', durationMs);
@@ -181,7 +177,6 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         const chosen = pickRandom(pixels, Math.max(1, count));
         const durationMs = getAnimationTimebaseMs(ctx) * (variant === 'flash' ? 0.36 : 1);
         chosen.forEach((pixel) => {
-            pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
             restartAnimationWithDuration(pixel, variant === 'flash' ? 'randomPixelFlash' : 'randomPixelPulse', durationMs);

@@ -41,7 +41,6 @@ const PixelRing: React.FC = () => {
             const midSquare = pixel.closest<HTMLElement>('.mid-square');
             if (midSquare) midSquares.add(midSquare);
             pixel.setAttribute(PROGRAM_ATTR, 'ring');
-            pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
@@ -51,7 +50,6 @@ const PixelRing: React.FC = () => {
         midSquares.forEach((midSquare) => {
             midSquare.setAttribute('data-music-player-program-mid', 'true');
             midSquare.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
-                pixel.style.display = 'block';
                 if (!pixel.hasAttribute(PROGRAM_ATTR)) {
                     pixel.style.opacity = '0';
                 }

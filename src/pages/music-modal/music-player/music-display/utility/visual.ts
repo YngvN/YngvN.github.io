@@ -40,7 +40,6 @@ export function clearAllSquares() {
         pixel.removeAttribute('data-music-player-program');
         pixel.style.removeProperty('animation');
         pixel.style.opacity = '0';
-        pixel.style.display = 'none';
     });
     document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
         mid.style.removeProperty('animation');
@@ -48,7 +47,6 @@ export function clearAllSquares() {
 }
 
 export function applyInnerHoldBase(pixel: HTMLElement, state: HoldState) {
-    pixel.style.display = 'block';
     pixel.style.opacity = '1';
     pixel.classList.add('pixel');
     if (state.color) pixel.style.setProperty('--hold-color', state.color);
@@ -78,15 +76,6 @@ export function clearHoldBase(element: HTMLElement) {
     if (element.classList.contains('inner-square')) {
         element.style.opacity = '0';
         element.classList.remove('pixel');
-        if (typeof window !== 'undefined') {
-            window.setTimeout(() => {
-                if (element.style.opacity === '0') {
-                    element.style.display = 'none';
-                }
-            }, 140);
-        } else {
-            element.style.display = 'none';
-        }
     }
 }
 

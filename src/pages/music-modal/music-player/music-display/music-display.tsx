@@ -320,7 +320,6 @@ const MusicDisplay: React.FC = () => {
             if (!until) {
                 if (isInner) {
                     target.style.opacity = '0';
-                    target.style.display = 'none';
                     target.classList.remove('pixel');
                 }
                 return;

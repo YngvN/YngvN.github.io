@@ -159,7 +159,6 @@ function clearProgramPixels() {
     });
     document.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
         mid.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
-            pixel.style.display = 'none';
             pixel.style.opacity = '0';
         });
         mid.removeAttribute('data-music-player-program-mid');
@@ -199,7 +198,6 @@ const LcdGlyph: React.FC = () => {
             const midSquare = pixel.closest<HTMLElement>('.mid-square');
             if (midSquare) midSquares.add(midSquare);
             pixel.setAttribute(PROGRAM_ATTR, normalizedChar);
-            pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
             pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
@@ -211,7 +209,6 @@ const LcdGlyph: React.FC = () => {
         midSquares.forEach((midSquare) => {
             midSquare.setAttribute('data-music-player-program-mid', 'true');
             midSquare.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
-                pixel.style.display = 'block';
                 if (!pixel.hasAttribute(PROGRAM_ATTR)) {
                     pixel.style.opacity = '0';
                 }
