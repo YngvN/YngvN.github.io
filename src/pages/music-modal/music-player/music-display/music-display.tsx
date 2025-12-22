@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Squares from '../music-background/m-bg-components/squares';
-import LcdGlyph from './lcd-glyph/lcd-glyph';
+import PixelGlyph from './pixel-glyph/pixel-glyph';
 import MusicController from '../music-controller/music-controller';
 import type { ParsedMusicSheet } from '../music-sheet';
 import { fetchMusicSheetJson, parseMusicSheetJson } from '../music-sheet';
@@ -423,7 +423,7 @@ const MusicDisplay: React.FC = () => {
         <div className="music-display" aria-label="Music display placeholder">
             {audioSrc ? <audio ref={audioRef} preload="auto" src={audioSrc} /> : null}
             <Squares />
-            <LcdGlyph />
+            <PixelGlyph />
             <MusicController
                 clockLabel={clockLabel}
                 clockTitle={clockTitle}
