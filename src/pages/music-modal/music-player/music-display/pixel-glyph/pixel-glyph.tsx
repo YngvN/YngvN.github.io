@@ -314,6 +314,14 @@ const PIXEL_GLYPHS: Partial<Record<string, PixelGlyphMap>> = {
     ],
 };
 
+const DEFAULT_GLYPH: PixelGlyphMap = [
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [0, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+];
+
 function parseCssInt(value: string) {
     const parsed = Number.parseInt(value, 10);
     return Number.isFinite(parsed) ? parsed : null;
@@ -350,32 +358,42 @@ function buildInnerPixelMap() {
 
 function getPixelGlyphForChar(char: string): PixelGlyphMap {
     const normalized = char.toUpperCase().slice(0, 1);
-    if (normalized.length === 0) return PIXEL_GLYPHS[' '] ?? PIXEL_GLYPHS['?'];
-    return PIXEL_GLYPHS[normalized] ?? PIXEL_GLYPHS['?'];
+    if (normalized.length === 0) return PIXEL_GLYPHS[' '] ?? PIXEL_GLYPHS['?'] ?? DEFAULT_GLYPH;
+    return PIXEL_GLYPHS[normalized] ?? PIXEL_GLYPHS['?'] ?? DEFAULT_GLYPH;
 }
 
-function makePixelCoords(char: string, cols: number, rows: number) {
+function makePixelCoords(text: string, cols: number, rows: number) {
     const innerCols = cols * 2;
     const innerRows = rows * 2;
-    const glyph = getPixelGlyphForChar(char);
     const glyphCols = 5;
     const glyphRows = 5;
+    const glyphSpacing = 1;
 
     const coords = new Set<string>();
 
     if (innerCols < glyphCols || innerRows < glyphRows) return coords;
 
-    const startX = Math.floor((innerCols - glyphCols) / 2);
+    const maxChars = Math.max(0, Math.floor((innerCols + glyphSpacing) / (glyphCols + glyphSpacing)));
+    const normalized = text.toUpperCase();
+    const clamped = maxChars > 0 ? normalized.slice(0, maxChars) : '';
+    if (clamped.length === 0) return coords;
+
+    const totalWidth = clamped.length * glyphCols + (clamped.length - 1) * glyphSpacing;
+    const startX = Math.floor((innerCols - totalWidth) / 2);
     const startY = Math.floor((innerRows - glyphRows) / 2);
 
-    glyph.forEach((row, y) => {
-        row.forEach((value, x) => {
-            if (!value) return;
-            const gridX = startX + x;
-            const gridY = startY + y;
-            if (gridX < 0 || gridX >= innerCols) return;
-            if (gridY < 0 || gridY >= innerRows) return;
-            coords.add(`${gridX}-${gridY}`);
+    clamped.split('').forEach((char, index) => {
+        const glyph = getPixelGlyphForChar(char);
+        const offsetX = startX + index * (glyphCols + glyphSpacing);
+        glyph.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (!value) return;
+                const gridX = offsetX + x;
+                const gridY = startY + y;
+                if (gridX < 0 || gridX >= innerCols) return;
+                if (gridY < 0 || gridY >= innerRows) return;
+                coords.add(`${gridX}-${gridY}`);
+            });
         });
     });
 
@@ -400,31 +418,31 @@ function clearProgramPixels() {
     });
 }
 
-function readInitialChar() {
+function readInitialText() {
     if (typeof window === 'undefined') return '';
     const params = new URLSearchParams(window.location.search);
     const raw = params.get('char');
     if (!raw) return '';
-    return raw.slice(0, 1).toUpperCase();
+    return raw.toUpperCase();
 }
 
 const PixelGlyph: React.FC = () => {
     const [enabled, setEnabled] = useState(true);
-    const [char, setChar] = useState(readInitialChar);
+    const [text, setText] = useState(readInitialText);
 
-    const normalizedChar = useMemo(() => (char || '').slice(0, 1).toUpperCase(), [char]);
+    const normalizedText = useMemo(() => (text || '').toUpperCase(), [text]);
 
     const run = useCallback(() => {
         if (typeof document === 'undefined') return;
         clearProgramPixels();
         if (!enabled) return;
-        if (!normalizedChar) return;
+        if (!normalizedText) return;
 
         const grid = getSquareGridSizeFromDom();
         if (!grid) return;
 
         const pixels = buildInnerPixelMap();
-        const coords = makePixelCoords(normalizedChar, grid.cols, grid.rows);
+        const coords = makePixelCoords(normalizedText, grid.cols, grid.rows);
         const midSquares = new Set<HTMLElement>();
 
         coords.forEach((coord) => {
@@ -432,7 +450,7 @@ const PixelGlyph: React.FC = () => {
             if (!pixel) return;
             const midSquare = pixel.closest<HTMLElement>('.mid-square');
             if (midSquare) midSquares.add(midSquare);
-            pixel.setAttribute(PROGRAM_ATTR, normalizedChar);
+            pixel.setAttribute(PROGRAM_ATTR, normalizedText);
             pixel.style.display = 'block';
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
@@ -449,7 +467,7 @@ const PixelGlyph: React.FC = () => {
                 }
             });
         });
-    }, [enabled, normalizedChar]);
+    }, [enabled, normalizedText]);
 
     const clear = useCallback(() => {
         if (typeof document === 'undefined') return;
@@ -512,8 +530,8 @@ const PixelGlyph: React.FC = () => {
 
     const onChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            const next = event.target.value.slice(0, 1);
-            setChar(next);
+            const next = event.target.value;
+            setText(next);
             const hasChar = next.trim().length > 0;
             setEnabled(hasChar);
             if (!hasChar) clear();
@@ -525,16 +543,16 @@ const PixelGlyph: React.FC = () => {
         <div className="pixel-glyph">
             <input
                 className="pixel-glyph__input"
-                value={char}
+                value={text}
                 onChange={onChange}
                 inputMode="text"
                 autoCapitalize="characters"
                 autoCorrect="off"
                 spellCheck={false}
-                maxLength={1}
+                maxLength={32}
                 placeholder=" "
                 aria-label="Pixel glyph character"
-                title="Type a character to display"
+                title="Type text to display"
             />
         </div>
     );
