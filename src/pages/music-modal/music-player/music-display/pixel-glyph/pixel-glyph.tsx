@@ -287,11 +287,11 @@ const PIXEL_GLYPHS: Partial<Record<string, PixelGlyphMap>> = {
         [0, 0, 1, 0, 0],
     ],
     '-': [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
+        [0, 0],
+        [0, 0],
+        [1, 1],
+        [0, 0],
+        [0, 0],
     ],
     '.': [
         [0, 0, 0, 0, 0],
@@ -330,6 +330,7 @@ function makePixelCoords(text: string, cols: number, rows: number) {
     const glyphRows = 5;
     const glyphSpacing = 1;
     const spaceCols = 2;
+    const hyphenCols = 2;
     const lineSpacing = 1;
 
     const coords = new Set<string>();
@@ -340,8 +341,20 @@ function makePixelCoords(text: string, cols: number, rows: number) {
     const normalized = text.toUpperCase().replace(/\r/g, '');
     if (maxLines === 0) return coords;
 
-    const getGlyphWidth = (char: string) => (char === ' ' ? spaceCols : glyphCols);
+    const getGlyphWidth = (char: string) => {
+        if (char === ' ') return spaceCols;
+        if (char === '-') return hyphenCols;
+        return glyphCols;
+    };
     const getInterCharSpacing = (prev: string, next: string) => (prev !== ' ' && next !== ' ' ? glyphSpacing : 0);
+    const getLineWidth = (line: string) => {
+        let width = 0;
+        line.split('').forEach((char, index, chars) => {
+            if (index > 0) width += getInterCharSpacing(chars[index - 1], char);
+            width += getGlyphWidth(char);
+        });
+        return width;
+    };
 
     const lines: string[] = [];
     normalized.split('\n').forEach((line) => {
@@ -351,18 +364,34 @@ function makePixelCoords(text: string, cols: number, rows: number) {
         }
         let current = '';
         let currentWidth = 0;
+        let lastSpaceIndex = -1;
         line.split('').forEach((char) => {
             const width = getGlyphWidth(char);
             const spacing = current.length === 0 ? 0 : getInterCharSpacing(current.slice(-1), char);
             const nextWidth = currentWidth + spacing + width;
-            if (nextWidth > innerCols && current.length > 0) {
-                lines.push(current);
-                current = char;
-                currentWidth = width;
+
+            if (nextWidth <= innerCols || current.length === 0) {
+                current = `${current}${char}`;
+                currentWidth = nextWidth;
+                if (char === ' ') {
+                    lastSpaceIndex = current.length - 1;
+                }
                 return;
             }
-            current = `${current}${char}`;
-            currentWidth = nextWidth;
+
+            if (lastSpaceIndex >= 0) {
+                const head = current.slice(0, lastSpaceIndex);
+                if (head.length > 0) lines.push(head);
+                const tail = current.slice(lastSpaceIndex + 1);
+                current = `${tail}${char}`;
+                currentWidth = getLineWidth(current);
+            } else {
+                lines.push(current);
+                current = `-${char}`;
+                currentWidth = getLineWidth(current);
+            }
+
+            lastSpaceIndex = current.lastIndexOf(' ');
         });
         if (current.length > 0) lines.push(current);
     });
@@ -376,11 +405,7 @@ function makePixelCoords(text: string, cols: number, rows: number) {
     clampedLines.forEach((line, lineIndex) => {
         const lineLength = line.length;
         if (lineLength === 0) return;
-        let lineWidth = 0;
-        line.split('').forEach((char, index, chars) => {
-            if (index > 0) lineWidth += getInterCharSpacing(chars[index - 1], char);
-            lineWidth += getGlyphWidth(char);
-        });
+        const lineWidth = getLineWidth(line);
         const startX = Math.floor((innerCols - lineWidth) / 2);
         const offsetY = startY + lineIndex * (glyphRows + lineSpacing);
 
