@@ -1,12 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './pixel-glyph.scss';
-
-const PROGRAM_ATTR = 'data-music-player-program';
-
-type GridSize = {
-    cols: number;
-    rows: number;
-};
+import PixelRing from '../pixel-ring/pixel-ring';
+import { PROGRAM_ATTR, buildInnerPixelMap, clearProgramPixels, getSquareGridSizeFromDom } from '../utility/pixel-program';
 
 type PixelGlyphMap = ReadonlyArray<ReadonlyArray<number>>;
 
@@ -322,40 +317,6 @@ const DEFAULT_GLYPH: PixelGlyphMap = [
     [0, 0, 1, 0, 0],
 ];
 
-function parseCssInt(value: string) {
-    const parsed = Number.parseInt(value, 10);
-    return Number.isFinite(parsed) ? parsed : null;
-}
-
-function getSquareGridSizeFromDom(): GridSize | null {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return null;
-    const container = document.querySelector<HTMLElement>('.outer-square');
-    if (!container) return null;
-
-    const style = window.getComputedStyle(container);
-    const cols = parseCssInt(style.getPropertyValue('--grid-cols'));
-    const rows = parseCssInt(style.getPropertyValue('--grid-rows'));
-    if (!cols || !rows) return null;
-
-    return { cols, rows };
-}
-
-function buildInnerPixelMap() {
-    const pixels = Array.from(document.querySelectorAll<HTMLElement>('.inner-square'));
-    const map = new Map<string, HTMLElement>();
-
-    pixels.forEach((pixel) => {
-        const classes = pixel.className.split(/\s+/);
-        const tag = classes.find((c) => c.startsWith('i-s--'));
-        if (!tag) return;
-        const [, coords] = tag.split('i-s--');
-        if (!coords) return;
-        map.set(coords, pixel);
-    });
-
-    return map;
-}
-
 function getPixelGlyphForChar(char: string): PixelGlyphMap {
     const normalized = char.toUpperCase().slice(0, 1);
     if (normalized.length === 0) return PIXEL_GLYPHS[' '] ?? PIXEL_GLYPHS['?'] ?? DEFAULT_GLYPH;
@@ -398,24 +359,6 @@ function makePixelCoords(text: string, cols: number, rows: number) {
     });
 
     return coords;
-}
-
-function clearProgramPixels() {
-    document.querySelectorAll<HTMLElement>(`.inner-square[${PROGRAM_ATTR}]`).forEach((pixel) => {
-        pixel.style.removeProperty('opacity');
-        pixel.style.removeProperty('background-color');
-        pixel.style.removeProperty('box-shadow');
-        pixel.style.removeProperty('--pixel-rot');
-        pixel.classList.remove('pixel');
-        pixel.removeAttribute(PROGRAM_ATTR);
-    });
-    document.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
-        mid.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
-            pixel.style.display = 'none';
-            pixel.style.opacity = '0';
-        });
-        mid.removeAttribute('data-music-player-program-mid');
-    });
 }
 
 function readInitialText() {
@@ -528,12 +471,22 @@ const PixelGlyph: React.FC = () => {
         return () => window.removeEventListener('music-player-program:clear', onClear);
     }, []);
 
+    useEffect(() => {
+        if (typeof window === 'undefined') return undefined;
+        const onRing = () => setEnabled(false);
+        window.addEventListener('music-player-program:ring', onRing);
+        return () => window.removeEventListener('music-player-program:ring', onRing);
+    }, []);
+
     const onChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const next = event.target.value;
             setText(next);
             const hasChar = next.trim().length > 0;
             setEnabled(hasChar);
+            if (hasChar && typeof window !== 'undefined') {
+                window.dispatchEvent(new Event('music-player-program:ring:clear'));
+            }
             if (!hasChar) clear();
         },
         [clear],
@@ -554,6 +507,7 @@ const PixelGlyph: React.FC = () => {
                 aria-label="Pixel glyph character"
                 title="Type text to display"
             />
+            <PixelRing />
         </div>
     );
 };
