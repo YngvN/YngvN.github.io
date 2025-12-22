@@ -1,0 +1,46 @@
+Sheet.json actions and commands
+
+Program structure
+- Use "program" for grid-timed actions or "events" for absolute sub-beat keys.
+- Bar keys: "bar-1" or ranges like "bar-5-12".
+- Beat keys inside a bar:
+  - "4beat-1" or range "4beat-1-4"
+  - "8beat-1" or range "8beat-1-4" (requires subBeatsPerBeat divisible by 2)
+  - "beat-1" / "beat-1-4" (raw beat index)
+
+Text drawing
+- pixel-write:<text>
+  - Example: "pixel-write:HELLO"
+  - Alignment suffixes (optional, use hyphen tokens at the end):
+    - -t (top), -b (bottom), -l (left), -r (right)
+    - Combine: -t-l, -t-r, -b-l, -b-r
+    - Default is centered (no suffix)
+
+Mid-square animations
+- m-s-beatpulse
+- m-s-beatflash
+- m-s-beathold
+  - Holds accept @bars=N when used across a bar range (auto-inferred by parser)
+
+Inner-square animations
+- i-s-beatpulse
+- i-s-beatflash
+- i-s-beathold
+- s-i-beatpulse (alias of i-s-beatpulse)
+- s-i-beatflash (alias of i-s-beatflash)
+- s-i-beathold (alias of i-s-beathold)
+
+Random pixels
+- random-pixel
+  - Optional meta: @count=N (default 6)
+  - Optional meta: @variant=pulse|flash (default pulse)
+- random-pixel-pulse
+  - Optional meta: @count=N (default 6)
+- random-pixel-flash
+  - Optional meta: @count=N (default 6)
+
+Examples
+- "4beat-1": "pixel-write:HELLO-t-l"
+- "8beat-3": "random-pixel-flash@count=12"
+- "bar-5-12": { "4beat-2": "m-s-beatpulse" }
+- "bar-9": { "8beat-1-4": "random-pixel@count=10,variant=flash" }

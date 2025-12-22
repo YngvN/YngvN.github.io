@@ -4,32 +4,287 @@
   "bars": 78,
   "timeSignature": "4/4",
   "program": {
-    "bar-1-3": [
-      {
-        "4beat-1": "random-pixel-flash@count=10",
-        "4beat-2": "random-pixel-flash@count=20",
-        "4beat-3": "random-pixel-pulse@count=30",
-        "4beat-4": "random-pixel-pulse@count=40"
-      }
-    ],
-    "bar-4": {
-      "4beat-4": {
-        "8beat-1-4": "m-s-beatflash"
-      }
+    "bar-1": {
+      "4beat-1": "pixel-write:we-t"
     },
-    "bar-5-28": {
-      "4beat-1": "m-s-beatpulse",
-      "4beat-3-4": "m-s-beatflash"
+    "bar-2": {
+      "4beat-1": "pixel-write:build-t-r"
+    },
+    "bar-3": {
+      "4beat-1": "pixel-write:the-t"
+    },
+    "bar-4": {
+      "4beat-1": "pixel-write:beats-t-l",
+      "8beat-3": "pixel-write:beats-t-l"
+    },
+    "bar-5": {
+      "4beat-1": "pixel-write:in"
+    },
+    "bar-6": {
+      "4beat-1": "pixel-write:light-r"
+    },
+    "bar-7": {
+      "4beat-1": "pixel-write:and"
+    },
+    "bar-8": {
+      "4beat-1": "pixel-write:color-l",
+      "8beat-3": "pixel-write:color-l"
+    },
+    "bar-9": {
+      "4beat-1": "pixel-write:through"
+    },
+    "bar-10": {
+      "4beat-1": "pixel-write:the"
+    },
+    "bar-11": {
+      "4beat-1": "pixel-write:grid"
     },
     "bar-12": {
-      "8beat-1-4": "random-pixel-flash@count=15"
+      "4beat-1": "pixel-write:we",
+      "8beat-3": "pixel-write:we"
+    },
+    "bar-13": {
+      "4beat-1": "pixel-write:write"
+    },
+    "bar-14": {
+      "4beat-1": "pixel-write:the"
+    },
+    "bar-15": {
+      "4beat-1": "pixel-write:rhythm-b",
+      "8beat-3": "pixel-write:rhythm-b"
+    },
+    "bar-16": {
+      "4beat-1": "pixel-write:we-b-r"
+    },
+    "bar-17": {
+      "4beat-1": "pixel-write:ride-b"
+    },
+    "bar-18": {
+      "4beat-1": "pixel-write:the-b-l"
+    },
+    "bar-19": {
+      "4beat-1": "pixel-write:pulse"
+    },
+    "bar-20": {
+      "4beat-1": "pixel-write:we"
+    },
+    "bar-21": {
+      "4beat-1": "pixel-write:hold-r"
+    },
+    "bar-22": {
+      "4beat-1": "pixel-write:the"
+    },
+    "bar-23": {
+      "4beat-1": "pixel-write:glow-l",
+      "8beat-3": "pixel-write:glow-l"
+    },
+    "bar-24": {
+      "4beat-1": "pixel-write:we"
+    },
+    "bar-25": {
+      "4beat-1": "pixel-write:let"
+    },
+    "bar-26": {
+      "4beat-1": "pixel-write:it"
+    },
+    "bar-27": {
+      "4beat-1": "pixel-write:flow"
+    },
+    "bar-28": {
+      "4beat-1": "pixel-write:through"
     },
     "bar-29": {
-      "4beat-1": "m-s-beatflash",
-      "4beat-3": "m-s-beatflash",
-      "4beat-4": {
-        "8beat-1-4": "random-pixel-flash@count=12"
-      }
+      "4beat-1": "pixel-write:every",
+      "8beat-3": "pixel-write:every"
+    },
+    "bar-30": {
+      "4beat-1": "pixel-write:bar-r"
+    },
+    "bar-31": {
+      "4beat-1": "pixel-write:and"
+    },
+    "bar-32": {
+      "4beat-1": "pixel-write:every-l"
+    },
+    "bar-33": {
+      "4beat-1": "pixel-write:beat",
+      "8beat-3": "pixel-write:beat"
+    },
+    "bar-34": {
+      "4beat-1": "pixel-write:the"
+    },
+    "bar-35": {
+      "4beat-1": "pixel-write:screen-t"
+    },
+    "bar-36": {
+      "4beat-1": "pixel-write:starts-t-r"
+    },
+    "bar-37": {
+      "4beat-1": "pixel-write:to-t"
+    },
+    "bar-38": {
+      "4beat-1": "pixel-write:sing-t-l"
+    },
+    "bar-39": {
+      "4beat-1": "pixel-write:as"
+    },
+    "bar-40": {
+      "4beat-1": "pixel-write:notes"
+    },
+    "bar-41": {
+      "4beat-1": "pixel-write:turn"
+    },
+    "bar-42": {
+      "4beat-1": "pixel-write:to"
+    },
+    "bar-43": {
+      "4beat-1": "pixel-write:light",
+      "8beat-3": "pixel-write:light"
+    },
+    "bar-44": {
+      "4beat-1": "pixel-write:we"
+    },
+    "bar-45": {
+      "4beat-1": "pixel-write:follow-b",
+      "8beat-3": "pixel-write:follow-b"
+    },
+    "bar-46": {
+      "4beat-1": "pixel-write:the-b-r"
+    },
+    "bar-47": {
+      "4beat-1": "pixel-write:tempo-b"
+    },
+    "bar-48": {
+      "4beat-1": "pixel-write:keep-b-l"
+    },
+    "bar-49": {
+      "4beat-1": "pixel-write:it"
+    },
+    "bar-50": {
+      "4beat-1": "pixel-write:tight-r"
+    },
+    "bar-51": {
+      "4beat-1": "pixel-write:shift"
+    },
+    "bar-52": {
+      "4beat-1": "pixel-write:and-l"
+    },
+    "bar-53": {
+      "4beat-1": "pixel-write:turn"
+    },
+    "bar-54": {
+      "4beat-1": "pixel-write:with"
+    },
+    "bar-55": {
+      "4beat-1": "pixel-write:the"
+    },
+    "bar-56": {
+      "4beat-1": "pixel-write:chime",
+      "8beat-3": "pixel-write:chime"
+    },
+    "bar-57": {
+      "4beat-1": "pixel-write:when-t"
+    },
+    "bar-58": {
+      "4beat-1": "pixel-write:the-t-r"
+    },
+    "bar-59": {
+      "4beat-1": "pixel-write:night-t"
+    },
+    "bar-60": {
+      "4beat-1": "pixel-write:falls-t-l",
+      "8beat-3": "pixel-write:falls-t-l"
+    },
+    "bar-61": {
+      "4beat-1": "pixel-write:we"
+    },
+    "bar-62": {
+      "4beat-1": "pixel-write:shine-r"
+    },
+    "bar-63": {
+      "4beat-1": "pixel-write:bright-l",
+      "8beat-3": "pixel-write:bright-l"
+    },
+    "bar-64": {
+      "4beat-1": "pixel-write:on"
+    },
+    "bar-65": {
+      "4beat-1": "pixel-write:every"
+    },
+    "bar-66": {
+      "4beat-1": "pixel-write:line"
+    },
+    "bar-67": {
+      "4beat-1": "pixel-write:we-b"
+    },
+    "bar-68": {
+      "4beat-1": "pixel-write:keep-b-r"
+    },
+    "bar-69": {
+      "4beat-1": "pixel-write:the-b"
+    },
+    "bar-70": {
+      "4beat-1": "pixel-write:music-b-l",
+      "8beat-3": "pixel-write:music-b-l"
+    },
+    "bar-71": {
+      "4beat-1": "pixel-write:alive"
+    },
+    "bar-72": {
+      "4beat-1": "pixel-write:we",
+      "8beat-3": "pixel-write:we"
+    },
+    "bar-73": {
+      "4beat-1": "pixel-write:keep-r"
+    },
+    "bar-74": {
+      "4beat-1": "pixel-write:the"
+    },
+    "bar-75": {
+      "4beat-1": "pixel-write:screen-l"
+    },
+    "bar-76": {
+      "4beat-1": "pixel-write:alive"
+    },
+    "bar-77": {
+      "4beat-1": "pixel-write:with"
+    },
+    "bar-78": {
+      "4beat-1": "pixel-write:you",
+      "8beat-3": "pixel-write:you"
+    },
+    "bar-9-16": {
+      "8beat-2": "pixel-write:quick",
+      "8beat-4": "pixel-write:move"
+    },
+    "bar-33-40": {
+      "8beat-2": "pixel-write:fast",
+      "8beat-4": "pixel-write:sync"
+    },
+    "bar-57-64": {
+      "8beat-2": "pixel-write:blink",
+      "8beat-4": "pixel-write:flash"
+    },
+    "bar-1-3": {
+      "8beat-1-4": "random-pixel-flash@count=8"
+    },
+    "bar-5-28": {
+      "4beat-2": "m-s-beatpulse"
+    },
+    "bar-12": {
+      "8beat-1-4": "random-pixel-flash@count=12"
+    },
+    "bar-29-44": {
+      "4beat-3": "m-s-beatpulse"
+    },
+    "bar-45": {
+      "8beat-1-4": "random-pixel-pulse@count=10"
+    },
+    "bar-60": {
+      "8beat-1-4": "random-pixel-flash@count=14"
+    },
+    "bar-72": {
+      "8beat-1-4": "random-pixel-pulse@count=12"
     }
   }
 }

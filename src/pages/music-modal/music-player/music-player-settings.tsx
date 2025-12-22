@@ -1,4 +1,4 @@
-export const resolution = 400;
+export const resolution = 600;
 
 // Returns a sensible pixel size for the current viewport/grid.
 // This value is used as `--pixel-min-size` for the inner squares.

@@ -1,5 +1,6 @@
 import { BPM } from '../../../utility/metronome/metronome';
 import type { SheetTriggerContext, HoldState } from './types';
+import { applyPixelWriterText } from '../pixel-writer/pixel-writer';
 import { applyInnerHoldBase, applyMidHoldBase, restartAnimationWithDuration, snapshotPulseVars } from './visual';
 
 function parseMetaNumber(meta: string, key: string) {
@@ -72,6 +73,10 @@ function getAnimationTimebaseMs(ctx: SheetTriggerContext) {
 
 export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     if (typeof document === 'undefined') return;
+    if (action.startsWith('pixel-write:')) {
+        applyPixelWriterText(action.slice('pixel-write:'.length));
+        return;
+    }
     const [baseAction, ...metaParts] = action.split('@');
     const meta = metaParts.join('@');
     // eslint-disable-next-line no-console
