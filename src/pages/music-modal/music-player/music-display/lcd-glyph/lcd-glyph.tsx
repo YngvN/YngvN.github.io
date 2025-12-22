@@ -200,8 +200,6 @@ const LcdGlyph: React.FC = () => {
             pixel.setAttribute(PROGRAM_ATTR, normalizedChar);
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
-            pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
-            pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
             const rotation = rotations.get(coord);
             if (rotation) pixel.style.setProperty('--pixel-rot', rotation);
         });

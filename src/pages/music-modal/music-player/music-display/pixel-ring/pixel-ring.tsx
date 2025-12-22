@@ -43,8 +43,6 @@ const PixelRing: React.FC = () => {
             pixel.setAttribute(PROGRAM_ATTR, 'ring');
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
-            pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
-            pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
         });
 
         midSquares.forEach((midSquare) => {

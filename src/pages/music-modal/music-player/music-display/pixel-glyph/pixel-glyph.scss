@@ -1,5 +1,10 @@
 @use '../../../../../assets/sass/colors' as colors;
 
+:root {
+    --pixel-glyph-color: rgba(255, 255, 255, 0.92);
+    --pixel-glyph-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+
 .pixel-glyph {
     position: absolute;
     left: 12px;
@@ -47,6 +52,13 @@
 .pixel-glyph__input:focus-visible {
     outline: 2px solid colors.color('primary');
     outline-offset: 2px;
+}
+
+.inner-square[data-music-player-program] {
+    background-color: var(--pixel-glyph-color);
+    border-radius: 50%;
+    scale: (.67);
+
 }
 
 body[data-theme='dark'] {

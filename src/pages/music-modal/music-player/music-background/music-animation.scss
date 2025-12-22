@@ -101,22 +101,6 @@
     }
 }
 
-@for $phase from 1 through 4 {
-    @keyframes beatFlash-#{$phase} {
-        0% {
-            transition: none;
-            opacity: 1;
-            background-color: var(--pulse-color, #ffffff);
-            box-shadow: var(--pulse-shadow, none);
-        }
-
-        100% {
-            opacity: 0;
-            background-color: var(--pulse-color, #ffffff);
-            box-shadow: none;
-        }
-    }
-}
 
 @keyframes pixel90 {
     0% {
@@ -164,27 +148,5 @@
         opacity: 0;
         background-color: var(--pulse-color, #ffffff);
         box-shadow: none;
-    }
-}
-
-@for $phase from 1 through 4 {
-    @keyframes beatMidPulse-#{$phase} {
-        0% {
-            opacity: 0;
-            background-color: var(--pulse-color, #ffffff);
-            box-shadow: none;
-        }
-
-        50% {
-            opacity: 1;
-            background-color: var(--pulse-color, #ffffff);
-            box-shadow: var(--pulse-shadow, none);
-        }
-
-        100% {
-            opacity: 0;
-            background-color: var(--pulse-color, #ffffff);
-            box-shadow: none;
-        }
     }
 }

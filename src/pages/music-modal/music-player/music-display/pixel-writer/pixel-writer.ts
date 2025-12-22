@@ -503,8 +503,6 @@ export function applyPixelWriterText(rawText: string) {
         pixel.style.removeProperty('animation');
         pixel.style.removeProperty('--hold-color');
         pixel.style.removeProperty('--hold-shadow');
-        pixel.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
-        pixel.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.22)';
     });
 
     midSquares.forEach((midSquare) => {

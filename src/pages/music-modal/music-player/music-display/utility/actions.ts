@@ -92,7 +92,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         : msPerBeat;
 
     if (baseAction === 'm-s-beatpulse') {
-        const durationMs = getAnimationTimebaseMs(ctx) * 0.56;
+        const durationMs = getAnimationTimebaseMs(ctx);
         document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             restartAnimationWithDuration(mid, 'beatMidPulse', durationMs);
         });
@@ -105,7 +105,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     }
 
     if (baseAction === 'm-s-beatflash') {
-        const durationMs = (60_000 / (ctx.bpm || BPM)) * 0.36;
+        const durationMs = getAnimationTimebaseMs(ctx);
         document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             restartAnimationWithDuration(mid, 'beatMidFlash', durationMs);
         });
