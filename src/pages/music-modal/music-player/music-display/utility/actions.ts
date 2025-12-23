@@ -15,6 +15,15 @@ function parseMetaVariant(meta: string) {
     return match ? match[1] : null;
 }
 
+function parseMetaColors(meta: string) {
+    const match = /(?:^|,)colors=([^,]+)(?:,|$)/.exec(meta);
+    if (!match) return null;
+    return match[1]
+        .split('|')
+        .map((value) => value.trim())
+        .filter((value) => value.length > 0);
+}
+
 function pickRandom<T>(list: T[], count: number) {
     const picks: T[] = [];
     const pool = list.slice();
@@ -81,6 +90,24 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     const meta = metaParts.join('@');
     // eslint-disable-next-line no-console
     console.log('[anim]', { action: baseAction, bar: ctx.bar, beat: ctx.beat, subBeat: ctx.subBeat });
+
+    if (baseAction === 'm-s-zones') {
+        const root = document.documentElement;
+        const count = parseMetaNumber(meta, 'count');
+        const colors = parseMetaColors(meta);
+        if (count && Number.isFinite(count)) {
+            root.style.setProperty('--mid-zone-count', String(count));
+        } else {
+            root.style.removeProperty('--mid-zone-count');
+        }
+        if (colors && colors.length > 0) {
+            colors.forEach((color, index) => {
+                root.style.setProperty(`--zone-color-${index + 1}`, color);
+            });
+        }
+        window.dispatchEvent(new CustomEvent('music-player:zones', { detail: { count: count ?? undefined } }));
+        return;
+    }
 
     const msPerBeat = 60_000 / (ctx.bpm || BPM);
     const msPerBar = msPerBeat * ctx.beatsPerBar;

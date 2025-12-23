@@ -44,6 +44,7 @@ function getPaletteForMode(mode: PaletteMode): BeatPalette {
 
 function setPulseVars(color: string) {
     if (!hasDom()) return;
+    document.documentElement.style.setProperty('--pulse-color-base', color);
     document.documentElement.style.setProperty('--pulse-color', color);
     document.documentElement.style.setProperty(
         '--pulse-shadow',
@@ -57,6 +58,7 @@ function resetMusicClock() {
     document.documentElement.style.removeProperty('--beat');
     document.documentElement.style.removeProperty('--sub-beat');
     document.documentElement.style.removeProperty('--pulse-color');
+    document.documentElement.style.removeProperty('--pulse-color-base');
     document.documentElement.style.removeProperty('--pulse-shadow');
     delete document.body.dataset.bar;
     delete document.body.dataset.beat;
