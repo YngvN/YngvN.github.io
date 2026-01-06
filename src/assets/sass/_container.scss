@@ -6,7 +6,7 @@ $gutter: 1.5rem !default;
 
 // Main container
 .container {
-    width: 100%;
+    min-width: 100%;
     max-width: $container-max-width;
     margin-left: auto;
     margin-right: auto;
