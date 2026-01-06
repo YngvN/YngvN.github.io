@@ -17,16 +17,33 @@ body[data-theme='dark'] .about-link {
     color: colors.color-dark("primary");
 }
 
+.about-page {
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+}
+
 .about-paragraph {
-    margin: 0 0 1.25rem;
+    min-height: 100vh;
+    padding: 2.5rem 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 
     p {
         margin: 0;
     }
+}
 
-    &:last-child {
-        margin-bottom: 0;
-    }
+.about-page .about-cta {
+    scroll-snap-align: start;
+}
+
+.about-page .dropdown-panel {
+    scroll-snap-align: start;
 }
 
 

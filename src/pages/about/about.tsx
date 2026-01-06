@@ -1,7 +1,7 @@
 import '../../assets/styles.scss';
 import '../pages.scss';
 import './about.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { Language } from '../../types/language';
 import type { PageName } from '../../types/pages';
 import PageNavigation from '../../components/page-navigation/page-navigation';
@@ -25,6 +25,8 @@ type AboutProps = {
 const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     const { heading, subheading, paragraphs, buttons } = aboutCopy[language];
     const categoryInfo = aboutCategoryCopy[language];
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const isScrollingRef = useRef(false);
     const [openSections, setOpenSections] = useState<Record<CategoryId, boolean>>(() =>
         categoryDefinitions.reduce(
             (acc, category) => ({
@@ -57,13 +59,73 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
         return <MusicianContent language={language} />;
     };
 
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) {
+            return undefined;
+        }
+
+        const handleWheel = (event: WheelEvent) => {
+            if (isScrollingRef.current) {
+                event.preventDefault();
+                return;
+            }
+
+            const snapTargets = Array.from(
+                container.querySelectorAll<HTMLElement>('.about-snap'),
+            );
+
+            if (snapTargets.length === 0) {
+                return;
+            }
+
+            const direction = event.deltaY > 0 ? 1 : -1;
+            const scrollTop = container.scrollTop;
+            let currentIndex = 0;
+            let closestDistance = Number.POSITIVE_INFINITY;
+
+            snapTargets.forEach((target, index) => {
+                const distance = Math.abs(target.offsetTop - scrollTop);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    currentIndex = index;
+                }
+            });
+
+            const nextIndex = currentIndex + direction;
+            const nextTarget = snapTargets[nextIndex];
+
+            if (!nextTarget) {
+                return;
+            }
+
+            event.preventDefault();
+            isScrollingRef.current = true;
+            container.scrollTo({ top: nextTarget.offsetTop, behavior: 'smooth' });
+
+            window.setTimeout(() => {
+                isScrollingRef.current = false;
+            }, 500);
+        };
+
+        container.addEventListener('wheel', handleWheel, { passive: false });
+
+        return () => {
+            container.removeEventListener('wheel', handleWheel);
+        };
+    }, []);
+
     return (
-        <div className="container page-container">
+        <div ref={containerRef} className="container page-container about-page">
             <PageNavigation currentPage="about" language={language} onNavigate={onNavigate} />
-            <h1 className="page-heading">{heading}</h1>
-            <h2 className="page-subheading">{subheading}</h2>
             {paragraphs.map((paragraph, index) => (
-                <div className="about-paragraph" key={index}>
+                <div className="about-paragraph about-snap" key={index}>
+                    {index === 0 ? (
+                        <>
+                            <h1 className="page-heading">{heading}</h1>
+                            <h2 className="page-subheading">{subheading}</h2>
+                        </>
+                    ) : null}
                     <p>{paragraph}</p>
                 </div>
             ))}
