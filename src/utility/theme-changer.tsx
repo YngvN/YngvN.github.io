@@ -17,10 +17,7 @@ export const useThemeChanger = (initialTheme: Theme = 'light') => {
     useEffect(() => {
         document.body.dataset.theme = theme;
         updateThemeColor();
-    }, [theme]);
 
-    useEffect(() => {
-        updateThemeColor();
         const observer = new MutationObserver(() => {
             updateThemeColor();
         });
@@ -33,7 +30,7 @@ export const useThemeChanger = (initialTheme: Theme = 'light') => {
         return () => {
             observer.disconnect();
         };
-    }, []);
+    }, [theme]);
 
     const toggleTheme = () => {
         setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
