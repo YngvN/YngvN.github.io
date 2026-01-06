@@ -36,10 +36,12 @@
     z-index: 1200;
     gap: 1.25rem;
     min-height: 100%;
+    height: auto;
+    max-height: 100vh;
     width: var(--nav-width);
     flex: 0 0 var(--nav-width);
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
-    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, max-height 0.45s ease;
     overflow-y: auto;
 
     .navbar-brand {
@@ -49,18 +51,24 @@
         gap: 0.75rem;
         position: relative;
         padding-top: 0;
+        flex-shrink: 0;
+        overflow: hidden;
+        min-height: max-content;
+        max-height: 240px;
+        transition: max-height 0.45s ease, padding 0.45s ease;
 
 
 
         img.nav-avatar {
-            width: 170px;
-            height: 170px;
+            width: 165px;
+            height: 165px;
             border-radius: 50%;
             object-fit: cover;
             display: block;
             margin: 0 auto;
+            flex-shrink: 0;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.471);
-            transition: transform 0.5s ease, opacity 0.5s ease;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
     }
 
@@ -144,9 +152,11 @@
         line-height: 1.5;
         text-align: center;
         color: inherit;
-        padding-bottom: 20px;
         margin-top: 0;
         color: colors.color("text-contrast");
+        max-height: 120px;
+        overflow: hidden;
+        transition: opacity 0.35s ease, transform 0.35s ease, max-height 0.45s ease, padding 0.45s ease;
     }
 
 }
@@ -156,9 +166,21 @@ body[data-about-active='true'][data-about-section='0'] .navbar-brand img.nav-ava
     opacity: 0;
 }
 
+body[data-about-active='true'][data-about-section='0'] .navbar-brand {
+    max-height: 0;
+    padding-top: 0;
+}
+
+body[data-about-active='true'][data-about-section='0'] .navbar {
+    max-height: calc(100vh - 140px);
+    padding-top: 1.25rem;
+}
+
 body[data-about-active='true'][data-about-section='0'] .nav-description {
     opacity: 0;
     transform: translateY(-10px);
+    max-height: 0;
+    padding-bottom: 0;
 }
 
 body[data-theme='dark'] {
@@ -192,7 +214,7 @@ body[data-theme='dark'] {
     .navbar {
         width: var(--nav-width);
         flex: 0 0 var(--nav-width);
-        height: 100vh;
+        max-height: 100vh;
         border-left: none;
         border-bottom: none;
         padding: 1.5rem 1.25rem;
