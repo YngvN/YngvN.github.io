@@ -54,12 +54,11 @@ body[data-theme='dark'] .about-link {
 
 .about-hero-visual {
     display: flex;
-    position: absolute;
+    position: relative;
     width: min(320px, 70vw);
     height: min(320px, 70vw);
     z-index: -1;
-    top: 15%;
-    justify-self: center;
+    top: -6rem;
     align-self: center;
     pointer-events: none;
     transform: scale(0.7);
@@ -199,6 +198,18 @@ body[data-about-active='true'][data-about-bg='background'] {
     color: colors.color('text');
 }
 
+body[data-about-active='true'][data-about-bg='primary'] .about-page .page-navigation,
+body[data-about-active='true'][data-about-bg='primary'] .about-page .page-nav__link,
+body[data-about-active='true'][data-about-bg='primary'] .about-page .page-nav__arrow {
+    color: colors.color('text-contrast');
+}
+
+body[data-about-active='true'][data-about-bg='background'] .about-page .page-navigation,
+body[data-about-active='true'][data-about-bg='background'] .about-page .page-nav__link,
+body[data-about-active='true'][data-about-bg='background'] .about-page .page-nav__arrow {
+    color: colors.color('text');
+}
+
 body[data-theme='dark'][data-about-active='true'][data-about-bg='primary'] {
     background-color: colors.color-dark('primary');
     color: colors.color-dark('text-contrast');
@@ -206,5 +217,17 @@ body[data-theme='dark'][data-about-active='true'][data-about-bg='primary'] {
 
 body[data-theme='dark'][data-about-active='true'][data-about-bg='background'] {
     background-color: colors.color-dark('background');
+    color: colors.color-dark('text');
+}
+
+body[data-theme='dark'][data-about-active='true'][data-about-bg='primary'] .about-page .page-navigation,
+body[data-theme='dark'][data-about-active='true'][data-about-bg='primary'] .about-page .page-nav__link,
+body[data-theme='dark'][data-about-active='true'][data-about-bg='primary'] .about-page .page-nav__arrow {
+    color: colors.color-dark('text-contrast');
+}
+
+body[data-theme='dark'][data-about-active='true'][data-about-bg='background'] .about-page .page-navigation,
+body[data-theme='dark'][data-about-active='true'][data-about-bg='background'] .about-page .page-nav__link,
+body[data-theme='dark'][data-about-active='true'][data-about-bg='background'] .about-page .page-nav__arrow {
     color: colors.color-dark('text');
 }

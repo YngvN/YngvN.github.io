@@ -191,52 +191,56 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                         </>
                     ) : null}
                     <p>{paragraph}</p>
+                    {index === paragraphs.length - 1 ? (
+                        <>
+                            <div className="about-cta">
+                                {buttons.map(({ label, page, variant }) => (
+                                    <button
+                                        key={page}
+                                        type="button"
+                                        className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
+                                        onClick={() => navigateTo(page)}
+                                    >
+                                        {label}
+                                    </button>
+                                ))}
+                            </div>
+                            <DropdownContainer>
+                                {categoryDefinitions.map(({ id }) => {
+                                    const { title, description } = categoryInfo[id];
+                                    const isOpen = openSections[id];
+
+                                    return (
+                                        <section key={id} className={`dropdown-panel container${isOpen ? ' open' : ''}`}>
+                                            <button
+                                                type="button"
+                                                className="dropdown-toggle"
+                                                onClick={() => toggleSection(id)}
+                                                aria-expanded={isOpen}
+                                                aria-controls={`${id}-content`}
+                                            >
+                                                <div>
+                                                    <span className="dropdown-title">{title}</span>
+                                                    <span className="dropdown-description">{description}</span>
+                                                </div>
+                                                <Arrow
+                                                    direction="down"
+                                                    open={isOpen}
+                                                    size="sm"
+                                                    className="dropdown-toggle__chevron"
+                                                />
+                                            </button>
+                                            <div id={`${id}-content`} className={`dropdown-content${isOpen ? ' expanded' : ''}`} aria-live="polite">
+                                                {renderCategoryContent(id)}
+                                            </div>
+                                        </section>
+                                    );
+                                })}
+                            </DropdownContainer>
+                        </>
+                    ) : null}
                 </div>
             ))}
-            <div className="about-cta">
-                {buttons.map(({ label, page, variant }) => (
-                    <button
-                        key={page}
-                        type="button"
-                        className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
-                        onClick={() => navigateTo(page)}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <DropdownContainer>
-                {categoryDefinitions.map(({ id }) => {
-                    const { title, description } = categoryInfo[id];
-                    const isOpen = openSections[id];
-
-                    return (
-                        <section key={id} className={`dropdown-panel container${isOpen ? ' open' : ''}`}>
-                            <button
-                                type="button"
-                                className="dropdown-toggle"
-                                onClick={() => toggleSection(id)}
-                                aria-expanded={isOpen}
-                                aria-controls={`${id}-content`}
-                            >
-                                <div>
-                                    <span className="dropdown-title">{title}</span>
-                                    <span className="dropdown-description">{description}</span>
-                                </div>
-                                <Arrow
-                                    direction="down"
-                                    open={isOpen}
-                                    size="sm"
-                                    className="dropdown-toggle__chevron"
-                                />
-                            </button>
-                            <div id={`${id}-content`} className={`dropdown-content${isOpen ? ' expanded' : ''}`} aria-live="polite">
-                                {renderCategoryContent(id)}
-                            </div>
-                        </section>
-                    );
-                })}
-            </DropdownContainer>
         </div>
     );
 };
