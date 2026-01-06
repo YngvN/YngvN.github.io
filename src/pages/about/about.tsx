@@ -15,6 +15,8 @@ import {
 } from './data/about-categories';
 import DeveloperContent from './components/developer-content';
 import MusicianContent from './components/musician-content';
+import megUtenBakgrunn from '../../assets/images/me/Meg_uten_bakgrunn.png';
+import megUtenMeg from '../../assets/images/me/Meg_uten_meg.png';
 
 type AboutProps = {
     language: Language;
@@ -161,6 +163,18 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                 <div className="about-paragraph about-snap" key={index}>
                     {index === 0 ? (
                         <>
+                            <div className="about-hero-visual" aria-hidden="true">
+                                <img
+                                    className="about-hero-layer about-hero-layer--back"
+                                    src={megUtenMeg}
+                                    alt=""
+                                />
+                                <img
+                                    className="about-hero-layer about-hero-layer--front"
+                                    src={megUtenBakgrunn}
+                                    alt=""
+                                />
+                            </div>
                             <h1 className="page-heading">{heading}</h1>
                             <h2 className="page-subheading">{subheading}</h2>
                         </>

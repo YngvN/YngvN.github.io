@@ -32,7 +32,7 @@ body[data-theme='dark'] .about-link {
     background: inherit;
 }
 
-.about-page .page-navigation + .about-paragraph {
+.about-page .page-navigation+.about-paragraph {
     padding-top: 3.5rem;
 }
 
@@ -50,6 +50,27 @@ body[data-theme='dark'] .about-link {
         margin: 0;
     }
 }
+
+.about-hero-visual {
+    position: relative;
+    width: min(320px, 70vw);
+    height: min(320px, 70vw);
+
+    pointer-events: none;
+}
+
+.about-hero-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.about-hero-layer--back {
+    opacity: 0.9;
+}
+
+.about-hero-layer--front {}
 
 .about-page .about-cta {
     scroll-snap-align: start;
@@ -72,7 +93,7 @@ body[data-theme='dark'] .about-link {
     border: 1px solid rgba(colors.color('text'), 0.05);
     border-radius: 16px;
     padding: 1rem;
-    box-shadow: 0 10px 10px rgba(colors.color('text'), 0.05) ;
+    box-shadow: 0 10px 10px rgba(colors.color('text'), 0.05);
 
     h3 {
         margin: 0 0 0.75rem;
@@ -85,7 +106,7 @@ body[data-theme='dark'] .about-link {
     flex-wrap: wrap;
     gap: 1.5rem;
 
-    > div {
+    >div {
         flex: 1 1 220px;
         background-color: rgba(colors.color('text'), 0.03);
         border: 1px solid rgba(colors.color('text'), 0.05);
@@ -128,7 +149,7 @@ body[data-theme='dark'] {
         border-color: rgba(colors.color-dark('text'), 0.14);
     }
 
-    .musician-columns > div {
+    .musician-columns>div {
         border-color: rgba(colors.color-dark('text'), 0.14);
     }
 }
