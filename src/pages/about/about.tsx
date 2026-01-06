@@ -99,45 +99,39 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
             document.body.dataset.aboutSection = String(currentIndex);
         };
 
-        const handleWheel = (event: WheelEvent) => {
+        let wheelTimeout: number | null = null;
+        const snapToClosest = () => {
             if (isScrollingRef.current) {
-                event.preventDefault();
                 return;
             }
 
             const snapTargets = getSnapTargets();
-
             if (snapTargets.length === 0) {
                 return;
             }
 
-            const direction = event.deltaY > 0 ? 1 : -1;
             const scrollTop = container.scrollTop;
-            let currentIndex = 0;
+            let closestTarget = snapTargets[0];
             let closestDistance = Number.POSITIVE_INFINITY;
 
-            snapTargets.forEach((target, index) => {
+            snapTargets.forEach((target) => {
                 const distance = Math.abs(target.offsetTop - scrollTop);
                 if (distance < closestDistance) {
                     closestDistance = distance;
-                    currentIndex = index;
+                    closestTarget = target;
                 }
             });
 
-            const nextIndex = currentIndex + direction;
-            const nextTarget = snapTargets[nextIndex];
-
-            if (!nextTarget) {
+            if (closestDistance < 2) {
                 return;
             }
 
-            event.preventDefault();
             isScrollingRef.current = true;
-            container.scrollTo({ top: nextTarget.offsetTop, behavior: 'smooth' });
+            container.scrollTo({ top: closestTarget.offsetTop, behavior: 'smooth' });
 
             window.setTimeout(() => {
                 isScrollingRef.current = false;
-            }, 500);
+            }, 450);
         };
 
         let isTicking = false;
@@ -151,16 +145,32 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                 setBodyScrollState();
                 isTicking = false;
             });
+
+            if (!('onscrollend' in container)) {
+                if (wheelTimeout) {
+                    window.clearTimeout(wheelTimeout);
+                }
+
+                if (!isScrollingRef.current) {
+                    wheelTimeout = window.setTimeout(() => {
+                        snapToClosest();
+                    }, 160);
+                }
+            }
         };
 
         setBodyScrollState();
         document.body.dataset.aboutActive = 'true';
-        container.addEventListener('wheel', handleWheel, { passive: false });
         container.addEventListener('scroll', handleScroll);
+        if ('onscrollend' in container) {
+            container.addEventListener('scrollend', snapToClosest);
+        }
 
         return () => {
-            container.removeEventListener('wheel', handleWheel);
             container.removeEventListener('scroll', handleScroll);
+            if ('onscrollend' in container) {
+                container.removeEventListener('scrollend', snapToClosest);
+            }
             clearAboutBodyState();
         };
     }, []);
