@@ -76,13 +76,20 @@ body[data-theme='dark'] .about-link {
 }
 
 .about-hero-layer--front {
-    transform: scale(1.1);
-    filter: drop-shadow(10px 10px 18px rgba(0, 0, 0, 0.585));
+    transform: scale(1);
+    filter: none;
+    transition: transform 0.35s ease, filter 0.35s ease;
 }
 
 body[data-about-active='true'][data-about-section='0'] .about-hero-visual {
     transform: scale(1);
     opacity: 1;
+}
+
+body[data-about-active='true'][data-about-section='0'] .about-hero-layer--front {
+    transform: scale(1.1);
+    filter: drop-shadow(10px 10px 18px rgba(0, 0, 0, 0.585));
+    transition-delay: 0.2s;
 }
 
 .about-page .about-cta {
