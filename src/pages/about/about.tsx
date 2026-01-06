@@ -183,9 +183,11 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                                     src={megUtenBakgrunn}
                                     alt=""
                                 />
+                                <div className="about-hero-text">
+                                    <h1 className="page-heading">{heading}</h1>
+                                    <h2 className="page-subheading">{subheading}</h2>
+                                </div>
                             </div>
-                            <h1 className="page-heading">{heading}</h1>
-                            <h2 className="page-subheading">{subheading}</h2>
                         </>
                     ) : null}
                     <p>{paragraph}</p>
