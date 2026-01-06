@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import type { Language } from '../../types/language';
 import PageNavigation from '../../components/page-navigation/page-navigation';
 import type { PageName } from '../../types/pages';
-import { aboutCopy } from '../about/about';
+import { aboutCopy } from '../about/data/about-copy';
 import DropdownContainer from '../../components/icons/containers/dropdown/dropdown-container';
 import Arrow from '../../components/icons/arrow/arrow';
 

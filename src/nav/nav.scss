@@ -60,6 +60,7 @@
             display: block;
             margin: 0 auto;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.471);
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
     }
 
@@ -68,6 +69,9 @@
         padding: 0;
         margin: 0;
         flex-direction: column;
+        border-top: 1px solid colors.color("text-contrast");
+        border-bottom: 1px solid colors.color("text-contrast");
+        padding: 1rem 0;
 
         .nav-item {
             margin-bottom: 1rem;
@@ -147,10 +151,14 @@
 
 }
 
-.nav-description,
-.navbar-nav {
-    border-bottom: 1px solid colors.color("text-contrast");
-    padding-bottom: 1rem;
+body[data-about-active='true'][data-about-section='0'] .navbar-brand img.nav-avatar {
+    transform: scale(0);
+    opacity: 0;
+}
+
+body[data-about-active='true'][data-about-section='0'] .nav-description {
+    opacity: 0;
+    transform: translateY(-10px);
 }
 
 body[data-theme='dark'] {
