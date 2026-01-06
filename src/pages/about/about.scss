@@ -17,6 +17,18 @@ body[data-theme='dark'] .about-link {
     color: colors.color-dark("primary");
 }
 
+.about-paragraph {
+    margin: 0 0 1.25rem;
+
+    p {
+        margin: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
 
 
 .tech-tiles {
