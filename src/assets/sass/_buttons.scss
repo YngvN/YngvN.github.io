@@ -67,10 +67,10 @@ $btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
 
-.btn:focus-visible {
-    outline: 2px solid colors.color("primary");
-    outline-offset: 2px;
-}
+// .btn:focus-visible {
+//     outline: 2px solid colors.color("primary");
+//     outline-offset: 2px;
+// }
 
 .btn:active {
     transform: translateY(1px);
@@ -96,13 +96,13 @@ $btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
     @include btn-variant(colors.color("secondary"));
 }
 
-.btn-outline {
-    @include btn-variant(transparent, colors.color("primary"), colors.color("primary"));
-}
+// .btn-outline {
+//     @include btn-variant(transparent, colors.color("primary"), colors.color("primary"));
+// }
 
-.btn-outline-secondary {
-    @include btn-variant(transparent, colors.color("secondary"), colors.color("secondary"));
-}
+// .btn-outline-secondary {
+//     @include btn-variant(transparent, colors.color("secondary"), colors.color("secondary"));
+// }
 
 .btn-ghost {
     @include btn-variant(transparent, transparent, colors.color("primary"));
