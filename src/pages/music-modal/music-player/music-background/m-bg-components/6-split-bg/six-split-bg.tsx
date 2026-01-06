@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
-import { createMidSquares, useSquareLayout } from '../../../utility/square-creator';
+import { createMidSquares, useSquareLayout } from '../../../../utility/square-creator';
+import '../squares.scss';
 
 type ZoneEventDetail = {
     count?: number;
