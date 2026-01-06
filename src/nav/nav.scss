@@ -60,6 +60,7 @@
             display: block;
             margin: 0 auto;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.471);
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
     }
 
@@ -151,6 +152,11 @@
 .navbar-nav {
     border-bottom: 1px solid colors.color("text-contrast");
     padding-bottom: 1rem;
+}
+
+body[data-about-active='true'][data-about-section='0'] .navbar-brand img.nav-avatar {
+    transform: scale(0);
+    opacity: 0;
 }
 
 body[data-theme='dark'] {

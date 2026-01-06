@@ -39,7 +39,14 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
         ),
     );
 
+    const clearAboutBodyState = () => {
+        delete document.body.dataset.aboutBg;
+        delete document.body.dataset.aboutSection;
+        delete document.body.dataset.aboutActive;
+    };
+
     const navigateTo = (page: PageName, direction: 'ltr' | 'rtl' = 'ltr') => {
+        clearAboutBodyState();
         onNavigate?.(page, direction);
         if (!onNavigate) {
             window.location.hash = `#${page}`;
@@ -70,7 +77,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
         const getSnapTargets = () =>
             Array.from(container.querySelectorAll<HTMLElement>('.about-snap'));
 
-        const setBodyBackground = () => {
+        const setBodyScrollState = () => {
             const snapTargets = getSnapTargets();
             if (snapTargets.length === 0) {
                 return;
@@ -89,6 +96,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
             });
 
             document.body.dataset.aboutBg = currentIndex % 2 === 0 ? 'background' : 'primary';
+            document.body.dataset.aboutSection = String(currentIndex);
         };
 
         const handleWheel = (event: WheelEvent) => {
@@ -140,19 +148,20 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
 
             isTicking = true;
             window.requestAnimationFrame(() => {
-                setBodyBackground();
+                setBodyScrollState();
                 isTicking = false;
             });
         };
 
-        setBodyBackground();
+        setBodyScrollState();
+        document.body.dataset.aboutActive = 'true';
         container.addEventListener('wheel', handleWheel, { passive: false });
         container.addEventListener('scroll', handleScroll);
 
         return () => {
             container.removeEventListener('wheel', handleWheel);
             container.removeEventListener('scroll', handleScroll);
-            delete document.body.dataset.aboutBg;
+            clearAboutBodyState();
         };
     }, []);
 
