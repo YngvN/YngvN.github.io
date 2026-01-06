@@ -171,7 +171,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
             {paragraphs.map((paragraph, index) => (
                 <div className="about-paragraph about-snap" key={index}>
                     {index === 0 ? (
-                        <>
+                        <div className="about-hero-container">
                             <div className="about-hero-visual" aria-hidden="true">
                                 <img
                                     className="about-hero-layer about-hero-layer--back"
@@ -183,12 +183,12 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                                     src={megUtenBakgrunn}
                                     alt=""
                                 />
-                                <div className="about-hero-text">
-                                    <h1 className="page-heading">{heading}</h1>
-                                    <h2 className="page-subheading">{subheading}</h2>
-                                </div>
                             </div>
-                        </>
+                            <div className="about-hero-text">
+                                <h1 className="page-heading">{heading}</h1>
+                                <h2 className="page-subheading">{subheading}</h2>
+                            </div>
+                        </div>
                     ) : null}
                     <p>{paragraph}</p>
                     {index === paragraphs.length - 1 ? (

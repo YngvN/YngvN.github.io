@@ -52,19 +52,34 @@ body[data-theme='dark'] .about-link {
     }
 }
 
+.about-hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
 .about-hero-visual {
     display: flex;
     position: relative;
     width: min(320px, 70vw);
     height: min(320px, 70vw);
     z-index: -1;
-    top: -6rem;
+    top: 0;
     align-self: center;
     pointer-events: none;
     transform: scale(0.7);
     opacity: 0;
     transition: transform 0.5s ease, opacity 0.5s ease;
     will-change: transform, opacity;
+
+        @media (max-width: 768px) {
+
+            top: 0;
+
+        
+
+    }
 }
 
 .about-hero-layer {
@@ -85,14 +100,12 @@ body[data-theme='dark'] .about-link {
 }
 
 .about-hero-text {
-    position: absolute;
-    top: 100%;
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 1;
-
 }
 
 body[data-about-active='true'][data-about-section='0'] .about-hero-visual {

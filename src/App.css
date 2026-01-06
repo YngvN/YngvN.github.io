@@ -97,11 +97,11 @@
 
 @media (max-width: 768px) {
   .app-shell {
-    padding: 1rem;
+    padding: 0rem;
   }
 
   .page-display {
-    padding-top: 2rem;
+    padding-top: 0rem;
   }
 }
 

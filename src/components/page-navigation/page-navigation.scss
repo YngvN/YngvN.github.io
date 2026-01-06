@@ -10,6 +10,14 @@
     flex-wrap: nowrap;
     background: transparent;
 
+    @media (max-width: 768px) {
+
+
+            padding: 0;
+
+
+    }
+
 }
 
 .page-nav__link {
