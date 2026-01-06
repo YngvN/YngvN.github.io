@@ -6,13 +6,15 @@ $gutter: 1.5rem !default;
 
 // Main container
 .container {
+    display: flex;
+    flex-direction: column;
     min-width: 100%;
+    width: 100%;
     max-width: $container-max-width;
-    margin-left: auto;
-    margin-right: auto;
+    // margin-left: auto;
+    // margin-right: auto;
     padding-left: $container-padding;
     padding-right: $container-padding;
-    box-sizing: border-box;
 }
 
 // Container variants

@@ -4,9 +4,9 @@
 @use './portfolio/portfolio';
 @use './resume/resume';
 
-.page-container {
-    @extend .container;
-}
+// .page-container {
+//     @extend .container;
+// }
 
 .surface-card {
     background: colors.color('background');
