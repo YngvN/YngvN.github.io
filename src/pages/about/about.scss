@@ -23,6 +23,19 @@ body[data-theme='dark'] .about-link {
     scroll-snap-type: y mandatory;
 }
 
+.about-page .page-navigation {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin-bottom: 0;
+    padding: 1rem 0;
+    background: colors.color('background');
+}
+
+.about-page .page-navigation + .about-paragraph {
+    padding-top: 3.5rem;
+}
+
 .about-paragraph {
     min-height: 100vh;
     padding: 2.5rem 0;
@@ -117,5 +130,9 @@ body[data-theme='dark'] {
 
     .musician-columns > div {
         border-color: rgba(colors.color-dark('text'), 0.14);
+    }
+
+    .about-page .page-navigation {
+        background: colors.color-dark('background');
     }
 }
