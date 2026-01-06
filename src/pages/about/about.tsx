@@ -65,15 +65,37 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
             return undefined;
         }
 
+        const getSnapTargets = () =>
+            Array.from(container.querySelectorAll<HTMLElement>('.about-snap'));
+
+        const setBodyBackground = () => {
+            const snapTargets = getSnapTargets();
+            if (snapTargets.length === 0) {
+                return;
+            }
+
+            const scrollTop = container.scrollTop;
+            let currentIndex = 0;
+            let closestDistance = Number.POSITIVE_INFINITY;
+
+            snapTargets.forEach((target, index) => {
+                const distance = Math.abs(target.offsetTop - scrollTop);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    currentIndex = index;
+                }
+            });
+
+            document.body.dataset.aboutBg = currentIndex % 2 === 0 ? 'background' : 'primary';
+        };
+
         const handleWheel = (event: WheelEvent) => {
             if (isScrollingRef.current) {
                 event.preventDefault();
                 return;
             }
 
-            const snapTargets = Array.from(
-                container.querySelectorAll<HTMLElement>('.about-snap'),
-            );
+            const snapTargets = getSnapTargets();
 
             if (snapTargets.length === 0) {
                 return;
@@ -108,10 +130,27 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
             }, 500);
         };
 
+        let isTicking = false;
+        const handleScroll = () => {
+            if (isTicking) {
+                return;
+            }
+
+            isTicking = true;
+            window.requestAnimationFrame(() => {
+                setBodyBackground();
+                isTicking = false;
+            });
+        };
+
+        setBodyBackground();
         container.addEventListener('wheel', handleWheel, { passive: false });
+        container.addEventListener('scroll', handleScroll);
 
         return () => {
             container.removeEventListener('wheel', handleWheel);
+            container.removeEventListener('scroll', handleScroll);
+            delete document.body.dataset.aboutBg;
         };
     }, []);
 

@@ -29,7 +29,7 @@ body[data-theme='dark'] .about-link {
     z-index: 20;
     margin-bottom: 0;
     padding: 1rem 0;
-    background: colors.color('background');
+    background: inherit;
 }
 
 .about-page .page-navigation + .about-paragraph {
@@ -131,8 +131,24 @@ body[data-theme='dark'] {
     .musician-columns > div {
         border-color: rgba(colors.color-dark('text'), 0.14);
     }
+}
 
-    .about-page .page-navigation {
-        background: colors.color-dark('background');
-    }
+body[data-about-bg='primary'] {
+    background-color: colors.color('primary');
+    color: colors.color('text-contrast');
+}
+
+body[data-about-bg='background'] {
+    background-color: colors.color('background');
+    color: colors.color('text');
+}
+
+body[data-theme='dark'][data-about-bg='primary'] {
+    background-color: colors.color-dark('primary');
+    color: colors.color-dark('text-contrast');
+}
+
+body[data-theme='dark'][data-about-bg='background'] {
+    background-color: colors.color-dark('background');
+    color: colors.color-dark('text');
 }
