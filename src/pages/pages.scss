@@ -25,12 +25,21 @@ body[data-theme='dark'] {
 }
 
 .page-heading {
-    margin: 0 0 0.5rem;
+    top: 0;
+    z-index: 10000;
+    min-width: 100%;
     font-size: clamp(2.25rem, 3vw, 2.75rem);
     line-height: 1.15;
     letter-spacing: -0.01em;
     @include fonts.apply-heading-font($weight: fonts.$font-weight-bold, $color: colors.color('text'));
 }
+
+.page-container .page-heading {
+    align-self: center;
+    text-align: center;
+}
+
+
 
 .page-subheading {
     margin: 0 0 1.5rem;
@@ -43,6 +52,10 @@ body[data-theme='dark'] {
 
 body[data-theme='dark'] {
     .page-heading {
+        color: colors.color-dark('text');
+    }
+
+    .hero-name {
         color: colors.color-dark('text');
     }
 

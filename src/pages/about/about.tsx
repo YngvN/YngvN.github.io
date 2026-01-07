@@ -29,6 +29,7 @@ type AboutProps = {
 const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     const { heading, subheading, paragraphs, buttons } = aboutCopy[language];
     const categoryInfo = aboutCategoryCopy[language];
+    const pageHeading = language === 'no' ? 'Om meg' : 'About me';
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [openSections, setOpenSections] = useState<Record<CategoryId, boolean>>(() =>
         categoryDefinitions.reduce(
@@ -99,6 +100,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                 <PageNavigation currentPage="about" language={language} onNavigate={onNavigate} />
             </div>
             <div ref={containerRef} className="container page-container about-page">
+                <h1 className="page-heading">{pageHeading}</h1>
                 {paragraphs.map((paragraph, index) => (
                     <div className="about-paragraph about-snap" key={index}>
                         {index === 0 ? (
@@ -116,8 +118,9 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                                     />
                                 </div>
                                 <div className="about-hero-text">
-                                    <h1 className="page-heading">{heading}</h1>
-                                    <h2 className="page-subheading">{subheading}</h2>
+
+                                    <h2 className="hero-name">{heading}</h2>
+                                    <h3 className="page-subheading">{subheading}</h3>
                                 </div>
                             </div>
                         ) : null}

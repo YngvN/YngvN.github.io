@@ -231,7 +231,7 @@ const resumeSections: ResumeSection[] = [
 ];
 
 const resumeCopy: ResumeContent = {
-    heading: { en: 'Résumé', no: 'CV' },
+    heading: { en: 'Resumé', no: 'CV' },
     summary: {
         en: 'I hold a vocational certificate in frontend development and studied electrical engineering at USN. I also have 13 years of experience in social roles that I now want to use in new projects. I am driven by trying new technologies, creating innovative solutions, and debugging what Codex helps me with. As a person I am solution-oriented, handle pressure well, and can take a leadership role when needed. Even though I lack directly relevant work experience, I am eager to learn and curious about most things.',
         no: 'Jeg har fagbrev innen frontend-utvikling, samt studert elektro-ingeniør ved USN. I tillegg har jeg 13 års arbeidserfaring innenfor sosiale jobber som jeg nå vil bruke i nye prosjekter. Det som driver meg er å prøve nye teknologier, lage innovative løsninger, og feilsøke det Codex hjelper meg med. Som person er jeg løsningsorientert, klarer å jobbe under press, og kan ta en lederrolle når det trengs. Selv om jeg mangler relevant jobberfaring, er jeg lærevillig og nysgjerrig på det meste.',

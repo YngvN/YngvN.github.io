@@ -187,9 +187,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ language, onNavigate }) => {
                 <PageNavigation currentPage="portfolio" language={language} onNavigate={onNavigate} />
             </div>
             <div className="container page-container portfolio">
+                <h1 className="page-heading">{heading}</h1>
                 <div className="portfolio__intro">
                     <div>
-                        <h1 className="page-heading">{heading}</h1>
                         <h2 className="page-subheading">{subheading}</h2>
                         <p className="portfolio__lede">{intro}</p>
                     </div>
