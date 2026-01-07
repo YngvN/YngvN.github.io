@@ -1,20 +1,25 @@
 import React from 'react';
-import type { Language } from '../../../types/language';
+import type { Technology } from '../../../components/icons/icons-data';
 import { TechLogoGrid } from '../../../components/icons/icons';
-import { developerIntroCopy } from '../data/section-copy';
-import { developerTiles } from '../data/developer-tiles';
 
 type DeveloperContentProps = {
-    language: Language;
+    intro: string;
+    tiles: DeveloperTile[];
 };
 
-const DeveloperContent: React.FC<DeveloperContentProps> = ({ language }) => (
+type DeveloperTile = {
+    id: string;
+    title: string;
+    technologies: Technology[];
+};
+
+const DeveloperContent: React.FC<DeveloperContentProps> = ({ intro, tiles }) => (
     <div className="developer-content">
-        <p>{developerIntroCopy[language]}</p>
+        <p>{intro}</p>
         <div className="tech-tiles">
-            {developerTiles.map(({ id, title, technologies }) => (
+            {tiles.map(({ id, title, technologies }) => (
                 <div className="tech-tile" key={id}>
-                    <h3>{title[language]}</h3>
+                    <h3>{title}</h3>
                     <TechLogoGrid technologies={technologies} keyPrefix={id} />
                 </div>
             ))}

@@ -5,22 +5,16 @@ import React from 'react';
 import type { Language } from '../../types/language';
 import PageNavigation from '../../components/page-navigation/page-navigation';
 import type { PageName } from '../../types/pages';
+import contactCopyData from './contact.copy.json';
 
 type ContactProps = {
     language: Language;
     onNavigate?: (page: PageName, direction: 'ltr' | 'rtl') => void;
 };
 
-const contactCopy: Record<Language, { heading: string; intro: string }> = {
-    en: {
-        heading: 'Contact',
-        intro: 'Happy to discuss opportunities, collaborations, or questions. Drop a line on any channel below.',
-    },
-    no: {
-        heading: 'Kontakt',
-        intro: 'Tar gjerne en prat om muligheter, samarbeid eller spørsmål. Ta kontakt på en av kanalene under.',
-    },
-};
+type ContactCopy = { heading: string; intro: string };
+
+const contactCopy = contactCopyData as Record<Language, ContactCopy>;
 
 const socials = [
     { label: 'Email', href: 'mailto:y.nykaas@gmail.com', display: 'y.nykaas@gmail.com' },

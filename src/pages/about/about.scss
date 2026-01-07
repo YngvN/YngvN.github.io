@@ -51,6 +51,12 @@ body[data-theme='dark'] .about-link {
 
 }
 
+.about-page {
+    .page-heading {
+        display: none;
+    }
+}
+
 .hero-name {
     margin: 0 0 0.5rem;
     font-size: clamp(2.5rem, 3.5vw, 3.25rem);

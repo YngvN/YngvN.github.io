@@ -33,11 +33,13 @@ const Display: FC<DisplayProps> = ({ currentPage, language, transitionDirection,
     const [activePage, setActivePage] = useState<PageName>(currentPage);
     const [outgoingPage, setOutgoingPage] = useState<PageName | null>(null);
 
+    /* eslint-disable react-hooks/set-state-in-effect */
     useEffect(() => {
         if (currentPage === activePage) return;
         setOutgoingPage(activePage);
         setActivePage(currentPage);
     }, [currentPage, activePage]);
+    /* eslint-enable react-hooks/set-state-in-effect */
 
     useEffect(() => {
         if (!outgoingPage) return;

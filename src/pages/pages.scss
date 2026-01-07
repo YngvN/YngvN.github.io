@@ -31,7 +31,7 @@ body[data-theme='dark'] {
     font-size: clamp(2.25rem, 3vw, 2.75rem);
     line-height: 1.15;
     letter-spacing: -0.01em;
-    @include fonts.apply-heading-font($weight: fonts.$font-weight-bold, $color: colors.color('text'));
+    @include fonts.apply-font($family: fonts.$font-family-base, $weight: fonts.$font-weight-bold, $color: colors.color('text'));
 }
 
 .page-container .page-heading {

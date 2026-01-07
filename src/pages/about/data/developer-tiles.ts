@@ -1,5 +1,5 @@
 import type { Language } from '../../../types/language';
-import type { Technology } from '../../../components/icons/icons';
+import type { Technology } from '../../../components/icons/icons-data';
 
 export type DeveloperTile = {
     id: string;

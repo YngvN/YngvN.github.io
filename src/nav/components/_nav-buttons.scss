@@ -40,22 +40,6 @@
 }
 
 .nav-toggle {
-    // display: none;
-    // order: -1;
-    // width: var(--tab-width);
-    // height: var(--tab-width);
-    // border: none;
-    // padding: 1em 4em 1em 1em;
-    // border-radius: 14px;
-    // background-color: colors.color("secondary");
-    // align-self: flex-start;
-    // margin-top: 12px;
-    // align-items: center;
-    // justify-content: center;
-    // transform: translateX(30px);
-    // box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
-    // transition: background-color 0.3s ease, color 0.3s ease;
-    // position: relative;
 
     display: none;
     order: -1;
@@ -86,10 +70,7 @@
 }
 
 body[data-theme='dark'] {
-    .nav-link.active {
-        color: colors.color-dark("primary");
-        border-left-color: colors.color-dark("primary");
-    }
+
 
     .nav-toggle {
         background-color: color-mix(in srgb, colors.color-dark("background") 75%, colors.color-dark("secondary") 25%);
