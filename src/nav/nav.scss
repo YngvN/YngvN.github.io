@@ -1,17 +1,20 @@
 @use "../assets/sass/colors" as colors;
+@use "./components/nav-buttons";
 
 .nav-shell {
     --nav-width: 260px;
     --tab-width: 60px;
     --closed-shift: calc(var(--tab-width) - 18px);
-    position: relative;
+    position: fixed;
+    top: 0;
+    right: 0;
     min-height: 100vh;
+    height: 100vh;
     width: max-content;
     display: flex;
     align-items: stretch;
     justify-content: flex-end;
     flex: 0 0 var(--nav-width);
-    align-self: stretch;
     z-index: 1100;
     opacity: 0.25;
     transition: transform 0.35s ease, opacity 0.35s ease;
@@ -36,8 +39,7 @@
     z-index: 1200;
     gap: 1.25rem;
     min-height: 100vh;
-    height: auto;
-    max-height: 100vh;
+    height: 100%;
     width: var(--nav-width);
     flex: 0 0 var(--nav-width);
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
@@ -54,7 +56,6 @@
         flex-shrink: 0;
         overflow: hidden;
         min-height: max-content;
-        max-height: 240px;
         transition: max-height 0.45s ease, padding 0.45s ease;
 
 
@@ -221,6 +222,14 @@ body[data-theme='dark'] {
         border-left: none;
         border-bottom: none;
         padding: 1.5rem 1.25rem;
+
+
+    }
+
+    img.nav-avatar {
+        max-width: 120px;
+        max-height: 120px;
+
     }
 }
 

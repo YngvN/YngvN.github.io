@@ -8,6 +8,11 @@ html {
     height: 100%;
     overflow-y: scroll; // reserve space for the vertical scrollbar
     scrollbar-gutter: stable both-edges;
+    color-scheme: light;
+}
+
+html[data-theme='dark'] {
+    color-scheme: dark;
 }
 
 body {
@@ -39,4 +44,3 @@ body[data-theme='dark'] {
         opacity: 1;
     }
 }
-

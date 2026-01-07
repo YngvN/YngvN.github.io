@@ -182,43 +182,47 @@ const Portfolio: React.FC<PortfolioProps> = ({ language, onNavigate }) => {
     const { heading, subheading, intro, projects, viewLive, viewRepo } = portfolioCopy[language];
 
     return (
-        <div className="container page-container portfolio">
-            <PageNavigation currentPage="portfolio" language={language} onNavigate={onNavigate} />
-            <div className="portfolio__intro">
-                <div>
-                    <h1 className="page-heading">{heading}</h1>
-                    <h2 className="page-subheading">{subheading}</h2>
-                    <p className="portfolio__lede">{intro}</p>
+        <>
+            <div className="page-navigation-wrapper">
+                <PageNavigation currentPage="portfolio" language={language} onNavigate={onNavigate} />
+            </div>
+            <div className="container page-container portfolio">
+                <div className="portfolio__intro">
+                    <div>
+                        <h1 className="page-heading">{heading}</h1>
+                        <h2 className="page-subheading">{subheading}</h2>
+                        <p className="portfolio__lede">{intro}</p>
+                    </div>
+
                 </div>
 
-            </div>
+                <div className="portfolio__grid">
+                    {projects.map(({ id, name, tag, stack, description, liveUrl, repoUrl }) => (
+                        <article className="project-card surface-card" key={id}>
+                            <div className="project-card__top">
+                                <span className="project-card__tag">{tag}</span>
+                                <h3 className="project-card__title">{name}</h3>
+                            </div>
+                            <p className="project-card__description">{description}</p>
+                            <div className="project-card__stack">
 
-            <div className="portfolio__grid">
-                {projects.map(({ id, name, tag, stack, description, liveUrl, repoUrl }) => (
-                    <article className="project-card surface-card" key={id}>
-                        <div className="project-card__top">
-                            <span className="project-card__tag">{tag}</span>
-                            <h3 className="project-card__title">{name}</h3>
-                        </div>
-                        <p className="project-card__description">{description}</p>
-                        <div className="project-card__stack">
-
-                            <TechLogoGrid technologies={stack} keyPrefix={id} />
-                        </div>
-                        <div className="project-card__links">
-                            <a className="btn btn-primary btn-sm" href={liveUrl} target="_blank" rel="noopener noreferrer">
-                                {viewLive}
-                            </a>
-                            {repoUrl ? (
-                                <a className="btn btn-outline btn-sm" href={repoUrl} target="_blank" rel="noopener noreferrer">
-                                    {viewRepo}
+                                <TechLogoGrid technologies={stack} keyPrefix={id} />
+                            </div>
+                            <div className="project-card__links">
+                                <a className="btn btn-primary btn-sm" href={liveUrl} target="_blank" rel="noopener noreferrer">
+                                    {viewLive}
                                 </a>
-                            ) : null}
-                        </div>
-                    </article>
-                ))}
+                                {repoUrl ? (
+                                    <a className="btn btn-secondary btn-sm" href={repoUrl} target="_blank" rel="noopener noreferrer">
+                                        {viewRepo}
+                                    </a>
+                                ) : null}
+                            </div>
+                        </article>
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

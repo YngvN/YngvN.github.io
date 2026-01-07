@@ -17,7 +17,8 @@ import DeveloperContent from './components/developer-content';
 import MusicianContent from './components/musician-content';
 import megUtenBakgrunn from '../../assets/images/me/Meg_uten_bakgrunn.png';
 import megUtenMeg from '../../assets/images/me/Meg_uten_meg.png';
-import useScrollSnap from '../../utility/scroll-snap';
+import useScrollSnapTouch from '../../utility/scroll-snap-touch';
+import useScrollSnapMousewheel from '../../utility/scroll-snap-mousewheel';
 
 type AboutProps = {
     language: Language;
@@ -73,7 +74,13 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
         document.body.dataset.aboutSection = String(currentIndex);
     }, []);
 
-    useScrollSnap({
+    useScrollSnapTouch({
+        containerRef,
+        snapSelector: '.about-snap',
+        onIndexChange: handleIndexChange,
+    });
+
+    useScrollSnapMousewheel({
         containerRef,
         snapSelector: '.about-snap',
         onIndexChange: handleIndexChange,
@@ -87,82 +94,90 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     }, []);
 
     return (
-        <div ref={containerRef} className="container page-container about-page">
-            <PageNavigation currentPage="about" language={language} onNavigate={onNavigate} />
-            {paragraphs.map((paragraph, index) => (
-                <div className="about-paragraph about-snap" key={index}>
-                    {index === 0 ? (
-                        <div className="about-hero-container">
-                            <div className="about-hero-visual" aria-hidden="true">
-                                <img
-                                    className="about-hero-layer about-hero-layer--back"
-                                    src={megUtenMeg}
-                                    alt=""
-                                />
-                                <img
-                                    className="about-hero-layer about-hero-layer--front"
-                                    src={megUtenBakgrunn}
-                                    alt=""
-                                />
+        <>
+            <div className="page-navigation-wrapper">
+                <PageNavigation currentPage="about" language={language} onNavigate={onNavigate} />
+            </div>
+            <div ref={containerRef} className="container page-container about-page">
+                {paragraphs.map((paragraph, index) => (
+                    <div className="about-paragraph about-snap" key={index}>
+                        {index === 0 ? (
+                            <div className="about-hero-container">
+                                <div className="about-hero-visual" aria-hidden="true">
+                                    <img
+                                        className="about-hero-layer about-hero-layer--back"
+                                        src={megUtenMeg}
+                                        alt=""
+                                    />
+                                    <img
+                                        className="about-hero-layer about-hero-layer--front"
+                                        src={megUtenBakgrunn}
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="about-hero-text">
+                                    <h1 className="page-heading">{heading}</h1>
+                                    <h2 className="page-subheading">{subheading}</h2>
+                                </div>
                             </div>
-                            <div className="about-hero-text">
-                                <h1 className="page-heading">{heading}</h1>
-                                <h2 className="page-subheading">{subheading}</h2>
-                            </div>
-                        </div>
-                    ) : null}
-                    <p>{paragraph}</p>
-                    {index === paragraphs.length - 1 ? (
-                        <>
-                            <div className="about-cta">
-                                {buttons.map(({ label, page, variant }) => (
-                                    <button
-                                        key={page}
-                                        type="button"
-                                        className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
-                                        onClick={() => navigateTo(page)}
-                                    >
-                                        {label}
-                                    </button>
-                                ))}
-                            </div>
-                            <DropdownContainer>
-                                {categoryDefinitions.map(({ id }) => {
-                                    const { title, description } = categoryInfo[id];
-                                    const isOpen = openSections[id];
+                        ) : null}
+                        <p>{paragraph}</p>
+                        {index === paragraphs.length - 1 ? (
+                            <>
+                                <div className="about-cta">
+                                    {buttons.map(({ label, page, variant }) => (
+                                        <button
+                                            key={page}
+                                            type="button"
+                                            className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
+                                            onClick={() => navigateTo(page)}
+                                        >
+                                            {label}
+                                        </button>
+                                    ))}
+                                </div>
+                                <DropdownContainer>
+                                    {categoryDefinitions.map(({ id }) => {
+                                        const { title, description } = categoryInfo[id];
+                                        const isOpen = openSections[id];
 
-                                    return (
-                                        <section key={id} className={`dropdown-panel container${isOpen ? ' open' : ''}`}>
-                                            <button
-                                                type="button"
-                                                className="dropdown-toggle"
-                                                onClick={() => toggleSection(id)}
-                                                aria-expanded={isOpen}
-                                                aria-controls={`${id}-content`}
-                                            >
-                                                <div>
-                                                    <span className="dropdown-title">{title}</span>
-                                                    <span className="dropdown-description">{description}</span>
+                                        return (
+                                            <section key={id} className={`dropdown-panel container${isOpen ? ' open' : ''}`}>
+                                                <button
+                                                    type="button"
+                                                    className="dropdown-toggle"
+                                                    onClick={() => toggleSection(id)}
+                                                    aria-expanded={isOpen}
+                                                    aria-controls={`${id}-content`}
+                                                >
+                                                    <div>
+                                                        <span className="dropdown-title">{title}</span>
+                                                        <span className="dropdown-description">{description}</span>
+                                                    </div>
+                                                    <Arrow
+                                                        direction="down"
+                                                        open={isOpen}
+                                                        size="sm"
+                                                        className="dropdown-toggle__chevron"
+                                                    />
+                                                </button>
+                                                <div
+                                                    id={`${id}-content`}
+                                                    className={`dropdown-content${isOpen ? ' expanded' : ''}`}
+                                                    aria-live="polite"
+                                                >
+                                                    {renderCategoryContent(id)}
                                                 </div>
-                                                <Arrow
-                                                    direction="down"
-                                                    open={isOpen}
-                                                    size="sm"
-                                                    className="dropdown-toggle__chevron"
-                                                />
-                                            </button>
-                                            <div id={`${id}-content`} className={`dropdown-content${isOpen ? ' expanded' : ''}`} aria-live="polite">
-                                                {renderCategoryContent(id)}
-                                            </div>
-                                        </section>
-                                    );
-                                })}
-                            </DropdownContainer>
-                        </>
-                    ) : null}
-                </div>
-            ))}
-        </div>
+                                            </section>
+                                        );
+                                    })}
+                                </DropdownContainer>
+                            </>
+                        ) : null}
+                    </div>
+                ))}
+            </div>
+        </>
     );
 };
 

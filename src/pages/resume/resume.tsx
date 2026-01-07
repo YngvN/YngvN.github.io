@@ -292,93 +292,97 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
     };
 
     return (
-        <div className="container page-container resume">
-            <PageNavigation currentPage="resume" language={language} onNavigate={onNavigate} />
-            <h1 className="page-heading">{heading}</h1>
-            <h2 className="page-subheading">{subheading}</h2>
-            <p className="resume__summary">{summary[language]}</p>
-            <div className="resume__skills">
-                <div className="resume__skills-group">
-                    <h2 className="resume-section__title">{softSkillsHeading[language]}</h2>
-                    <ul className="resume__skills-list">
-                        {softSkills.map((skill, idx) => (
-                            <li key={idx} className="resume__skill">
-                                {skill[language]}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="resume__skills-group">
-                    <h2 className="resume-section__title">{hardSkillsHeading[language]}</h2>
-                    <ul className="resume__skills-list">
-                        {hardSkills.map((skill, idx) => (
-                            <li key={idx} className="resume__skill">
-                                {skill[language]}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+        <>
+            <div className="page-navigation-wrapper">
+                <PageNavigation currentPage="resume" language={language} onNavigate={onNavigate} />
             </div>
+            <div className="container page-container resume">
+                <h1 className="page-heading">{heading}</h1>
+                <h2 className="page-subheading">{subheading}</h2>
+                <p className="resume__summary">{summary[language]}</p>
+                <div className="resume__skills">
+                    <div className="resume__skills-group">
+                        <h2 className="resume-section__title">{softSkillsHeading[language]}</h2>
+                        <ul className="resume__skills-list">
+                            {softSkills.map((skill, idx) => (
+                                <li key={idx} className="resume__skill">
+                                    {skill[language]}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="resume__skills-group">
+                        <h2 className="resume-section__title">{hardSkillsHeading[language]}</h2>
+                        <ul className="resume__skills-list">
+                            {hardSkills.map((skill, idx) => (
+                                <li key={idx} className="resume__skill">
+                                    {skill[language]}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
 
-            <DropdownContainer className="resume__sections">
-                {sections.map(({ id, title, items }) => {
-                    const isOpen = openSections[id];
+                <DropdownContainer className="resume__sections">
+                    {sections.map(({ id, title, items }) => {
+                        const isOpen = openSections[id];
 
-                    return (
-                        <section
-                            key={id}
-                            className={`dropdown-panel resume-section${isOpen ? ' open' : ''}`}
-                            onClick={() => handleSectionClick(id)}
-                        >
-                            <button
-                                type="button"
-                                className="dropdown-toggle"
-                                onClick={(event) => {
-                                    event.stopPropagation();
-                                    toggleSection(id);
-                                }}
-                                aria-expanded={isOpen}
-                                aria-controls={`${id}-content`}
+                        return (
+                            <section
+                                key={id}
+                                className={`dropdown-panel resume-section${isOpen ? ' open' : ''}`}
+                                onClick={() => handleSectionClick(id)}
                             >
-                                <div>
-                                    <span className="dropdown-title resume-section__title">{title[language]}</span>
-                                </div>
-                                <Arrow
-                                    direction="down"
-                                    open={isOpen}
-                                    size="sm"
-                                    className="dropdown-toggle__chevron"
-                                />
-                            </button>
-                            <div
-                                id={`${id}-content`}
-                                className={`dropdown-content${isOpen ? ' expanded' : ''}`}
-                                aria-live="polite"
-                            >
-                                <div className="resume-section__list">
-                                    {items.map(({ id: itemId, title: itemTitle, institution, start, end, description }) => (
-                                        <article key={itemId} className="resume-card">
-                                            <div className="resume-card__header">
-                                                <div className="resume-card__title-group">
-                                                    <div className="resume-card__title">{itemTitle[language]}</div>
-                                                    {institution && (
-                                                        <div className="resume-card__institution">{institution[language]}</div>
-                                                    )}
+                                <button
+                                    type="button"
+                                    className="dropdown-toggle"
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        toggleSection(id);
+                                    }}
+                                    aria-expanded={isOpen}
+                                    aria-controls={`${id}-content`}
+                                >
+                                    <div>
+                                        <span className="dropdown-title resume-section__title">{title[language]}</span>
+                                    </div>
+                                    <Arrow
+                                        direction="down"
+                                        open={isOpen}
+                                        size="sm"
+                                        className="dropdown-toggle__chevron"
+                                    />
+                                </button>
+                                <div
+                                    id={`${id}-content`}
+                                    className={`dropdown-content${isOpen ? ' expanded' : ''}`}
+                                    aria-live="polite"
+                                >
+                                    <div className="resume-section__list">
+                                        {items.map(({ id: itemId, title: itemTitle, institution, start, end, description }) => (
+                                            <article key={itemId} className="resume-card">
+                                                <div className="resume-card__header">
+                                                    <div className="resume-card__title-group">
+                                                        <div className="resume-card__title">{itemTitle[language]}</div>
+                                                        {institution && (
+                                                            <div className="resume-card__institution">{institution[language]}</div>
+                                                        )}
+                                                    </div>
+                                                    <div className="resume-card__dates">
+                                                        {start[language]} - {end[language]}
+                                                    </div>
                                                 </div>
-                                                <div className="resume-card__dates">
-                                                    {start[language]} - {end[language]}
-                                                </div>
-                                            </div>
-                                            {description && <p className="resume-card__description">{description[language]}</p>}
-                                        </article>
-                                    ))}
+                                                {description && <p className="resume-card__description">{description[language]}</p>}
+                                            </article>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-                    );
-                })}
-            </DropdownContainer>
-        </div>
+                            </section>
+                        );
+                    })}
+                </DropdownContainer>
+            </div>
+        </>
     );
 };
 

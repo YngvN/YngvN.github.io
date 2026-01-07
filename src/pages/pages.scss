@@ -4,9 +4,10 @@
 @use './portfolio/portfolio';
 @use './resume/resume';
 
-// .page-container {
-//     @extend .container;
-// }
+.page-container {
+    height: 100vh;
+    overflow-y: auto;
+}
 
 .surface-card {
     background: colors.color('background');

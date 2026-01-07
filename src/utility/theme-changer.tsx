@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react';
 import type { Theme } from '../types/theme';
 
-export const useThemeChanger = (initialTheme: Theme = 'light') => {
-    const [theme, setTheme] = useState<Theme>(initialTheme);
+type ThemePreference = Theme | 'system';
+
+const getSystemTheme = (): Theme => {
+    if (typeof window === 'undefined' || !window.matchMedia) {
+        return 'light';
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+export const useThemeChanger = (initialTheme: ThemePreference = 'system') => {
+    const [theme, setTheme] = useState<Theme>(
+        initialTheme === 'system' ? getSystemTheme() : initialTheme,
+    );
 
     const normalizeThemeColor = (color: string) => {
         const trimmed = color.trim();
@@ -42,6 +54,8 @@ export const useThemeChanger = (initialTheme: Theme = 'light') => {
 
     useEffect(() => {
         document.body.dataset.theme = theme;
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
         updateThemeColor();
 
         const observer = new MutationObserver(() => {
@@ -57,6 +71,34 @@ export const useThemeChanger = (initialTheme: Theme = 'light') => {
             observer.disconnect();
         };
     }, [theme]);
+
+    useEffect(() => {
+        if (initialTheme !== 'system' || typeof window === 'undefined' || !window.matchMedia) {
+            return;
+        }
+
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
+            setTheme(event.matches ? 'dark' : 'light');
+        };
+
+        handleChange(media);
+
+        const legacyMedia = media as MediaQueryList & {
+            addListener?: (listener: (event: MediaQueryListEvent) => void) => void;
+            removeListener?: (listener: (event: MediaQueryListEvent) => void) => void;
+        };
+
+        if (typeof legacyMedia.addEventListener === 'function') {
+            legacyMedia.addEventListener('change', handleChange);
+            return () => legacyMedia.removeEventListener('change', handleChange);
+        }
+
+        if (typeof legacyMedia.addListener === 'function') {
+            legacyMedia.addListener(handleChange);
+            return () => legacyMedia.removeListener?.(handleChange);
+        }
+    }, [initialTheme]);
 
     const toggleTheme = () => {
         setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));

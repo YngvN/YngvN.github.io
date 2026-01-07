@@ -11,7 +11,6 @@ $btn-radius: 5px;
 $btn-font-weight: 500;
 $btn-line-height: 1.2;
 $btn-transition-duration: 150ms;
-$btn-active-translate: 1px;
 $btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 
 
@@ -32,8 +31,7 @@ $btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
     padding: $btn-padding-y $btn-padding-x;
     border-radius: $btn-radius;
 
-    border: 1px solid transparent;
-    @include btn-variant(colors.color("primary"));
+
 
     font: inherit;
     font-weight: $btn-font-weight;
@@ -96,14 +94,6 @@ $btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
     @include btn-variant(colors.color("secondary"));
 }
 
-// .btn-outline {
-//     @include btn-variant(transparent, colors.color("primary"), colors.color("primary"));
-// }
-
-// .btn-outline-secondary {
-//     @include btn-variant(transparent, colors.color("secondary"), colors.color("secondary"));
-// }
-
 .btn-ghost {
     @include btn-variant(transparent, transparent, colors.color("primary"));
 }
@@ -114,25 +104,6 @@ $btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 .btn-sm {
     padding: 0.25rem 0.75rem;
     font-size: 0.875rem;
-}
-
-.btn-lg {
-    padding: 0.75rem 1.75rem;
-    font-size: 1.025rem;
-}
-
-/* Full width */
-.btn-block {
-    display: flex;
-    width: 100%;
-}
-
-/* Icon-only button */
-.btn-icon {
-    padding: 0.5rem;
-    border-radius: 999px;
-    aspect-ratio: 1 / 1;
-    justify-content: center;
 }
 
 /* Dark theme overrides
@@ -152,18 +123,6 @@ $btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
         color: colors.color-dark("background");
     }
 
-    .btn-outline {
-        background-color: transparent;
-        border-color: colors.color-dark("primary");
-        color: colors.color-dark("primary");
-    }
-
-    .btn-outline-secondary {
-        background-color: transparent;
-        border-color: colors.color-dark("secondary");
-        color: colors.color-dark("secondary");
-    }
-
     .btn-ghost {
         background-color: transparent;
         border-color: transparent;
@@ -176,103 +135,5 @@ $btn-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
         .btn:focus-visible {
             box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.6);
         }
-    }
-}
-
-/* Nav-specific buttons
-   -------------------------------------------------------------------------- */
-
-.nav-link {
-    @extend .btn;
-    @extend .btn-ghost;
-    width: 100%;
-    text-align: left;
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 0.95rem;
-    padding: 0.1rem 0;
-    margin: 0.4rem 0;
-    color: inherit;
-    justify-content: flex-start;
-    border-radius: 0;
-    border: none;
-    border-left: none;
-    box-shadow: none;
-    transition: .2s ease;
-
-    &:hover {
-        padding-left: 0.5rem;
-        background-color: transparent;
-        box-shadow: none;
-    }
-
-    &:focus-visible,
-    &:active {
-        box-shadow: none;
-    }
-
-    &.active {
-        padding-left: 0.5rem;
-        border-left: 3px solid colors.color("text-contrast");
-    }
-}
-
-.nav-toggle {
-    display: none;
-    order: -1;
-    width: var(--tab-width);
-    height: var(--tab-width);
-    border: none;
-    padding: 1em 4em 1em 1em;
-    border-radius: 14px;
-    background-color: colors.color("secondary");
-    align-self: flex-start;
-    margin-top: 12px;
-    align-items: center;
-    justify-content: center;
-    transform: translateX(30px);
-    box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    position: relative;
-
-    .icon-arrow {
-        transform: rotate(180deg);
-        color: colors.color("text-contrast");
-
-        svg {
-            color: colors.color("text-contrast");
-        }
-
-        path {
-            color: colors.color("text-contrast");
-            -webkit-text-stroke-color: colors.color("text-contrast");
-        }
-    }
-
-
-
-
-}
-
-body[data-theme='dark'] {
-    .nav-link.active {
-        color: colors.color-dark("primary");
-        border-left-color: colors.color-dark("primary");
-    }
-
-    .nav-toggle {
-        background-color: color-mix(in srgb, colors.color-dark("background") 75%, colors.color-dark("secondary") 25%);
-        color: colors.color-dark("text");
-        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.35);
-
-        .nav-toggle__line {
-            background-color: currentColor;
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-toggle {
-        display: block;
     }
 }

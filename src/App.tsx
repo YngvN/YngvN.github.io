@@ -19,7 +19,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<PageName>(() => getPageFromHash(window.location.hash));
   const [transitionDirection, setTransitionDirection] = useState<'ltr' | 'rtl'>('ltr');
   const { language, toggleLanguage } = useLanguageChanger('en');
-  const { theme, toggleTheme } = useThemeChanger('light');
+  const { theme, toggleTheme } = useThemeChanger('system');
 
   const handleNavigate = (page: PageName, direction: 'ltr' | 'rtl' = 'ltr') => {
     setTransitionDirection(direction);
