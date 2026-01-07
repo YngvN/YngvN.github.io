@@ -88,7 +88,7 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
                             ))}
                         </ul>
                     </div>
-                    <div className="resume__skills-group">
+                    <div className="resume__skills-group resume__skills-group--hard">
                         <h2 className="resume-section__title">{hardSkillsHeading}</h2>
                         <ul className="resume__skills-list">
                             {hardSkills.map((skill, idx) => (
