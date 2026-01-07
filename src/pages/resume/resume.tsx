@@ -44,7 +44,7 @@ type ResumeContent = {
 const resumeCopy = resumeCopyData as Record<Language, ResumeContent>;
 
 const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
-    const { heading, subheading, summary, softSkillsHeading, softSkills, hardSkillsHeading, hardSkills, sections } =
+    const { heading, summary, softSkillsHeading, softSkills, hardSkillsHeading, hardSkills, sections } =
         resumeCopy[language];
     const [openSections, setOpenSections] = useState<Record<string, boolean>>(() =>
         sections.reduce(
