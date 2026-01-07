@@ -31,9 +31,9 @@ body[data-theme='dark'] .about-link {
     background: inherit;
 }
 
-.about-page .page-navigation+.about-paragraph {
-    padding-top: 3.5rem;
-}
+// .about-page .page-navigation+.about-paragraph {
+//     padding-top: 3.5rem;
+// }
 
 .about-paragraph {
     position: relative;
@@ -72,11 +72,11 @@ body[data-theme='dark'] .about-link {
     transition: transform 0.5s ease, opacity 0.5s ease;
     will-change: transform, opacity;
 
-        @media (max-width: 768px) {
+    @media (max-width: 768px) {
 
-            top: 0;
+        top: 0;
 
-        
+
 
     }
 }

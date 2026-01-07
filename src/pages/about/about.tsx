@@ -1,7 +1,7 @@
 import '../../assets/styles.scss';
 import '../pages.scss';
 import './about.scss';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { Language } from '../../types/language';
 import type { PageName } from '../../types/pages';
 import PageNavigation from '../../components/page-navigation/page-navigation';
@@ -17,6 +17,7 @@ import DeveloperContent from './components/developer-content';
 import MusicianContent from './components/musician-content';
 import megUtenBakgrunn from '../../assets/images/me/Meg_uten_bakgrunn.png';
 import megUtenMeg from '../../assets/images/me/Meg_uten_meg.png';
+import useScrollSnap from '../../utility/scroll-snap';
 
 type AboutProps = {
     language: Language;
@@ -28,7 +29,6 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     const { heading, subheading, paragraphs, buttons } = aboutCopy[language];
     const categoryInfo = aboutCategoryCopy[language];
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const isScrollingRef = useRef(false);
     const [openSections, setOpenSections] = useState<Record<CategoryId, boolean>>(() =>
         categoryDefinitions.reduce(
             (acc, category) => ({
@@ -68,109 +68,20 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
         return <MusicianContent language={language} />;
     };
 
+    const handleIndexChange = useCallback((currentIndex: number) => {
+        document.body.dataset.aboutBg = currentIndex % 2 === 0 ? 'background' : 'primary';
+        document.body.dataset.aboutSection = String(currentIndex);
+    }, []);
+
+    useScrollSnap({
+        containerRef,
+        snapSelector: '.about-snap',
+        onIndexChange: handleIndexChange,
+    });
+
     useEffect(() => {
-        const container = containerRef.current;
-        if (!container) {
-            return undefined;
-        }
-
-        const getSnapTargets = () =>
-            Array.from(container.querySelectorAll<HTMLElement>('.about-snap'));
-
-        const setBodyScrollState = () => {
-            const snapTargets = getSnapTargets();
-            if (snapTargets.length === 0) {
-                return;
-            }
-
-            const scrollTop = container.scrollTop;
-            let currentIndex = 0;
-            let closestDistance = Number.POSITIVE_INFINITY;
-
-            snapTargets.forEach((target, index) => {
-                const distance = Math.abs(target.offsetTop - scrollTop);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    currentIndex = index;
-                }
-            });
-
-            document.body.dataset.aboutBg = currentIndex % 2 === 0 ? 'background' : 'primary';
-            document.body.dataset.aboutSection = String(currentIndex);
-        };
-
-        let wheelTimeout: number | null = null;
-        const snapToClosest = () => {
-            if (isScrollingRef.current) {
-                return;
-            }
-
-            const snapTargets = getSnapTargets();
-            if (snapTargets.length === 0) {
-                return;
-            }
-
-            const scrollTop = container.scrollTop;
-            let closestTarget = snapTargets[0];
-            let closestDistance = Number.POSITIVE_INFINITY;
-
-            snapTargets.forEach((target) => {
-                const distance = Math.abs(target.offsetTop - scrollTop);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestTarget = target;
-                }
-            });
-
-            if (closestDistance < 2) {
-                return;
-            }
-
-            isScrollingRef.current = true;
-            container.scrollTo({ top: closestTarget.offsetTop, behavior: 'smooth' });
-
-            window.setTimeout(() => {
-                isScrollingRef.current = false;
-            }, 450);
-        };
-
-        let isTicking = false;
-        const handleScroll = () => {
-            if (isTicking) {
-                return;
-            }
-
-            isTicking = true;
-            window.requestAnimationFrame(() => {
-                setBodyScrollState();
-                isTicking = false;
-            });
-
-            if (!('onscrollend' in container)) {
-                if (wheelTimeout) {
-                    window.clearTimeout(wheelTimeout);
-                }
-
-                if (!isScrollingRef.current) {
-                    wheelTimeout = window.setTimeout(() => {
-                        snapToClosest();
-                    }, 160);
-                }
-            }
-        };
-
-        setBodyScrollState();
         document.body.dataset.aboutActive = 'true';
-        container.addEventListener('scroll', handleScroll);
-        if ('onscrollend' in container) {
-            container.addEventListener('scrollend', snapToClosest);
-        }
-
         return () => {
-            container.removeEventListener('scroll', handleScroll);
-            if ('onscrollend' in container) {
-                container.removeEventListener('scrollend', snapToClosest);
-            }
             clearAboutBodyState();
         };
     }, []);

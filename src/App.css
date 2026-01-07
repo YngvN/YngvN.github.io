@@ -2,11 +2,17 @@
   min-height: 100vh;
 }
 
-.app-shell {
+.layout-shell {
   display: flex;
   min-height: 100vh;
-  padding: 2rem;
-  padding-right: 320px;
+  box-sizing: border-box;
+  flex-direction: row-reverse;
+}
+
+.app-shell {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
   box-sizing: border-box;
 }
 
@@ -96,6 +102,10 @@
 }
 
 @media (max-width: 768px) {
+  .layout-shell {
+    flex-direction: row;
+  }
+
   .app-shell {
     padding: 0rem;
   }
@@ -105,6 +115,6 @@
   }
 }
 
-.nav-shell.open~.page-display {
+.nav-shell.open~.app-shell .page-display {
   transform: translateX(-18px);
 }

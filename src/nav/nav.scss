@@ -4,14 +4,14 @@
     --nav-width: 260px;
     --tab-width: 60px;
     --closed-shift: calc(var(--tab-width) - 18px);
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: var(--nav-width);
+    position: relative;
+    min-height: 100vh;
+    width: max-content;
     display: flex;
     align-items: stretch;
     justify-content: flex-end;
+    flex: 0 0 var(--nav-width);
+    align-self: stretch;
     z-index: 1100;
     opacity: 0.25;
     transition: transform 0.35s ease, opacity 0.35s ease;
@@ -35,7 +35,7 @@
     justify-content: flex-start;
     z-index: 1200;
     gap: 1.25rem;
-    min-height: 100%;
+    min-height: 100vh;
     height: auto;
     max-height: 100vh;
     width: var(--nav-width);
@@ -198,6 +198,9 @@ body[data-theme='dark'] {
 
 @media (max-width: 768px) {
     .nav-shell {
+        position: fixed;
+        top: 0;
+        right: 0;
         --nav-width: min(80vw, 320px);
         width: calc(var(--nav-width) + var(--tab-width));
         --closed-shift: calc(var(--nav-width) + var(--tab-width) - 18px);
