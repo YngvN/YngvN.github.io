@@ -70,7 +70,7 @@ const PixelRing: React.FC = () => {
 
         scheduleRun();
 
-        const outer = document.querySelector<HTMLElement>('.outer-square');
+        const outer = document.querySelector<HTMLElement>('.outer-square--active');
         if (!outer) return () => undefined;
 
         const mutationObserver = new MutationObserver(() => {

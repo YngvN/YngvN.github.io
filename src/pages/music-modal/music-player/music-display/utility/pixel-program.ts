@@ -10,9 +10,14 @@ function parseCssInt(value: string) {
     return Number.isFinite(parsed) ? parsed : null;
 }
 
+function getActiveSquareLayer() {
+    if (typeof document === 'undefined') return null;
+    return document.querySelector<HTMLElement>('.outer-square--active');
+}
+
 export function getSquareGridSizeFromDom(): GridSize | null {
     if (typeof window === 'undefined' || typeof document === 'undefined') return null;
-    const container = document.querySelector<HTMLElement>('.outer-square');
+    const container = getActiveSquareLayer();
     if (!container) return null;
 
     const style = window.getComputedStyle(container);
@@ -24,7 +29,9 @@ export function getSquareGridSizeFromDom(): GridSize | null {
 }
 
 export function buildInnerPixelMap() {
-    const pixels = Array.from(document.querySelectorAll<HTMLElement>('.inner-square'));
+    const layer = getActiveSquareLayer();
+    if (!layer) return new Map<string, HTMLElement>();
+    const pixels = Array.from(layer.querySelectorAll<HTMLElement>('.inner-square'));
     const map = new Map<string, HTMLElement>();
 
     pixels.forEach((pixel) => {
@@ -40,7 +47,9 @@ export function buildInnerPixelMap() {
 }
 
 export function clearProgramPixels() {
-    document.querySelectorAll<HTMLElement>(`.inner-square[${PROGRAM_ATTR}]`).forEach((pixel) => {
+    const layer = getActiveSquareLayer();
+    if (!layer) return;
+    layer.querySelectorAll<HTMLElement>(`.inner-square[${PROGRAM_ATTR}]`).forEach((pixel) => {
         pixel.style.removeProperty('opacity');
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
@@ -48,7 +57,7 @@ export function clearProgramPixels() {
         pixel.classList.remove('pixel');
         pixel.removeAttribute(PROGRAM_ATTR);
     });
-    document.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
+    layer.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
         mid.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
             pixel.style.opacity = '0';
         });

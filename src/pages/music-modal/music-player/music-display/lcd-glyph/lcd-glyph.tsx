@@ -21,7 +21,7 @@ function parseCssInt(value: string) {
 
 function getSquareGridSizeFromDom(): GridSize | null {
     if (typeof window === 'undefined' || typeof document === 'undefined') return null;
-    const container = document.querySelector<HTMLElement>('.outer-square');
+    const container = document.querySelector<HTMLElement>('.outer-square--active');
     if (!container) return null;
 
     const style = window.getComputedStyle(container);
@@ -33,7 +33,8 @@ function getSquareGridSizeFromDom(): GridSize | null {
 }
 
 function buildInnerPixelMap() {
-    const pixels = Array.from(document.querySelectorAll<HTMLElement>('.inner-square'));
+    const layer = document.querySelector<HTMLElement>('.outer-square--active');
+    const pixels = Array.from(layer ? layer.querySelectorAll<HTMLElement>('.inner-square') : []);
     const map = new Map<string, HTMLElement>();
 
     pixels.forEach((pixel) => {
@@ -149,7 +150,9 @@ function makeGlyphCoords(char: string, cols: number, rows: number) {
 }
 
 function clearProgramPixels() {
-    document.querySelectorAll<HTMLElement>(`.inner-square[${PROGRAM_ATTR}]`).forEach((pixel) => {
+    const layer = document.querySelector<HTMLElement>('.outer-square--active');
+    if (!layer) return;
+    layer.querySelectorAll<HTMLElement>(`.inner-square[${PROGRAM_ATTR}]`).forEach((pixel) => {
         pixel.style.removeProperty('opacity');
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
@@ -157,7 +160,7 @@ function clearProgramPixels() {
         pixel.classList.remove('pixel');
         pixel.removeAttribute(PROGRAM_ATTR);
     });
-    document.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
+    layer.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
         mid.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
             pixel.style.opacity = '0';
         });
@@ -234,7 +237,7 @@ const LcdGlyph: React.FC = () => {
 
         scheduleRun();
 
-        const outer = document.querySelector<HTMLElement>('.outer-square');
+        const outer = document.querySelector<HTMLElement>('.outer-square--active');
         if (!outer) return () => undefined;
 
         const mutationObserver = new MutationObserver(() => {

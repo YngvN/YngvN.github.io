@@ -68,25 +68,34 @@ const SixSplitBg: React.FC = () => {
     const total = midSquares.length;
     const effectiveZoneCount = clampZoneCount(zoneCount, total);
 
-    return (
-        <span ref={containerRef} className="outer-square" style={style}>
+    const renderLayer = (layerClass: string, hidden = false) => (
+        <span ref={layerClass === 'outer-square--active' ? containerRef : null} className={`outer-square ${layerClass}`} style={style} aria-hidden={hidden}>
             {midSquares.map((midSquare, index) => {
                 const zone = getZoneIndex(index, total, effectiveZoneCount);
                 const zoneColor = `var(--zone-color-${zone}, var(--pulse-color-base, #ffffff))`;
                 return (
                     <span
-                        key={midSquare.key}
+                        key={`${layerClass}-${midSquare.key}`}
                         className={`square mid-square beat-${midSquare.beat} m-s--${midSquare.x}-${midSquare.y}`}
                         data-zone={zone}
-                        style={{ '--pulse-color': zoneColor } as CSSProperties}
+                        style={
+                            {
+                                '--pulse-color': zoneColor,
+                                '--cell-x': midSquare.x,
+                                '--cell-y': midSquare.y,
+                            } as CSSProperties
+                        }
                     >
                         {innerCells.map((cellIndex) => {
-                            const innerX = midSquare.x * 2 + (cellIndex % 2);
-                            const innerY = midSquare.y * 2 + Math.floor(cellIndex / 2);
+                            const offsetX = cellIndex % 2;
+                            const offsetY = Math.floor(cellIndex / 2);
+                            const innerX = midSquare.x * 2 + offsetX;
+                            const innerY = midSquare.y * 2 + offsetY;
                             return (
                                 <span
-                                    key={`${midSquare.key}-inner-${cellIndex}`}
+                                    key={`${layerClass}-${midSquare.key}-inner-${cellIndex}`}
                                     className={`square inner-square i-s--${innerX}-${innerY}`}
+                                    style={{ '--inner-x': offsetX, '--inner-y': offsetY } as CSSProperties}
                                 />
                             );
                         })}
@@ -94,6 +103,13 @@ const SixSplitBg: React.FC = () => {
                 );
             })}
         </span>
+    );
+
+    return (
+        <>
+            {renderLayer('outer-square--active')}
+            {renderLayer('outer-square--ghost', true)}
+        </>
     );
 };
 

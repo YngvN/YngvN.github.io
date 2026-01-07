@@ -11,18 +11,15 @@ $beat-fallbacks: (
     position: absolute;
     top: 50%;
     left: 50%;
-    display: grid;
     width: calc(var(--grid-cell, 20px) * var(--grid-cols, 3));
     height: calc(var(--grid-cell, 20px) * var(--grid-rows, 3));
-    grid-template-columns: repeat(var(--grid-cols, 3), var(--grid-cell, 20px));
-    grid-template-rows: repeat(var(--grid-rows, 3), var(--grid-cell, 20px));
-    gap: 0;
-    place-items: stretch;
-    justify-content: stretch;
-    align-content: stretch;
     pointer-events: none;
     --pixel-min-size: 10px;
     transform: translate(-50%, -50%);
+}
+
+.outer-square--ghost {
+    display: none;
 }
 
 .square {
@@ -30,23 +27,25 @@ $beat-fallbacks: (
 }
 
 .mid-square {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    place-items: center;
+    position: absolute;
+    width: var(--grid-cell, 20px);
+    height: var(--grid-cell, 20px);
+    top: calc(var(--cell-y, 0) * var(--grid-cell, 20px));
+    left: calc(var(--cell-x, 0) * var(--grid-cell, 20px));
     opacity: 1;
 }
 
 .inner-square {
-    width: min(100%, var(--pixel-min-size));
-    height: min(100%, var(--pixel-min-size));
+    position: absolute;
+    width: min(50%, var(--pixel-min-size));
+    height: min(50%, var(--pixel-min-size));
     min-width: 0;
     min-height: 0;
     display: block;
     opacity: 0;
-    transform: rotate(var(--pixel-rot, 0deg)) scale(var(--pixel-hover-scale, 1));
+    top: calc(25% + (var(--inner-y, 0) * 50%));
+    left: calc(25% + (var(--inner-x, 0) * 50%));
+    transform: translate(-50%, -50%) rotate(var(--pixel-rot, 0deg)) scale(var(--pixel-hover-scale, 1));
     transform-origin: center;
     transition: none;
 }

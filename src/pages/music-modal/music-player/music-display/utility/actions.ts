@@ -36,15 +36,26 @@ function pickRandom<T>(list: T[], count: number) {
     return picks;
 }
 
+function getActiveSquareLayer() {
+    if (typeof document === 'undefined') return null;
+    return document.querySelector<HTMLElement>('.outer-square--active');
+}
+
 function getAnimatableInnerSquares() {
-    return document.querySelectorAll<HTMLElement>(
-        '.mid-square:not([data-music-player-program-mid]) .inner-square:not([data-music-player-program])',
+    const layer = getActiveSquareLayer();
+    if (!layer) return [];
+    return Array.from(
+        layer.querySelectorAll<HTMLElement>(
+            '.mid-square:not([data-music-player-program-mid]) .inner-square:not([data-music-player-program])',
+        ),
     );
 }
 
 function getActiveNeighborInnerSquares() {
+    const layer = getActiveSquareLayer();
+    if (!layer) return [];
     const midSquares = new Set<HTMLElement>();
-    document
+    layer
         .querySelectorAll<HTMLElement>('.mid-square:not([data-music-player-program-mid]) .inner-square.pixel')
         .forEach((pixel) => {
             const mid = pixel.closest<HTMLElement>('.mid-square');
@@ -119,8 +130,10 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
         : msPerBeat;
 
     if (baseAction === 'm-s-beatpulse') {
+        const layer = getActiveSquareLayer();
+        if (!layer) return;
         const durationMs = getAnimationTimebaseMs(ctx);
-        document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
+        layer.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             restartAnimationWithDuration(mid, 'beatMidPulse', durationMs);
         });
         getActiveNeighborInnerSquares().forEach((pixel) => {
@@ -132,8 +145,10 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     }
 
     if (baseAction === 'm-s-beatflash') {
+        const layer = getActiveSquareLayer();
+        if (!layer) return;
         const durationMs = getAnimationTimebaseMs(ctx);
-        document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
+        layer.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             restartAnimationWithDuration(mid, 'beatMidFlash', durationMs);
         });
         getActiveNeighborInnerSquares().forEach((pixel) => {
@@ -169,6 +184,8 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
     }
 
     if (baseAction === 'm-s-beathold') {
+        const layer = getActiveSquareLayer();
+        if (!layer) return;
         const pulse = snapshotPulseVars();
         const untilMs = (typeof performance === 'undefined' ? Date.now() : performance.now()) + holdDurationMs;
         const state: HoldState = {
@@ -176,7 +193,7 @@ export function triggerSheetAction(action: string, ctx: SheetTriggerContext) {
             color: pulse?.color ?? null,
             shadow: pulse?.shadow ?? null,
         };
-        document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
+        layer.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
             applyMidHoldBase(mid, state);
         });
         return;

@@ -15,26 +15,37 @@ const Squares: React.FC = () => {
         '--grid-cell': `${layout.pixelSize * 2}px`,
     } as CSSProperties;
 
-    return (
-        <span className="outer-square" style={style}>
+    const renderLayer = (layerClass: string, hidden = false) => (
+        <span className={`outer-square ${layerClass}`} style={style} aria-hidden={hidden}>
             {midSquares.map((midSquare) => (
                 <span
-                    key={midSquare.key}
+                    key={`${layerClass}-${midSquare.key}`}
                     className={`square mid-square beat-${midSquare.beat} m-s--${midSquare.x}-${midSquare.y}`}
+                    style={{ '--cell-x': midSquare.x, '--cell-y': midSquare.y } as CSSProperties}
                 >
                     {innerCells.map((index) => {
-                        const innerX = midSquare.x * 2 + (index % 2);
-                        const innerY = midSquare.y * 2 + Math.floor(index / 2);
+                        const offsetX = index % 2;
+                        const offsetY = Math.floor(index / 2);
+                        const innerX = midSquare.x * 2 + offsetX;
+                        const innerY = midSquare.y * 2 + offsetY;
                         return (
                             <span
-                                key={`${midSquare.key}-inner-${index}`}
+                                key={`${layerClass}-${midSquare.key}-inner-${index}`}
                                 className={`square inner-square i-s--${innerX}-${innerY}`}
+                                style={{ '--inner-x': offsetX, '--inner-y': offsetY } as CSSProperties}
                             />
                         );
                     })}
                 </span>
             ))}
         </span>
+    );
+
+    return (
+        <>
+            {renderLayer('outer-square--active')}
+            {renderLayer('outer-square--ghost', true)}
+        </>
     );
 };
 

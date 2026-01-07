@@ -29,7 +29,9 @@ export function snapshotPulseVars() {
 
 export function clearAllSquares() {
     if (typeof document === 'undefined') return;
-    document.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
+    const layer = document.querySelector<HTMLElement>('.outer-square--active');
+    if (!layer) return;
+    layer.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
         pixel.style.removeProperty('opacity');
         pixel.style.removeProperty('background-color');
         pixel.style.removeProperty('box-shadow');
@@ -41,7 +43,7 @@ export function clearAllSquares() {
         pixel.style.removeProperty('animation');
         pixel.style.opacity = '0';
     });
-    document.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
+    layer.querySelectorAll<HTMLElement>('.mid-square').forEach((mid) => {
         mid.style.removeProperty('animation');
     });
 }
