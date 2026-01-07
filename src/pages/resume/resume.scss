@@ -41,7 +41,13 @@
     display: block;
     margin: 0 0 0.5rem;
     font-size: 1.35rem;
+    text-transform: uppercase;
     @include fonts.apply-heading-font($weight: fonts.$font-weight-bold, $color: colors.color('text'));
+}
+
+.resume-section__title::first-letter {
+    font-size: 1.15em;
+    font-weight: fonts.$font-weight-bold;
 }
 
 .resume-group {

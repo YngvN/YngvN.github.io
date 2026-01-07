@@ -8,6 +8,8 @@
     height: 100vh;
     overflow-y: auto;
     max-width: 100%;
+    padding-left: .75rem;
+    padding-right: .75rem;
 }
 
 .surface-card {
@@ -32,7 +34,13 @@ body[data-theme='dark'] {
     font-size: clamp(2.25rem, 3vw, 2.75rem);
     line-height: 1.15;
     letter-spacing: -0.01em;
+    text-transform: uppercase;
     @include fonts.apply-font($family: fonts.$font-family-base, $weight: fonts.$font-weight-bold, $color: colors.color('text'));
+}
+
+.page-heading::first-letter {
+    font-size: 1.15em;
+    font-weight: fonts.$font-weight-bold;
 }
 
 .page-container .page-heading {
@@ -41,9 +49,7 @@ body[data-theme='dark'] {
 }
 
 .page-container {
-
     @media (max-width: 768px) {}
-
 }
 
 

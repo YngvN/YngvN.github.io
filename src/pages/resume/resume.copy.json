@@ -84,16 +84,8 @@
       },
       {
         "id": "work",
-        "title": "CHOSEN WORK-EXPERIENCE",
+        "title": "CHOSEN EXPERIENCE",
         "items": [
-          {
-            "id": "ulvenparken",
-            "title": "Childcare worker",
-            "institution": "Ulvenparken Barnehage",
-            "start": "September 2025",
-            "end": "November 2025",
-            "description": "Worked with toddlers and facility upkeep."
-          },
           {
             "id": "gardstunet",
             "title": "Kindergarten assistant",
@@ -114,6 +106,69 @@
             "start": "August 2012",
             "end": "May 2022",
             "description": "I served as a student buddy almost every year I studied, and was almost always elected as a student council representative. I received feedback that many wished they had had me as their student buddy."
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "title": "VOLUNTARY WORK",
+        "items": [
+          {
+            "id": "fadder",
+            "title": "Student mentor (Fadder)",
+            "start": "August 2013",
+            "end": "November 2023",
+            "description": "Served as a mentor almost every year I studied, often chosen as the student council representative; heard from several students that they wished they had me as a mentor."
+          },
+          {
+            "id": "studentraad",
+            "title": "Student council representative",
+            "start": "August 2012",
+            "end": "May 2023",
+            "description": "Elected to represent students across multiple study programs, ensuring their feedback reached faculty and administration."
+          },
+          {
+            "id": "musikklubb",
+            "title": "Founder and leader of a student organization",
+            "institution": "Universitet i Sør-øst Norge (USN)",
+            "start": "August 2021",
+            "end": "May 2022",
+            "description": "Founded the Music Club at USN. Acquired and operated equipment worth over NOK 100,000, and ran karaoke and quiz nights on a professional stage, coordinating stage crew and large audiences of more than 400 people.",
+            "skills": [
+              "Budgeting",
+              "Inclusion",
+              "Leadership",
+              "Coordination",
+              "Meeting coordination"
+            ]
+          },
+          {
+            "id": "festivo",
+            "title": "Conductor in Festivo",
+            "start": "September 2016",
+            "end": "September 2017",
+            "description": "Conducted a choir for people with developmental disabilities."
+          },
+          {
+            "id": "styremedlem",
+            "title": "Board member in student association",
+            "start": "March 2016",
+            "end": "August 2017",
+            "description": "Board member in the student welfare organization at HVL."
+          }
+        ]
+      },
+      {
+        "id": "work-other",
+        "title": "OTHER WORK EXPERIENCE",
+        "items": [
+          {
+            "id": "ulvenparken",
+            "title": "Childcare worker",
+            "institution": "Ulvenparken Barnehage",
+            "start": "September 2025",
+            "end": "November 2025",
+            "description": "Worked with toddlers and facility upkeep."
           },
           {
             "id": "pvs-2024",
@@ -192,55 +247,6 @@
             "end": "June 2014"
           }
         ]
-      },
-      {
-        "id": "other",
-        "title": "VOLUNTARY WORK",
-        "items": [
-          {
-            "id": "fadder",
-            "title": "Student mentor (Fadder)",
-            "start": "August 2013",
-            "end": "November 2023",
-            "description": "Served as a mentor almost every year I studied, often chosen as the student council representative; heard from several students that they wished they had me as a mentor."
-          },
-          {
-            "id": "studentraad",
-            "title": "Student council representative",
-            "start": "August 2012",
-            "end": "May 2023",
-            "description": "Elected to represent students across multiple study programs, ensuring their feedback reached faculty and administration."
-          },
-          {
-            "id": "musikklubb",
-            "title": "Founder and leader of a student organization",
-            "institution": "Universitet i Sør-øst Norge (USN)",
-            "start": "August 2021",
-            "end": "May 2022",
-            "description": "Founded the Music Club at USN. Acquired and operated equipment worth over NOK 100,000, and ran karaoke and quiz nights on a professional stage, coordinating stage crew and large audiences of more than 400 people.",
-            "skills": [
-              "Budgeting",
-              "Inkludering",
-              "Leadership",
-              "Coordination",
-              "Møte-koordinering"
-            ]
-          },
-          {
-            "id": "festivo",
-            "title": "Conductor in Festivo",
-            "start": "September 2016",
-            "end": "September 2017",
-            "description": "Conducted a choir for people with developmental disabilities."
-          },
-          {
-            "id": "styremedlem",
-            "title": "Board member in student association",
-            "start": "March 2016",
-            "end": "August 2017",
-            "description": "Board member in the student welfare organization at HVL."
-          }
-        ]
       }
     ]
   },
@@ -277,7 +283,7 @@
     "sections": [
       {
         "id": "education",
-        "title": "Utdanning og fagbrev",
+        "title": "UTDANNING OG FAGBREV",
         "items": [
           {
             "id": "fe-vocational",
@@ -329,16 +335,8 @@
       },
       {
         "id": "work",
-        "title": "Annen arbeidserfaring",
+        "title": "UTVALGT ARBEIDSERFARING",
         "items": [
-          {
-            "id": "ulvenparken",
-            "title": "Barnehageassistent",
-            "institution": "Ulvenparken Barnehage",
-            "start": "September 2025",
-            "end": "November 2025",
-            "description": "Arbeid med småbarn og vedlikehold av barnehagen."
-          },
           {
             "id": "gardstunet",
             "title": "Barnehageassistent",
@@ -351,6 +349,68 @@
               "Teamwork",
               "Improvisation"
             ]
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "title": "VERV/FRIVILLIG",
+        "items": [
+          {
+            "id": "fadder",
+            "title": "Fadder",
+            "start": "August 2013",
+            "end": "November 2023",
+            "description": "Var fadder nesten hvert år jeg har studert, og ble nesten alltid valgt som studentrådsrepresentant. Fikk tilbakemeldinger på at flere ønsket at de hadde meg som fadder."
+          },
+          {
+            "id": "studentraad",
+            "title": "Studentrådsrepresentant",
+            "start": "August 2012",
+            "end": "Mai 2023",
+            "description": "Valgt til å representere studenter i flere studieløp, og sørget for at tilbakemeldinger nådde faglærere og administrasjon."
+          },
+          {
+            "id": "musikklubb",
+            "title": "Stifter og leder for studentforening",
+            "start": "August 2021",
+            "end": "Mai 2022",
+            "description": "Grunnla Musikklubben ved USN. Anskaffet og driftet utstyr for over 100 000 kr, samt drev karaokekvelder på profesjonell scene hvor jeg koordinerte scenearbeidere og publikum på over 400 personer.",
+            "skills": [
+              "Budgeting",
+              "Inkludering",
+              "Leadership",
+              "Coordination",
+              "Møte-koordinering"
+            ]
+          },
+          {
+            "id": "festivo",
+            "title": "Dirigent i Festivo",
+            "start": "September 2016",
+            "end": "September 2017",
+            "description": "Dirigerte kor for utviklingshemmede."
+          },
+          {
+            "id": "styremedlem",
+            "title": "Styremedlem i studentforening",
+            "start": "Mars 2016",
+            "end": "August 2017",
+            "description": "Styremedlem i Studentsamskipnaden ved HVL."
+          }
+        ]
+      },
+      {
+        "id": "work-other",
+        "title": "ANNEN ARBEIDSERFARING",
+        "items": [
+          {
+            "id": "ulvenparken",
+            "title": "Barnehageassistent",
+            "institution": "Ulvenparken Barnehage",
+            "start": "September 2025",
+            "end": "November 2025",
+            "description": "Arbeid med småbarn og vedlikehold av barnehagen."
           },
           {
             "id": "pvs-2024",
@@ -427,54 +487,6 @@
             "institution": "Gjerpen barneskole",
             "start": "Februar 2014",
             "end": "Juni 2014"
-          }
-        ]
-      },
-      {
-        "id": "other",
-        "title": "Verv/Frivillig",
-        "items": [
-          {
-            "id": "fadder",
-            "title": "Fadder",
-            "start": "August 2013",
-            "end": "November 2023",
-            "description": "Var fadder nesten hvert år jeg har studert, og ble nesten alltid valgt som studentrådsrepresentant. Fikk tilbakemeldinger på at flere ønsket at de hadde meg som fadder."
-          },
-          {
-            "id": "studentraad",
-            "title": "Studentrådsrepresentant",
-            "start": "August 2012",
-            "end": "Mai 2023",
-            "description": "Valgt til å representere studenter i flere studieløp, og sørget for at tilbakemeldinger nådde faglærere og administrasjon."
-          },
-          {
-            "id": "musikklubb",
-            "title": "Stifter og leder for studentforening",
-            "start": "August 2021",
-            "end": "Mai 2022",
-            "description": "Grunnla Musikklubben ved USN. Anskaffet og driftet utstyr for over 100 000 kr, samt drev karaokekvelder på profesjonell scene hvor jeg koordinerte scenearbeidere og publikum på over 400 personer.",
-            "skills": [
-              "Budgeting",
-              "Inkludering",
-              "Leadership",
-              "Coordination",
-              "Møte-koordinering"
-            ]
-          },
-          {
-            "id": "festivo",
-            "title": "Dirigent i Festivo",
-            "start": "September 2016",
-            "end": "September 2017",
-            "description": "Dirigerte kor for utviklingshemmede."
-          },
-          {
-            "id": "styremedlem",
-            "title": "Styremedlem i studentforening",
-            "start": "Mars 2016",
-            "end": "August 2017",
-            "description": "Styremedlem i Studentsamskipnaden ved HVL."
           }
         ]
       }

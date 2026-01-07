@@ -8,8 +8,6 @@ $gutter: 1.5rem !default;
 .container {
     display: flex;
     flex-direction: column;
-    min-width: 100%;
-    width: 100%;
     max-width: $container-max-width;
     // margin-left: auto;
     // margin-right: auto;
