@@ -2,7 +2,7 @@
   "en": {
     "heading": "Resumé",
     "subheading": "Frontend-developer",
-    "summary": "I hold a vocational certificate in frontend development and studied electrical engineering at USN. I also have 13 years of experience in social roles that I now want to use in new projects. I am driven by trying new technologies, creating innovative solutions, and debugging what Codex helps me with. As a person I am solution-oriented, handle pressure well, and can take a leadership role when needed. Even though I lack directly relevant work experience, I am eager to learn and curious about most things.",
+    "summary": "PROFILE: I hold a vocational degree in frontend development and have also studied electrical engineering at USN. In addition, I have 13 years of work experience in social professions, which I now want to apply to new projects. What drives me is trying out new technologies, designing innovative solutions, and debugging what Codex/AI produces. As a person, I am solution-oriented, able to work under pressure, and can take on a role of responsibility when needed. Although I lack directly relevant work experience, I am eager to learn and curious about most things.",
     "softSkillsHeading": "Soft Skills",
     "softSkills": [
       "Solution-oriented",
@@ -32,23 +32,38 @@
     "sections": [
       {
         "id": "education",
-        "title": "Education & Certifications",
+        "title": "EDUCATION",
         "items": [
           {
             "id": "fe-vocational",
-            "title": "Vocational degree in Frontend development",
+            "title": "Frontend Development, Vocational Degree",
             "institution": "Noroff",
             "start": "August 2022",
             "end": "May 2025",
-            "description": "Worked independently throughout the program, joined larger internal projects in the second year with a focus on SEO. Learned prototyping with XD and Figma, project methodology such as Gantt, and worked with frameworks like React and Bootstrap."
+            "description": "Worked largely independently during my education, and participated in larger internal projects in the second year, with a focus on SEO.",
+            "skills": [
+              "React",
+              "WCAG",
+              "HTML5",
+              "SCSS",
+              "TypeScript",
+              "Adobe XD/Figma",
+              "API",
+              "Wordpress/CMS"
+            ]
           },
           {
             "id": "electrical-engineering",
-            "title": "Electrical Engineering DNF",
-            "institution": "University of South-Eastern Norway",
+            "title": "Electrical Engineering (TRES): Computer Science and Automation, DNF",
+            "institution": "Universitet i Sør-øst Norge (USN)",
             "start": "August 2021",
             "end": "May 2022",
-            "description": "Worked with hardware and software. Liked programming more than imaginary numbers, so I switched to development studies. Learned Python, C#, and SQL programming."
+            "description": "Completed an intensive summer course in mathematics and physics to qualify for admission. Worked with both hardware and software. Enjoyed programming more than imaginary numbers, so I switched to a developer-focused education.",
+            "skills": [
+              "Python",
+              "C#",
+              "SQL"
+            ]
           },
           {
             "id": "music-bachelor",
@@ -56,13 +71,20 @@
             "institution": "Western Norway University of Applied Sciences (Stord)",
             "start": "August 2012",
             "end": "February 2017",
-            "description": "Pedagogy, didactics, ensemble work, and larger productions such as concerts."
+            "description": "Pedagogy, didactics, ensemble work, and larger productions such as concerts.",
+            "skills": [
+              "Cooporation",
+              "Pedagogy",
+              "Didactics",
+              "Logic Pro X",
+              "Various Instruments"
+            ]
           }
         ]
       },
       {
         "id": "work",
-        "title": "Other Work Experience",
+        "title": "CHOSEN WORK-EXPERIENCE",
         "items": [
           {
             "id": "ulvenparken",
@@ -74,11 +96,24 @@
           },
           {
             "id": "gardstunet",
-            "title": "Childcare worker",
+            "title": "Kindergarten assistant",
             "institution": "Gårdstunet Barnehage",
             "start": "January 2025",
             "end": "November 2025",
-            "description": "Long-term role covering pedagogy and practical improvements at the kindergarten."
+            "description": "The kindergarten appreciated how skilled and engaged I was as a temporary worker from an agency, and hired me directly until I decided to start applying for IT jobs.",
+            "skills": [
+              "Pedagogy",
+              "Teamwork",
+              "Improvisation"
+            ]
+          },
+          {
+            "id": "student-buddy",
+            "title": "Student buddy and student council representative",
+            "institution": "Universitet i Sør-øst Norge m.fl.",
+            "start": "August 2012",
+            "end": "May 2022",
+            "description": "I served as a student buddy almost every year I studied, and was almost always elected as a student council representative. I received feedback that many wished they had had me as their student buddy."
           },
           {
             "id": "pvs-2024",
@@ -160,7 +195,7 @@
       },
       {
         "id": "other",
-        "title": "Volunteer work",
+        "title": "VOLUNTARY WORK",
         "items": [
           {
             "id": "fadder",
@@ -178,10 +213,18 @@
           },
           {
             "id": "musikklubb",
-            "title": "Founder and leader of student club",
+            "title": "Founder and leader of a student organization",
+            "institution": "Universitet i Sør-øst Norge (USN)",
             "start": "August 2021",
             "end": "May 2022",
-            "description": "Founded the Music Club at USN. Procured and managed equipment worth over 100,000 NOK, and ran karaoke nights on a professional stage while coordinating stage crews and audiences of 400+."
+            "description": "Founded the Music Club at USN. Acquired and operated equipment worth over NOK 100,000, and ran karaoke and quiz nights on a professional stage, coordinating stage crew and large audiences of more than 400 people.",
+            "skills": [
+              "Budgeting",
+              "Inkludering",
+              "Leadership",
+              "Coordination",
+              "Møte-koordinering"
+            ]
           },
           {
             "id": "festivo",
@@ -242,7 +285,17 @@
             "institution": "Noroff",
             "start": "August 2022",
             "end": "Mai 2025",
-            "description": "Jobbet mye selvstendig under utdanningen, var med på større interne prosjekter i andre året, med fokus på SEO. Lærte om prototyper med XD og Figma, arbeidsmetodikk som Gantt, og jobbet med rammeverk som React og Bootstrap."
+            "description": "Jobbet mye selvstendig under utdanningen, var med på større interne prosjekter i andre året, med fokus på SEO. Lærte om prototyper med XD og Figma, arbeidsmetodikk som Gantt, og jobbet med rammeverk som React og Bootstrap.",
+            "skills": [
+              "React",
+              "WCAG",
+              "HTML5",
+              "SCSS",
+              "TypeScript",
+              "Adobe XD/Figma",
+              "API",
+              "Wordpress/CMS"
+            ]
           },
           {
             "id": "electrical-engineering",
@@ -250,7 +303,12 @@
             "institution": "Universitetet i Sør-øst Norge",
             "start": "August 2021",
             "end": "Mai 2022",
-            "description": "Jobbet med både hardware og software. Likte programmering mer enn imaginære tall, så byttet til utvikler-utdanning. Her lærte jeg om Python, C#, og SQL programmering."
+            "description": "Jobbet med både hardware og software. Likte programmering mer enn imaginære tall, så byttet til utvikler-utdanning. Her lærte jeg om Python, C#, og SQL programmering.",
+            "skills": [
+              "Python",
+              "C#",
+              "SQL"
+            ]
           },
           {
             "id": "music-bachelor",
@@ -258,7 +316,14 @@
             "institution": "Høgskolen på Vestlandet, Campus Stord",
             "start": "August 2012",
             "end": "Februar 2017",
-            "description": "Pedagogikk og didaktikk, samspill og prosjektarbeid som konserter og produksjoner."
+            "description": "Pedagogikk og didaktikk, samspill og prosjektarbeid som konserter og produksjoner.",
+            "skills": [
+              "Cooporation",
+              "Pedagogy",
+              "Didactics",
+              "Logic Pro X",
+              "Various Instruments"
+            ]
           }
         ]
       },
@@ -280,7 +345,12 @@
             "institution": "Gårdstunet Barnehage",
             "start": "Januar 2025",
             "end": "November 2025",
-            "description": "Fast over lengre periode, både pedagogisk arbeid og praktisk forbedring av barnehagen."
+            "description": "Fast over lengre periode, både pedagogisk arbeid og praktisk forbedring av barnehagen.",
+            "skills": [
+              "Pedagogy",
+              "Teamwork",
+              "Improvisation"
+            ]
           },
           {
             "id": "pvs-2024",
@@ -383,7 +453,14 @@
             "title": "Stifter og leder for studentforening",
             "start": "August 2021",
             "end": "Mai 2022",
-            "description": "Grunnla Musikklubben ved USN. Anskaffet og driftet utstyr for over 100 000 kr, samt drev karaokekvelder på profesjonell scene hvor jeg koordinerte scenearbeidere og publikum på over 400 personer."
+            "description": "Grunnla Musikklubben ved USN. Anskaffet og driftet utstyr for over 100 000 kr, samt drev karaokekvelder på profesjonell scene hvor jeg koordinerte scenearbeidere og publikum på over 400 personer.",
+            "skills": [
+              "Budgeting",
+              "Inkludering",
+              "Leadership",
+              "Coordination",
+              "Møte-koordinering"
+            ]
           },
           {
             "id": "festivo",

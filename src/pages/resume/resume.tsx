@@ -21,6 +21,7 @@ type ResumeItem = {
     start: string;
     end: string;
     description?: string;
+    skills?: string[];
 };
 
 type ResumeSection = {
@@ -119,9 +120,7 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
                                     aria-expanded={isOpen}
                                     aria-controls={`${id}-content`}
                                 >
-                                    <div>
-                                        <span className="dropdown-title resume-section__title">{title}</span>
-                                    </div>
+                                    <span className="dropdown-title resume-section__title">{title}</span>
                                     <Arrow
                                         direction="down"
                                         open={isOpen}
@@ -135,22 +134,33 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
                                     aria-live="polite"
                                 >
                                     <div className="resume-section__list">
-                                        {items.map(({ id: itemId, title: itemTitle, institution, start, end, description }) => (
-                                            <article key={itemId} className="resume-card">
-                                                <div className="resume-card__header">
-                                                    <div className="resume-card__title-group">
-                                                        <div className="resume-card__title">{itemTitle}</div>
-                                                        {institution && (
-                                                            <div className="resume-card__institution">{institution}</div>
-                                                        )}
+                                        {items.map(
+                                            ({ id: itemId, title: itemTitle, institution, start, end, description, skills }) => (
+                                                <article key={itemId} className="resume-card">
+                                                    <div className="resume-card__header">
+                                                        <div className="resume-card__title-group">
+                                                            <div className="resume-card__title">{itemTitle}</div>
+                                                            {institution && (
+                                                                <div className="resume-card__institution">{institution}</div>
+                                                            )}
+                                                        </div>
+                                                        <div className="resume-card__dates">
+                                                            {start} - {end}
+                                                        </div>
                                                     </div>
-                                                    <div className="resume-card__dates">
-                                                        {start} - {end}
-                                                    </div>
-                                                </div>
-                                                {description && <p className="resume-card__description">{description}</p>}
-                                            </article>
-                                        ))}
+                                                    {description && <p className="resume-card__description">{description}</p>}
+                                                    {skills && (
+                                                        <ul className="resume-card__skills">
+                                                            {skills.map((skill) => (
+                                                                <li key={skill} className="resume-card__skill">
+                                                                    {skill}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    )}
+                                                </article>
+                                            ),
+                                        )}
                                     </div>
                                 </div>
                             </section>

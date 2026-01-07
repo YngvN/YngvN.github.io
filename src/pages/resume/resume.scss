@@ -22,7 +22,6 @@
 
 .resume__skill {
     border: 1px solid rgba(colors.color('text'), 0.12);
-    border-radius: 999px;
     padding: 0.4rem 0.75rem;
     background: rgba(colors.color('text'), 0.02);
     font-weight: fonts.$font-weight-medium;
@@ -65,12 +64,11 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    border-left: 2px solid rgba(colors.color('text'), 0.08);
     padding-left: 0.85rem;
 }
 
 .resume-card {
-    border-bottom: 1px solid rgba(colors.color('text'), 0.12);
+    border-left: 1px solid rgba(colors.color('text'), 0.12);
     padding: 0.9rem 1rem;
     background: transparent;
     box-shadow: none;
@@ -110,6 +108,24 @@
     margin: 0.35rem 0 0;
     line-height: 1.5;
     color: rgba(colors.color('text'), 0.9);
+}
+
+.resume-card__skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0.4rem 0 0;
+    list-style: none;
+}
+
+.resume-card__skill {
+    padding: 0.35rem 0.6rem;
+    background: colors.color('secondary');
+    color: colors.color('text-contrast');
+    font-size: 0.70rem;
+    letter-spacing: 0.01em;
 }
 
 @media (max-width: 640px) {
@@ -166,6 +182,11 @@ body[data-theme='dark'] {
     .resume-card__institution,
     .resume-card__description {
         color: rgba(colors.color-dark('text'), 0.9);
+    }
+
+    .resume-card__skill {
+        background: colors.color-dark('secondary');
+        color: colors.color-dark('text-contrast');
     }
 
     .resume-group__title {
