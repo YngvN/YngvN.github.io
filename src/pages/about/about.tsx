@@ -27,11 +27,17 @@ type LinkParagraph = {
     links: { label: string; href: string; suffix: string }[];
 };
 
+type QuoteParagraph = {
+    prefix: string;
+    quote: string;
+    suffix: string;
+};
+
 type AboutCopy = {
     pageHeading: string;
     heading: string;
     subheading: string;
-    paragraphs: string[];
+    paragraphs: Array<string | QuoteParagraph>;
     linkParagraph: LinkParagraph;
     buttons: { label: string; page: PageName; variant: 'primary' | 'secondary' }[];
     categories: Record<CategoryId, { title: string; description: string }>;
@@ -57,7 +63,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     } = aboutCopy[language];
     const categoryInfo = categories;
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const paragraphBlocks: Array<string | LinkParagraph> = [...paragraphs, linkParagraph];
+    const paragraphBlocks: Array<string | LinkParagraph | QuoteParagraph> = [...paragraphs, linkParagraph];
     const [openSections, setOpenSections] = useState<Record<CategoryId, boolean>>(() =>
         categoryDefinitions.reduce(
             (acc, category) => ({
@@ -129,7 +135,8 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
             <div ref={containerRef} className="container page-container about-page">
                 <h1 className="page-heading">{pageHeading}</h1>
                 {paragraphBlocks.map((paragraph, index) => {
-                    const isLinkParagraph = typeof paragraph !== 'string';
+                    const isLinkParagraph = typeof paragraph !== 'string' && 'links' in paragraph;
+                    const isQuoteParagraph = typeof paragraph !== 'string' && 'quote' in paragraph;
 
                     return (
                         <div className="about-paragraph about-snap" key={index}>
@@ -166,6 +173,12 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                                                 {link.suffix}
                                             </React.Fragment>
                                         ))}
+                                    </>
+                                ) : isQuoteParagraph ? (
+                                    <>
+                                        {paragraph.prefix}
+                                        <span className="about-quote">{paragraph.quote}</span>
+                                        <span className="about-quote-source">{paragraph.suffix}</span>
                                     </>
                                 ) : (
                                     paragraph

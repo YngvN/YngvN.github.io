@@ -42,7 +42,7 @@
     display: flex;
     font-size: 1.35rem;
     font-weight: fonts.$font-weight-bold;
-    color: colors.color('text');
+    color: colors.color('title');
 }
 
 .dropdown-description {
@@ -110,7 +110,7 @@ body[data-theme='dark'] {
     }
 
     .dropdown-title {
-        color: colors.color-dark('text');
+        color: colors.color-dark('title');
     }
 
     .dropdown-description {

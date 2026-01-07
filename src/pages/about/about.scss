@@ -42,6 +42,23 @@ body[data-theme='dark'] .about-link {
     }
 }
 
+.about-quote {
+    display: block;
+    margin-top: 0.6rem;
+    font-style: italic;
+}
+
+.about-quote-source {
+    display: block;
+    margin-top: 0.4rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.about-paragraph:last-of-type {
+    display: none;
+}
+
 .about-hero-container {
     display: flex;
     flex-direction: column;

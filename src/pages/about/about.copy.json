@@ -11,7 +11,11 @@
       "In my spare time I like learning new things in IT. I've started building small iOS apps in Swift, and I'm now testing Codex/AI to bring my ideas into reality. I get a lot of joy from seeing results and a dopamine kick when I troubleshoot the code Codex gives me. So I'm not just a coder, but also a creative soul who always wants to make something new.",
       "My experience from kindergarten has given me a playful style that I use whenever I get the chance. When I do something, I like to do it as well as possible, and if I lack competence in a task, I want to learn it.",
       "People who know me describe me as positive, outgoing, and very helpful, as well as witty and creative. At work I'm innovative, curious, solution-oriented, and adaptable, which makes me a good fit wherever I end up.",
-      "When I prompted ChatGPT with this: \"Based on how I have used you and what you know about me as a result, briefly explain how I come across to you.\", it replied: \"You come across as a very action-oriented, curious, and creative person who always has a new project on the way - and who likes to get things done in a smart and structured way.\" - ChatGPT about Yngve Nykås, 2025"
+      {
+        "prefix": "When I prompted ChatGPT with this: \"Based on how I have used you and what you know about me as a result, briefly explain how I come across to you.\", it replied:",
+        "quote": "\"You come across as a very action-oriented, curious, and creative person who always has a new project on the way - and who likes to get things done in a smart and structured way.\"",
+        "suffix": "- ChatGPT about Yngve Nykås, 2025"
+      }
     ],
     "linkParagraph": {
       "prefix": "If you are curious you can view my ",
@@ -79,7 +83,11 @@
       "På fritiden liker jeg å lære nye ting innen IT. Jeg har begynt å lage små iOS-apper i Swift, og tester nå Codex/AI for å virkelig få ideene mine ut i virkeligheten. Jeg får mye glede av å se resultatene av arbeidet, og dopaminkick når jeg feilsøker koden som Codex gir meg. Så jeg er ikke bare en koder, men også en kreativ sjel som alltid har lyst til å skape noe nytt.",
       "Erfaringen min fra barnehage har gitt meg en leken stil som jeg bruker hver gang jeg får sjansen. Når jeg gjør noe, liker jeg å gjøre det så bra som mulig, og mangler jeg kompetanse i en oppgave, vil jeg gjerne lære det.",
       "Folk som kjenner meg, vil beskrive meg som positiv, utadvendt og svært hjelpsom, samtidig vittig og kreativ. I jobb er jeg innovativ, nysgjerrig, løsningsorientert og tilpasningsdyktig, som gjør at jeg passer godt inn uansett hvor jeg ender.",
-      "Da jeg promptet ChatGPT dette: \"Utifra det jeg har brukt deg til og det du vet om meg som et resultat, forklar kort hvordan jeg oppleves av deg.\", svarte den: \"Du virker som en svært handlekraftig, nysgjerrig og skapende person som alltid har et nytt prosjekt på vei - og som liker å få ting gjort på en smart og strukturert måte.\" - ChatGPT om Yngve Nykås, 2025"
+      {
+        "prefix": "Da jeg promptet ChatGPT dette: \"Utifra det jeg har brukt deg til og det du vet om meg som et resultat, forklar kort hvordan jeg oppleves av deg.\", svarte den:",
+        "quote": "\"Du virker som en svært handlekraftig, nysgjerrig og skapende person som alltid har et nytt prosjekt på vei - og som liker å få ting gjort på en smart og strukturert måte.\"",
+        "suffix": "- ChatGPT om Yngve Nykås, 2025"
+      }
     ],
     "linkParagraph": {
       "prefix": "Om du er nysgjerrig kan du se ",

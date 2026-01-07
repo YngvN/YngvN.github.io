@@ -50,7 +50,7 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
         sections.reduce(
             (acc, { id }) => ({
                 ...acc,
-                [id]: true,
+                [id]: false,
             }),
             {} as Record<string, boolean>,
         ),

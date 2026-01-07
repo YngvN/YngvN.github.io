@@ -35,7 +35,7 @@ body[data-theme='dark'] {
     line-height: 1.15;
     letter-spacing: -0.01em;
     text-transform: uppercase;
-    @include fonts.apply-font($family: fonts.$font-family-base, $weight: fonts.$font-weight-bold, $color: colors.color('text'));
+    @include fonts.apply-font($family: fonts.$font-family-base, $weight: fonts.$font-weight-bold, $color: colors.color('title'));
 }
 
 .page-heading::first-letter {
@@ -57,7 +57,7 @@ body[data-theme='dark'] {
 .page-subheading {
     margin: 0 0 1.5rem;
     font-size: clamp(1.1rem, 2vw, 1.4rem);
-    @include fonts.apply-font($weight: fonts.$font-weight-medium, $color: colors.color('text'));
+    @include fonts.apply-font($weight: fonts.$font-weight-medium, $color: colors.color('title-muted'));
     text-transform: uppercase;
     letter-spacing: 0.08em;
     opacity: 0.85;
@@ -65,7 +65,7 @@ body[data-theme='dark'] {
 
 body[data-theme='dark'] {
     .page-heading {
-        color: colors.color-dark('text');
+        color: colors.color-dark('title');
     }
 
     .hero-name {
@@ -73,7 +73,7 @@ body[data-theme='dark'] {
     }
 
     .page-subheading {
-        color: colors.color-dark('text');
+        color: colors.color-dark('title-muted');
         opacity: 0.9;
     }
 }
