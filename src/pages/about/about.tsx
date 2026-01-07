@@ -89,10 +89,17 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     };
 
     const toggleSection = (id: CategoryId) => {
-        setOpenSections((prev) => ({
-            ...prev,
-            [id]: !prev[id],
-        }));
+        setOpenSections((prev) => {
+            const nextState = (Object.keys(prev) as CategoryId[]).reduce(
+                (acc, key) => ({
+                    ...acc,
+                    [key]: false,
+                }),
+                {} as Record<CategoryId, boolean>,
+            );
+            nextState[id] = !prev[id];
+            return nextState;
+        });
     };
 
     const renderCategoryContent = (id: CategoryId) => {

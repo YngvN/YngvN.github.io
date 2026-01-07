@@ -32,7 +32,11 @@
     "sections": [
       {
         "id": "education",
-        "title": "EDUCATION",
+        "title": "OTHER EDUCATION",
+        "chosenTitle": "Chosen Education",
+        "chosenItemIds": [
+          "fe-vocational"
+        ],
         "items": [
           {
             "id": "fe-vocational",
@@ -85,6 +89,10 @@
       {
         "id": "work",
         "title": "CHOSEN EXPERIENCE",
+        "chosenTitle": "Chosen Experience",
+        "chosenItemIds": [
+          "gardstunet"
+        ],
         "items": [
           {
             "id": "gardstunet",
@@ -111,7 +119,11 @@
       },
       {
         "id": "other",
-        "title": "VOLUNTARY WORK",
+        "title": "OTHER VOLUNTARY WORK",
+        "chosenTitle": "Chosen Volunteering",
+        "chosenItemIds": [
+          "musikklubb"
+        ],
         "items": [
           {
             "id": "fadder",
@@ -283,7 +295,11 @@
     "sections": [
       {
         "id": "education",
-        "title": "UTDANNING OG FAGBREV",
+        "title": "ANNEN UTDANNING",
+        "chosenTitle": "Utvalgt utdanning",
+        "chosenItemIds": [
+          "fe-vocational"
+        ],
         "items": [
           {
             "id": "fe-vocational",
@@ -324,11 +340,11 @@
             "end": "Februar 2017",
             "description": "Pedagogikk og didaktikk, samspill og prosjektarbeid som konserter og produksjoner.",
             "skills": [
-              "Cooporation",
-              "Pedagogy",
-              "Didactics",
+              "Samarbeid",
+              "Pedagogikk",
+              "Didaktikk",
               "Logic Pro X",
-              "Various Instruments"
+              "Ulike instrumenter"
             ]
           }
         ]
@@ -336,6 +352,10 @@
       {
         "id": "work",
         "title": "UTVALGT ARBEIDSERFARING",
+        "chosenTitle": "Utvalgt erfaring",
+        "chosenItemIds": [
+          "gardstunet"
+        ],
         "items": [
           {
             "id": "gardstunet",
@@ -345,16 +365,20 @@
             "end": "November 2025",
             "description": "Fast over lengre periode, både pedagogisk arbeid og praktisk forbedring av barnehagen.",
             "skills": [
-              "Pedagogy",
-              "Teamwork",
-              "Improvisation"
+              "Pedagogikk",
+              "Teamarbeid",
+              "Improvisasjon"
             ]
           }
         ]
       },
       {
         "id": "other",
-        "title": "VERV/FRIVILLIG",
+        "title": "ANNET FRIVILLIG ARBEID",
+        "chosenTitle": "Utvalgt frivillig arbeid",
+        "chosenItemIds": [
+          "musikklubb"
+        ],
         "items": [
           {
             "id": "fadder",
@@ -377,11 +401,11 @@
             "end": "Mai 2022",
             "description": "Grunnla Musikklubben ved USN. Anskaffet og driftet utstyr for over 100 000 kr, samt drev karaokekvelder på profesjonell scene hvor jeg koordinerte scenearbeidere og publikum på over 400 personer.",
             "skills": [
-              "Budgeting",
+              "Budsjettering",
               "Inkludering",
-              "Leadership",
-              "Coordination",
-              "Møte-koordinering"
+              "Ledelse",
+              "Koordinering",
+              "Møtekoordinering"
             ]
           },
           {

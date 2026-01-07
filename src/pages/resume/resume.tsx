@@ -27,6 +27,8 @@ type ResumeItem = {
 type ResumeSection = {
     id: string;
     title: string;
+    chosenTitle?: string;
+    chosenItemIds?: string[];
     items: ResumeItem[];
 };
 
@@ -57,10 +59,17 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
     );
 
     const toggleSection = (id: string) => {
-        setOpenSections((prev) => ({
-            ...prev,
-            [id]: !prev[id],
-        }));
+        setOpenSections((prev) => {
+            const nextState = Object.keys(prev).reduce(
+                (acc, key) => ({
+                    ...acc,
+                    [key]: false,
+                }),
+                {} as Record<string, boolean>,
+            );
+            nextState[id] = !prev[id];
+            return nextState;
+        });
     };
 
     const handleSectionClick = (id: string) => {
@@ -68,6 +77,53 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
             toggleSection(id);
         }
     };
+
+    const renderSectionItems = (items: ResumeItem[]) => (
+        <div className="resume-section__list">
+            {items.map(({ id: itemId, title: itemTitle, institution, start, end, description, skills }) => (
+                <article key={itemId} className="resume-card">
+                    <div className="resume-card__header">
+                        <div className="resume-card__title-group">
+                            <div className="resume-card__title">{itemTitle}</div>
+                            {institution && <div className="resume-card__institution">{institution}</div>}
+                        </div>
+                        <div className="resume-card__dates">
+                            {start} - {end}
+                        </div>
+                    </div>
+                    {description && <p className="resume-card__description">{description}</p>}
+                    {skills && (
+                        <ul className="resume-card__skills">
+                            {skills.map((skill) => (
+                                <li key={skill} className="resume-card__skill">
+                                    {skill}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </article>
+            ))}
+        </div>
+    );
+
+    const chosenBlocks = sections
+        .map(({ id, chosenTitle, chosenItemIds, items }) => {
+            const chosenIds = chosenItemIds ?? [];
+            const chosenItems = chosenIds.length > 0 ? items.filter((item) => chosenIds.includes(item.id)) : [];
+
+            if (chosenItems.length === 0 || !chosenTitle) {
+                return null;
+            }
+
+            return {
+                id,
+                chosenTitle,
+                items: chosenItems,
+            };
+        })
+        .filter((block): block is { id: string; chosenTitle: string; items: ResumeItem[] } => Boolean(block));
+
+    const dropdownSections = sections.filter(({ id }) => !(language === 'no' && id === 'work'));
 
     return (
         <>
@@ -100,9 +156,23 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
                     </div>
                 </div>
 
+                {chosenBlocks.length > 0 ? (
+                    <div className="resume__chosen">
+                        {chosenBlocks.map(({ id, chosenTitle, items }) => (
+                            <div key={id} className="resume__chosen-block">
+                                <div className="resume-section__chosen-title">{chosenTitle}</div>
+                                {renderSectionItems(items)}
+                            </div>
+                        ))}
+                    </div>
+                ) : null}
+
                 <DropdownContainer className="resume__sections">
-                    {sections.map(({ id, title, items }) => {
+                    {dropdownSections.map(({ id, title, chosenItemIds, items }) => {
                         const isOpen = openSections[id];
+                        const chosenIds = chosenItemIds ?? [];
+                        const remainingItems =
+                            chosenIds.length > 0 ? items.filter((item) => !chosenIds.includes(item.id)) : items;
 
                         return (
                             <section
@@ -133,35 +203,7 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
                                     className={`dropdown-content${isOpen ? ' expanded' : ''}`}
                                     aria-live="polite"
                                 >
-                                    <div className="resume-section__list">
-                                        {items.map(
-                                            ({ id: itemId, title: itemTitle, institution, start, end, description, skills }) => (
-                                                <article key={itemId} className="resume-card">
-                                                    <div className="resume-card__header">
-                                                        <div className="resume-card__title-group">
-                                                            <div className="resume-card__title">{itemTitle}</div>
-                                                            {institution && (
-                                                                <div className="resume-card__institution">{institution}</div>
-                                                            )}
-                                                        </div>
-                                                        <div className="resume-card__dates">
-                                                            {start} - {end}
-                                                        </div>
-                                                    </div>
-                                                    {description && <p className="resume-card__description">{description}</p>}
-                                                    {skills && (
-                                                        <ul className="resume-card__skills">
-                                                            {skills.map((skill) => (
-                                                                <li key={skill} className="resume-card__skill">
-                                                                    {skill}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    )}
-                                                </article>
-                                            ),
-                                        )}
-                                    </div>
+                                    {renderSectionItems(remainingItems)}
                                 </div>
                             </section>
                         );
