@@ -18,8 +18,8 @@ const getPageFromHash = (hash: string): PageName => {
 function App() {
   const [currentPage, setCurrentPage] = useState<PageName>(() => getPageFromHash(window.location.hash));
   const [transitionDirection, setTransitionDirection] = useState<'ltr' | 'rtl'>('ltr');
-  const { language, toggleLanguage } = useLanguageChanger('en');
-  const { theme, toggleTheme } = useThemeChanger('light');
+  const { language, toggleLanguage } = useLanguageChanger('no');
+  const { theme, toggleTheme } = useThemeChanger('system');
 
   const handleNavigate = (page: PageName, direction: 'ltr' | 'rtl' = 'ltr') => {
     setTransitionDirection(direction);
@@ -48,7 +48,7 @@ function App() {
   }, [currentPage]);
 
   return (
-    <div className="app-shell" data-theme={theme}>
+    <div className="layout-shell" data-theme={theme}>
       <Nav
         currentPage={currentPage}
         onNavigate={handleNavigate}
@@ -57,7 +57,14 @@ function App() {
         theme={theme}
         onThemeToggle={toggleTheme}
       />
-      <Display currentPage={currentPage} language={language} onNavigate={handleNavigate} transitionDirection={transitionDirection} />
+      <div className="app-shell">
+        <Display
+          currentPage={currentPage}
+          language={language}
+          onNavigate={handleNavigate}
+          transitionDirection={transitionDirection}
+        />
+      </div>
     </div>
   );
 }

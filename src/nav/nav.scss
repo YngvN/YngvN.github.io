@@ -1,4 +1,5 @@
 @use "../assets/sass/colors" as colors;
+@use "./components/nav-buttons";
 
 .nav-shell {
     --nav-width: 260px;
@@ -7,11 +8,13 @@
     position: fixed;
     top: 0;
     right: 0;
+    min-height: 100vh;
     height: 100vh;
-    width: var(--nav-width);
+    width: max-content;
     display: flex;
     align-items: stretch;
     justify-content: flex-end;
+    flex: 0 0 var(--nav-width);
     z-index: 1100;
     opacity: 0.25;
     transition: transform 0.35s ease, opacity 0.35s ease;
@@ -35,11 +38,12 @@
     justify-content: flex-start;
     z-index: 1200;
     gap: 1.25rem;
-    min-height: 100%;
+    min-height: 100vh;
+    height: 100%;
     width: var(--nav-width);
     flex: 0 0 var(--nav-width);
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
-    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, max-height 0.45s ease;
     overflow-y: auto;
 
     .navbar-brand {
@@ -49,17 +53,23 @@
         gap: 0.75rem;
         position: relative;
         padding-top: 0;
+        flex-shrink: 0;
+        overflow: hidden;
+        min-height: max-content;
+        transition: max-height 0.45s ease, padding 0.45s ease;
 
 
 
         img.nav-avatar {
-            width: 170px;
-            height: 170px;
+            width: 165px;
+            height: 165px;
             border-radius: 50%;
             object-fit: cover;
             display: block;
             margin: 0 auto;
+            flex-shrink: 0;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.471);
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
     }
 
@@ -68,6 +78,9 @@
         padding: 0;
         margin: 0;
         flex-direction: column;
+        border-top: 1px solid colors.color("text-contrast");
+        border-bottom: 1px solid colors.color("text-contrast");
+        padding: 1rem 0;
 
         .nav-item {
             margin-bottom: 1rem;
@@ -160,17 +173,35 @@
         line-height: 1.5;
         text-align: center;
         color: inherit;
-        padding-bottom: 20px;
         margin-top: 0;
         color: colors.color("text-contrast");
+        max-height: 120px;
+        overflow: hidden;
+        transition: opacity 0.35s ease, transform 0.35s ease, max-height 0.45s ease, padding 0.45s ease;
     }
 
 }
 
-.nav-description,
-.navbar-nav {
-    border-bottom: 1px solid colors.color("text-contrast");
-    padding-bottom: 1rem;
+body[data-about-active='true'][data-about-section='0'] .navbar-brand img.nav-avatar {
+    transform: scale(0);
+    opacity: 0;
+}
+
+body[data-about-active='true'][data-about-section='0'] .navbar-brand {
+    max-height: 0;
+    padding-top: 0;
+}
+
+body[data-about-active='true'][data-about-section='0'] .navbar {
+    max-height: calc(100vh - 140px);
+    padding-top: 1.25rem;
+}
+
+body[data-about-active='true'][data-about-section='0'] .nav-description {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+    padding-bottom: 0;
 }
 
 body[data-theme='dark'] {
@@ -188,6 +219,9 @@ body[data-theme='dark'] {
 
 @media (max-width: 768px) {
     .nav-shell {
+        position: fixed;
+        top: 0;
+        right: 0;
         --nav-width: min(80vw, 320px);
         width: calc(var(--nav-width) + var(--tab-width));
         --closed-shift: calc(var(--nav-width) + var(--tab-width) - 18px);
@@ -204,10 +238,18 @@ body[data-theme='dark'] {
     .navbar {
         width: var(--nav-width);
         flex: 0 0 var(--nav-width);
-        height: 100vh;
+        max-height: 100vh;
         border-left: none;
         border-bottom: none;
         padding: 1.5rem 1.25rem;
+
+
+    }
+
+    img.nav-avatar {
+        max-width: 120px;
+        max-height: 120px;
+
     }
 }
 

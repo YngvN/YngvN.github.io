@@ -8,6 +8,8 @@ $primary: #1e4b99; // deep professional blue
 $secondary: #2c7a7b; // teal accent
 $background: #f6f7fb; // soft gray
 $text: #1f2937; // slate
+$title: #5a6473; // muted title gray
+$title-muted: #5a5f66; // softer title gray
 $text-contrast: #ffffff;
 
 /* Dark theme colors
@@ -16,6 +18,8 @@ $primary-dark: #7ca4ff;
 $secondary-dark: #5ad1c4;
 $background-dark: #0f172a;
 $text-dark: #e2e8f0;
+$title-dark: #cdcecf;
+$title-muted-dark: #b8bdc3;
 $text-dark-contrast: #0b1020;
 
 /* Color map for easy access
@@ -25,6 +29,8 @@ $colors: (
     "secondary": $secondary,
     "background": $background,
     "text": $text,
+    "title": $title,
+    "title-muted": $title-muted,
     "text-contrast": $text-contrast
 );
 
@@ -33,6 +39,8 @@ $colors-dark: (
     "secondary": $secondary-dark,
     "background": $background-dark,
     "text": $text-dark,
+    "title": $title-dark,
+    "title-muted": $title-muted-dark,
     "text-contrast": $text-dark-contrast
 );
 

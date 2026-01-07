@@ -1,184 +1,69 @@
 import '../../assets/styles.scss';
 import '../pages.scss';
 import './about.scss';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { Language } from '../../types/language';
 import type { PageName } from '../../types/pages';
-import {
-    TechLogoGrid,
-    IconTagGrid,
-    creativeItems,
-} from '../../components/icons/icons';
-import type { Technology } from '../../components/icons/icons';
 import PageNavigation from '../../components/page-navigation/page-navigation';
 import Arrow from '../../components/icons/arrow/arrow';
 import DropdownContainer from '../../components/icons/containers/dropdown/dropdown-container';
+import type { Technology } from '../../components/icons/icons-data';
+import aboutCopyData from './about.copy.json';
+import { categoryDefinitions, type CategoryId } from './data/about-categories';
+import DeveloperContent from './components/developer-content';
+import MusicianContent from './components/musician-content';
+import megUtenBakgrunn from '../../assets/images/me/Meg_uten_bakgrunn.png';
+import megUtenMeg from '../../assets/images/me/Meg_uten_meg.png';
+import useScrollSnapTouch from '../../utility/scroll-snap-touch';
+import useScrollSnapMousewheel from '../../utility/scroll-snap-mousewheel';
 
 type AboutProps = {
     language: Language;
     onNavigate?: (page: PageName, direction: 'ltr' | 'rtl') => void;
 };
 
-type AboutContent = {
+type LinkParagraph = {
+    prefix: string;
+    links: { label: string; href: string; suffix: string }[];
+};
+
+type QuoteParagraph = {
+    prefix: string;
+    quote: string;
+    suffix: string;
+};
+
+type AboutCopy = {
+    pageHeading: string;
     heading: string;
     subheading: string;
-    paragraphs: React.ReactNode[];
+    paragraphs: Array<string | QuoteParagraph>;
+    linkParagraph: LinkParagraph;
     buttons: { label: string; page: PageName; variant: 'primary' | 'secondary' }[];
+    categories: Record<CategoryId, { title: string; description: string }>;
+    developerIntro: string;
+    musicianIntro: string;
+    developerTiles: { id: string; title: string; technologies: Technology[] }[];
 };
 
-type CategoryId = 'developer' | 'musician';
-
-type CategoryDefinition = {
-    id: CategoryId;
-    defaultOpen: boolean;
-};
-
-type DeveloperTile = {
-    id: string;
-    title: Record<Language, string>;
-    technologies: Technology[];
-};
-
-const categoryDefinitions: CategoryDefinition[] = [
-    { id: 'developer', defaultOpen: false },
-    { id: 'musician', defaultOpen: false },
-];
-
-export const aboutCopy: Record<Language, AboutContent> = {
-    en: {
-        heading: 'Yngve Nykaas',
-        subheading: 'Frontend-developer',
-        paragraphs: [
-            "Hello! I'm Yngve Nykås, an educated frontend-developer with some experience on the backend side as well.",
-            'As a developer I love testing out new ideas to see what could be exciting to build next.',
-            <>
-                If you are curious you can view my{' '}
-                <a className="about-link" href="#portfolio">
-                    portfolio
-                </a>{' '}
-                here. You can also check out my{' '}
-                <a className="about-link" href="#resume">
-                    résumé
-                </a>{' '}
-                here.
-            </>,
-        ],
-        buttons: [
-            { label: 'View Portfolio', page: 'portfolio', variant: 'primary' },
-            { label: 'View Résumé', page: 'resume', variant: 'secondary' },
-        ],
-    },
-    no: {
-        heading: 'Yngve Nykås',
-        subheading: 'Frontend-utvikler',
-        paragraphs: [
-            'Hallo! Jeg er Yngve Nykås, og jeg er en utdannet frontend-utvikler med noe erfaring innenfor backend.',
-            'Som utvikler liker jeg å prøve nye ting for å se hva som kan være kult å gjøre.',
-            <>
-                Om du er nysgjerrig kan du se{' '}
-                <a className="about-link" href="#portfolio">
-                    porteføljen min
-                </a>{' '}
-                her. Du kan også sjekke ut{' '}
-                <a className="about-link" href="#resume">
-                    CV-en min
-                </a>{' '}
-                her.
-            </>,
-        ],
-        buttons: [
-            { label: 'Se porteføljen', page: 'portfolio', variant: 'primary' },
-            { label: 'Se CV-en', page: 'resume', variant: 'secondary' },
-        ],
-    },
-};
-
-const aboutCategoryCopy: Record<
-    Language,
-    Record<CategoryId, { title: string; description: string }>
-> = {
-    en: {
-        developer: {
-            title: 'Developer',
-            description: 'My technical expertise and experience',
-        },
-        musician: {
-            title: 'Creative Work',
-            description:
-                'Other work as a creative person',
-        },
-    },
-    no: {
-        developer: {
-            title: 'Utvikler',
-            description: 'Min tekniske kompetanse og erfaring',
-        },
-        musician: {
-            title: 'Kreativt arbeid',
-            description:
-                'Annet arbeid som kreativ person',
-        },
-    },
-};
-
-const developerTiles: DeveloperTile[] = [
-    {
-        id: 'core-web',
-        title: {
-            en: 'Core Web Stack',
-            no: 'Kjerne-teknologier',
-        },
-        technologies: ['javascript', 'typescript', 'html', 'css'],
-    },
-    {
-        id: 'frameworks',
-        title: {
-            en: 'Frameworks & Platforms',
-            no: 'Rammeverk og plattformer',
-        },
-        technologies: ['react', 'vite', 'wordpress', 'swift'],
-    },
-    {
-        id: 'styling-design',
-        title: {
-            en: 'Styling & Design',
-            no: 'Design og styling',
-        },
-        technologies: ['sass', 'bootstrap', 'figma', 'adobexd', 'illustrator'],
-    },
-    {
-        id: 'backend-testing',
-        title: {
-            en: 'Back-end & Testing',
-            no: 'Back-end og testing',
-        },
-        technologies: ['sql', 'csharp', 'python', 'jest', 'cypress'],
-    },
-];
-
-const developerIntroCopy: Record<Language, string> = {
-    en: 'As a developer I have worked across frontend and backend through my studies. In electrical engineering the focus was mostly on servers and small programs, while in frontend it was more about design and testing. Swift is something I am experimenting with in my spare time.',
-    no: 'Som utvikler har jeg vært innom både frontend og backend, begge relatert til utdanning. På elektroingeniør var det mest fokus på servere og mindre programmer, mens på frontend var det mer design og testing. Swift prøver jeg meg på nå i fritiden.',
-};
-
-const musicianCopy: Record<
-    Language,
-    {
-        intro: string;
-    }
-> = {
-    en: {
-        intro: 'I have been interested in music my entire life and have also studied it. That has given me skills across instruments and music tech. I have been on and off stage in larger and smaller projects, founded and led music clubs, produced music, and developed a playfulness that Oslohjelpa called “the best session they had been to in kindergarten.”',
-    },
-    no: {
-        intro: 'Jeg har vært interessert musikk i hele livet mit, og har også studert musikk. Da har jeg opparbeidet kompetanse i diverse instrumenter og teknologier. Jeg har vært både på og av scenen i større og mindre prosjekter, stiftet og ledet musikklubber, produsert musikk, og utviklet en lekenhet som i følge Oslohjelpa var "Den beste samlingen de hadde vært på i barnehage".',
-    },
-};
+const aboutCopy = aboutCopyData as Record<Language, AboutCopy>;
 
 const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
-    const { heading, subheading, paragraphs, buttons } = aboutCopy[language];
-    const categoryInfo = aboutCategoryCopy[language];
-    const musicianContent = musicianCopy[language];
+    const {
+        pageHeading,
+        heading,
+        subheading,
+        paragraphs,
+        linkParagraph,
+        buttons,
+        categories,
+        developerIntro,
+        musicianIntro,
+        developerTiles,
+    } = aboutCopy[language];
+    const categoryInfo = categories;
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const paragraphBlocks: Array<string | LinkParagraph | QuoteParagraph> = [...paragraphs, linkParagraph];
     const [openSections, setOpenSections] = useState<Record<CategoryId, boolean>>(() =>
         categoryDefinitions.reduce(
             (acc, category) => ({
@@ -189,98 +74,180 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
         ),
     );
 
+    const clearAboutBodyState = () => {
+        document.body.removeAttribute('data-about-bg');
+        document.body.removeAttribute('data-about-section');
+        document.body.removeAttribute('data-about-active');
+    };
+
     const navigateTo = (page: PageName, direction: 'ltr' | 'rtl' = 'ltr') => {
+        clearAboutBodyState();
         onNavigate?.(page, direction);
         if (!onNavigate) {
-            window.location.hash = `#${page}`;
+            window.location.assign(`#${page}`);
         }
     };
 
     const toggleSection = (id: CategoryId) => {
-        setOpenSections((prev) => ({
-            ...prev,
-            [id]: !prev[id],
-        }));
+        setOpenSections((prev) => {
+            const nextState = (Object.keys(prev) as CategoryId[]).reduce(
+                (acc, key) => ({
+                    ...acc,
+                    [key]: false,
+                }),
+                {} as Record<CategoryId, boolean>,
+            );
+            nextState[id] = !prev[id];
+            return nextState;
+        });
     };
 
     const renderCategoryContent = (id: CategoryId) => {
         if (id === 'developer') {
-            return (
-                <div className="developer-content">
-                    <p>{developerIntroCopy[language]}</p>
-                    <div className="tech-tiles">
-                        {developerTiles.map(({ id: tileId, title, technologies }) => (
-                            <div className="tech-tile" key={tileId}>
-                                <h3>{title[language]}</h3>
-                                <TechLogoGrid technologies={technologies} keyPrefix={tileId} />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
+            return <DeveloperContent intro={developerIntro} tiles={developerTiles} />;
         }
 
-        return (
-            <div className="musician-content">
-                <p>{musicianContent.intro}</p>
-                <IconTagGrid items={creativeItems} className="creative-logo-grid" />
-            </div>
-        );
+        return <MusicianContent intro={musicianIntro} />;
     };
 
+    const handleIndexChange = useCallback((currentIndex: number) => {
+        document.body.setAttribute('data-about-bg', currentIndex % 2 === 0 ? 'background' : 'primary');
+        document.body.setAttribute('data-about-section', String(currentIndex));
+    }, []);
+
+    useScrollSnapTouch({
+        containerRef,
+        snapSelector: '.about-snap',
+        onIndexChange: handleIndexChange,
+    });
+
+    useScrollSnapMousewheel({
+        containerRef,
+        snapSelector: '.about-snap',
+        onIndexChange: handleIndexChange,
+    });
+
+    useEffect(() => {
+        document.body.setAttribute('data-about-active', 'true');
+        return () => {
+            clearAboutBodyState();
+        };
+    }, []);
+
     return (
-        <div className="container page-container">
-            <PageNavigation currentPage="about" language={language} onNavigate={onNavigate} />
-            <h1 className="page-heading">{heading}</h1>
-            <h2 className="page-subheading">{subheading}</h2>
-            {paragraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-            ))}
-            <div className="about-cta">
-                {buttons.map(({ label, page, variant }) => (
-                    <button
-                        key={page}
-                        type="button"
-                        className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
-                        onClick={() => navigateTo(page)}
-                    >
-                        {label}
-                    </button>
-                ))}
+        <>
+            <div className="page-navigation-wrapper">
+                <PageNavigation currentPage="about" language={language} onNavigate={onNavigate} />
             </div>
-            <DropdownContainer>
-                {categoryDefinitions.map(({ id }) => {
-                    const { title, description } = categoryInfo[id];
-                    const isOpen = openSections[id];
+            <div ref={containerRef} className="container page-container about-page">
+                <h1 className="page-heading">{pageHeading}</h1>
+                {paragraphBlocks.map((paragraph, index) => {
+                    const isLinkParagraph = typeof paragraph !== 'string' && 'links' in paragraph;
+                    const isQuoteParagraph = typeof paragraph !== 'string' && 'quote' in paragraph;
 
                     return (
-                        <section key={id} className={`dropdown-panel container${isOpen ? ' open' : ''}`}>
-                            <button
-                                type="button"
-                                className="dropdown-toggle"
-                                onClick={() => toggleSection(id)}
-                                aria-expanded={isOpen}
-                                aria-controls={`${id}-content`}
-                            >
-                                <div>
-                                    <span className="dropdown-title">{title}</span>
-                                    <span className="dropdown-description">{description}</span>
+                        <div className="about-paragraph about-snap" key={index}>
+                            {index === 0 ? (
+                                <div className="about-hero-container">
+                                    <div className="about-hero-visual" aria-hidden="true">
+                                        <img
+                                            className="about-hero-layer about-hero-layer--back"
+                                            src={megUtenMeg}
+                                            alt=""
+                                        />
+                                        <img
+                                            className="about-hero-layer about-hero-layer--front"
+                                            src={megUtenBakgrunn}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div className="about-hero-text">
+
+                                        <h2 className="hero-name">{heading}</h2>
+                                        <h3 className="page-subheading">{subheading}</h3>
+                                    </div>
                                 </div>
-                                <Arrow
-                                    direction="down"
-                                    open={isOpen}
-                                    size="sm"
-                                    className="dropdown-toggle__chevron"
-                                />
-                            </button>
-                            <div id={`${id}-content`} className={`dropdown-content${isOpen ? ' expanded' : ''}`} aria-live="polite">
-                                {renderCategoryContent(id)}
-                            </div>
-                        </section>
+                            ) : null}
+                            <p>
+                                {isLinkParagraph ? (
+                                    <>
+                                        {paragraph.prefix}
+                                        {paragraph.links.map((link, linkIndex) => (
+                                            <React.Fragment key={`${link.href}-${linkIndex}`}>
+                                                <a className="about-link" href={link.href}>
+                                                    {link.label}
+                                                </a>
+                                                {link.suffix}
+                                            </React.Fragment>
+                                        ))}
+                                    </>
+                                ) : isQuoteParagraph ? (
+                                    <>
+                                        {paragraph.prefix}
+                                        <span className="about-quote">{paragraph.quote}</span>
+                                        <span className="about-quote-source">{paragraph.suffix}</span>
+                                    </>
+                                ) : (
+                                    paragraph
+                                )}
+                            </p>
+                            {index === paragraphBlocks.length - 1 ? (
+                                <>
+                                    <div className="about-cta">
+                                        {buttons.map(({ label, page, variant }) => (
+                                            <button
+                                                key={page}
+                                                type="button"
+                                                className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
+                                                onClick={() => navigateTo(page)}
+                                            >
+                                                {label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <DropdownContainer>
+                                        {categoryDefinitions.map(({ id }) => {
+                                            const { title, description } = categoryInfo[id];
+                                            const isOpen = openSections[id];
+
+                                            return (
+                                                <section key={id} className={`dropdown-panel container${isOpen ? ' open' : ''}`}>
+                                                    <button
+                                                        type="button"
+                                                        className="dropdown-toggle"
+                                                        onClick={() => toggleSection(id)}
+                                                        aria-expanded={isOpen}
+                                                        aria-controls={`${id}-content`}
+                                                    >
+                                                        <div>
+                                                            <span className="dropdown-title">{title}</span>
+                                                            <span className="dropdown-description">{description}</span>
+                                                        </div>
+                                                        <Arrow
+                                                            direction="down"
+                                                            open={isOpen}
+                                                            size="sm"
+                                                            className="dropdown-toggle__chevron"
+                                                        />
+                                                    </button>
+                                                    <div
+                                                        id={`${id}-content`}
+                                                        className={`dropdown-content${isOpen ? ' expanded' : ''}`}
+                                                        aria-live="polite"
+                                                    >
+                                                        {renderCategoryContent(id)}
+                                                    </div>
+                                                </section>
+                                            );
+                                        })}
+                                    </DropdownContainer>
+                                </>
+                            ) : null}
+                        </div>
                     );
                 })}
-            </DropdownContainer>
-        </div>
+            </div>
+        </>
     );
 };
 

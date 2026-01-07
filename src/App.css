@@ -1,19 +1,33 @@
 #root {
   min-height: 100vh;
+  min-width: 100vw
+}
+
+.layout-shell {
+  --nav-width: 292px;
+  --tab-width: 60px;
+  display: flex;
+  min-height: 100vh;
+  box-sizing: border-box;
+  flex-direction: row-reverse;
+  overflow: hidden;
 }
 
 .app-shell {
   display: flex;
+  flex: 1;
   min-height: 100vh;
-  padding: 2rem;
-  padding-right: 320px;
   box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
+  padding-right: var(--nav-width);
 }
 
 .page-display {
   display: flex;
-  min-width: 100%;
+  min-width: 0;
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding-top: 1rem;
   position: relative;
@@ -23,7 +37,11 @@
 
 .page-stack {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .page-card {
@@ -96,15 +114,20 @@
 }
 
 @media (max-width: 768px) {
+  .layout-shell {
+    flex-direction: row;
+  }
+
   .app-shell {
-    padding: 1rem;
+    padding: 0rem;
+    padding-right: 0;
   }
 
   .page-display {
-    padding-top: 2rem;
+    padding-top: 0rem;
   }
 }
 
-.nav-shell.open~.page-display {
+.nav-shell.open~.app-shell .page-display {
   transform: translateX(-18px);
 }

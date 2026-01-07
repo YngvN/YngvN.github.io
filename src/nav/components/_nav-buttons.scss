@@ -1,0 +1,90 @@
+@use '../../assets/sass/buttons';
+@use '../../assets/sass/colors' as colors;
+
+/* Nav-specific buttons
+   -------------------------------------------------------------------------- */
+
+.nav-link {
+    @extend .btn;
+    @extend .btn-ghost;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 0.1rem 0;
+    margin: 0.4rem 0;
+    color: inherit;
+    justify-content: flex-start;
+    border-radius: 0;
+    border: none;
+    border-left: none;
+    box-shadow: none;
+    transition: 0.2s ease;
+
+    &:hover {
+        padding-left: 0.5rem;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    &:focus-visible,
+    &:active {
+        box-shadow: none;
+    }
+
+    &.active {
+        padding-left: 0.5rem;
+        border-left: 3px solid colors.color("text-contrast");
+    }
+}
+
+.nav-toggle {
+
+    display: none;
+    order: -1;
+    width: var(--tab-width);
+    height: var(--tab-width);
+    border: none;
+    padding: 0em 4em 0em 0em;
+    background-color: colors.color("secondary");
+    margin-top: 50px;
+    transform: translateX(20px);
+    box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+
+    .icon-arrow {
+        transform: rotate(180deg) translateX(-7px) translateY(-3px) scale(0.9);
+        color: colors.color("text-contrast");
+
+        svg {
+            color: colors.color("text-contrast");
+        }
+
+        path {
+            color: colors.color("text-contrast");
+            -webkit-text-stroke-color: colors.color("text-contrast");
+        }
+    }
+}
+
+body[data-theme='dark'] {
+
+
+    .nav-toggle {
+        background-color: color-mix(in srgb, colors.color-dark("background") 75%, colors.color-dark("secondary") 25%);
+        color: colors.color-dark("text");
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.35);
+
+        .nav-toggle__line {
+            background-color: currentColor;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+}

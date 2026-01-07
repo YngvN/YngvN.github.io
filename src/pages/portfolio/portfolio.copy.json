@@ -1,0 +1,144 @@
+{
+  "en": {
+    "heading": "Portfolio",
+    "subheading": "Chosen work",
+    "intro": "Some of my work from studies, own projects, and experiments.",
+    "viewLive": "Live site",
+    "viewRepo": "Repository",
+    "projects": [
+      {
+        "id": "tiny-blanket-socks",
+        "name": "Tiny Blanket Socks",
+        "tag": "E-commerce",
+        "stack": ["wordpress"],
+        "liveUrl": "https://www.tinyblanketsocks.no/",
+        "description": "Client web store built on WordPress for selling cozy socks with a simple shopping flow."
+      },
+      {
+        "id": "personal-site",
+        "name": "YngvN.github.io",
+        "tag": "Portfolio",
+        "stack": ["react", "typescript", "sass", "vite"],
+        "liveUrl": "https://yngvn.github.io/#about",
+        "repoUrl": "https://github.com/YngvN/YngvN.github.io",
+        "description": "This website. Made as a digital resumé."
+      },
+      {
+        "id": "home-page-react",
+        "name": "Interactive Home Page",
+        "tag": "Landing experience",
+        "stack": ["react", "typescript", "sass", "bootstrap", "wordpress"],
+        "liveUrl": "https://home.nykas.me/",
+        "repoUrl": "https://github.com/YngvN/home-page-react",
+        "description": "Animated landing page with playful backgrounds and an interactive avatar that follows the cursor."
+      },
+      {
+        "id": "holidaze",
+        "name": "Holidaze",
+        "tag": "Booking platform",
+        "stack": ["react", "typescript", "sass"],
+        "liveUrl": "https://holidaze2025.netlify.app/",
+        "repoUrl": "https://github.com/YngvN/project-exam-2-resit",
+        "description": "Accommodation booking experience with listings, host tools, and responsive UI tuned for travelers."
+      },
+      {
+        "id": "auction-home",
+        "name": "Auction Home",
+        "tag": "Marketplace",
+        "stack": ["react", "typescript", "sass"],
+        "liveUrl": "https://auctionhome.netlify.app/",
+        "repoUrl": "https://github.com/YngvN/semester-project-2-resit",
+        "description": "Auction marketplace with authenticated bidding, listing creation, and modern UI polish."
+      },
+      {
+        "id": "store-thingy",
+        "name": "Store Thingy",
+        "tag": "E-commerce",
+        "stack": ["react", "typescript", "sass"],
+        "liveUrl": "https://storethingy.netlify.app/",
+        "repoUrl": "https://github.com/YngvN/javascript-frameworks-ca",
+        "description": "Headless storefront with product browsing, cart interactions, and responsive layouts."
+      },
+      {
+        "id": "fed-ca",
+        "name": "Gamehub",
+        "tag": "Game store",
+        "stack": ["javascript", "html", "css"],
+        "liveUrl": "https://charming-kataifi-bd9bdc.netlify.app/",
+        "repoUrl": "https://github.com/YngvN/FED-CA-HTML-CSS",
+        "description": "Game store prototype connected to RAWG API with randomized pricing and JS-driven catalog flow."
+      }
+    ]
+  },
+  "no": {
+    "heading": "Portefølje",
+    "subheading": "Utvalgt arbeid",
+    "intro": "Utvalgte prosjekter fra studier, egne prosjekter og eksperimenter.",
+    "viewLive": "Live-side",
+    "viewRepo": "Kode",
+    "projects": [
+      {
+        "id": "tiny-blanket-socks",
+        "name": "Tiny Blanket Socks",
+        "tag": "Nettbutikk",
+        "stack": ["wordpress"],
+        "liveUrl": "https://www.tinyblanketsocks.no/",
+        "description": "Kundenettbutikk bygget i WordPress for salg av sokker med enkel handleopplevelse."
+      },
+      {
+        "id": "personal-site",
+        "name": "YngvN.github.io",
+        "tag": "Portefølje",
+        "stack": ["react", "typescript", "sass", "vite"],
+        "liveUrl": "https://yngvn.github.io/#about",
+        "repoUrl": "https://github.com/YngvN/YngvN.github.io",
+        "description": "Denne nettsiden. Laget som et digitalt resumé."
+      },
+      {
+        "id": "home-page-react",
+        "name": "Interaktiv forside",
+        "tag": "Landingsopplevelse",
+        "stack": ["react", "typescript", "sass", "bootstrap", "wordpress"],
+        "liveUrl": "https://github.com/YngvN/home-page-react",
+        "repoUrl": "https://github.com/YngvN/home-page-react",
+        "description": "Animert landingsside med dynamiske bakgrunner og en interaktiv avatar som følger musepekeren."
+      },
+      {
+        "id": "holidaze",
+        "name": "Holidaze",
+        "tag": "Booking-plattform",
+        "stack": ["react", "typescript", "sass"],
+        "liveUrl": "https://holidaze2025.netlify.app/",
+        "repoUrl": "https://github.com/YngvN/project-exam-2-resit",
+        "description": "Bookingopplevelse for overnatting med lister, verktøy for verter og responsivt grensesnitt for reisende."
+      },
+      {
+        "id": "auction-home",
+        "name": "Auction Home",
+        "tag": "Markedsplass",
+        "stack": ["react", "typescript", "sass"],
+        "liveUrl": "https://app.netlify.com/projects/auctionhome/overview",
+        "repoUrl": "https://github.com/YngvN/semester-project-2-resit",
+        "description": "Auksjonsplattform med pålogging, budgivning og moderne brukeropplevelse."
+      },
+      {
+        "id": "store-thingy",
+        "name": "Store Thingy",
+        "tag": "Nettbutikk",
+        "stack": ["react", "typescript", "sass"],
+        "liveUrl": "https://storethingy.netlify.app/",
+        "repoUrl": "https://github.com/YngvN/javascript-frameworks-ca",
+        "description": "Butikkløsning med produktlisting, handlekurv og responsivt design."
+      },
+      {
+        "id": "fed-ca",
+        "name": "Gamehub",
+        "tag": "Spillbutikk",
+        "stack": ["javascript", "html", "css"],
+        "liveUrl": "https://charming-kataifi-bd9bdc.netlify.app/",
+        "repoUrl": "https://github.com/YngvN/FED-CA-HTML-CSS",
+        "description": "Spillbutikk bygget med JS, koblet mot RAWG API og randomiserte priser for alle spill."
+      }
+    ]
+  }
+}

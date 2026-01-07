@@ -1,0 +1,519 @@
+{
+  "en": {
+    "heading": "Resumé",
+    "subheading": "Frontend-developer",
+    "summary": "PROFILE: I hold a vocational degree in frontend development and have also studied electrical engineering at USN. In addition, I have 13 years of work experience in social professions, which I now want to apply to new projects. What drives me is trying out new technologies, designing innovative solutions, and debugging what Codex/AI produces. As a person, I am solution-oriented, able to work under pressure, and can take on a role of responsibility when needed. Although I lack directly relevant work experience, I am eager to learn and curious about most things.",
+    "softSkillsHeading": "Soft Skills",
+    "softSkills": [
+      "Solution-oriented",
+      "Results-driven",
+      "Structured",
+      "Creative",
+      "Patient",
+      "Eager to learn",
+      "Curious",
+      "Engaged"
+    ],
+    "hardSkillsHeading": "Hard Skills",
+    "hardSkills": [
+      "Debugging",
+      "HTML5",
+      "JavaScript",
+      "SCSS",
+      "TypeScript",
+      "Vite",
+      "React",
+      "Swift",
+      "Codex",
+      "VS Code",
+      "Xcode",
+      "Kanban"
+    ],
+    "sections": [
+      {
+        "id": "education",
+        "title": "OTHER EDUCATION",
+        "chosenTitle": "Chosen Education",
+        "chosenItemIds": [
+          "fe-vocational"
+        ],
+        "items": [
+          {
+            "id": "fe-vocational",
+            "title": "Frontend Development, Vocational Degree",
+            "institution": "Noroff",
+            "start": "August 2022",
+            "end": "May 2025",
+            "description": "Worked largely independently during my education, and participated in larger internal projects in the second year, with a focus on SEO.",
+            "skills": [
+              "React",
+              "WCAG",
+              "HTML5",
+              "SCSS",
+              "TypeScript",
+              "Adobe XD/Figma",
+              "API",
+              "Wordpress/CMS"
+            ]
+          },
+          {
+            "id": "electrical-engineering",
+            "title": "Electrical Engineering (TRES): Computer Science and Automation, DNF",
+            "institution": "Universitet i Sør-øst Norge (USN)",
+            "start": "August 2021",
+            "end": "May 2022",
+            "description": "Completed an intensive summer course in mathematics and physics to qualify for admission. Worked with both hardware and software. Enjoyed programming more than imaginary numbers, so I switched to a developer-focused education.",
+            "skills": [
+              "Python",
+              "C#",
+              "SQL"
+            ]
+          },
+          {
+            "id": "music-bachelor",
+            "title": "Music Teacher DNF",
+            "institution": "Western Norway University of Applied Sciences (Stord)",
+            "start": "August 2012",
+            "end": "February 2017",
+            "description": "Pedagogy, didactics, ensemble work, and larger productions such as concerts.",
+            "skills": [
+              "Cooporation",
+              "Pedagogy",
+              "Didactics",
+              "Logic Pro X",
+              "Various Instruments"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "work",
+        "title": "CHOSEN EXPERIENCE",
+        "chosenTitle": "Chosen Experience",
+        "chosenItemIds": [
+          "gardstunet"
+        ],
+        "items": [
+          {
+            "id": "gardstunet",
+            "title": "Kindergarten assistant",
+            "institution": "Gårdstunet Barnehage",
+            "start": "January 2025",
+            "end": "November 2025",
+            "description": "The kindergarten appreciated how skilled and engaged I was as a temporary worker from an agency, and hired me directly until I decided to start applying for IT jobs.",
+            "skills": [
+              "Pedagogy",
+              "Teamwork",
+              "Improvisation"
+            ]
+          },
+          {
+            "id": "student-buddy",
+            "title": "Student buddy and student council representative",
+            "institution": "Universitet i Sør-øst Norge m.fl.",
+            "start": "August 2012",
+            "end": "May 2022",
+            "description": "I served as a student buddy almost every year I studied, and was almost always elected as a student council representative. I received feedback that many wished they had had me as their student buddy."
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "title": "OTHER VOLUNTARY WORK",
+        "chosenTitle": "Chosen Volunteering",
+        "chosenItemIds": [
+          "musikklubb"
+        ],
+        "items": [
+          {
+            "id": "fadder",
+            "title": "Student mentor (Fadder)",
+            "start": "August 2013",
+            "end": "November 2023",
+            "description": "Served as a mentor almost every year I studied, often chosen as the student council representative; heard from several students that they wished they had me as a mentor."
+          },
+          {
+            "id": "studentraad",
+            "title": "Student council representative",
+            "start": "August 2012",
+            "end": "May 2023",
+            "description": "Elected to represent students across multiple study programs, ensuring their feedback reached faculty and administration."
+          },
+          {
+            "id": "musikklubb",
+            "title": "Founder and leader of a student organization",
+            "institution": "Universitet i Sør-øst Norge (USN)",
+            "start": "August 2021",
+            "end": "May 2022",
+            "description": "Founded the Music Club at USN. Acquired and operated equipment worth over NOK 100,000, and ran karaoke and quiz nights on a professional stage, coordinating stage crew and large audiences of more than 400 people.",
+            "skills": [
+              "Budgeting",
+              "Inclusion",
+              "Leadership",
+              "Coordination",
+              "Meeting coordination"
+            ]
+          },
+          {
+            "id": "festivo",
+            "title": "Conductor in Festivo",
+            "start": "September 2016",
+            "end": "September 2017",
+            "description": "Conducted a choir for people with developmental disabilities."
+          },
+          {
+            "id": "styremedlem",
+            "title": "Board member in student association",
+            "start": "March 2016",
+            "end": "August 2017",
+            "description": "Board member in the student welfare organization at HVL."
+          }
+        ]
+      },
+      {
+        "id": "work-other",
+        "title": "OTHER WORK EXPERIENCE",
+        "items": [
+          {
+            "id": "ulvenparken",
+            "title": "Childcare worker",
+            "institution": "Ulvenparken Barnehage",
+            "start": "September 2025",
+            "end": "November 2025",
+            "description": "Worked with toddlers and facility upkeep."
+          },
+          {
+            "id": "pvs-2024",
+            "title": "Childcare worker",
+            "institution": "Pedagogisk Vikarsentral AS",
+            "start": "March 2024",
+            "end": "November 2025",
+            "description": "Worked across multiple kindergartens with varied age groups and needs."
+          },
+          {
+            "id": "creer-omsorg",
+            "title": "Care assistant",
+            "institution": "Creer Omsorg AS",
+            "start": "April 2021",
+            "end": "January 2023",
+            "description": "Rotational care in a residence for a person with developmental disabilities."
+          },
+          {
+            "id": "rishaven-short",
+            "title": "Childcare worker",
+            "institution": "Rishaven Menighetsbarnehage",
+            "start": "December 2022",
+            "end": "December 2022",
+            "description": "Worked with children of varied ages and practical tasks."
+          },
+          {
+            "id": "lundetangen",
+            "title": "Barkeeper / Sound tech",
+            "institution": "Lundetangen Pub Drift AS",
+            "start": "July 2022",
+            "end": "October 2022",
+            "description": "Sound tech and audience support."
+          },
+          {
+            "id": "lundedalen",
+            "title": "Childcare worker",
+            "institution": "Lundedalen Barnehage",
+            "start": "August 2020",
+            "end": "June 2021",
+            "description": "Worked with various age groups."
+          },
+          {
+            "id": "rishaven-2020",
+            "title": "Childcare worker",
+            "institution": "Rishaven Menighetsbarnehage",
+            "start": "August 2019",
+            "end": "August 2020"
+          },
+          {
+            "id": "pvs-2019",
+            "title": "Childcare worker",
+            "institution": "Pedagogisk Vikarsentral AS",
+            "start": "June 2018",
+            "end": "June 2019"
+          },
+          {
+            "id": "steinspranget",
+            "title": "Childcare worker",
+            "institution": "Steinspranget Barnehage",
+            "start": "January 2018",
+            "end": "May 2018"
+          },
+          {
+            "id": "stord-kommune",
+            "title": "Support worker (care services)",
+            "institution": "Stord kommune Åsen bustader",
+            "start": "December 2012",
+            "end": "December 2017",
+            "description": "Residence for people with disabilities; music and activities to enrich daily life."
+          },
+          {
+            "id": "gjerpen",
+            "title": "Primary school teacher",
+            "institution": "Gjerpen barneskole",
+            "start": "February 2014",
+            "end": "June 2014"
+          }
+        ]
+      }
+    ]
+  },
+  "no": {
+    "heading": "CV",
+    "subheading": "Frontend-utvikler",
+    "summary": "Jeg har fagbrev innen frontend-utvikling, samt studert elektro-ingeniør ved USN. I tillegg har jeg 13 års arbeidserfaring innenfor sosiale jobber som jeg nå vil bruke i nye prosjekter. Det som driver meg er å prøve nye teknologier, lage innovative løsninger, og feilsøke det Codex hjelper meg med. Som person er jeg løsningsorientert, klarer å jobbe under press, og kan ta en lederrolle når det trengs. Selv om jeg mangler relevant jobberfaring, er jeg lærevillig og nysgjerrig på det meste.",
+    "softSkillsHeading": "Personlige egenskaper",
+    "softSkills": [
+      "Løsnings-orientert",
+      "Resultat-styrt",
+      "Strukturert",
+      "Kreativ",
+      "Tålmodig",
+      "Lærevillig",
+      "Nysgjerrig",
+      "Engasjert"
+    ],
+    "hardSkillsHeading": "Ferdigheter",
+    "hardSkills": [
+      "Feilsøking",
+      "HTML5",
+      "JavaScript",
+      "SCSS",
+      "TypeScript",
+      "Vite",
+      "React",
+      "Swift",
+      "Codex",
+      "VSC",
+      "Xcode",
+      "KanBan"
+    ],
+    "sections": [
+      {
+        "id": "education",
+        "title": "ANNEN UTDANNING",
+        "chosenTitle": "Utvalgt utdanning",
+        "chosenItemIds": [
+          "fe-vocational"
+        ],
+        "items": [
+          {
+            "id": "fe-vocational",
+            "title": "Fagbrev i Frontend utvikling",
+            "institution": "Noroff",
+            "start": "August 2022",
+            "end": "Mai 2025",
+            "description": "Jobbet mye selvstendig under utdanningen, var med på større interne prosjekter i andre året, med fokus på SEO. Lærte om prototyper med XD og Figma, arbeidsmetodikk som Gantt, og jobbet med rammeverk som React og Bootstrap.",
+            "skills": [
+              "React",
+              "WCAG",
+              "HTML5",
+              "SCSS",
+              "TypeScript",
+              "Adobe XD/Figma",
+              "API",
+              "Wordpress/CMS"
+            ]
+          },
+          {
+            "id": "electrical-engineering",
+            "title": "Elektro ingeniør I/F",
+            "institution": "Universitetet i Sør-øst Norge",
+            "start": "August 2021",
+            "end": "Mai 2022",
+            "description": "Jobbet med både hardware og software. Likte programmering mer enn imaginære tall, så byttet til utvikler-utdanning. Her lærte jeg om Python, C#, og SQL programmering.",
+            "skills": [
+              "Python",
+              "C#",
+              "SQL"
+            ]
+          },
+          {
+            "id": "music-bachelor",
+            "title": "Faglærer i musikk I/F",
+            "institution": "Høgskolen på Vestlandet, Campus Stord",
+            "start": "August 2012",
+            "end": "Februar 2017",
+            "description": "Pedagogikk og didaktikk, samspill og prosjektarbeid som konserter og produksjoner.",
+            "skills": [
+              "Samarbeid",
+              "Pedagogikk",
+              "Didaktikk",
+              "Logic Pro X",
+              "Ulike instrumenter"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "work",
+        "title": "UTVALGT ARBEIDSERFARING",
+        "chosenTitle": "Utvalgt erfaring",
+        "chosenItemIds": [
+          "gardstunet"
+        ],
+        "items": [
+          {
+            "id": "gardstunet",
+            "title": "Barnehageassistent",
+            "institution": "Gårdstunet Barnehage",
+            "start": "Januar 2025",
+            "end": "November 2025",
+            "description": "Fast over lengre periode, både pedagogisk arbeid og praktisk forbedring av barnehagen.",
+            "skills": [
+              "Pedagogikk",
+              "Teamarbeid",
+              "Improvisasjon"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "title": "ANNET FRIVILLIG ARBEID",
+        "chosenTitle": "Utvalgt frivillig arbeid",
+        "chosenItemIds": [
+          "musikklubb"
+        ],
+        "items": [
+          {
+            "id": "fadder",
+            "title": "Fadder",
+            "start": "August 2013",
+            "end": "November 2023",
+            "description": "Var fadder nesten hvert år jeg har studert, og ble nesten alltid valgt som studentrådsrepresentant. Fikk tilbakemeldinger på at flere ønsket at de hadde meg som fadder."
+          },
+          {
+            "id": "studentraad",
+            "title": "Studentrådsrepresentant",
+            "start": "August 2012",
+            "end": "Mai 2023",
+            "description": "Valgt til å representere studenter i flere studieløp, og sørget for at tilbakemeldinger nådde faglærere og administrasjon."
+          },
+          {
+            "id": "musikklubb",
+            "title": "Stifter og leder for studentforening",
+            "start": "August 2021",
+            "end": "Mai 2022",
+            "description": "Grunnla Musikklubben ved USN. Anskaffet og driftet utstyr for over 100 000 kr, samt drev karaokekvelder på profesjonell scene hvor jeg koordinerte scenearbeidere og publikum på over 400 personer.",
+            "skills": [
+              "Budsjettering",
+              "Inkludering",
+              "Ledelse",
+              "Koordinering",
+              "Møtekoordinering"
+            ]
+          },
+          {
+            "id": "festivo",
+            "title": "Dirigent i Festivo",
+            "start": "September 2016",
+            "end": "September 2017",
+            "description": "Dirigerte kor for utviklingshemmede."
+          },
+          {
+            "id": "styremedlem",
+            "title": "Styremedlem i studentforening",
+            "start": "Mars 2016",
+            "end": "August 2017",
+            "description": "Styremedlem i Studentsamskipnaden ved HVL."
+          }
+        ]
+      },
+      {
+        "id": "work-other",
+        "title": "ANNEN ARBEIDSERFARING",
+        "items": [
+          {
+            "id": "ulvenparken",
+            "title": "Barnehageassistent",
+            "institution": "Ulvenparken Barnehage",
+            "start": "September 2025",
+            "end": "November 2025",
+            "description": "Arbeid med småbarn og vedlikehold av barnehagen."
+          },
+          {
+            "id": "pvs-2024",
+            "title": "Barnehageassistent",
+            "institution": "Pedagogisk Vikarsentral AS",
+            "start": "Mars 2024",
+            "end": "November 2025",
+            "description": "Jobbet i flere barnehager med ulike aldersgrupper og behov."
+          },
+          {
+            "id": "creer-omsorg",
+            "title": "Helseinstitusjonsassistent",
+            "institution": "Creer Omsorg AS",
+            "start": "April 2021",
+            "end": "Januar 2023",
+            "description": "Turnusarbeid i bolig for utviklingshemmet person."
+          },
+          {
+            "id": "rishaven-short",
+            "title": "Barnehageassistent",
+            "institution": "Rishaven Menighetsbarnehage",
+            "start": "Desember 2022",
+            "end": "Desember 2022",
+            "description": "Arbeidet med barn i ulike aldersgrupper og praktiske oppgaver."
+          },
+          {
+            "id": "lundetangen",
+            "title": "Barkeeper",
+            "institution": "Lundetangen Pub Drift AS",
+            "start": "Juli 2022",
+            "end": "Oktober 2022",
+            "description": "Lydtekniker og publikumsstøtte."
+          },
+          {
+            "id": "lundedalen",
+            "title": "Barnehageassistent",
+            "institution": "Lundedalen Barnehage",
+            "start": "August 2020",
+            "end": "Juni 2021",
+            "description": "Arbeidet med ulike aldersgrupper."
+          },
+          {
+            "id": "rishaven-2020",
+            "title": "Barnehageassistent",
+            "institution": "Rishaven Menighetsbarnehage",
+            "start": "August 2019",
+            "end": "August 2020"
+          },
+          {
+            "id": "pvs-2019",
+            "title": "Barnehageassistent",
+            "institution": "Pedagogisk Vikarsentral AS",
+            "start": "Juni 2018",
+            "end": "Juni 2019"
+          },
+          {
+            "id": "steinspranget",
+            "title": "Barnehageassistent",
+            "institution": "Steinspranget Barnehage",
+            "start": "Januar 2018",
+            "end": "Mai 2018"
+          },
+          {
+            "id": "stord-kommune",
+            "title": "Miljøassistent (helse- og sosialtjenester)",
+            "institution": "Stord kommune Åsen bustader",
+            "start": "Desember 2012",
+            "end": "Desember 2017",
+            "description": "Bolig for utviklingshemmede; musikk og aktiviteter for å berike hverdagen."
+          },
+          {
+            "id": "gjerpen",
+            "title": "Lærer (grunnskole)",
+            "institution": "Gjerpen barneskole",
+            "start": "Februar 2014",
+            "end": "Juni 2014"
+          }
+        ]
+      }
+    ]
+  }
+}

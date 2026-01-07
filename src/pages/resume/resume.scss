@@ -11,6 +11,9 @@
     margin-bottom: 1.5rem;
 }
 
+.resume__skills-group--hard {
+    display: none;
+}
 .resume__skills-list {
     display: flex;
     flex-wrap: wrap;
@@ -22,7 +25,6 @@
 
 .resume__skill {
     border: 1px solid rgba(colors.color('text'), 0.12);
-    border-radius: 999px;
     padding: 0.4rem 0.75rem;
     background: rgba(colors.color('text'), 0.02);
     font-weight: fonts.$font-weight-medium;
@@ -42,7 +44,32 @@
     display: block;
     margin: 0 0 0.5rem;
     font-size: 1.35rem;
-    @include fonts.apply-heading-font($weight: fonts.$font-weight-bold, $color: colors.color('text'));
+    text-transform: uppercase;
+    @include fonts.apply-heading-font($weight: fonts.$font-weight-bold, $color: colors.color('title'));
+}
+
+.resume-section__title::first-letter {
+    font-size: 1.15em;
+    font-weight: fonts.$font-weight-bold;
+}
+
+.resume-section__chosen-title {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(colors.color('text'), 0.7);
+}
+
+.resume__chosen {
+    display: grid;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.resume__chosen-block {
+    padding: 0.5rem 0 0.75rem;
+    border-bottom: 1px solid rgba(colors.color('text'), 0.08);
 }
 
 .resume-group {
@@ -64,14 +91,12 @@
 .resume-section__list {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    border-left: 2px solid rgba(colors.color('text'), 0.08);
-    padding-left: 0.85rem;
+    gap: 1rem;
 }
 
 .resume-card {
-    border-bottom: 1px solid rgba(colors.color('text'), 0.12);
-    padding: 0.9rem 1rem;
+    border-left: 1px solid rgba(colors.color('text'), 0.12);
+    padding-left: .75rem;
     background: transparent;
     box-shadow: none;
 }
@@ -91,7 +116,7 @@
 
 .resume-card__title {
     font-weight: 600;
-    color: colors.color('text');
+    color: colors.color('title');
 }
 
 .resume-card__dates {
@@ -104,6 +129,7 @@
     font-size: 0.95rem;
     opacity: 0.9;
     color: rgba(colors.color('text'), 0.85);
+    font-style: italic;
 }
 
 .resume-card__description {
@@ -112,10 +138,45 @@
     color: rgba(colors.color('text'), 0.9);
 }
 
+.resume-card__skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0.4rem 0 0;
+    list-style: none;
+}
+
+.resume-card__skill {
+    padding: 0.35rem 0.6rem;
+    background: colors.color('secondary');
+    color: colors.color('text-contrast');
+    font-size: 0.70rem;
+    letter-spacing: 0.01em;
+}
+
 @media (max-width: 640px) {
     .resume-card__header {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+@media (min-width: 900px) {
+    .resume__chosen {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .resume__chosen-block {
+        border-bottom: none;
+        border-right: 1px solid rgba(colors.color('text'), 0.08);
+        padding: 0 1.25rem 0.5rem 0;
+    }
+
+    .resume__chosen-block:last-child {
+        border-right: none;
+        padding-right: 0;
     }
 }
 
@@ -159,7 +220,7 @@ body[data-theme='dark'] {
     }
 
     .resume-card__title {
-        color: colors.color-dark('text');
+        color: colors.color-dark('title');
     }
 
     .resume-card__dates,
@@ -168,8 +229,28 @@ body[data-theme='dark'] {
         color: rgba(colors.color-dark('text'), 0.9);
     }
 
+    .resume-card__skill {
+        background: colors.color-dark('secondary');
+        color: colors.color-dark('text-contrast');
+    }
+
     .resume-group__title {
         color: rgba(colors.color-dark('text'), 0.8);
+    }
+
+    .resume-section__chosen-title {
+        color: rgba(colors.color-dark('text'), 0.7);
+    }
+
+    .resume__chosen-block {
+        border-bottom: 1px solid rgba(colors.color-dark('text'), 0.14);
+    }
+
+    @media (min-width: 900px) {
+        .resume__chosen-block {
+            border-bottom: none;
+            border-right: 1px solid rgba(colors.color-dark('text'), 0.14);
+        }
     }
 
     .resume-divider {
@@ -177,6 +258,6 @@ body[data-theme='dark'] {
     }
 
     .resume h2 {
-        color: colors.color-dark('text');
+        color: colors.color-dark('title');
     }
 }

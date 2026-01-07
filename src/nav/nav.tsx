@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FC } from 'react';
 import type { PageName } from '../types/pages';
-import avatarImage from '../assets/images/meg.jpg';
+import avatarImage from '../assets/images/me/Meg_hel.png';
 import type { Language } from '../types/language';
 import type { Theme } from '../types/theme';
 import Toggler from '../components/toggler/toggler';
