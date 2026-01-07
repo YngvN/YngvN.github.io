@@ -488,14 +488,11 @@ export function applyPixelWriterText(rawText: string) {
 
     const pixels = buildInnerPixelMap();
     const coords = makePixelCoords(text, grid.cols, grid.rows, align);
-    const midSquares = new Set<HTMLElement>();
     const programLabel = text.toUpperCase();
 
     coords.forEach((coord) => {
         const pixel = pixels.get(coord);
         if (!pixel) return;
-        const midSquare = pixel.closest<HTMLElement>('.mid-square');
-        if (midSquare) midSquares.add(midSquare);
         pixel.setAttribute(PROGRAM_ATTR, programLabel);
         delete pixel.dataset.sheetHoldUntil;
         pixel.style.opacity = '1';
@@ -503,19 +500,5 @@ export function applyPixelWriterText(rawText: string) {
         pixel.style.removeProperty('animation');
         pixel.style.removeProperty('--hold-color');
         pixel.style.removeProperty('--hold-shadow');
-    });
-
-    midSquares.forEach((midSquare) => {
-        midSquare.setAttribute('data-music-player-program-mid', 'true');
-        midSquare.style.removeProperty('animation');
-        midSquare.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
-            delete pixel.dataset.sheetHoldUntil;
-            pixel.style.removeProperty('animation');
-            pixel.style.removeProperty('--hold-color');
-            pixel.style.removeProperty('--hold-shadow');
-            if (!pixel.hasAttribute(PROGRAM_ATTR)) {
-                pixel.style.opacity = '0';
-            }
-        });
     });
 }

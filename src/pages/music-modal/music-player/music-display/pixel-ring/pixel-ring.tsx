@@ -33,25 +33,13 @@ const PixelRing: React.FC = () => {
 
         const pixels = buildInnerPixelMap();
         const coords = makeBorderRingCoords(grid.cols, grid.rows);
-        const midSquares = new Set<HTMLElement>();
 
         coords.forEach((coord) => {
             const pixel = pixels.get(coord);
             if (!pixel) return;
-            const midSquare = pixel.closest<HTMLElement>('.mid-square');
-            if (midSquare) midSquares.add(midSquare);
             pixel.setAttribute(PROGRAM_ATTR, 'ring');
             pixel.style.opacity = '1';
             pixel.classList.add('pixel');
-        });
-
-        midSquares.forEach((midSquare) => {
-            midSquare.setAttribute('data-music-player-program-mid', 'true');
-            midSquare.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
-                if (!pixel.hasAttribute(PROGRAM_ATTR)) {
-                    pixel.style.opacity = '0';
-                }
-            });
         });
     }, [enabled]);
 

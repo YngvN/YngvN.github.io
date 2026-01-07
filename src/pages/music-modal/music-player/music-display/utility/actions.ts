@@ -46,7 +46,7 @@ function getAnimatableInnerSquares() {
     if (!layer) return [];
     return Array.from(
         layer.querySelectorAll<HTMLElement>(
-            '.mid-square:not([data-music-player-program-mid]) .inner-square:not([data-music-player-program])',
+            '.mid-square .inner-square:not([data-music-player-program])',
         ),
     );
 }
@@ -56,7 +56,7 @@ function getActiveNeighborInnerSquares() {
     if (!layer) return [];
     const midSquares = new Set<HTMLElement>();
     layer
-        .querySelectorAll<HTMLElement>('.mid-square:not([data-music-player-program-mid]) .inner-square.pixel')
+        .querySelectorAll<HTMLElement>('.mid-square .inner-square.pixel')
         .forEach((pixel) => {
             const mid = pixel.closest<HTMLElement>('.mid-square');
             if (mid) midSquares.add(mid);

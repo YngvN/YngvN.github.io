@@ -57,10 +57,4 @@ export function clearProgramPixels() {
         pixel.classList.remove('pixel');
         pixel.removeAttribute(PROGRAM_ATTR);
     });
-    layer.querySelectorAll<HTMLElement>('.mid-square[data-music-player-program-mid]').forEach((mid) => {
-        mid.querySelectorAll<HTMLElement>('.inner-square').forEach((pixel) => {
-            pixel.style.opacity = '0';
-        });
-        mid.removeAttribute('data-music-player-program-mid');
-    });
 }
