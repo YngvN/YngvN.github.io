@@ -69,13 +69,6 @@
         text-wrap: nowrap;
     }
 
-    &__title {
-        margin: 0;
-        font-size: 1.2rem;
-        font-weight: fonts.$font-weight-bold;
-        color: colors.color('text');
-    }
-
     &__description {
         margin: 0;
         color: rgba(colors.color('text'), 0.85);
@@ -146,10 +139,6 @@ body[data-theme='dark'] {
     .project-card__tag {
         background: rgba(99, 102, 241, 0.15);
         color: #c7d2fe;
-    }
-
-    .project-card__title {
-        color: colors.color-dark('text');
     }
 
     .project-card__description {

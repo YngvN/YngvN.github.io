@@ -56,7 +56,7 @@
         flex-shrink: 0;
         overflow: hidden;
         min-height: max-content;
-        transition: max-height 0.45s ease, padding 0.45s ease;
+        transition: opacity 0.35s ease;
 
 
 
@@ -157,7 +157,7 @@
         color: colors.color("text-contrast");
         max-height: 120px;
         overflow: hidden;
-        transition: opacity 0.35s ease, transform 0.35s ease, max-height 0.45s ease, padding 0.45s ease;
+        transition: opacity 0.35s ease;
     }
 
 }
@@ -168,8 +168,7 @@ body[data-about-active='true'][data-about-section='0'] .navbar-brand img.nav-ava
 }
 
 body[data-about-active='true'][data-about-section='0'] .navbar-brand {
-    max-height: 0;
-    padding-top: 0;
+    opacity: 0;
 }
 
 body[data-about-active='true'][data-about-section='0'] .navbar {
@@ -179,9 +178,6 @@ body[data-about-active='true'][data-about-section='0'] .navbar {
 
 body[data-about-active='true'][data-about-section='0'] .nav-description {
     opacity: 0;
-    transform: translateY(-10px);
-    max-height: 0;
-    padding-bottom: 0;
 }
 
 body[data-theme='dark'] {

@@ -34,7 +34,7 @@ const ResumeSections = ({ sections, openSections, onToggleSection, onSectionClic
                         aria-expanded={isOpen}
                         aria-controls={`${id}-content`}
                     >
-                        <span className="dropdown-title resume-section__title">{title}</span>
+                        <h3 className="dropdown-title resume-section__title">{title}</h3>
                         <Arrow direction="down" open={isOpen} size="sm" className="dropdown-toggle__chevron" />
                     </button>
                     <div

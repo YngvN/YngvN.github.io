@@ -19,7 +19,7 @@ const DeveloperContent: React.FC<DeveloperContentProps> = ({ intro, tiles }) => 
         <div className="tech-tiles">
             {tiles.map(({ id, title, technologies }) => (
                 <div className="tech-tile" key={id}>
-                    <h3>{title}</h3>
+                    <h3 className='dropdown-title'>{title}</h3>
                     <TechLogoGrid technologies={technologies} keyPrefix={id} />
                 </div>
             ))}

@@ -62,6 +62,19 @@ body[data-theme='dark'] {
     color: colors.color-dark("text");
 }
 
+h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    font-weight: fonts.$font-weight-regular;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(colors.color('text'), 0.7);
+}
+
+body[data-theme='dark'] h3 {
+    color: rgba(colors.color-dark('text'), 0.7);
+}
+
 .language-fade {
     animation: languageFade 0.25s ease;
 }
