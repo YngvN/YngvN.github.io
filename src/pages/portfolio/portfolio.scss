@@ -1,20 +1,28 @@
 @use '../../assets/sass/colors' as colors;
 @use '../../assets/sass/fonts' as fonts;
 
-.portfolio__intro {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
-    margin-bottom: 2.25rem;
-}
+.portfolio {
+    &__intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        margin-bottom: 2.25rem;
+    }
 
-.portfolio__lede {
-    max-width: 760px;
-    margin: 0.5rem 0 0;
-    font-size: 1.05rem;
-    line-height: 1.65;
-    color: rgba(colors.color('text'), 0.9);
+    &__lede {
+        max-width: 760px;
+        margin: 0.5rem 0 0;
+        font-size: 1.05rem;
+        line-height: 1.65;
+        color: rgba(colors.color('text'), 0.9);
+    }
+
+    &__grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+    }
 }
 
 .eyebrow {
@@ -32,101 +40,93 @@
     margin: 0 0 0.35rem;
 }
 
-.portfolio__grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-}
-
 .project-card {
     padding: 1.8rem 1.35rem 1.35rem;
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
-}
 
-.project-card__top {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0.45rem;
-}
-
-.project-card__tag {
-    align-self: flex-start;
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
-    background: rgba(59, 130, 246, 0.08);
-    color: #1d4ed8;
-    font-weight: fonts.$font-weight-bold;
-    font-size: 0.88rem;
-    letter-spacing: 0.01em;
-    text-wrap: nowrap;
-}
-
-.project-card__title {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: fonts.$font-weight-bold;
-    color: colors.color('text');
-}
-
-.project-card__description {
-    margin: 0;
-    color: rgba(colors.color('text'), 0.85);
-    line-height: 1.6;
-}
-
-.project-card__stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    .tech-logo-grid {
+    &__top {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0.45rem;
+    }
+
+    &__tag {
+        align-self: flex-start;
+        padding: 0.25rem 0.65rem;
+        border-radius: 999px;
+        background: rgba(59, 130, 246, 0.08);
+        color: #1d4ed8;
+        font-weight: fonts.$font-weight-bold;
+        font-size: 0.88rem;
+        letter-spacing: 0.01em;
+        text-wrap: nowrap;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: fonts.$font-weight-bold;
+        color: colors.color('text');
+    }
+
+    &__description {
+        margin: 0;
+        color: rgba(colors.color('text'), 0.85);
+        line-height: 1.6;
+    }
+
+    &__stack {
+        display: flex;
+        flex-direction: column;
         gap: 0.5rem;
+
+        .tech-logo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-logo {
+            padding: 0;
+            gap: 0.35rem;
+        }
+
+        .tech-logo__label {
+            display: none;
+        }
+
+        .tech-logo__badge {
+            width: 20px !important;
+            height: 20px !important;
+            font-size: 0.66rem;
+            padding: 0;
+        }
+
+        .tech-logo__img {
+            width: 20px !important;
+        }
     }
 
-    .tech-logo {
-        padding: 0;
+    &__links {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: auto;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    &__stack-label {
+        display: inline-flex;
+        align-items: center;
         gap: 0.35rem;
+        font-size: 0.9rem;
+        font-weight: fonts.$font-weight-medium;
+        color: rgba(colors.color('text'), 0.75);
     }
-
-    .tech-logo__label {
-        display: none;
-    }
-
-    .tech-logo__badge {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 0.66rem;
-        padding: 0;
-    }
-
-
-
-    .tech-logo__img {
-        width: 20px !important;
-    }
-}
-
-.project-card__links {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: auto;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    width: 100%;
-}
-
-.project-card__stack-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.9rem;
-    font-weight: fonts.$font-weight-medium;
-    color: rgba(colors.color('text'), 0.75);
 }
 
 body[data-theme='dark'] {
