@@ -21,65 +21,69 @@ const AboutActions = ({
     openSections,
     onToggleSection,
     renderCategoryContent,
-}: AboutActionsProps) => (
-    <>
-        {buttons.length > 0 ? (
-            <div className="about-cta">
-                {buttons.map(({ label, page, variant }) => (
-                    <button
-                        key={page}
-                        type="button"
-                        className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
-                        onClick={() => onNavigateTo(page)}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-        ) : null}
-        <DropdownContainer>
-            {categoryDefinitions.map(({ id }) => {
-                const { title, description } = categoryInfo[id];
-                const isOpen = openSections[id];
+}: AboutActionsProps) => {
+    const hasOpen = categoryDefinitions.some(({ id }) => openSections[id]);
 
-                return (
-                    <section
-                        key={id}
-                        className={`dropdown-panel container${isOpen ? ' open' : ''}`}
-                        onClick={() => {
-                            if (isOpen) {
-                                onToggleSection(id);
-                            }
-                        }}
-                    >
+    return (
+        <>
+            {buttons.length > 0 ? (
+                <div className="about-cta">
+                    {buttons.map(({ label, page, variant }) => (
                         <button
+                            key={page}
                             type="button"
-                            className="dropdown-toggle"
-                            onClick={(event) => {
-                                event.stopPropagation();
-                                onToggleSection(id);
-                            }}
-                            aria-expanded={isOpen}
-                            aria-controls={`${id}-content`}
+                            className={`btn btn-${variant === 'primary' ? 'primary' : 'secondary'}`}
+                            onClick={() => onNavigateTo(page)}
                         >
-                            <div>
-                                <span className="dropdown-title">{title}</span>
-                                <span className="dropdown-description">{description}</span>
-                            </div>
-                            <Arrow direction="down" open={isOpen} size="sm" className="dropdown-toggle__chevron" />
+                            {label}
                         </button>
-                        <div
-                            id={`${id}-content`}
-                            className={`dropdown-content${isOpen ? ' expanded' : ''}`}
-                            aria-live="polite"
+                    ))}
+                </div>
+            ) : null}
+            <DropdownContainer className={hasOpen ? 'dropdown-container--focus' : undefined}>
+                {categoryDefinitions.map(({ id }) => {
+                    const { title, description } = categoryInfo[id];
+                    const isOpen = openSections[id];
+
+                    return (
+                        <section
+                            key={id}
+                            className={`dropdown-panel container${isOpen ? ' open' : ''}`}
+                            onClick={() => {
+                                if (isOpen) {
+                                    onToggleSection(id);
+                                }
+                            }}
                         >
-                            {renderCategoryContent(id)}
-                        </div>
-                    </section>
-                );
-            })}
-        </DropdownContainer>
-    </>
-);
+                            <button
+                                type="button"
+                                className="dropdown-toggle"
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    onToggleSection(id);
+                                }}
+                                aria-expanded={isOpen}
+                                aria-controls={`${id}-content`}
+                            >
+                                <div>
+                                    <span className="dropdown-title">{title}</span>
+                                    <span className="dropdown-description">{description}</span>
+                                </div>
+                                <Arrow direction="down" open={isOpen} size="sm" className="dropdown-toggle__chevron" />
+                            </button>
+                            <div
+                                id={`${id}-content`}
+                                className={`dropdown-content${isOpen ? ' expanded' : ''}`}
+                                aria-live="polite"
+                            >
+                                {renderCategoryContent(id)}
+                            </div>
+                        </section>
+                    );
+                })}
+            </DropdownContainer>
+        </>
+    );
+};
 
 export default AboutActions;

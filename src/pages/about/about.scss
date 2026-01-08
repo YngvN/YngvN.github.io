@@ -34,6 +34,10 @@
     color: currentColor !important;
 }
 
+.about-page .dropdown-container--focus .dropdown-panel:not(.open) {
+    display: none;
+}
+
 
 
 .tech-tiles {

@@ -137,8 +137,12 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                     const isLast = index === paragraphBlocks.length - 1;
                     const nextIndex = (index + 1) % paragraphBlocks.length;
                     const navLabel = isLast ? aboutNavLabels[language].backToTop : aboutNavLabels[language].next;
+                    const hasOpenSection = Object.values(openSections).some(Boolean);
                     return (
-                        <div className="about-paragraph about-snap" key={index}>
+                        <div
+                            className={`about-paragraph about-snap${isLast && hasOpenSection ? ' about-paragraph--hide-text' : ''}`}
+                            key={index}
+                        >
                             {!isFirst ? (
                                 <button
                                     type="button"

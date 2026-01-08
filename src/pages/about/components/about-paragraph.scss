@@ -13,6 +13,20 @@
 
     p {
         margin: 0;
+        opacity: 1;
+        max-height: 100vh;
+        overflow: visible;
+        transition: opacity 0.25s ease;
+    }
+}
+
+.about-paragraph--hide-text {
+    > p {
+        opacity: 0;
+        pointer-events: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: none;
     }
 }
 
