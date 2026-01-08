@@ -4,6 +4,7 @@ import Portfolio from '../pages/portfolio/portfolio';
 import Resume from '../pages/resume/resume';
 import Contact from '../pages/contact/contact';
 import '../assets/styles.scss';
+import './page-display.scss';
 import type { PageName } from '../types/pages';
 import type { Language } from '../types/language';
 

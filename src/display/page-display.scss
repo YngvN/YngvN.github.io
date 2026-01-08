@@ -1,0 +1,99 @@
+.page-display {
+    display: flex;
+    min-width: 0;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 1rem;
+    position: relative;
+    transition: transform 0.35s ease;
+    transform: translateX(0);
+}
+
+.page-stack {
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.page-card {
+    background: transparent;
+    position: relative;
+}
+
+.page-card--exit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    animation: page-slide-out 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.page-card--enter.animating {
+    animation: page-slide-in 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.page-card--exit.rtl {
+    animation: page-slide-out-rtl 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.page-card--enter.animating.rtl {
+    animation: page-slide-in-rtl 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes page-slide-in {
+    from {
+        transform: translateX(-120%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes page-slide-out {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
+
+@keyframes page-slide-in-rtl {
+    from {
+        transform: translateX(120%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes page-slide-out-rtl {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-120%);
+    }
+}
+
+@media (max-width: 768px) {
+    .page-display {
+        padding-top: 0rem;
+    }
+}
+
+.nav-shell.open~.app-shell .page-display {
+    transform: translateX(-18px);
+}
