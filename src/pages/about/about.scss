@@ -43,19 +43,19 @@
 .tech-tiles {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
+    gap: .2rem;
     margin-top: 1.5rem;
 }
 
 .tech-tile {
     border: 1px solid rgba(colors.color('text'), 0.05);
     border-radius: 16px;
-    padding: 1rem;
+    padding: .5rem;
     box-shadow: 0 10px 10px rgba(colors.color('text'), 0.05);
 
     h3 {
         margin: 0 0 0.75rem;
-        font-size: 1.05rem;
+        font-size: .8rem;
     }
 }
 
