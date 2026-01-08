@@ -68,7 +68,7 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
         })
         .filter((block): block is { id: string; chosenTitle: string; items: ResumeItem[] } => Boolean(block));
 
-    const dropdownSections = sections.filter(({ id }) => !(language === 'no' && id === 'work'));
+    const dropdownSections = sections.filter(({ id }) => id !== 'work');
 
     return (
         <>

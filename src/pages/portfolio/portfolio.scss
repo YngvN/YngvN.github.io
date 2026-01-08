@@ -47,7 +47,8 @@
 
 .project-card__top {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 0.45rem;
 }
 
@@ -60,6 +61,7 @@
     font-weight: fonts.$font-weight-bold;
     font-size: 0.88rem;
     letter-spacing: 0.01em;
+    text-wrap: nowrap;
 }
 
 .project-card__title {
@@ -87,7 +89,7 @@
     }
 
     .tech-logo {
-        padding: 0.25rem 0.35rem;
+        padding: 0;
         gap: 0.35rem;
     }
 
@@ -96,18 +98,16 @@
     }
 
     .tech-logo__badge {
-        width: 30px;
-        height: 30px;
-        font-size: 0.72rem;
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 0.66rem;
+        padding: 0;
     }
 
-    .tech-logo__badge--image {
-        padding: 6px;
-    }
+
 
     .tech-logo__img {
-        width: 16px;
-        height: 16px;
+        width: 20px !important;
     }
 }
 
@@ -161,5 +161,13 @@ body[data-theme='dark'] {
     .portfolio__intro {
         flex-direction: column;
         gap: 1rem;
+    }
+}
+
+@media (min-width: 960px) {
+    .portfolio__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.4rem;
     }
 }

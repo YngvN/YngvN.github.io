@@ -44,8 +44,19 @@ const Display: FC<DisplayProps> = ({ currentPage, language, transitionDirection,
 
     useEffect(() => {
         if (!outgoingPage) return;
-        const timer = window.setTimeout(() => setOutgoingPage(null), 400);
-        return () => window.clearTimeout(timer);
+        const root = document.documentElement;
+        root.classList.add('page-transitioning');
+        document.body.classList.add('page-transitioning');
+        const timer = window.setTimeout(() => {
+            root.classList.remove('page-transitioning');
+            document.body.classList.remove('page-transitioning');
+            setOutgoingPage(null);
+        }, 450);
+        return () => {
+            window.clearTimeout(timer);
+            root.classList.remove('page-transitioning');
+            document.body.classList.remove('page-transitioning');
+        };
     }, [outgoingPage]);
 
     return (

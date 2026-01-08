@@ -56,8 +56,8 @@ const Portfolio: React.FC<PortfolioProps> = ({ language, onNavigate }) => {
                     {projects.map(({ id, name, tag, stack, description, liveUrl, repoUrl }) => (
                         <article className="project-card surface-card" key={id}>
                             <div className="project-card__top">
-                                <span className="project-card__tag">{tag}</span>
                                 <h3 className="project-card__title">{name}</h3>
+                                <span className="project-card__tag">{tag}</span>
                             </div>
                             <p className="project-card__description">{description}</p>
                             <div className="project-card__stack">

@@ -12,6 +12,11 @@ html {
     scrollbar-color: rgba(colors.color('text'), 0.45) transparent;
 }
 
+html.page-transitioning {
+    overflow: hidden;
+    scrollbar-gutter: auto;
+}
+
 html[data-theme='dark'] {
     color-scheme: dark;
     scrollbar-color: rgba(colors.color-dark('text'), 0.45) transparent;
@@ -46,6 +51,10 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
     min-height: 100vh;
     overflow-y: scroll; // keep scrollbar visible on body to avoid nav shifting
+}
+
+body.page-transitioning {
+    overflow: hidden;
 }
 
 body[data-theme='dark'] {

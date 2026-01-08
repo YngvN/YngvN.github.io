@@ -47,7 +47,7 @@ const navCopy: Record<Language, { description: string; links: { label: string; p
         links: [
             { label: 'About Me', page: 'about' },
             { label: 'Portfolio', page: 'portfolio' },
-            { label: 'Resume', page: 'resume' },
+            { label: 'Resumé', page: 'resume' },
             { label: 'Contact Me', page: 'contact' },
         ],
     },

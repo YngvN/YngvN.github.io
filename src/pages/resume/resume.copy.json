@@ -35,7 +35,8 @@
         "title": "OTHER EDUCATION",
         "chosenTitle": "Chosen Education",
         "chosenItemIds": [
-          "fe-vocational"
+          "fe-vocational",
+          "electrical-engineering"
         ],
         "items": [
           {
@@ -106,14 +107,6 @@
               "Teamwork",
               "Improvisation"
             ]
-          },
-          {
-            "id": "student-buddy",
-            "title": "Student buddy and student council representative",
-            "institution": "Universitet i Sør-øst Norge m.fl.",
-            "start": "August 2012",
-            "end": "May 2022",
-            "description": "I served as a student buddy almost every year I studied, and was almost always elected as a student council representative. I received feedback that many wished they had had me as their student buddy."
           }
         ]
       },
@@ -122,7 +115,8 @@
         "title": "OTHER VOLUNTARY WORK",
         "chosenTitle": "Chosen Volunteering",
         "chosenItemIds": [
-          "musikklubb"
+          "musikklubb",
+          "student-buddy"
         ],
         "items": [
           {
@@ -148,9 +142,19 @@
             "description": "Founded the Music Club at USN. Acquired and operated equipment worth over NOK 100,000, and ran karaoke and quiz nights on a professional stage, coordinating stage crew and large audiences of more than 400 people.",
             "skills": [
               "Budgeting",
-              "Inclusion",
               "Leadership",
-              "Coordination",
+              "Coordination"
+            ]
+          },
+          {
+            "id": "student-buddy",
+            "title": "Student buddy and student council representative",
+            "institution": "Universitet i Sør-øst Norge m.fl.",
+            "start": "August 2012",
+            "end": "May 2022",
+            "description": "I served as a student buddy almost every year I studied, and was almost always elected as a student council representative. I received feedback that many wished they had had me as their student buddy.",
+            "skills": [
+              "Inclusion",
               "Meeting coordination"
             ]
           },
@@ -298,7 +302,8 @@
         "title": "ANNEN UTDANNING",
         "chosenTitle": "Utvalgt utdanning",
         "chosenItemIds": [
-          "fe-vocational"
+          "fe-vocational",
+          "electrical-engineering"
         ],
         "items": [
           {
@@ -377,7 +382,8 @@
         "title": "ANNET FRIVILLIG ARBEID",
         "chosenTitle": "Utvalgt frivillig arbeid",
         "chosenItemIds": [
-          "musikklubb"
+          "musikklubb",
+          "student-buddy"
         ],
         "items": [
           {
@@ -402,9 +408,19 @@
             "description": "Grunnla Musikklubben ved USN. Anskaffet og driftet utstyr for over 100 000 kr, samt drev karaokekvelder på profesjonell scene hvor jeg koordinerte scenearbeidere og publikum på over 400 personer.",
             "skills": [
               "Budsjettering",
-              "Inkludering",
               "Ledelse",
-              "Koordinering",
+              "Koordinering"
+            ]
+          },
+          {
+            "id": "student-buddy",
+            "title": "Fadder og studentrådsrepresentant",
+            "institution": "Universitetet i Sør-øst Norge m.fl.",
+            "start": "August 2012",
+            "end": "Mai 2022",
+            "description": "Var fadder nesten hvert år jeg har studert, og ble nesten alltid valgt som studentrådsrepresentant. Fikk tilbakemeldinger på at flere ønsket at de hadde meg som fadder.",
+            "skills": [
+              "Inkludering",
               "Møtekoordinering"
             ]
           },

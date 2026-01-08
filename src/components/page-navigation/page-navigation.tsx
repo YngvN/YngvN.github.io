@@ -16,7 +16,7 @@ const pageLabels: Record<Language, Record<PageName, string>> = {
     en: {
         about: 'About Me',
         portfolio: 'Portfolio',
-        resume: 'Résumé',
+        resume: 'Resumé',
         contact: 'Contact Me',
     },
     no: {
