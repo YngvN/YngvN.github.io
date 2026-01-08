@@ -16,6 +16,8 @@ import megUtenBakgrunn from '../../assets/images/me/Meg_uten_bakgrunn.png';
 import megUtenMeg from '../../assets/images/me/Meg_uten_meg.png';
 import useScrollSnapTouch from '../../utility/scroll-snap-touch';
 import useScrollSnapMousewheel from '../../utility/scroll-snap-mousewheel';
+import scrollToAboutParagraph from '../../utility/scroll-to-about-paragraph';
+import Chevron from '../../components/icons/chevron/chevron';
 import type { AboutCopy, LinkParagraph, QuoteParagraph } from './types';
 
 type AboutProps = {
@@ -24,6 +26,16 @@ type AboutProps = {
 };
 
 const aboutCopy = aboutCopyData as Record<Language, AboutCopy>;
+const aboutNavLabels: Record<Language, { next: string; backToTop: string }> = {
+    en: {
+        next: 'Next section',
+        backToTop: 'Back to top',
+    },
+    no: {
+        next: 'Neste avsnitt',
+        backToTop: 'Tilbake til toppen',
+    },
+};
 
 const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     const {
@@ -119,8 +131,22 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
             <div ref={containerRef} className="container page-container about-page">
                 <h1 className="page-heading">{pageHeading}</h1>
                 {paragraphBlocks.map((paragraph, index) => {
+                    const isFirst = index === 0;
+                    const isLast = index === paragraphBlocks.length - 1;
+                    const nextIndex = (index + 1) % paragraphBlocks.length;
+                    const navLabel = isLast ? aboutNavLabels[language].backToTop : aboutNavLabels[language].next;
                     return (
                         <div className="about-paragraph about-snap" key={index}>
+                            {!isFirst ? (
+                                <button
+                                    type="button"
+                                    className="about-paragraph__nav about-paragraph__nav--top"
+                                    onClick={() => scrollToAboutParagraph(containerRef, nextIndex)}
+                                    aria-label={navLabel}
+                                >
+                                    <Chevron direction="down" />
+                                </button>
+                            ) : null}
                             {index === 0 ? (
                                 <AboutHero
                                     heading={heading}
@@ -140,6 +166,14 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                                     renderCategoryContent={renderCategoryContent}
                                 />
                             ) : null}
+                            <button
+                                type="button"
+                                className="about-paragraph__nav about-paragraph__nav--bottom"
+                                onClick={() => scrollToAboutParagraph(containerRef, nextIndex)}
+                                aria-label={navLabel}
+                            >
+                                {isLast ? <span className="about-paragraph__nav-label">{aboutNavLabels[language].backToTop}</span> : <Chevron direction="down" />}
+                            </button>
                         </div>
                     );
                 })}

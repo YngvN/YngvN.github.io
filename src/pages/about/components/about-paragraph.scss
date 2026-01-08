@@ -3,7 +3,7 @@
 .about-paragraph {
     position: relative;
     min-height: 100vh;
-    padding: 2.5rem 0;
+    padding: 3.25rem 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     display: flex;
@@ -14,6 +14,49 @@
     p {
         margin: 0;
     }
+}
+
+.about-paragraph__nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    border: none;
+    background: transparent;
+    color: inherit;
+    opacity: 0.75;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05);
+    }
+
+    &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 4px;
+        opacity: 1;
+    }
+}
+
+.about-paragraph__nav--top {
+    top: 50px;
+    transform: rotate(180deg) translateX(50%);
+}
+
+.about-paragraph__nav--bottom {
+    bottom: 130px;
+}
+
+.about-paragraph__nav-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .about-link {
