@@ -136,6 +136,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                     const isFirst = index === 0;
                     const isLast = index === paragraphBlocks.length - 1;
                     const nextIndex = (index + 1) % paragraphBlocks.length;
+                    const previousIndex = (index - 1 + paragraphBlocks.length) % paragraphBlocks.length;
                     const navLabel = isLast ? aboutNavLabels[language].backToTop : aboutNavLabels[language].next;
                     const hasOpenSection = Object.values(openSections).some(Boolean);
                     return (
@@ -147,7 +148,7 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
                                 <button
                                     type="button"
                                     className="about-paragraph__nav about-paragraph__nav--top"
-                                    onClick={() => scrollToAboutParagraph(containerRef, nextIndex)}
+                                    onClick={() => scrollToAboutParagraph(containerRef, previousIndex)}
                                     aria-label={navLabel}
                                 >
                                     <Chevron direction="down" />
