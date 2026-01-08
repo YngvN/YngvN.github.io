@@ -1,0 +1,35 @@
+@use '../../../assets/sass/colors' as colors;
+@use '../../../assets/sass/fonts' as fonts;
+
+.resume__skills {
+    margin-bottom: 1.5rem;
+}
+
+.resume__skills-group--hard {
+    display: none;
+}
+
+.resume__skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0.25rem 0 0;
+    list-style: none;
+}
+
+.resume__skill {
+    border: 1px solid rgba(colors.color('text'), 0.12);
+    padding: 0.4rem 0.75rem;
+    background: rgba(colors.color('text'), 0.02);
+    font-weight: fonts.$font-weight-medium;
+    color: colors.color('text');
+}
+
+body[data-theme='dark'] {
+    .resume__skill {
+        border-color: rgba(colors.color-dark('text'), 0.2);
+        background: rgba(colors.color-dark('text'), 0.08);
+        color: colors.color-dark('text');
+    }
+}

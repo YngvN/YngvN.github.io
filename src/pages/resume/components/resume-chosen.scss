@@ -1,0 +1,55 @@
+@use '../../../assets/sass/colors' as colors;
+
+.resume-section__chosen-title {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(colors.color('text'), 0.7);
+}
+
+.resume__chosen {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.resume__chosen-block {
+    padding: 0.5rem 0 0.75rem;
+    border-bottom: 1px solid rgba(colors.color('text'), 0.08);
+}
+
+@media (min-width: 900px) {
+    .resume__chosen {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .resume__chosen-block {
+        border-bottom: none;
+        border-right: 1px solid rgba(colors.color('text'), 0.08);
+        padding: 0 1.25rem 0.5rem 0;
+    }
+
+    .resume__chosen-block:last-child {
+        border-right: none;
+        padding-right: 0;
+    }
+}
+
+body[data-theme='dark'] {
+    .resume-section__chosen-title {
+        color: rgba(colors.color-dark('text'), 0.7);
+    }
+
+    .resume__chosen-block {
+        border-bottom: 1px solid rgba(colors.color-dark('text'), 0.14);
+    }
+
+    @media (min-width: 900px) {
+        .resume__chosen-block {
+            border-bottom: none;
+            border-right: 1px solid rgba(colors.color-dark('text'), 0.14);
+        }
+    }
+}

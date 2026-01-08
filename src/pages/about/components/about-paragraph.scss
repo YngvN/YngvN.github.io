@@ -1,0 +1,40 @@
+@use '../../../assets/sass/colors' as colors;
+
+.about-paragraph {
+    position: relative;
+    min-height: 100vh;
+    padding: 2.5rem 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    p {
+        margin: 0;
+    }
+}
+
+.about-link {
+    color: colors.color('primary');
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+body[data-theme='dark'] .about-link {
+    color: colors.color-dark('primary');
+}
+
+.about-quote {
+    display: block;
+    margin-top: 0.6rem;
+    font-style: italic;
+}
+
+.about-quote-source {
+    display: block;
+    margin-top: 0.4rem;
+    font-style: italic;
+    opacity: 0.8;
+}
