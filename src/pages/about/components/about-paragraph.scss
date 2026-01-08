@@ -10,6 +10,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    gap: 1.5rem;
 
     p {
         margin: 0;
@@ -31,10 +32,9 @@
 }
 
 .about-paragraph__nav {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: inline-flex;
+    position: static;
+    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.35rem;
@@ -47,7 +47,7 @@
 
     &:hover {
         opacity: 1;
-        transform: translateX(-50%) scale(1.05);
+        transform: scale(1.05);
     }
 
     &:focus-visible {
@@ -58,17 +58,16 @@
 }
 
 .about-paragraph__nav--top {
-    top: 50px;
-    transform: rotate(180deg) translateX(50%);
-    z-index: 1000;
+    margin-bottom: 0.75rem;
+    transform: rotate(180deg);
 
     &:hover {
-        transform: rotate(180deg) translateX(50%) scale(1.05);
+        transform: rotate(180deg) scale(1.05);
     }
 }
 
 .about-paragraph__nav--bottom {
-    bottom: 130px;
+    margin-top: 0.75rem;
 }
 
 .about-paragraph__nav-label {

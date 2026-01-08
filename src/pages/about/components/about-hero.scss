@@ -32,6 +32,29 @@
 
     @media (max-width: 768px) {
         top: 0;
+
+
+    }
+}
+
+@media (max-width: 640px) {
+    .about-hero-container {
+        gap: 0.2rem;
+
+        .page-subheading {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    }
+
+    .hero-name {
+        font-size: clamp(2.1rem, 7vw, 2.6rem);
+        margin-bottom: 0.25rem;
+    }
+
+    .about-hero-visual {
+        width: min(260px, 70vw);
+        height: min(260px, 70vw);
     }
 }
 
