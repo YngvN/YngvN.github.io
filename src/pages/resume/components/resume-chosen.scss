@@ -27,7 +27,6 @@
 
     .resume__chosen-block {
         border-bottom: none;
-        border-right: 1px solid rgba(colors.color('text'), 0.08);
         padding: 0 1.25rem 0.5rem 0;
     }
 
@@ -49,7 +48,6 @@ body[data-theme='dark'] {
     @media (min-width: 900px) {
         .resume__chosen-block {
             border-bottom: none;
-            border-right: 1px solid rgba(colors.color-dark('text'), 0.14);
         }
     }
 }
