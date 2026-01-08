@@ -18,7 +18,7 @@ export type AboutCopy = {
     heading: string;
     subheading: string;
     paragraphs: Array<string | QuoteParagraph>;
-    linkParagraph: LinkParagraph;
+    linkParagraph?: LinkParagraph;
     buttons: { label: string; page: PageName; variant: 'primary' | 'secondary' }[];
     categories: Record<CategoryId, { title: string; description: string }>;
     developerIntro: string;

@@ -52,7 +52,9 @@ const About: React.FC<AboutProps> = ({ language, onNavigate }) => {
     } = aboutCopy[language];
     const categoryInfo = categories;
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const paragraphBlocks: Array<string | LinkParagraph | QuoteParagraph> = [...paragraphs, linkParagraph];
+    const paragraphBlocks: Array<string | LinkParagraph | QuoteParagraph> = linkParagraph
+        ? [...paragraphs, linkParagraph]
+        : paragraphs;
     const [openSections, setOpenSections] = useState<Record<CategoryId, boolean>>(() =>
         categoryDefinitions.reduce(
             (acc, category) => ({

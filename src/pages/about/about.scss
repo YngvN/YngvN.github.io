@@ -23,6 +23,17 @@
     scroll-snap-align: start;
 }
 
+.about-page .dropdown-toggle,
+.about-page .dropdown-title,
+.about-page .dropdown-description {
+    color: currentColor !important;
+}
+
+.about-page .dropdown-content,
+.about-page .dropdown-content * {
+    color: currentColor !important;
+}
+
 
 
 .tech-tiles {

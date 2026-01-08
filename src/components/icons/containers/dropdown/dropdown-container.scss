@@ -10,7 +10,6 @@
 
 .dropdown-panel {
     overflow: hidden;
-    background-color: colors.color('background');
     transition: .2s ease;
     border-bottom: 1px solid rgba(colors.color('text'), 0.03);
 }
@@ -101,7 +100,6 @@
 
 body[data-theme='dark'] {
     .dropdown-panel {
-        background-color: colors.color-dark('background');
         border-color: rgba(colors.color-dark('text'), 0.14);
 
         &.open {

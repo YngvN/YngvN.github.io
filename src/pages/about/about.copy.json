@@ -17,25 +17,7 @@
         "suffix": "- ChatGPT about Yngve Nykås, 2025"
       }
     ],
-    "linkParagraph": {
-      "prefix": "If you are curious you can view my ",
-      "links": [
-        {
-          "label": "portfolio",
-          "href": "#portfolio",
-          "suffix": " here. You can also check out my "
-        },
-        {
-          "label": "résumé",
-          "href": "#resume",
-          "suffix": " here."
-        }
-      ]
-    },
-    "buttons": [
-      { "label": "View Portfolio", "page": "portfolio", "variant": "primary" },
-      { "label": "View Résumé", "page": "resume", "variant": "secondary" }
-    ],
+    "buttons": [],
     "categories": {
       "developer": {
         "title": "Developer",
@@ -89,25 +71,7 @@
         "suffix": "- ChatGPT om Yngve Nykås, 2025"
       }
     ],
-    "linkParagraph": {
-      "prefix": "Om du er nysgjerrig kan du se ",
-      "links": [
-        {
-          "label": "porteføljen min",
-          "href": "#portfolio",
-          "suffix": " her. Du kan også sjekke ut "
-        },
-        {
-          "label": "CV-en min",
-          "href": "#resume",
-          "suffix": " her."
-        }
-      ]
-    },
-    "buttons": [
-      { "label": "Se porteføljen", "page": "portfolio", "variant": "primary" },
-      { "label": "Se CV-en", "page": "resume", "variant": "secondary" }
-    ],
+    "buttons": [],
     "categories": {
       "developer": {
         "title": "Utvikler",
