@@ -46,6 +46,7 @@
 .about-paragraph__nav--top {
     top: 50px;
     transform: rotate(180deg) translateX(50%);
+    z-index: 1000;
 }
 
 .about-paragraph__nav--bottom {
