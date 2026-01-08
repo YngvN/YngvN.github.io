@@ -1,8 +1,8 @@
 {
   "en": {
     "heading": "Resumé",
-    "subheading": "Frontend-developer",
-    "summary": "PROFILE: I hold a vocational degree in frontend development and have also studied electrical engineering at USN. In addition, I have 13 years of work experience in social professions, which I now want to apply to new projects. What drives me is trying out new technologies, designing innovative solutions, and debugging what Codex/AI produces. As a person, I am solution-oriented, able to work under pressure, and can take on a role of responsibility when needed. Although I lack directly relevant work experience, I am eager to learn and curious about most things.",
+    "subheading": "Full-stack developer (front-end focus)",
+    "summary": "I hold a vocational degree in front-end development and have also studied electrical engineering at USN. In addition, I have 13 years of work experience in social professions, which I now want to apply to new projects. What drives me is trying out new technologies, designing innovative solutions, and debugging what Codex/AI produces. As a person, I am solution-oriented, able to work under pressure, and can take on a role of responsibility when needed. Although I lack directly relevant work experience, I am eager to learn and curious about most things.",
     "softSkillsHeading": "Soft Skills",
     "softSkills": [
       "Solution-oriented",
@@ -40,7 +40,7 @@
         "items": [
           {
             "id": "fe-vocational",
-            "title": "Frontend Development, Vocational Degree",
+            "title": "Front-end Development, Vocational Degree",
             "institution": "Noroff",
             "start": "August 2022",
             "end": "May 2025",
@@ -264,8 +264,8 @@
   },
   "no": {
     "heading": "CV",
-    "subheading": "Frontend-utvikler",
-    "summary": "Jeg har fagbrev innen frontend-utvikling, samt studert elektro-ingeniør ved USN. I tillegg har jeg 13 års arbeidserfaring innenfor sosiale jobber som jeg nå vil bruke i nye prosjekter. Det som driver meg er å prøve nye teknologier, lage innovative løsninger, og feilsøke det Codex hjelper meg med. Som person er jeg løsningsorientert, klarer å jobbe under press, og kan ta en lederrolle når det trengs. Selv om jeg mangler relevant jobberfaring, er jeg lærevillig og nysgjerrig på det meste.",
+    "subheading": "Full-stack utvikler med fokus på front-end",
+    "summary": "Jeg har fagbrev innen front-end-utvikling, samt studert elektro-ingeniør ved USN. I tillegg har jeg 13 års arbeidserfaring innenfor sosiale jobber som jeg nå vil bruke i nye prosjekter. Det som driver meg er å prøve nye teknologier, lage innovative løsninger, og feilsøke det Codex hjelper meg med. Som person er jeg løsningsorientert, klarer å jobbe under press, og kan ta en lederrolle når det trengs. Selv om jeg mangler relevant jobberfaring, er jeg lærevillig og nysgjerrig på det meste.",
     "softSkillsHeading": "Personlige egenskaper",
     "softSkills": [
       "Løsnings-orientert",
@@ -303,7 +303,7 @@
         "items": [
           {
             "id": "fe-vocational",
-            "title": "Fagbrev i Frontend utvikling",
+            "title": "Fagbrev i Front-end utvikling",
             "institution": "Noroff",
             "start": "August 2022",
             "end": "Mai 2025",

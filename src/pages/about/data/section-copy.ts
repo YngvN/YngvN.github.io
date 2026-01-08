@@ -1,8 +1,8 @@
 import type { Language } from '../../../types/language';
 
 export const developerIntroCopy: Record<Language, string> = {
-    en: 'As a developer I have worked across frontend and backend through my studies. In electrical engineering the focus was mostly on servers and small programs, while in frontend it was more about design and testing. Swift is something I am experimenting with in my spare time.',
-    no: 'Som utvikler har jeg vært innom både frontend og backend, begge relatert til utdanning. På elektroingeniør var det mest fokus på servere og mindre programmer, mens på frontend var det mer design og testing. Swift prøver jeg meg på nå i fritiden.',
+    en: 'As a developer I have worked across front-end and back-end through my studies. In electrical engineering the focus was mostly on servers and small programs, while in front-end it was more about design and testing. Swift is something I am experimenting with in my spare time.',
+    no: 'Som utvikler har jeg vært innom både front-end og back-end, begge relatert til utdanning. På elektroingeniør var det mest fokus på servere og mindre programmer, mens på front-end var det mer design og testing. Swift prøver jeg meg på nå i fritiden.',
 };
 
 export const musicianCopy: Record<

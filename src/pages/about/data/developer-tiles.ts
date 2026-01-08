@@ -33,7 +33,7 @@ export const developerTiles: DeveloperTile[] = [
         technologies: ['sass', 'bootstrap', 'figma', 'adobexd', 'illustrator'],
     },
     {
-        id: 'backend-testing',
+        id: 'back-end-testing',
         title: {
             en: 'Back-end & Testing',
             no: 'Back-end og testing',

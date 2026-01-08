@@ -43,7 +43,7 @@ type NavProps = {
 
 const navCopy: Record<Language, { description: string; links: { label: string; page: PageName }[] }> = {
     en: {
-        description: "Hi!\nI'm Yngve, and I'm a Frontend-developer.",
+        description: "Hi!\nI'm Yngve, and I'm a full-stack developer with a front-end focus.",
         links: [
             { label: 'About Me', page: 'about' },
             { label: 'Portfolio', page: 'portfolio' },
@@ -52,7 +52,7 @@ const navCopy: Record<Language, { description: string; links: { label: string; p
         ],
     },
     no: {
-        description: "Hei!\nJeg heter Yngve og jeg er en frontend-utvikler.",
+        description: "Hei!\nJeg heter Yngve og jeg er en full-stack utvikler med fokus på front-end.",
         links: [
             { label: 'Om meg', page: 'about' },
             { label: 'Portefølje', page: 'portfolio' },
