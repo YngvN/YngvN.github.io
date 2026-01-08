@@ -92,7 +92,7 @@ body[data-theme='dark'] {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
     .tech-logo-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
