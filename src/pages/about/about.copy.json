@@ -28,8 +28,8 @@
         "description": "Other work as a creative person"
       }
     },
-    "developerIntro": "As a developer I have worked across front-end and back-end through my studies. In electrical engineering the focus was mostly on servers and small programs, while in front-end it was more about design and testing. Swift is something I am experimenting with in my spare time.",
-    "musicianIntro": "I have been interested in music my entire life and have also studied it. That has given me skills across instruments and music tech. I have been on and off stage in larger and smaller projects, founded and led music clubs, produced music, and developed a playfulness that Oslohjelpa called \"the best session they had been to in kindergarten.\"",
+    "developerIntro": "As a developer I like to try new technology. I am currently practicing Swift in my spare time.",
+    "musicianIntro": "Music has been a lifelong interest. I've studied it, worked with instruments and music tech, performed and produced, and helped run music clubs.",
     "developerTiles": [
       {
         "id": "core-web",
@@ -82,8 +82,8 @@
         "description": "Annet arbeid som kreativ person"
       }
     },
-    "developerIntro": "Som utvikler har jeg vært innom både front-end og back-end, begge relatert til utdanning. På elektroingeniør var det mest fokus på servere og mindre programmer, mens på front-end var det mer design og testing. Swift prøver jeg meg på nå i fritiden.",
-    "musicianIntro": "Jeg har vært interessert musikk i hele livet mit, og har også studert musikk. Da har jeg opparbeidet kompetanse i diverse instrumenter og teknologier. Jeg har vært både på og av scenen i større og mindre prosjekter, stiftet og ledet musikklubber, produsert musikk, og utviklet en lekenhet som i følge Oslohjelpa var \"Den beste samlingen de hadde vært på i barnehage\".",
+    "developerIntro": "Som utvikler liker jeg å prøve ny teknologi. Øver meg nå på Swift i fritiden.",
+    "musicianIntro": "Musikk har vært en livslang interesse. Jeg har studert det, jobbet med instrumenter og musikkteknologi, vært på scenen, produsert, og vært med å starte og lede musikklubber.",
     "developerTiles": [
       {
         "id": "core-web",

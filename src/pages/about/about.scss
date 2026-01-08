@@ -101,6 +101,43 @@
     }
 }
 
+@media (max-width: 768px) {
+    .about-page .dropdown-toggle {
+        padding: 0.9rem 1rem;
+    }
+
+    .about-page .dropdown-title {
+        font-size: 1.1rem;
+    }
+
+    .about-page .dropdown-description {
+        font-size: 0.85rem;
+    }
+
+    .about-page .dropdown-content {
+        padding: 0 1rem;
+    }
+
+    .about-page p {
+        font-size: 0.95rem;
+    }
+
+    .about-page .tech-tiles {
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(200px, 75vw);
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x proximity;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .about-page .tech-tile {
+        scroll-snap-align: start;
+    }
+}
+
 body[data-theme='dark'] {
 
     .tech-tile {
