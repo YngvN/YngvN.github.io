@@ -1,7 +1,7 @@
 import '../../assets/styles.scss';
 import '../pages.scss';
 import './resume.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { Language } from '../../types/language';
 import PageNavigation from '../../components/page-navigation/page-navigation';
 import type { PageName } from '../../types/pages';
@@ -10,6 +10,8 @@ import ResumeSkills from './components/resume-skills';
 import ResumeChosen from './components/resume-chosen';
 import ResumeSections from './components/resume-sections';
 import type { ResumeContent, ResumeItem } from './types';
+import resumeEnglishPdf from '../../assets/CV/CV-Yngve_Nykaas-EN.pdf';
+import resumeNorwegianPdf from '../../assets/CV/CV-Yngve_Nykås-NO.pdf';
 
 type ResumeProps = {
     language: Language;
@@ -19,8 +21,18 @@ type ResumeProps = {
 const resumeCopy = resumeCopyData as Record<Language, ResumeContent>;
 
 const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
-    const { heading, summary, softSkillsHeading, softSkills, hardSkillsHeading, hardSkills, sections } =
-        resumeCopy[language];
+    const {
+        heading,
+        summary,
+        downloadResumeLabel,
+        downloadEnglishLabel,
+        downloadNorwegianLabel,
+        softSkillsHeading,
+        softSkills,
+        hardSkillsHeading,
+        hardSkills,
+        sections,
+    } = resumeCopy[language];
     const [openSections, setOpenSections] = useState<Record<string, boolean>>(() =>
         sections.reduce(
             (acc, { id }) => ({
@@ -30,6 +42,36 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
             {} as Record<string, boolean>,
         ),
     );
+    const [showDownloadOptions, setShowDownloadOptions] = useState(false);
+    const downloadRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (!showDownloadOptions) {
+            return;
+        }
+
+        const handleDocumentPointerDown = (event: PointerEvent) => {
+            if (!downloadRef.current) {
+                return;
+            }
+
+            if (!downloadRef.current.contains(event.target as Node)) {
+                setShowDownloadOptions(false);
+            }
+        };
+
+        const handleScroll = () => {
+            setShowDownloadOptions(false);
+        };
+
+        document.addEventListener('pointerdown', handleDocumentPointerDown);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            document.removeEventListener('pointerdown', handleDocumentPointerDown);
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [showDownloadOptions]);
 
     const toggleSection = (id: string) => {
         setOpenSections((prev) => {
@@ -78,6 +120,26 @@ const Resume: React.FC<ResumeProps> = ({ language, onNavigate }) => {
             <div className="container page-container resume">
                 <h1 className="page-heading">{heading}</h1>
                 <p className="resume__summary">{summary}</p>
+                <div className="resume__download-container" ref={downloadRef}>
+                    <button
+                        type="button"
+                        className={`btn resume__download-button${showDownloadOptions ? ' is-hidden' : ''}`}
+                        onClick={() => setShowDownloadOptions((prev) => !prev)}
+                    >
+                        {downloadResumeLabel}
+                    </button>
+                    <div className={`resume__download-options${showDownloadOptions ? ' is-open' : ''}`}>
+                        <span className="resume__download-label">{downloadResumeLabel}</span>
+                        <div className="resume__download-buttons">
+                            <a className='btn btn-download' href={resumeEnglishPdf} download onClick={() => setShowDownloadOptions(false)}>
+                                {downloadEnglishLabel}
+                            </a>
+                            <a className='btn btn-download' href={resumeNorwegianPdf} download onClick={() => setShowDownloadOptions(false)}>
+                                {downloadNorwegianLabel}
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <ResumeSkills
                     softSkillsHeading={softSkillsHeading}
                     softSkills={softSkills}

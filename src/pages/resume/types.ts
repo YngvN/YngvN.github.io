@@ -20,6 +20,9 @@ export type ResumeContent = {
     heading: string;
     subheading: string;
     summary: string;
+    downloadResumeLabel: string;
+    downloadEnglishLabel: string;
+    downloadNorwegianLabel: string;
     softSkillsHeading: string;
     softSkills: string[];
     hardSkillsHeading: string;
