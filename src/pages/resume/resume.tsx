@@ -11,7 +11,7 @@ import ResumeChosen from './components/resume-chosen';
 import ResumeSections from './components/resume-sections';
 import type { ResumeContent, ResumeItem } from './types';
 import resumeEnglishPdf from '../../assets/CV/CV-Yngve_Nykaas-EN.pdf';
-import resumeNorwegianPdf from '../../assets/CV/CV-Yngve_Nykås-NO.pdf';
+import resumeNorwegianPdf from '../../assets/CV/CV-Yngve_Nykaas-NO.pdf';
 
 type ResumeProps = {
     language: Language;
